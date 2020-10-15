@@ -156,6 +156,9 @@ Plug 'nvim-treesitter/nvim-treesitter'
 " diagnostic-nvim 
 Plug 'nvim-lua/diagnostic-nvim'
 
+" Typeracer
+Plug 'norcalli/typeracer.nvim'
+
 call plug#end()
 
 " Install missing plugins
