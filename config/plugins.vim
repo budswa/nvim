@@ -18,6 +18,9 @@ Plug 'flazz/vim-colorschemes'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 
+" indentLine - lines showing indentation levels 
+Plug 'Yggdroot/indentLine'
+
 " Startify - home page plugin
 Plug 'mhinz/vim-startify'
 
@@ -131,6 +134,27 @@ Plug 'honza/vim-snippets'
 
 " vim-fugitive - git intergration 
 Plug 'tpope/vim-fugitive'
+
+" nvim-lsp
+Plug 'neovim/nvim-lsp'
+
+" nvim-lspconfig
+Plug 'neovim/nvim-lspconfig'
+
+" completion-nvim - native nvim completion
+Plug 'nvim-lua/completion-nvim'
+
+" completion-treesitter
+Plug 'nvim-treesitter/completion-treesitter'
+
+" completion-buufers
+Plug 'steelsojka/completion-buffers'
+
+" nvim-treesitter
+Plug 'nvim-treesitter/nvim-treesitter'
+
+" diagnostic-nvim 
+Plug 'nvim-lua/diagnostic-nvim'
 
 call plug#end()
 
