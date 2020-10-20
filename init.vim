@@ -35,4 +35,5 @@ source $HOME/.config/nvim/config/nvim-colorizer.vim
 source $HOME/.config/nvim/config/lsp-config.vim
 source $HOME/.config/nvim/config/completion-nvim.vim
 source $HOME/.config/nvim/config/diagnostic-nvim.vim
+source $HOME/.config/nvim/config/telescope.vim
 

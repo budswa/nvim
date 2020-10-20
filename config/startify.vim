@@ -1,4 +1,4 @@
-" let g:startify_custom_header = []
+let g:startify_custom_header = []
 let g:startify_session_dir = '~/.config/nvim/sessions/'
 let g:startify_session_autoload = 1
 let g:startify_session_persistence = 1

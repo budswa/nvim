@@ -20,8 +20,17 @@ let g:which_key_map =  {}
 let g:which_key_sep = '→'
 let g:which_key_use_floating_win = 0
 
+" let g:which_key_map['*'] = [ ':call Comment()'                    , '' ]
+
+let g:which_key_map.T = {
+  \ 'name' : 'Telescope' ,
+  \ 'r' : ['TelescopeLiveGrep'        , 'ripgrep'],
+  \ 'f' : ['TelescopeFindFile'       , 'files'],
+  \ 'g' : ['TelescopeFindGitFile'           , 'git'],
+  \ }
+
+call which_key#register('<Space>', "g:which_key_map")
+
 autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler 
   \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler 
-
-call which_key#register('<Space>', "g:which_key_map")

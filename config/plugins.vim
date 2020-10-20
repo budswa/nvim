@@ -54,6 +54,9 @@ Plug 'norcalli/nvim-colorizer.lua'
 " Quick-scope - f F t T enhancements 
 Plug 'unblevable/quick-scope'
 
+" vimwiki
+Plug 'vimwiki/vimwiki'
+
 " Vista - tagbar explorer 
 Plug 'liuchengxu/vista.vim'
 
@@ -141,23 +144,28 @@ Plug 'neovim/nvim-lsp'
 " nvim-lspconfig
 Plug 'neovim/nvim-lspconfig'
 
-" completion-nvim - native nvim completion
+" completion-nvim - native: nvim completion
 Plug 'nvim-lua/completion-nvim'
-
-" completion-treesitter
-Plug 'nvim-treesitter/completion-treesitter'
 
 " completion-buufers
 Plug 'steelsojka/completion-buffers'
 
-" nvim-treesitter
-Plug 'nvim-treesitter/nvim-treesitter'
-
 " diagnostic-nvim 
 Plug 'nvim-lua/diagnostic-nvim'
 
-" Typeracer
-Plug 'norcalli/typeracer.nvim'
+" popup.nvim
+Plug 'nvim-lua/popup.nvim'
+
+" planetary.nvim
+Plug 'nvim-lua/plenary.nvim'
+
+" telescope.nvim
+Plug 'nvim-lua/telescope.nvim'
+
+" nvim treesitter - NEED TO CONFIG
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
+Plug 'nvim-treesitter/playground'
 
 call plug#end()
 

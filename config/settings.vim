@@ -2,11 +2,11 @@
 
 " Clipboard setup
 if has('clipboard')
-    if has('unnamedplus')
-        set clipboard=unnamed,unnamedplus
-    else
-        set clipboard=unnamed
-    endif
+  if has('unnamedplus')
+    set clipboard=unnamed,unnamedplus
+  else
+    set clipboard=unnamed
+  endif
 endif
 
 " Backups
@@ -21,10 +21,10 @@ endif
 
 " Undo
 if has('persistent_undo')
-    set undofile                        " Uses file(s) to store undo data, this allow persistence
-    set undodir=~/.config/nvim/undodir//
-    set undolevels=500                  " Maximum number of changes that can be undone
-    set undoreload=500                  " Maximum number lines to save for undo on a buffer reload
+  set undofile                          " Uses file(s) to store undo data, this allow persistence
+  set undodir=~/.config/nvim/undodir//  
+  set undolevels=500                    " Maximum number of changes that can be undone
+  set undoreload=500                    " Maximum number lines to save for undo on a buffer reload
 endif
 
 if !isdirectory($HOME . "/.config/nvim/undodir")
@@ -33,9 +33,9 @@ endif
 
 " File settings
 set encoding=utf-8                      " sets the file encoding to utf-8
-filetype on                             " allows filetype detection
-filetype plugin on                      " allows plugin specific files for specific filetpyes
-filetype indent on                      " allows filetype specific indentation loading
+  filetype on                           " allows filetype detection
+  filetype plugin on                    " allows plugin specific files for specific filetpyes
+  filetype indent on                    " allows filetype specific indentation loading
 set autoread                            " automatically reads file changes from external changes
 
 " New buffers
@@ -56,9 +56,8 @@ set incsearch                           " search while typing
 " Visual
 autocmd vimenter * colorscheme onedark  " sets the colorscheme
 set background=dark                     " Dark background is prefered 
-set number relativenumber               " displays line number next to line
-set showmatch                           " Shows matching bracket in braket pair
-set ruler                               " Shows column and row info
+set number                              " displays current line number on the line the cursor is on
+set relativenumber                      " displays 
 set signcolumn=yes                      " Allows characters to be rendered in side column
 set lazyredraw                          " disables flickering during macros
 set cmdheight=1                         " Rows at bottom reserved for command, command outputs
@@ -86,7 +85,7 @@ set nowrap                              " disable wrapping
 set mouse=a                             " enables mouse and scroll wheel
 set magic                               " More characters available for commands
 set confirm                             " starts a confim prompt
-set updatetime=50                       " How often the window refreshes (for LSP I believe)
+set updatetime=10
 set wildmenu                            " Enables the wildmenu
 set wildmode=list:longest,full          " Wildmenu settings
 set wildoptions=tagfile
@@ -101,7 +100,7 @@ set novisualbell                        " No annoying visual bell
 autocmd vimenter * hi NonText guifg=bg
 
 " Disables automatic commenting on newline
-set formatoptions-=c
+set formatoptions+=
+set formatoptions+=
 set formatoptions-=r
-set formatoptions-=o
-
+set formatoptions-=
