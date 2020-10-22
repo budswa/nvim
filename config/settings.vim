@@ -11,12 +11,12 @@ endif
 
 " Backups
 set backup
-set swapfile
+set noswapfile
 set writebackup
 set backupdir=~/.config/nvim/backupdir//
 
 if !isdirectory($HOME . "/.config/nvim/backupdir")
-    call mkdir($HOME . "/.config/nvim/backupdir", "p")
+  call mkdir($HOME . "/.config/nvim/backupdir", "p")
 endif
 
 " Undo
@@ -28,7 +28,7 @@ if has('persistent_undo')
 endif
 
 if !isdirectory($HOME . "/.config/nvim/undodir")
-    call mkdir($HOME . "/.config/nvim/undodir", "p")
+  call mkdir($HOME . "/.config/nvim/undodir", "p")
 endif
 
 " File settings
@@ -41,7 +41,7 @@ set autoread                            " automatically reads file changes from 
 " New buffers
 set splitright                          " When vertically splitting, always spawn new buffer on right
 set splitbelow                          " When horizontally splitting, always spawn new buffer on bottom
-set equalalways                         " When Splitting a buffer for a new buffer, always split equally
+set noequalalways                       " When Splitting a buffer for a new buffer, always split equally
 
 " Scrolling
 set sidescroll=1                        " Smoothes horizontal scrolling
@@ -64,9 +64,12 @@ set cmdheight=1                         " Rows at bottom reserved for command, c
 set termguicolors
 syntax on
 set fillchars+=vert:│
+set inccommand=nosplit
+set list
+set noshowmode
 
 " Indent and tab behaviour
-set noexpandtab                         " Expands tabs to spaces when deleting tabs
+set expandtab                           " Expands tabs to spaces when deleting tabs
 set autoindent                          " Copy indent level from previous line
 set smartindent
 set shiftwidth=2
@@ -77,7 +80,7 @@ set softtabstop=2
 " Folding
 set nofoldenable                        " Enables folding
 set foldmethod=manual		                " Only folds when manually set folds
-set foldlevel=2					                " Close folds
+set foldlevel=2				                  " Close folds
 
 " Misc
 set virtualedit=onemore                 " Allows the cursor to move one column past the end of the row
@@ -87,8 +90,9 @@ set magic                               " More characters available for commands
 set confirm                             " starts a confim prompt
 set updatetime=10
 set wildmenu                            " Enables the wildmenu
-set wildmode=list:longest,full          " Wildmenu settings
-set wildoptions=tagfile
+set wildmode=list:longest,full
+set wildignorecase
+set wildoptions=tagfile,pum
 set shortmess+=c                        " Changes message/ warning behaviour
 set backspace=indent,eol,start
 set timeoutlen=500                      " Time in miliseconds to complete a mapped sequence
@@ -99,8 +103,13 @@ set novisualbell                        " No annoying visual bell
 " Hides the '~' on unused rows
 autocmd vimenter * hi NonText guifg=bg
 
-" Disables automatic commenting on newline
-set formatoptions+=
-set formatoptions+=
-set formatoptions-=r
-set formatoptions-=
+set formatoptions-=a    " Auto formatting is BAD.
+set formatoptions-=t    " Don't auto format my code. I got linters for that.
+set formatoptions+=c    " In general, I like it when comments respect textwidth
+set formatoptions+=q    " Allow formatting comments w/ gq
+set formatoptions-=o    " O and o, don't continue comments
+set formatoptions+=r    " But do continue when pressing enter.
+set formatoptions+=n    " Indent past the formatlistpat, not underneath it.
+set formatoptions+=j    " Auto-remove comments if possible.
+set formatoptions-=2    " I'm not in gradeschool anymore
+set nojoinspaces        " Two spaces and grade school, we're done

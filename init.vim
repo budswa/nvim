@@ -26,7 +26,6 @@ source $HOME/.config/nvim/config/floaterm.vim
 source $HOME/.config/nvim/config/undotree.vim
 source $HOME/.config/nvim/config/lastplace.vim
 source $HOME/.config/nvim/config/vimwiki.vim
-source $HOME/.config/nvim/config/fzf.vim
 source $HOME/.config/nvim/config/indentline.vim
 
 " Lua based plugin configurations
@@ -36,4 +35,5 @@ source $HOME/.config/nvim/config/lsp-config.vim
 source $HOME/.config/nvim/config/completion-nvim.vim
 source $HOME/.config/nvim/config/diagnostic-nvim.vim
 source $HOME/.config/nvim/config/telescope.vim
+source $HOME/.config/nvim/config/treesitter.vim
 

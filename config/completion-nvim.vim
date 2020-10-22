@@ -2,6 +2,8 @@ let g:completion_matching_stratergy_list = ['exact', 'substring', 'fuzzy']
 
 autocmd BufEnter * lua require'completion'.on_attach()
 
+let g:builtin_lsp = v:true
+
 let g:completion_enable_auto_popup = 1
 
 " Configure the completion chains
@@ -25,6 +27,9 @@ let g:completion_chain_complete_list = {
 			\	{'complete_items': ['lsp', 'snippet', 'buffers', 'ts']}
 			\	],
 			\'lua' : [
+			\	{'complete_items': ['lsp', 'snippet', 'buffers', 'ts']}
+			\	],
+			\ 'go' : [
 			\	{'complete_items': ['lsp', 'snippet', 'buffers', 'ts']}
 			\	],
 			\}
