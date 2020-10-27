@@ -11,9 +11,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 " Onedark colorscheme
 Plug 'joshdick/onedark.vim' 
 
-" Colorscheme pack
-Plug 'flazz/vim-colorschemes'
-
 " Lightline and gitbranch for lightline 
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
@@ -26,9 +23,6 @@ Plug 'mhinz/vim-startify'
 
 " vim-which-key - interface for leader key
 Plug 'liuchengxu/vim-which-key'
-
-" vim-devicons - adds nerd font support 
-Plug 'ryanoasis/vim-devicons'
 
 " nvim web devicons
 Plug 'kyazdani42/nvim-web-devicons'
@@ -54,6 +48,9 @@ Plug 'norcalli/nvim-colorizer.lua'
 " Quick-scope - f F t T enhancements 
 Plug 'unblevable/quick-scope'
 
+" clever-f
+Plug 'rhysd/clever-f.vim'
+
 " vimwiki
 Plug 'vimwiki/vimwiki'
 
@@ -62,9 +59,6 @@ Plug 'liuchengxu/vista.vim'
 
 " vim-floaterm - floating terminal window for shell usage
 Plug 'voldikss/vim-floaterm'
-
-" vim-peekaboo - menu to show registers 
-Plug 'junegunn/vim-peekaboo'
 
 " Undotree - built-in undo tree visualizer 
 Plug 'mbbill/undotree'
@@ -138,8 +132,14 @@ Plug 'honza/vim-snippets'
 " vim-fugitive - git intergration 
 Plug 'tpope/vim-fugitive'
 
-" nvim-lsp
-Plug 'neovim/nvim-lsp'
+" vim-matchup
+Plug 'andymass/vim-matchup'
+
+" auto-pairs
+Plug 'jiangmiao/auto-pairs'
+
+" vim-signify - shows diffs with the signcol
+Plug 'mhinz/vim-signify'
 
 " nvim-lspconfig
 Plug 'neovim/nvim-lspconfig'

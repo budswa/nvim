@@ -12,6 +12,8 @@ map <Enter> o<ESC>
 noremap <silent> <C-s> :write<CR>
 noremap <silent> <C-S> :update<CR>
 
+nnoremap <leader>W :write<CR>
+
 " Which-key mappings 
 nnoremap <silent> <leader> :silent <c-u> :silent WhichKey '<space>'<cr>
 vnoremap <silent> <leader> :silent <c-u> :silent whichkeyvisual '<space>'<cr>

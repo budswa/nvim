@@ -20,9 +20,6 @@ let g:completion_chain_complete_list = {
 			\	{'complete_items': ['lsp', 'snippet', 'buffers', 'ts']},
 			\	{'mode' : 'cmd'}
 			\	],
-			\'c' : [
-			\	{'complete_items': ['lsp', 'snippet', 'buffers', 'ts']}
-			\	],
 			\'python' : [
 			\	{'complete_items': ['lsp', 'snippet', 'buffers', 'ts']}
 			\	],

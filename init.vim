@@ -27,6 +27,7 @@ source $HOME/.config/nvim/config/undotree.vim
 source $HOME/.config/nvim/config/lastplace.vim
 source $HOME/.config/nvim/config/vimwiki.vim
 source $HOME/.config/nvim/config/indentline.vim
+source $HOME/.config/nvim/config/signify.vim
 
 " Lua based plugin configurations
 source $HOME/.config/nvim/config/nvim-tree.vim
@@ -36,4 +37,3 @@ source $HOME/.config/nvim/config/completion-nvim.vim
 source $HOME/.config/nvim/config/diagnostic-nvim.vim
 source $HOME/.config/nvim/config/telescope.vim
 source $HOME/.config/nvim/config/treesitter.vim
-

@@ -1,3 +1,1 @@
-lua require ("lsp-config")
-
-
+lua require ("lsp_config")
