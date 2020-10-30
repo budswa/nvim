@@ -15,6 +15,13 @@ Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 
+" barbar.nvim
+Plug 'romgrk/barbar.nvim'
+Plug 'romgrk/lib.kom'
+
+" vimade - dims inactive windows
+Plug 'TaDaa/vimade'
+
 " indentLine - lines showing indentation levels 
 Plug 'Yggdroot/indentLine'
 
@@ -80,6 +87,9 @@ Plug 'machakann/vim-sandwich'
 
 " vim-move - move visually selected text 
 Plug 'matze/vim-move'
+
+" goyo.vim
+Plug 'junegunn/goyo.vim'
 
 " vim-commentary - commenting keybinds
 Plug 'tpope/vim-commentary'
@@ -165,7 +175,6 @@ Plug 'nvim-lua/telescope.nvim'
 " nvim treesitter - NEED TO CONFIG
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
-Plug 'nvim-treesitter/playground'
 
 call plug#end()
 

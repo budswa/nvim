@@ -22,13 +22,20 @@ let g:which_key_map =  {}
 let g:which_key_sep = '→'
 let g:which_key_use_floating_win = 0
 
-" let g:which_key_map['*'] = [ ':call Comment()'                    , '' ]
+let g:which_key_map['*'] = [ ':call Comment()'                    , '' ]
 
-let g:which_key_map.T = {
+let g:which_key_map.w = {
+  \ 'name' : 'Vimwiki',
+  \ 'w' : ['VimwikiIndex', 'Index']
+  \ }
+
+let g:which_key_map.t = {  
   \ 'name' : 'Telescope' ,
-  \ 'r' : ['TelescopeLiveGrep'        , 'ripgrep'],
-  \ 'f' : ['TelescopeFindFile'       , 'files'],
-  \ 'g' : ['TelescopeFindGitFile'           , 'git'],
+  \ 'r' : ['TelescopeLiveGrep',            'ripgrep'],
+  \ 'f' : ['TelescopeFindFile',              'files'],
+  \ 'g' : ['TelescopeFindGitFile',             'git'],
+  \ 'b' : ['TelescopeBuffers',             'buffers'],
+  \ 'p' : ['TelescopePlanets',             'planets'],
   \ }
 
 call which_key#register('<Space>', "g:which_key_map")

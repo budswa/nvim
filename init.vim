@@ -28,6 +28,8 @@ source $HOME/.config/nvim/config/lastplace.vim
 source $HOME/.config/nvim/config/vimwiki.vim
 source $HOME/.config/nvim/config/indentline.vim
 source $HOME/.config/nvim/config/signify.vim
+source $HOME/.config/nvim/config/barbar.vim
+source $HOME/.config/nvim/config/vimade.vim
 
 " Lua based plugin configurations
 source $HOME/.config/nvim/config/nvim-tree.vim

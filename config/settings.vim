@@ -57,7 +57,6 @@ set incsearch                           " search while typing
 autocmd vimenter * colorscheme onedark  " sets the colorscheme
 set background=dark                     " Dark background is prefered 
 set number                              " displays current line number on the line the cursor is on
-" set relativenumber                      " displays 
 set numberwidth=1
 set signcolumn=yes                      " Allows characters to be rendered in side column
 set lazyredraw                          " disables flickering during macros
@@ -67,6 +66,7 @@ syntax on
 set fillchars+=vert:│
 set inccommand=nosplit
 set noshowmode
+set cursorline
 
 " Indent and tab behaviour
 set expandtab                           " Expands tabs to spaces when deleting tabs
