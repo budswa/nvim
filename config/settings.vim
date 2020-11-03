@@ -54,13 +54,14 @@ set smartcase                           " Ignore case while searching until capi
 set incsearch                           " search while typing
 
 " Visual
-autocmd vimenter * colorscheme onedark  " sets the colorscheme
+colorscheme doom-one
+" autocmd vimenter * colorscheme onedark  " sets the colorscheme
 set background=dark                     " Dark background is prefered 
 set number                              " displays current line number on the line the cursor is on
 set numberwidth=1
 set signcolumn=yes                      " Allows characters to be rendered in side column
-set lazyredraw                          " disables flickering during macros
 set cmdheight=1                         " Rows at bottom reserved for command, command outputs
+set redrawtime=800
 set termguicolors
 syntax on
 set fillchars+=vert:│

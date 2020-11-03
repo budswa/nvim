@@ -18,8 +18,10 @@ source $HOME/.config/nvim/config/keys.vim
 
 " Plugin configurations
 
+source $HOME/.config/nvim/config/galaxyline.vim
 source $HOME/.config/nvim/config/lightline.vim
-source $HOME/.config/nvim/config/startify.vim
+" source $HOME/.config/nvim/config/startify.vim
+source $HOME/.config/nvim/config/dashboard.vim
 source $HOME/.config/nvim/config/rainbow.vim
 source $HOME/.config/nvim/config/quickscope.vim
 source $HOME/.config/nvim/config/floaterm.vim
@@ -34,7 +36,6 @@ source $HOME/.config/nvim/config/vimade.vim
 " Lua based plugin configurations
 source $HOME/.config/nvim/config/nvim-tree.vim
 source $HOME/.config/nvim/config/nvim-colorizer.vim
-source $HOME/.config/nvim/config/lsp-config.vim
 source $HOME/.config/nvim/config/completion-nvim.vim
 source $HOME/.config/nvim/config/diagnostic-nvim.vim
 source $HOME/.config/nvim/config/telescope.vim

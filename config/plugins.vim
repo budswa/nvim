@@ -8,12 +8,15 @@ endif
 " Plugins 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-" Onedark colorscheme
-Plug 'joshdick/onedark.vim' 
+" doom-one
+Plug 'romgrk/doom-one.vim'
 
 " Lightline and gitbranch for lightline 
-Plug 'itchyny/lightline.vim'
-Plug 'itchyny/vim-gitbranch'
+" Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/vim-gitbranch'
+
+" galaxyline
+Plug 'glepnir/galaxyline.nvim'
 
 " barbar.nvim
 Plug 'romgrk/barbar.nvim'
@@ -36,9 +39,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 " nvim-tree.lua  - filetree
 Plug 'kyazdani42/nvim-tree.lua'
-
-" unicode stuff
-Plug 'chrisbra/unicode.vim'
 
 " rainbow - rainbow brakets
 Plug 'luochen1990/rainbow'
@@ -103,8 +103,8 @@ Plug 'AndrewRadev/splitjoin.vim'
 " vim-expand-region - expand visually selected text by objects
 Plug 'terryma/vim-expand-region'
 
-" vim-lion - align stuff by characters 
-Plug 'tommcdo/vim-lion'
+" textobj-word-column - adds text-objects for word-based columns
+Plug 'coderifous/textobj-word-column.vim'
 
 " Targets.vim - great text object plugin for movements etc...
 Plug 'wellle/targets.vim'
@@ -115,14 +115,8 @@ Plug 'machakann/vim-highlightedyank'
 " vim-cool - after searching disables search highlighting
 Plug 'romainl/vim-cool'
 
-" vim-visual-star-search - search buffer for word under cursor with *
-Plug 'bronson/vim-visual-star-search'
-
 " vim-pasta - pasting support 
 Plug 'sickill/vim-pasta'
-
-" SearchComplete - completion for search 
-Plug 'vim-scripts/SearchComplete'
 
 " vim-rooter - sets root directory to vcs root
 Plug 'airblade/vim-rooter'
@@ -130,11 +124,11 @@ Plug 'airblade/vim-rooter'
 " vim-bbye
 Plug 'moll/vim-bbye'
 
-" polyglot - language pack for vim
-Plug 'sheerun/vim-polyglot'
-
 " emmet-vim - emmet, for vim 
 Plug 'mattn/emmet-vim'
+
+" UltiSnips
+Plug 'sirver/UltiSnips'
 
 " vim-snippets - snippet pack
 Plug 'honza/vim-snippets'
@@ -153,6 +147,15 @@ Plug 'mhinz/vim-signify'
 
 " nvim-lspconfig
 Plug 'neovim/nvim-lspconfig'
+
+" lsp-status
+Plug 'nvim-lua/lsp-status.nvim'
+
+" lsp_extensions
+Plug 'tjdevries/lsp_extensions.nvim'
+
+" completion-treesitter
+Plug 'nvim-treesitter/completion-treesitter'
 
 " completion-nvim - native: nvim completion
 Plug 'nvim-lua/completion-nvim'
@@ -175,6 +178,7 @@ Plug 'nvim-lua/telescope.nvim'
 " nvim treesitter - NEED TO CONFIG
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 call plug#end()
 

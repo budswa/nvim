@@ -5,9 +5,6 @@ let g:mapleader = " "            " Sets space as the leader key
 nnoremap k gk
 nnoremap j gj
 
-" allows you to isnert new lines below the current cursor line
-map <Enter> o<ESC>
-
 " Saving and updating with Ctrl-s and Ctrl-S respectively
 noremap <silent> <C-s> :write<CR>
 noremap <silent> <C-S> :update<CR>
@@ -22,7 +19,9 @@ let g:which_key_map =  {}
 let g:which_key_sep = '→'
 let g:which_key_use_floating_win = 0
 
-let g:which_key_map['*'] = [ ':call Comment()'                    , '' ]
+let g:which_key_map['E'] = [ ':LuaTreeToggle',    'LuaTree' ]
+let g:which_key_map['n'] = [ ':e'               , 'new file' ]
+let g:which_key_map['u'] = [ ':UndoTreeToggle' , 'undotree' ]
 
 let g:which_key_map.w = {
   \ 'name' : 'Vimwiki',
