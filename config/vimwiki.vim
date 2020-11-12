@@ -1,1 +1,1 @@
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'path_html': '~/vimwiki/vimwiki_html/', 'ext': '.wiki'}]
+let g:vimwiki_list = [{'path': '~/.config/nvim/vimwiki', 'path_html': '~/.config/nvim/vimwiki', 'ext': '.wiki'}]

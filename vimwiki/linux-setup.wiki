@@ -1,0 +1,71 @@
+= My Linux Setup =
+Gentoo (x86_64, OpenRC)
+LibreSSL
+Rootless Xorg 
+BTRFS 
+LVM2 (w LUKS)
+ZSH
+Fish
+
+== WMs and DEs ==
+Xmonad 
+dwm
+bspwm
+Qtile
+xfce4
+
+== Applications ==
+
+=== Terminals ===
+
+
+=== Editors ===
+Neovim 
+Vim
+Emacs
+
+OpenSSH
+alacritty
+termite
+lf (in server/client mode)
+PCManFM
+Thunar (in server/client mode with plugins)
+feh
+Zathura (with its plugins)
+PlayerCTL
+mpris
+Pass
+Clipboard manager
+deadd-notification-center
+trash-cli
+thefuck
+Transmission torrent client 
+Spotify-tui
+spotifyd
+sway-launcher-desktop
+rofi
+MPV
+MPD
+ncpncpp
+Firefox
+Tor browser
+Lightcord with plugins
+weechat with plugins 
+tdrop
+lsd
+zoxide or autojump
+fd
+bat
+bandwhich
+diskonaut
+dust
+cspell
+ripgrep
+ligaturizer
+grex
+gitui
+carbon-now-cli
+how2
+
+cbonsai
+sl

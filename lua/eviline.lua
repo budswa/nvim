@@ -168,7 +168,7 @@ gls.right[3] = {
 gls.right[4] = {
   ScrollBar = {
     provider = 'ScrollBar',
-    highlight = {colors.blue,clors.purple},
+    highlight = {colors.blue,colors.purple},
   }
 }
 
