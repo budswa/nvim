@@ -137,7 +137,7 @@ source $HOME/.config/nvim/config/nvim-tree.vim
 Plug 'neovim/nvim-lspconfig'
 
 " lsp_extensions
-" Plug 'tjdevries/lsp_extensions.nvim'
+Plug 'tjdevries/lsp_extensions.nvim'
 
 " Completion, snippets and snippet engine 
 Plug 'nvim-lua/completion-nvim'
@@ -151,7 +151,6 @@ source $HOME/.config/nvim/config/completion-nvim.vim
 Plug 'nvim-lua/telescope.nvim'
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
-source $HOME/.config/nvim/config/telescope.vim
 
 " nvim treesitter - NEED TO CONFIG
 Plug 'nvim-treesitter/nvim-treesitter'

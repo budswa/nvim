@@ -34,16 +34,17 @@ gls.left[1] = {
 gls.left[2] = {
   ViMode = {
     provider = function()
-      -- auto change color according the vim mode
-      local mode_color = {n = colors.magenta, i = colors.green,v=colors.blue,[''] = colors.blue,V=colors.blue,
-                          c = colors.red,no = colors.magenta,s = colors.orange,S=colors.orange,
-                          [''] = colors.orange,ic = colors.yellow,R = colors.purple,Rv = colors.purple,
-                          cv = colors.red,ce=colors.red, r = colors.cyan,rm = colors.cyan, ['r?'] = colors.cyan,
-                          ['!']  = colors.red,t = colors.red}
-      vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()])
-      return '  '
+      local alias = {n = 'NORMAL',i = 'INSERT',c= 'COMMAND',V= 'VISUAL', [''] = 'VISUAL'}
+      return alias[vim.fn.mode()]
     end,
-    highlight = {colors.red,colors.line_bg,'bold'},
+    separator = ' | ',
+    separator_highlight = {colors.yellow,function()
+      if not buffer_not_empty() then
+        return colors.line_bg
+      end
+      return colors.line_bg
+    end},
+    highlight = {colors.fg, colors.bg,'bold'},
   },
 }
 gls.left[3] ={
@@ -94,7 +95,7 @@ gls.left[7] = {
   DiffAdd = {
     provider = 'DiffAdd',
     condition = checkwidth,
-    icon = ' ',
+    icon = '+ ',
     highlight = {colors.green,colors.line_bg},
   }
 }
@@ -102,7 +103,7 @@ gls.left[8] = {
   DiffModified = {
     provider = 'DiffModified',
     condition = checkwidth,
-    icon = ' ',
+    icon = '! ',
     highlight = {colors.orange,colors.line_bg},
   }
 }
@@ -110,7 +111,7 @@ gls.left[9] = {
   DiffRemove = {
     provider = 'DiffRemove',
     condition = checkwidth,
-    icon = ' ',
+    icon = '- ',
     highlight = {colors.red,colors.line_bg},
   }
 }
