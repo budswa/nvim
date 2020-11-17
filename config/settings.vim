@@ -13,22 +13,22 @@ endif
 set backup
 set noswapfile
 set writebackup
-set backupdir=~/.config/nvim/backupdir//
+set backupdir=~/.config/nvim/.backupdir//
 
-if !isdirectory($HOME . "/.config/nvim/backupdir")
-  call mkdir($HOME . "/.config/nvim/backupdir", "p")
+if !isdirectory($HOME . "/.config/nvim/.backupdir")
+  call mkdir($HOME . "/.config/nvim/.backupdir", "p")
 endif
 
 " Undo
 if has('persistent_undo')
   set undofile                          " Uses file(s) to store undo data, this allow persistence
-  set undodir=~/.config/nvim/undodir//  
+  set undodir=~/.config/nvim/.undodir//  
   set undolevels=500                    " Maximum number of changes that can be undone
   set undoreload=500                    " Maximum number lines to save for undo on a buffer reload
 endif
 
-if !isdirectory($HOME . "/.config/nvim/undodir")
-  call mkdir($HOME . "/.config/nvim/undodir", "p")
+if !isdirectory($HOME . "/.config/nvim/.undodir")
+  call mkdir($HOME . "/.config/nvim/.undodir", "p")
 endif
 
 " File settings
@@ -80,8 +80,9 @@ set softtabstop=2
 
 " Folding
 set nofoldenable                        " Enables folding
-set foldmethod=manual		                " Only folds when manually set folds
 set foldlevel=2				                  " Close folds
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
 " Misc
 set virtualedit=onemore                 " Allows the cursor to move one column past the end of the row
@@ -114,3 +115,26 @@ set formatoptions+=n    " Indent past the formatlistpat, not underneath it.
 set formatoptions+=j    " Auto-remove comments if possible.
 set formatoptions-=2    " I'm not in gradeschool anymore
 set nojoinspaces        " Two spaces and grade school, we're done
+
+" disable some vim distrobuted plugins 
+let g:loaded_gzip = 1
+let g:loaded_tar = 1
+let g:loaded_tarPlugin = 1
+let g:loaded_zip = 1
+let g:loaded_zipPlugin = 1
+
+let g:loaded_getscript = 1
+let g:loaded_getscriptPlugin = 1
+let g:loaded_vimball = 1
+let g:loaded_vimballPlugin = 1
+
+let g:loaded_matchit = 1
+let g:loaded_matchparen = 1
+let g:loaded_2html_plugin = 1
+let g:loaded_logiPat = 1
+let g:loaded_rrhelper = 1
+
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+let g:loaded_netrwSettings = 1
+let g:loaded_netrwFileHandlers = 1

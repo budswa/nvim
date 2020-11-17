@@ -7,65 +7,79 @@ LVM2 (w LUKS)
 ZSH
 Fish
 
-== WMs and DEs ==
+== WMs & DEs ==
 Xmonad 
 dwm
 bspwm
 Qtile
 xfce4
 
-== Applications ==
+== Applications & tools ==
+The applications and tools I use on my system
+
+=== General use applications ===
+Tor browser
+Firefox
+Lightcord with plugins
 
 === Terminals ===
-
+Alacritty
+Termite
+st
 
 === Editors ===
 Neovim 
 Vim
 Emacs
 
-OpenSSH
-alacritty
-termite
-lf (in server/client mode)
+=== File browsers ===
 PCManFM
-Thunar (in server/client mode with plugins)
-feh
-Zathura (with its plugins)
-PlayerCTL
-mpris
+lf 
+
+=== TUI & CLI tools ===
 Pass
-Clipboard manager
-deadd-notification-center
-trash-cli
-thefuck
-Transmission torrent client 
-Spotify-tui
-spotifyd
-sway-launcher-desktop
-rofi
-MPV
-MPD
-ncpncpp
-Firefox
-Tor browser
-Lightcord with plugins
-weechat with plugins 
-tdrop
 lsd
-zoxide or autojump
-fd
-bat
-bandwhich
-diskonaut
-dust
-cspell
-ripgrep
-ligaturizer
-grex
+feh
+PlayerCTL
+OpenSSH
 gitui
-carbon-now-cli
+ripgrep
+bat
+trash-cli
+diskonaut
+bandwhich
+dust
+fd
+zoxide
+autojump
+thefuck
 how2
 
+=== Applications launchers ===
+sway-launcher-desktop
+rofi
+
+=== Multimedia ===
+MPV
+Zathura (with its plugins)
+ncpncpp
+MPD
+Spotify-tui
+spotifyd
+mpris
+
+=== Daemons ===
+dunst
+Transmission torrent client
+
+=== Fun & games ===
 cbonsai
 sl
+
+=== Misc ===
+tdrop
+grex
+cspell
+ligaturizer
+carbon-now-cli
+Clipboard manager

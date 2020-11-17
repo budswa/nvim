@@ -19,3 +19,6 @@ let bufferline.shadow = v:false
 let bufferline.clickable = v:true
 let bufferline.icons = v:true
 let bufferline.semantic_letters = v:true
+let bufferline.animation = v:false
+let bufferline.closable = v:true
+let bufferline.maximum_padding = 1
