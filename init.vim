@@ -21,8 +21,15 @@ autocmd VimEnter *
 " Plugins 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-" doom-one
+" Colorschemes
 Plug 'romgrk/doom-one.vim'
+Plug 'bluz71/vim-nightfly-guicolors'
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
+Plug 'sainnhe/sonokai'
+Plug 'kyazdani42/blue-moon'
+Plug 'mhartington/oceanic-next'
+Plug 'glepnir/zephyr-nvim'
 
 " indentLine - lines showing indentation levels 
 Plug 'Yggdroot/indentLine'
@@ -164,8 +171,9 @@ Plug 'romgrk/barbar.nvim'
 " galaxyline.nvim
 Plug 'glepnir/galaxyline.nvim'
 
-" Dashboard-nvim
-Plug 'glepnir/dashboard-nvim'
+" Startify 
+Plug 'mhinz/vim-startify'
+source $HOME/.config/nvim/config/startify.vim
 
 call plug#end()
 
@@ -175,7 +183,6 @@ source $HOME/.config/nvim/config/keys.vim
 
 " Plugin configs based in lua
 source $HOME/.config/nvim/config/barbar.vim
-source $HOME/.config/nvim/config/dashboard.vim
 
 lua require ('eviline')
 lua require ('lsp-config')

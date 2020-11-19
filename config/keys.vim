@@ -35,7 +35,7 @@ let g:which_key_map.w = {
 nmap <Leader>ss :<C-u>SessionSave<CR>
 nmap <Leader>sl :<C-u>SessionLoad<CR>
 let g:which_key_map.s = {
-  \ 'name' : 'Session',
+  \ 'name' : 'session',
   \ 's' : [':SessionSave', 'Session save'],
   \ 'l' : [':SessionLoad', 'Session load']
   \ }

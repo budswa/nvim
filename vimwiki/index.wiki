@@ -2,6 +2,3 @@ My vimwiki
 
 ## Linux
  * [[linux-setup]] 
-
-## Projects  
- * [[computing-notes]]

@@ -82,4 +82,5 @@ grex
 cspell
 ligaturizer
 carbon-now-cli
+espanso
 Clipboard manager
