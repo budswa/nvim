@@ -89,12 +89,8 @@ set virtualedit=onemore                 " Allows the cursor to move one column p
 set nowrap                              " disable wrapping
 set mouse=a                             " enables mouse and scroll wheel
 set magic                               " More characters available for commands
-set confirm                             " starts a confim prompt
+set noconfirm                           " starts a confim prompt
 set updatetime=10
-set wildmenu                            " Enables the wildmenu
-set wildmode=list:longest,full
-set wildignorecase
-set wildoptions=tagfile,pum
 set shortmess+=c                        " Changes message/ warning behaviour
 set backspace=indent,eol,start
 set timeoutlen=500                      " Time in miliseconds to complete a mapped sequence

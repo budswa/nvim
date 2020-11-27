@@ -44,7 +44,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 " rainbow - rainbow brakets
 Plug 'luochen1990/rainbow'
-source $HOME/.config/nvim/config/rainbow.vim
+let g:rainbow_active = 1
 
 " vim-smoothie - smooth scrolling 
 Plug 'psliwka/vim-smoothie'
@@ -54,14 +54,14 @@ Plug 'itchyny/vim-cursorword'
 
 " Quick-scope - f F t T enhancements 
 Plug 'unblevable/quick-scope'
-source $HOME/.config/nvim/config/quickscope.vim
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " clever-f
 Plug 'rhysd/clever-f.vim'
 
 " vimwiki
 Plug 'vimwiki/vimwiki'
-source $HOME/.config/nvim/config/vimwiki.vim
+let g:vimwiki_list = [{'path': '~/Documents/vimwiki', 'path_html': '~/Documents/vimwiki/html', 'ext': '.wiki'}]
 
 " neotex - LaTeX live preview
 Plug 'donRaphaco/neotex', { 'for': 'tex' }
@@ -184,6 +184,6 @@ source $HOME/.config/nvim/config/keys.vim
 " Plugin configs based in lua
 source $HOME/.config/nvim/config/barbar.vim
 
-lua require ('eviline')
+lua require ('galaxy')
 lua require ('lsp-config')
 lua require ('treesitter')

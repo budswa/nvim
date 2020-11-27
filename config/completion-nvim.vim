@@ -2,7 +2,7 @@
 let g:completion_chain_complete_list = {
   \ 'default' : {
   \   'default': [
-  \       {'complete_items': ['lsp','buffers','path','snippet','ts']},
+  \       {'complete_items': ['path','buffers','snippet','lsp']}, 
   \       {'mode': '<c-p>'},
   \       {'mode': '<c-n>'}],
   \   'comment': [],
@@ -10,8 +10,8 @@ let g:completion_chain_complete_list = {
   \   }
   \}
 
-let g:completion_matching_stratergy_list = ['exact', 'substring', 'fuzzy']
-let g:completion_sorting = "length"
+let g:completion_matching_stratergy_list = ['fuzzy','substring','exact']
+let g:completion_sorting = "length" 
 let g:completion_enable_auto_popup = 1
 let g:completion_enable_auto_signature = 1
 let g:completion_matching_ignore_case = 1

@@ -1,4 +1,0 @@
-My vimwiki
-
-## Linux
- * [[linux-setup]] 
