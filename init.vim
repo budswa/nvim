@@ -41,7 +41,6 @@ Plug 'liuchengxu/vim-which-key'
 " nvim web devicons
 Plug 'kyazdani42/nvim-web-devicons'
 
-
 " rainbow - rainbow brakets
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
@@ -82,6 +81,10 @@ Plug 'tpope/vim-repeat'
 
 " Vim-sneak - 'sneaking'
 Plug 'justinmk/vim-sneak'
+
+" Gist.vim
+Plug 'mattn/webapi-vim'
+  Plug 'mattn/vim-gist'
 
 " vim-sandwich - surround alternative 
 Plug 'machakann/vim-sandwich'
