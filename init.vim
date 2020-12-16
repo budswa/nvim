@@ -139,6 +139,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'mhinz/vim-signify'
 source $HOME/.config/nvim/config/signify.vim
 
+" minimap.vim - minimap built on code-minimap
+Plug 'wfxr/minimap.vim'
+
 " nvim-tree.lua  - filetree
 Plug 'kyazdani42/nvim-tree.lua'
 source $HOME/.config/nvim/config/nvim-tree.vim

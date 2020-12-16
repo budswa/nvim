@@ -1,6 +1,6 @@
-local nvim_lsp = require('nvim_lsp')
+local nvim_lsp = require('lspconfig')
 
-local servers = {'vimls', 'sumneko_lua', 'pyls', 'gopls', 'bashls', 'ccls', 'clangd', 'cssls', 'jsonls', 'html', 'rls'}
+local servers = {'vimls','sumneko_lua','bashls'}
 
 local on_attach_vim = function(client)
 require'completion'.on_attach(client)
