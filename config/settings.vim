@@ -21,15 +21,37 @@ endif
 
 " Undo
 if has('persistent_undo')
-  set undofile                          " Uses file(s) to store undo data, this allow persistence
-  set undodir=~/.config/nvim/.undodir//  
-  set undolevels=500                    " Maximum number of changes that can be undone
-  set undoreload=500                    " Maximum number lines to save for undo on a buffer reload
+  if exists('$SUDO_USER')
+    set noundofile
+  else
+    if !isdirectory($HOME . "/.config/nvim/.undodir")
+      call mkdir($HOME . "/.config/nvim/.undodir", "p")
+    endif
+    set undofile                          " Uses file(s) to store undo data, this allow persistence
+    set undodir=~/.config/nvim/.undodir//  
+    set undolevels=500                    " Maximum number of changes that can be undone
+    set undoreload=500                    " Maximum number lines to save for undo on a buffer reload
 endif
 
-if !isdirectory($HOME . "/.config/nvim/.undodir")
-  call mkdir($HOME . "/.config/nvim/.undodir", "p")
+
+" ShaDA - shared data - Neovim's viminfo equivilent
+" If sudo, disable vim swap/backup/undo/shada/viminfo writing
+if exists('$SUDO_USER')
+  if has('nvim')
+    set shada=
+  else
+    set viminfo=
+  endif
+else
+  if has('nvim')
+    set shada=!,'300,<50,s10,h
+  else
+    set viminfo=!,'300,<50,s10,h,n$VARPATH/viminfo
+  endif
 endif
+
+set title        " set terminal title
+set titlestring   =NVIM:\ %f
 
 " File settings
 set encoding=utf-8                      " sets the file encoding to utf-8
@@ -54,15 +76,18 @@ set smartcase                           " Ignore case while searching until capi
 set incsearch                           " search while typing
 
 " Visual
-colorscheme doom-one
-" autocmd vimenter * colorscheme onedark  " sets the colorscheme
+if (has("termguicolors"))
+    set termguicolors
+    hi LineNr ctermbg=NONE guibg=NONE
+endif
+au VimEnter * colorscheme zephyr
+hi Comment cterm=italic
 set background=dark                     " Dark background is prefered 
 set number                              " displays current line number on the line the cursor is on
 set numberwidth=1
-set signcolumn=yes                      " Allows characters to be rendered in side column
+set signcolumn=auto:3                      " Allows characters to be rendered in side column
 set cmdheight=1                         " Rows at bottom reserved for command, command outputs
-set redrawtime=800
-set termguicolors
+set redrawtime=200
 syntax on
 set fillchars+=vert:│
 set inccommand=nosplit
@@ -98,39 +123,17 @@ set whichwrap+=h,l
 set noerrorbells                        " No annoying audio bell
 set novisualbell                        " No annoying visual bell
 
-" Hides the '~' on unused rows
-autocmd vimenter * hi NonText guifg=bg
-
 set formatoptions-=a    " Auto formatting is BAD.
 set formatoptions-=t    " Don't auto format my code. I got linters for that.
 set formatoptions+=c    " In general, I like it when comments respect textwidth
 set formatoptions+=q    " Allow formatting comments w/ gq
 set formatoptions-=o    " O and o, don't continue comments
-set formatoptions+=r    " But do continue when pressing enter.
+set formatoptions-=r    " But do continue when pressing enter.
 set formatoptions+=n    " Indent past the formatlistpat, not underneath it.
 set formatoptions+=j    " Auto-remove comments if possible.
 set formatoptions-=2    " I'm not in gradeschool anymore
 set nojoinspaces        " Two spaces and grade school, we're done
 
-" disable some vim distrobuted plugins 
-let g:loaded_gzip = 1
-let g:loaded_tar = 1
-let g:loaded_tarPlugin = 1
-let g:loaded_zip = 1
-let g:loaded_zipPlugin = 1
-
-let g:loaded_getscript = 1
-let g:loaded_getscriptPlugin = 1
-let g:loaded_vimball = 1
-let g:loaded_vimballPlugin = 1
-
-let g:loaded_matchit = 1
-let g:loaded_matchparen = 1
-let g:loaded_2html_plugin = 1
-let g:loaded_logiPat = 1
-let g:loaded_rrhelper = 1
-
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
-let g:loaded_netrwSettings = 1
-let g:loaded_netrwFileHandlers = 1
+if !has('nvim')
+  set ttyfast " faster redrawing
+endif

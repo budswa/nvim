@@ -2,7 +2,17 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = "all",
   highlight = {
     enable = true,
-    disable = {},
+  },
+  textobjects = {
+    select = {
+      enable = true,
+    },
+    swap = {
+      enable = true,
+    },
+    move = {
+      enable = true,
+    },
   },
   incremental_selection = {
     enable = true,

@@ -47,20 +47,17 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
     \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
 " Single key bindings
-let g:which_key_map['/'] = [ ':call Comment()'                    , 'comment' ]
-let g:which_key_map['.'] = [ ':e $MYVIMRC'                        , 'open init' ]
-let g:which_key_map[';'] = [ ':Commands'                          , 'commands' ]
-let g:which_key_map['='] = [ '<C-W>='                             , 'balance windows' ]
+let g:which_key_map['/'] = [ ':call Comment()'                    , 'comment']
+let g:which_key_map['.'] = [ ':e $MYVIMRC'                        , 'open init']
+let g:which_key_map[';'] = [ ':Telescope commands'                , 'commands']
+let g:which_key_map['='] = [ '<C-W>='                             , 'balance windows']
 let g:which_key_map['d'] = [ ':Bdelete'                           , 'delete buffer']
-let g:which_key_map['e'] = [ ':LuaTreeToggle',    'LuaTree' ]
+let g:which_key_map['E'] = [ ':LuaTreeToggle'                     , 'LuaTree']
 let g:which_key_map['h'] = [ '<C-W>s'                             , 'split below']
 let g:which_key_map['v'] = [ '<C-W>v'                             , 'split right']
-let g:which_key_map['W'] = [ 'w'                                  , 'write' ]
-let g:which_key_map['p'] = [ ':Telescope find_files'                             , 'search files' ]
-let g:which_key_map['q'] = [ 'q'                                  , 'quit' ]
-let g:which_key_map['n'] = [ ':new'               , 'new file' ]
-let g:which_key_map['u'] = [ ':UndoTreeToggle' , 'undotree' ]
-
+let g:which_key_map['f'] = [ ':Telescope find_files'              , 'search files' ]
+let g:which_key_map['n'] = [ ':new'                               , 'new file' ]
+let g:which_key_map['U'] = [ ':UndoTreeToggle'                    , 'undotree' ]
 
 " a = actions
 let g:which_key_map.a = {
@@ -81,43 +78,30 @@ let g:which_key_map.b = {
     \ 'p' : ['bprevious' , 'previous-buffer'],
     \ }
 
-" s = Search
-let g:which_key_map.s = {
-    \ 'name' : '+search' ,
-    \ '/' : [':History/'              , 'history'],
-    \ 'a' : [':Ag'                    , 'text Ag'],
-    \ 'b' : [':BLines'                , 'current buffer'],
-    \ 'B' : [':Buffers'               , 'open buffers'],
-    \ 'c' : [':Commits'               , 'commits'],
-    \ 'C' : [':BCommits'              , 'buffer commits'],
-    \ 'f' : [':Files'                 , 'files'],
-    \ 'g' : [':GFiles'                , 'git files'],
-    \ 'G' : [':GFiles?'               , 'modified git files'],
-    \ 'h' : [':History'               , 'file history'],
-    \ 'H' : [':History:'              , 'command history'],
-    \ 'l' : [':Lines'                 , 'lines'] ,
-    \ 'm' : [':Marks'                 , 'marks'] ,
-    \ 'M' : [':Maps'                  , 'normal maps'] ,
-    \ 'p' : [':Helptags'              , 'help tags'] ,
-    \ 'P' : [':Tags'                  , 'project tags'],
-    \ 's' : [':CocList snippets'      , 'snippets'],
-    \ 'S' : [':Colors'                , 'color schemes'],
-    \ 't' : [':Rg'                    , 'text Rg'],
-    \ 'T' : [':BTags'                 , 'buffer tags'],
-    \ 'w' : [':Windows'               , 'search windows'],
-    \ 'y' : [':Filetypes'             , 'file types'],
-    \ 'z' : [':FZF'                   , 'FZF'],
-    \ }
+" f = find
+let g:which_key_map.f = {
+  \ 'name' : '+find' ,
+  \ 'b' : [':Telescope buffers'         , 'open buffers'],
+  \ 'c' : [':Telescope git_commits'     , 'project commits'],
+  \ 'C' : [':Telescope git_bcommits'    , 'buffer commits'],
+  \ 'f' : [':Telescope find_files'      , 'files'],
+  \ 'g' : [':Telescope live_grep'       , 'grep file'],
+  \ 'G' : [':Telescope git_files'       , 'git files'],
+  \ 'h' : [':Telescope command_history' , 'command history'],
+  \ 'm' : [':Telescope marks'           , 'marks'] ,
+  \ 'k' : [':Telescope keymaps'         , 'keymaps'] ,
+  \ 't' : [':Telescope tags'            , 'project tags'],
+  \ 's' : [':Telescope symbols'         , 'symbols'],
+  \ 'S' : [':Telescope colorscheme'     , 'color schemes'],
+  \ 'y' : [':Telescope filetypes'       , 'file types'],
+  \ }
 
 " S = Session
 let g:which_key_map.S = {
-    \ 'name' : '+Session' ,
-    \ 'c' : [':SClose'          , 'Close Session']  ,
-    \ 'd' : [':SDelete'         , 'Delete Session'] ,
-    \ 'l' : [':SLoad'           , 'Load Session']     ,
-    \ 's' : [':Startify'        , 'Start Page']     ,
-    \ 'S' : [':SSave'           , 'Save Session']   ,
-    \ }
+  \ 'name' : '+Session' ,
+  \ 'l' : [':SessionLoad'           , 'load session'],
+  \ 's' : [':SessionSave'           , 'save session'],
+  \ }
 
 " g = Git
 let g:which_key_map.g = {
@@ -132,8 +116,8 @@ let g:which_key_map.g = {
     \ 'D' : [':Gdiffsplit'                       , 'diff split'],
     \ 'g' : [':GGrep'                            , 'git grep'],
     \ 'G' : [':Gstatus'                          , 'status'],
-    \ 'h' : [':GitGutterLineHighlightsToggle'    , 'highlight hunks'],
-    \ 'H' : ['<Plug>(GitGutterPreviewHunk)'      , 'preview hunk'],
+    \ 'h' : [':GitGutterLineHighlightstoggle'    , 'highlight hunks'],
+    \ 'H' : ['<Plug>(GitGutterPreviewhunk)'      , 'preview hunk'],
     \ 'i' : [':Gist -b'                          , 'post gist'],
     \ 'j' : ['<Plug>(GitGutterNextHunk)'         , 'next hunk'],
     \ 'k' : ['<Plug>(GitGutterPrevHunk)'         , 'prev hunk'],
@@ -201,11 +185,5 @@ let g:which_key_map.l = {
     \ 'z' : [':CocDisable'                         , 'disable CoC'],
     \ 'Z' : [':CocEnable'                          , 'enable CoC'],
     \ }
-
-" w = Vimwiki
-let g:which_key_map.w = {
-  \ 'name' : 'Vimwiki',
-  \ 'w' : ['VimwikiIndex', 'Index']
-  \ }
 
 call which_key#register('<Space>', "g:which_key_map")

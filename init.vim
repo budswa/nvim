@@ -4,6 +4,9 @@
 " _/ // / / / / /__| |/ / / / / / / /
 "/___/_/ /_/_/\__(_)___/_/_/ /_/ /_/
 
+" Reload init.vim upon it being modified
+autocmd bufwritepost init.vim source $MYVIMRC
+
 " Vim-plug and plugins
 " Install vim-plug if not already installed 
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -24,46 +27,19 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 " Colorschemes
 Plug 'romgrk/doom-one.vim'
 Plug 'bluz71/vim-nightfly-guicolors'
-Plug 'bluz71/vim-moonfly-colors'
-Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
 Plug 'sainnhe/sonokai'
 Plug 'kyazdani42/blue-moon'
-Plug 'mhartington/oceanic-next'
 Plug 'glepnir/zephyr-nvim'
-
-" indentLine - lines showing indentation levels 
-Plug 'Yggdroot/indentLine'
-source $HOME/.config/nvim/config/indentline.vim
 
 " vim-which-key - interface for leader key
 Plug 'liuchengxu/vim-which-key'
 
 " nvim web devicons
-Plug 'kyazdani42/nvim-web-devicons'
 
-" rainbow - rainbow brakets
-Plug 'luochen1990/rainbow'
-let g:rainbow_active = 1
-
-" vim-smoothie - smooth scrolling 
-Plug 'psliwka/vim-smoothie'
-
-" Highlights every other instance of the word under cursor
-Plug 'itchyny/vim-cursorword'
-
-" Quick-scope - f F t T enhancements 
-Plug 'unblevable/quick-scope'
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+Plug 'moll/vim-bbye'
 
 " clever-f
 Plug 'rhysd/clever-f.vim'
-
-" vimwiki
-Plug 'vimwiki/vimwiki'
-let g:vimwiki_list = [{'path': '~/Documents/vimwiki', 'path_html': '~/Documents/vimwiki/html', 'ext': '.wiki'}]
-
-" neotex - LaTeX live preview
-Plug 'donRaphaco/neotex', { 'for': 'tex' }
 
 " Vista - tagbar explorer 
 Plug 'liuchengxu/vista.vim'
@@ -82,6 +58,9 @@ Plug 'tpope/vim-repeat'
 " Vim-sneak - 'sneaking'
 Plug 'justinmk/vim-sneak'
 
+" vim-tmux
+Plug 'tmux-plugins/vim-tmux'
+
 " Gist.vim
 Plug 'mattn/webapi-vim'
   Plug 'mattn/vim-gist'
@@ -97,7 +76,8 @@ Plug 'tpope/vim-commentary'
 
 " vim-lastplace - persistent cursor placement
 Plug 'farmergreg/vim-lastplace'
-source $HOME/.config/nvim/config/lastplace.vim
+let g:lastplace_ignore = "gitcommit,gitrebase,svn"
+let g:lastplace_ignore_buftype = "quickfix,nofile,help"
 
 " splitjoin - allows you to 'expand' code
 Plug 'AndrewRadev/splitjoin.vim'
@@ -105,14 +85,8 @@ Plug 'AndrewRadev/splitjoin.vim'
 " vim-expand-region - expand visually selected text by objects
 Plug 'terryma/vim-expand-region'
 
-" textobj-word-column - adds text-objects for word-based columns
-Plug 'coderifous/textobj-word-column.vim'
-
 " Targets.vim - great text object plugin for movements etc...
 Plug 'wellle/targets.vim'
-
-" vim-highlightedyank - highlights yanks temporarily 
-Plug 'machakann/vim-highlightedyank'
 
 " vim-cool - after searching disables search highlighting
 Plug 'romainl/vim-cool'
@@ -122,9 +96,6 @@ Plug 'sickill/vim-pasta'
 
 " vim-rooter - sets root directory to vcs root
 Plug 'airblade/vim-rooter'
-
-" vim-bbye
-Plug 'moll/vim-bbye'
 
 " vim-fugitive - git intergration 
 Plug 'tpope/vim-fugitive'
@@ -137,14 +108,20 @@ Plug 'jiangmiao/auto-pairs'
 
 " vim-signify - shows diffs with the signcol
 Plug 'mhinz/vim-signify'
-source $HOME/.config/nvim/config/signify.vim
+let g:signify_sign_add               = '+'
+let g:signify_sign_delete            = '-'
+let g:signify_sign_change            = '!'
 
 " minimap.vim - minimap built on code-minimap
 Plug 'wfxr/minimap.vim'
 
+" FTerm.nvim - floating terminal built in Lua
+Plug 'numtostr/FTerm.nvim'
+
 " nvim-tree.lua  - filetree
 Plug 'kyazdani42/nvim-tree.lua'
-source $HOME/.config/nvim/config/nvim-tree.vim
+Plug 'kyazdani42/nvim-web-devicons'
+source $HOME/.config/nvim/config/nvimtree.vim
 
 " nvim-lspconfig
 Plug 'neovim/nvim-lspconfig'
@@ -158,10 +135,11 @@ Plug 'nvim-lua/completion-nvim'
   Plug 'nvim-treesitter/completion-treesitter'
 Plug 'hrsh7th/vim-vsnip'
   Plug 'honza/vim-snippets'
-source $HOME/.config/nvim/config/completion-nvim.vim
+source $HOME/.config/nvim/config/completion.vim
 
 " telescope.nvim
 Plug 'nvim-lua/telescope.nvim'
+  Plug 'nvim-telescope/telescope-symbols.nvim'
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
 
@@ -177,9 +155,9 @@ Plug 'romgrk/barbar.nvim'
 " galaxyline.nvim
 Plug 'glepnir/galaxyline.nvim'
 
-" Startify 
-Plug 'mhinz/vim-startify'
-source $HOME/.config/nvim/config/startify.vim
+" Dashboard-nvim
+Plug 'glepnir/dashboard-nvim'
+source $HOME/.config/nvim/config/dashboard.vim
 
 call plug#end()
 
