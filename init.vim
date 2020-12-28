@@ -4,9 +4,6 @@
 " _/ // / / / / /__| |/ / / / / / / /
 "/___/_/ /_/_/\__(_)___/_/_/ /_/ /_/
 
-" Reload init.vim upon it being modified
-autocmd bufwritepost init.vim source $MYVIMRC
-
 " Vim-plug and plugins
 " Install vim-plug if not already installed 
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -21,25 +18,26 @@ autocmd VimEnter *
   \|   PlugInstall --sync | q
   \| endif
 
+" Basic configurations - to be loaded first
+source $HOME/.config/nvim/config/settings.vim
+
 " Plugins 
 call plug#begin('~/.config/nvim/autoload/plugged')
-
-" Colorschemes
-Plug 'romgrk/doom-one.vim'
-Plug 'bluz71/vim-nightfly-guicolors'
-Plug 'sainnhe/sonokai'
-Plug 'kyazdani42/blue-moon'
-Plug 'glepnir/zephyr-nvim'
 
 " vim-which-key - interface for leader key
 Plug 'liuchengxu/vim-which-key'
 
 " nvim web devicons
+Plug 'kyazdani42/nvim-web-devicons'
 
+" bbye - bufferbye, used for managing buffers and window structure 
 Plug 'moll/vim-bbye'
 
 " clever-f
 Plug 'rhysd/clever-f.vim'
+
+" vim-altscreen - virtual screen doesn't cause visual glitches
+Plug 'fcpg/vim-altscreen'
 
 " Vista - tagbar explorer 
 Plug 'liuchengxu/vista.vim'
@@ -52,14 +50,16 @@ source $HOME/.config/nvim/config/undotree.vim
 " vim-startuptime - startup time monitor
 Plug 'dstein64/vim-startuptime'
 
+" highlightyank - highlights yanked text for a moment
+Plug 'machakann/vim-highlightedyank'
+let g:highlightedyank_highlight_duration = 500
+highlight HighlightedyankRegion cterm=reverse gui=reverse
+
 " Vim-repeat - . to redo commands
 Plug 'tpope/vim-repeat'
 
 " Vim-sneak - 'sneaking'
 Plug 'justinmk/vim-sneak'
-
-" vim-tmux
-Plug 'tmux-plugins/vim-tmux'
 
 " Gist.vim
 Plug 'mattn/webapi-vim'
@@ -123,11 +123,14 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 source $HOME/.config/nvim/config/nvimtree.vim
 
+" vim-hexokinase
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+source $HOME/.config/nvim/config/hexokinase.vim
+
 " nvim-lspconfig
 Plug 'neovim/nvim-lspconfig'
-
-" lsp_extensions
-Plug 'tjdevries/lsp_extensions.nvim'
+  Plug 'RishabhRD/nvim-lsputils'
+  Plug 'tjdevries/lsp_extensions.nvim'
 
 " Completion, snippets and snippet engine 
 Plug 'nvim-lua/completion-nvim'
@@ -150,24 +153,17 @@ Plug 'nvim-treesitter/nvim-treesitter'
 
 " barbar.nvim
 Plug 'romgrk/barbar.nvim'
-  Plug 'romgrk/lib.kom'
+source $HOME/.config/nvim/config/barbar.vim
 
 " galaxyline.nvim
 Plug 'glepnir/galaxyline.nvim'
 
-" Dashboard-nvim
-Plug 'glepnir/dashboard-nvim'
-source $HOME/.config/nvim/config/dashboard.vim
-
 call plug#end()
 
-" Basic configurations
-source $HOME/.config/nvim/config/settings.vim
+" Keybinds
 source $HOME/.config/nvim/config/keys.vim 
 
 " Plugin configs based in lua
-source $HOME/.config/nvim/config/barbar.vim
-
 lua require ('galaxy')
 lua require ('lsp-config')
 lua require ('treesitter')

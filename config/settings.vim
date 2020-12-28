@@ -31,6 +31,7 @@ if has('persistent_undo')
     set undodir=~/.config/nvim/.undodir//  
     set undolevels=500                    " Maximum number of changes that can be undone
     set undoreload=500                    " Maximum number lines to save for undo on a buffer reload
+  endif
 endif
 
 
@@ -80,12 +81,12 @@ if (has("termguicolors"))
     set termguicolors
     hi LineNr ctermbg=NONE guibg=NONE
 endif
-au VimEnter * colorscheme zephyr
+au VimEnter * colorscheme cleareye
 hi Comment cterm=italic
 set background=dark                     " Dark background is prefered 
 set number                              " displays current line number on the line the cursor is on
 set numberwidth=1
-set signcolumn=auto:3                      " Allows characters to be rendered in side column
+set signcolumn=auto:2                   " Allows characters to be rendered in side column
 set cmdheight=1                         " Rows at bottom reserved for command, command outputs
 set redrawtime=200
 syntax on
