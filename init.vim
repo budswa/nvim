@@ -4,7 +4,6 @@
 " _/ // / / / / /__| |/ / / / / / / /
 "/___/_/ /_/_/\__(_)___/_/_/ /_/ /_/
 
-" Vim-plug and plugins
 " Install vim-plug if not already installed 
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -73,11 +72,6 @@ Plug 'matze/vim-move'
 
 " vim-commentary - commenting keybinds
 Plug 'tpope/vim-commentary'
-
-" vim-lastplace - persistent cursor placement
-Plug 'farmergreg/vim-lastplace'
-let g:lastplace_ignore = "gitcommit,gitrebase,svn"
-let g:lastplace_ignore_buftype = "quickfix,nofile,help"
 
 " splitjoin - allows you to 'expand' code
 Plug 'AndrewRadev/splitjoin.vim'

@@ -85,7 +85,8 @@ au VimEnter * colorscheme cleareye
 hi Comment cterm=italic
 set background=dark                     " Dark background is prefered 
 set number                              " displays current line number on the line the cursor is on
-set numberwidth=1
+set relativenumber
+set numberwidth=2
 set signcolumn=auto:2                   " Allows characters to be rendered in side column
 set cmdheight=1                         " Rows at bottom reserved for command, command outputs
 set redrawtime=200
@@ -94,6 +95,7 @@ set fillchars+=vert:│
 set inccommand=nosplit
 set noshowmode
 set cursorline
+set colorcolumn=80
 
 " Indent and tab behaviour
 set expandtab                           " Expands tabs to spaces when deleting tabs

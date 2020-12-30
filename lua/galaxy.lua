@@ -54,7 +54,7 @@ gls.left[2] = {
       return alias[vim.fn.mode()]..' '
     end,
     highlight = { colors.bg, colors.bg },
-    separator = "  ",
+    separator = "  ",
     separator_highlight = {colors.bg, colors.section_bg},
   },
 }
@@ -70,7 +70,7 @@ gls.left[4] = {
     provider = { 'FileName', 'FileSize' },
     condition = buffer_not_empty,
     highlight = { colors.fg, colors.section_bg },
-    separator = " ",
+    separator = " ",
     separator_highlight = {colors.section_bg, colors.bg},
   }
 }
@@ -112,24 +112,11 @@ gls.left[9] = {
     highlight = { colors.red,colors.bg },
   }
 }
-gls.left[10] = {
-  LeftEnd = {
-    provider = function() return ' ' end,
-    condition = buffer_not_empty,
-    highlight = {colors.section_bg,colors.bg}
-  }
-}
 gls.left[11] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '  ',
     highlight = {colors.red,colors.section_bg}
-  }
-}
-gls.left[12] = {
-  Space = {
-    provider = function () return ' ' end,
-    highlight = {colors.section_bg,colors.section_bg},
   }
 }
 gls.left[13] = {
@@ -150,7 +137,7 @@ gls.left[15] = {
     provider = 'DiagnosticInfo',
     icon = '  ',
     highlight = {colors.blue,colors.section_bg},
-    separator = ' ',
+    separator = ' ',
     separator_highlight = { colors.section_bg, colors.bg },
   }
 }
@@ -160,7 +147,7 @@ gls.right[1]= {
   FileFormat = {
     provider = function() return vim.bo.filetype end,
     highlight = { colors.fg,colors.section_bg },
-    separator = ' ',
+    separator = ' ',
     separator_highlight = { colors.section_bg,colors.bg },
   }
 }
@@ -168,14 +155,6 @@ gls.right[2] = {
   LineInfo = {
     provider = 'LineColumn',
     highlight = { colors.fg, colors.section_bg },
-    separator = ' | ',
-    separator_highlight = { colors.bg, colors.section_bg },
-  },
-}
-gl.right[3] = {
-  Heart = {
-    provider = function() return ' ' end,
-    highlight = { colors.red, colors.section_bg },
     separator = ' | ',
     separator_highlight = { colors.bg, colors.section_bg },
   }
