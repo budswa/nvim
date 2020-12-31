@@ -16,6 +16,7 @@ nnoremap <silent> <A-8> :BufferGoto 8  <CR>
 
 let bufferline = {}
 let bufferline.shadow = v:false
+let bufferline.auto_hide = v:true
 let bufferline.clickable = v:true
 let bufferline.icons = v:true
 let bufferline.semantic_letters = v:true
@@ -23,5 +24,6 @@ let bufferline.animation = v:false
 let bufferline.closable = v:true
 let bufferline.maximum_padding = 1
 
-let bufferline.icon_separator_active =  '▋ '
+" let bufferline.icon_separator_active =  '▋ '
+let bufferline.icon_separator_active = '▎'
 let bufferline.icon_separator_inactive = '▎'

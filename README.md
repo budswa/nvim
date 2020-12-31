@@ -16,7 +16,7 @@ are built and configured in Lua.
 This configuration also uses a custom Neovim theme called Cleareye. The theme
 is made in Lua, and supports Treesitters semantic highlighting. The theme is 
 based off of [Zephyr-nvim](https://github.com/glepnir/zephyr-nvim) and 
-[doom-one.vim](https://github.com/romgrk/doom-one.vim)
+[doom-one.vim](https://github.com/romgrk/doom-one.vim) colorschemes.
 
 ## Requirements 
 Although this project is supposed to be mostly out of the box, there 

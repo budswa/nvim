@@ -112,6 +112,7 @@ function cleareye.load_syntax()
     WildMenu              = {fg=cleareye.fg,bg=cleareye.green};
     Question              = {fg=cleareye.yellow};
     NormalFloat           = {fg=cleareye.base8,bg=cleareye.bg_highlight};
+    TabLine               = {fg=cleareye.black};
     TabLineFill           = {style=cleareye.none};
     TabLineSel            = {bg=cleareye.blue};
     StatusLine            = {fg=cleareye.base8,bg=cleareye.none,style=cleareye.none};
@@ -243,7 +244,26 @@ function cleareye.load_syntax()
     NvimTreeSpecialFile = {fg=cleareye.fg,bg=cleareye.none,stryle='NONE'};
 
     TelescopeBorder       = {fg=cleareye.teal};
-    TelescopePromptBorder = {fg=cleareye.blue}
+    TelescopePromptBorder = {fg=cleareye.blue};
+
+    BufferCurrent         = {fg=cleareye.fg,bg=cleareye.bg};
+    BufferCurrentMod      = {fg=cleareye.blue,bg=cleareye.bg};
+    BufferCurrentSign     = {fg=cleareye.blue,bg=cleareye.bg};
+    BufferCurrentTarget   = {fg=cleareye.blue,bg=cleareye.bg,style="bold"};
+    
+    BufferVisible         = {fg=cleareye.fg_alt,bg=cleareye.bg_alt};
+    BufferVisibleMod      = {fg=cleareye.blue,bg=cleareye.bg_alt};
+    BufferVisibleSign     = {fg=cleareye.fg,bg=cleareye.bg_alt};
+    BufferVisibleTarget   = {fg=cleareye.red,bg=cleareye.bg,style="bold"};
+
+    BufferInactive        = {fg=cleareye.fg_alt,bg=cleareye.bg_alt};
+    BufferInactiveMod     = {fg=cleareye.fg_alt,bg=cleareye.bg_alt};
+    BufferInactiveSign    = {fg=cleareye.fg,bg=cleareye.bg_alt};
+    -- BufferInactiveTarget fg_target,   bg_inactive,  'bold'],
+
+    -- BufferTabpages',       fg_special,  bg_inactive, 'bold'],
+    -- BufferTabpageFill',    fg_inactive, bg_inactive],
+
   }
   return syntax
 end
