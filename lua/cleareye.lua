@@ -10,13 +10,13 @@ local cleareye = {
   base8         = '#b1b1b1';
 
   bg            = '#282c34'; 
-  bg_alt        = '#21242b'; 
+  bg_dark       = '#21242b'; 
   bg_popup      = '#3E4556'; 
   bg_highlight  = '#2E323C'; 
   bg_visual     = '#b3deef'; 
 
   fg            = '#bbc2cf';
-  fg_alt        = '#5B6268';
+  fg_dark       = '#5B6268';
 
   red           = '#ff6c6b';
   orange        = '#ecbe7b';
@@ -49,7 +49,7 @@ function cleareye.terminal_color()
   vim.g.terminal_color_4 = cleareye.blue
   vim.g.terminal_color_5 = cleareye.violet
   vim.g.terminal_color_6 = cleareye.cyan
-  vim.g.terminal_color_7 = cleareye.bg_alt
+  vim.g.terminal_color_7 = cleareye.bg_dark
   vim.g.terminal_color_8 = cleareye.brown
   vim.g.terminal_color_9 = cleareye.red
   vim.g.terminal_color_10 = cleareye.green
@@ -72,14 +72,14 @@ end
 
 function cleareye.load_syntax()
   local syntax = {
-    Normal                = {fg = cleareye.fg,bg=cleareye.bg};
-    Terminal              = {fg = cleareye.fg,bg=cleareye.bg};
+    Normal                = {fg=cleareye.fg,bg=cleareye.bg};
+    Terminal              = {fg=cleareye.fg,bg=cleareye.bg};
     SignColumn            = {fg=cleareye.fg,bg=cleareye.bg};
-    FoldColumn            = {fg=cleareye.fg_alt,bg=cleareye.black};
+    FoldColumn            = {fg=cleareye.fg_dark,bg=cleareye.black};
     VertSplit             = {fg=cleareye.black,bg=cleareye.bg};
     Folded                = {fg=cleareye.grey,bg=cleareye.bg_highlight};
     EndOfBuffer           = {fg=cleareye.bg,bg=cleareye.none};
-    IncSearch             = {fg=cleareye.bg_alt,bg=cleareye.orange,style=cleareye.none};
+    IncSearch             = {fg=cleareye.bg_dark,bg=cleareye.orange,style=cleareye.none};
     Search                = {fg=cleareye.bg,bg=cleareye.green};
     ColorColumn           = {fg=cleareye.none,bg=cleareye.bg_highlight};
     Conceal               = {fg=cleareye.grey,bg=cleareye.none};
@@ -96,14 +96,14 @@ function cleareye.load_syntax()
     DiffChange            = {fg=cleareye.black,bg=cleareye.yellow};
     DiffDelete            = {fg=cleareye.black,bg=cleareye.red};
     DiffText              = {fg=cleareye.black,bg=cleareye.fg};
-    Directory             = {fg=cleareye.bg_alt,bg=cleareye.none};
+    Directory             = {fg=cleareye.bg_dark,bg=cleareye.none};
     ErrorMsg              = {fg=cleareye.red,bg=cleareye.none,style='bold'};
     WarningMsg            = {fg=cleareye.yellow,bg=cleareye.none,style='bold'};
     ModeMsg               = {fg=cleareye.fg,bg=cleareye.none,style='bold'};
     MatchParen            = {fg=cleareye.red,bg=cleareye.none};
-    NonText               = {fg=cleareye.bg_alt};
+    NonText               = {fg=cleareye.bg_dark};
     Whitespace            = {fg=cleareye.base4};
-    SpecialKey            = {fg=cleareye.bg_alt};
+    SpecialKey            = {fg=cleareye.bg_dark};
     Pmenu                 = {fg=cleareye.fg,bg=cleareye.bg_popup};
     PmenuSel              = {fg=cleareye.base0,bg=cleareye.blue};
     PmenuSelBold          = {fg=cleareye.base0,g=cleareye.blue};
@@ -112,9 +112,6 @@ function cleareye.load_syntax()
     WildMenu              = {fg=cleareye.fg,bg=cleareye.green};
     Question              = {fg=cleareye.yellow};
     NormalFloat           = {fg=cleareye.base8,bg=cleareye.bg_highlight};
-    TabLine               = {fg=cleareye.black};
-    TabLineFill           = {style=cleareye.none};
-    TabLineSel            = {bg=cleareye.blue};
     StatusLine            = {fg=cleareye.base8,bg=cleareye.none,style=cleareye.none};
     StatusLineNC          = {fg=cleareye.gey,bg=cleareye.none,style=cleareye.none};
     SpellBad              = {fg=cleareye.red,bg=cleareye.none,style='undercurl'};
@@ -246,23 +243,27 @@ function cleareye.load_syntax()
     TelescopeBorder       = {fg=cleareye.teal};
     TelescopePromptBorder = {fg=cleareye.blue};
 
+    TabLine               = {fg=cleareye.black,bg=cleareye.bg_dark};
+    TabLineFill           = {fg=cleareye.fg_dark,bg=cleareye.bg_dark,style=cleareye.none};
+    TabLineSel            = {bg=cleareye.blue};
+
     BufferCurrent         = {fg=cleareye.fg,bg=cleareye.bg};
     BufferCurrentMod      = {fg=cleareye.blue,bg=cleareye.bg};
     BufferCurrentSign     = {fg=cleareye.blue,bg=cleareye.bg};
     BufferCurrentTarget   = {fg=cleareye.blue,bg=cleareye.bg,style="bold"};
     
-    BufferVisible         = {fg=cleareye.fg_alt,bg=cleareye.bg_alt};
-    BufferVisibleMod      = {fg=cleareye.blue,bg=cleareye.bg_alt};
-    BufferVisibleSign     = {fg=cleareye.fg,bg=cleareye.bg_alt};
-    BufferVisibleTarget   = {fg=cleareye.red,bg=cleareye.bg,style="bold"};
+    BufferVisible         = {fg=cleareye.fg,bg=cleareye.bg};
+    BufferVisibleMod      = {fg=cleareye.blue,bg=cleareye.bg};
+    BufferVisibleSign     = {fg=cleareye.blue,bg=cleareye.bg};
+    BufferVisibleTarget   = {fg=cleareye.blue,bg=cleareye.bg,style="bold"};
 
-    BufferInactive        = {fg=cleareye.fg_alt,bg=cleareye.bg_alt};
-    BufferInactiveMod     = {fg=cleareye.fg_alt,bg=cleareye.bg_alt};
-    BufferInactiveSign    = {fg=cleareye.fg,bg=cleareye.bg_alt};
-    -- BufferInactiveTarget fg_target,   bg_inactive,  'bold'],
+    BufferInactive        = {fg=cleareye.fg_dark,bg=cleareye.bg_dark};
+    BufferInactiveMod     = {fg=cleareye.fg_dark,bg=cleareye.bg_dark};
+    BufferInactiveSign    = {fg=cleareye.fg,bg=cleareye.bg_dark};
+    BufferInactiveTarget  = {fg=cleareye.red,bg=cleareye.bg_dark,style="bold"};
 
-    -- BufferTabpages',       fg_special,  bg_inactive, 'bold'],
-    -- BufferTabpageFill',    fg_inactive, bg_inactive],
+    BufferTabpages        = {fg=cleareye.fg_dark,bg=cleareye.bg_dark};
+    BufferTabpageFill     = {fg=cleareye.fg_dark,bg=cleareye.bg_dark};
 
   }
   return syntax

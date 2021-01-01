@@ -52,7 +52,6 @@ Plug 'dstein64/vim-startuptime'
 " highlightyank - highlights yanked text for a moment
 Plug 'machakann/vim-highlightedyank'
 let g:highlightedyank_highlight_duration = 500
-highlight HighlightedyankRegion cterm=reverse gui=reverse
 
 " Vim-repeat - . to redo commands
 Plug 'tpope/vim-repeat'

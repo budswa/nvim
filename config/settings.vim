@@ -87,7 +87,7 @@ set background=dark                     " Dark background is prefered
 set number                              " displays current line number on the line the cursor is on
 set relativenumber
 set numberwidth=2
-set signcolumn=auto:2                   " Allows characters to be rendered in side column
+set signcolumn=yes:1                   " Allows characters to be rendered in side column
 set cmdheight=1                         " Rows at bottom reserved for command, command outputs
 set redrawtime=200
 syntax on

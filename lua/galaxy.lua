@@ -5,7 +5,7 @@ gl.short_line_list = { 'defx', 'packager', 'vista' }
 
 -- Colors
 local colors = {
-  bg = '#282a36',
+  bg = '#21242b',
   fg = '#f8f8f2',
   section_bg = '#38393f',
   yellow = '#f1fa8c',
@@ -54,7 +54,7 @@ gls.left[2] = {
       return alias[vim.fn.mode()]..' '
     end,
     highlight = { colors.bg, colors.bg },
-    separator = "  ",
+    separator = " ",
     separator_highlight = {colors.bg, colors.section_bg},
   },
 }
@@ -72,13 +72,6 @@ gls.left[4] = {
     highlight = { colors.fg, colors.section_bg },
     separator = " ",
     separator_highlight = {colors.section_bg, colors.bg},
-  }
-}
-gls.left[5] = {
-  GitIcon = {
-    provider = function() return '  ' end,
-    condition = buffer_not_empty,
-    highlight = {colors.red,colors.bg},
   }
 }
 gls.left[6] = {
@@ -116,20 +109,20 @@ gls.left[11] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '  ',
-    highlight = {colors.red,colors.section_bg}
+    highlight = {colors.red,colors.bg}
   }
 }
 gls.left[13] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
-    highlight = {colors.orange,colors.section_bg},
+    highlight = {colors.orange,colors.bg},
   }
 }
 gls.left[14] = {
   Space = {
     provider = function () return ' ' end,
-    highlight = {colors.section_bg,colors.section_bg},
+    highlight = {colors.bg,colors.bg},
   }
 }
 gls.left[15] = {
@@ -147,8 +140,8 @@ gls.right[1]= {
   FileFormat = {
     provider = function() return vim.bo.filetype end,
     highlight = { colors.fg,colors.section_bg },
-    separator = ' ',
-    separator_highlight = { colors.section_bg,colors.bg },
+    separator = '| ',
+    separator_highlight = { colors.section_bg,colors.section_bg },
   }
 }
 gls.right[2] = {
@@ -166,7 +159,7 @@ gls.short_line_left[1] = {
     provider = 'FileTypeName',
     highlight = { colors.fg, colors.section_bg },
     separator = ' ',
-    separator_highlight = { colors.section_bg, colors.bg },
+    separator_highlight = { colors.bg, colors.bg },
   }
 }
 
