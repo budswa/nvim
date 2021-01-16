@@ -21,13 +21,9 @@ vnoremap > >gv
 nnoremap k gk
 nnoremap j gj
 
-" Saving and updating with Ctrl-s and Ctrl-S respectively
-noremap <silent> <C-s> :write<CR>
-noremap <silent> <C-S> :update<CR>
-
 nnoremap <leader>W :write<CR>
 
-" Which-key mappings 
+" Which-key mappings
 nnoremap <silent> <leader> :silent <c-u> :silent WhichKey '<space>'<cr>
 vnoremap <silent> <leader> :silent <c-u> :silent whichkeyvisual '<space>'<cr>
 
@@ -56,13 +52,14 @@ let g:which_key_map['E'] = [ ':LuaTreeToggle'                     , 'LuaTree']
 let g:which_key_map['h'] = [ '<C-W>s'                             , 'split below']
 let g:which_key_map['v'] = [ '<C-W>v'                             , 'split right']
 let g:which_key_map['f'] = [ ':Telescope find_files'              , 'search files' ]
+let g:which_key_map['F'] = [ ':Format'                            , 'format' ]
 let g:which_key_map['n'] = [ ':new'                               , 'new file' ]
 let g:which_key_map['U'] = [ ':UndoTreeToggle'                    , 'undotree' ]
 
 " a = actions
 let g:which_key_map.a = {
     \ 'name' : '+actions' ,
-    \ 'c' : [':ColorizerToggle'         , 'colorizer'],
+    \ 'h' : [':HexokinaseToggle'        , 'toggle hexokinase'],
     \ 'w' : [':StripWhitespace'         , 'strip whitespace'],
     \ }
 

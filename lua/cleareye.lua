@@ -9,11 +9,11 @@ local cleareye = {
   base7         = '#9ca0a4';
   base8         = '#b1b1b1';
 
-  bg            = '#282c34'; 
-  bg_dark       = '#21242b'; 
-  bg_popup      = '#3E4556'; 
-  bg_highlight  = '#2E323C'; 
-  bg_visual     = '#b3deef'; 
+  bg            = '#282c34';
+  bg_dark       = '#21242b';
+  bg_popup      = '#3E4556';
+  bg_highlight  = '#2E323C';
+  bg_visual     = '#b3deef';
 
   fg            = '#bbc2cf';
   fg_dark       = '#5B6268';
@@ -37,7 +37,7 @@ local cleareye = {
 
   bracket       = '#80A0C2';
   cursor_bg     = '#4f5b66';
-  
+
   none          = 'NONE';
 }
 
@@ -91,12 +91,12 @@ function cleareye.load_syntax()
     CursorColumn          = {fg=cleareye.none,bg=cleareye.bg_highlight};
     CursorLine            = {fg=cleareye.none,bg=cleareye.bg_highlight};
     LineNr                = {fg=cleareye.base4};
-    CursorLineNr          = {fg=cleareye.blue,bg=cleareye.bg_highlight};
+    CursorLineNr          = {fg=cleareye.yellow,bg=cleareye.bg_highlight};
     DiffAdd               = {fg=cleareye.black,bg=cleareye.green};
     DiffChange            = {fg=cleareye.black,bg=cleareye.yellow};
     DiffDelete            = {fg=cleareye.black,bg=cleareye.red};
     DiffText              = {fg=cleareye.black,bg=cleareye.fg};
-    Directory             = {fg=cleareye.bg_dark,bg=cleareye.none};
+    Directory             = {fg=cleareye.fg,bg=cleareye.none};
     ErrorMsg              = {fg=cleareye.red,bg=cleareye.none,style='bold'};
     WarningMsg            = {fg=cleareye.yellow,bg=cleareye.none,style='bold'};
     ModeMsg               = {fg=cleareye.fg,bg=cleareye.none,style='bold'};
@@ -112,8 +112,8 @@ function cleareye.load_syntax()
     WildMenu              = {fg=cleareye.fg,bg=cleareye.green};
     Question              = {fg=cleareye.yellow};
     NormalFloat           = {fg=cleareye.base8,bg=cleareye.bg_highlight};
-    StatusLine            = {fg=cleareye.base8,bg=cleareye.none,style=cleareye.none};
-    StatusLineNC          = {fg=cleareye.gey,bg=cleareye.none,style=cleareye.none};
+    StatusLine            = {fg=cleareye.base8,bg=cleareye.bg_dark,style=cleareye.none};
+    StatusLineNC          = {fg=cleareye.gey,bg=cleareye.bg_dark,style=cleareye.none};
     SpellBad              = {fg=cleareye.red,bg=cleareye.none,style='undercurl'};
     SpellCap              = {fg=cleareye.blue,bg=cleareye.none,style='undercurl'};
     SpellLocal            = {fg=cleareye.cyan,bg=cleareye.none,style='undercurl'};
@@ -154,7 +154,7 @@ function cleareye.load_syntax()
     Macro         = {fg=cleareye.cyan};
     Identifier    = {fg=cleareye.blue};
 
-    Comment         = {fg=cleareye.base6};
+    Comment         = {fg=cleareye.base6,style="italic"};
     SpecialComment  = {fg=cleareye.grey};
     Todo            = {fg=cleareye.violet};
     Delimiter       = {fg=cleareye.fg};
@@ -238,7 +238,7 @@ function cleareye.load_syntax()
 
     NvimTreeFolderName  = {fg=cleareye.blue};
     NvimTreeRootFolder  = {fg=cleareye.red};
-    NvimTreeSpecialFile = {fg=cleareye.fg,bg=cleareye.none,stryle='NONE'};
+    NvimTreeSpecialFile = {fg=cleareye.fg,bg=cleareye.none,style='NONE'};
 
     TelescopeBorder       = {fg=cleareye.teal};
     TelescopePromptBorder = {fg=cleareye.blue};
@@ -251,7 +251,7 @@ function cleareye.load_syntax()
     BufferCurrentMod      = {fg=cleareye.blue,bg=cleareye.bg};
     BufferCurrentSign     = {fg=cleareye.blue,bg=cleareye.bg};
     BufferCurrentTarget   = {fg=cleareye.blue,bg=cleareye.bg,style="bold"};
-    
+
     BufferVisible         = {fg=cleareye.fg,bg=cleareye.bg};
     BufferVisibleMod      = {fg=cleareye.blue,bg=cleareye.bg};
     BufferVisibleSign     = {fg=cleareye.blue,bg=cleareye.bg};
@@ -259,7 +259,7 @@ function cleareye.load_syntax()
 
     BufferInactive        = {fg=cleareye.fg_dark,bg=cleareye.bg_dark};
     BufferInactiveMod     = {fg=cleareye.fg_dark,bg=cleareye.bg_dark};
-    BufferInactiveSign    = {fg=cleareye.fg,bg=cleareye.bg_dark};
+    BufferInactiveSign    = {fg=cleareye.black,bg=cleareye.bg_dark};
     BufferInactiveTarget  = {fg=cleareye.red,bg=cleareye.bg_dark,style="bold"};
 
     BufferTabpages        = {fg=cleareye.fg_dark,bg=cleareye.bg_dark};

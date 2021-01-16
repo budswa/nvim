@@ -1,12 +1,12 @@
 " Config
 
+autocmd BufWritePre * %s/\s\+$//e " Automatically stip whitespace upon write
+
 " Clipboard setup
-if has('clipboard')
-  if has('unnamedplus')
-    set clipboard=unnamed,unnamedplus
-  else
-    set clipboard=unnamed
-  endif
+if has('unnamedplus')
+  set clipboard=unnamed,unnamedplus
+else
+  set clipboard=unnamed
 endif
 
 " Backups
@@ -28,7 +28,7 @@ if has('persistent_undo')
       call mkdir($HOME . "/.config/nvim/.undodir", "p")
     endif
     set undofile                          " Uses file(s) to store undo data, this allow persistence
-    set undodir=~/.config/nvim/.undodir//  
+    set undodir=~/.config/nvim/.undodir//
     set undolevels=500                    " Maximum number of changes that can be undone
     set undoreload=500                    " Maximum number lines to save for undo on a buffer reload
   endif
@@ -45,14 +45,14 @@ if exists('$SUDO_USER')
   endif
 else
   if has('nvim')
-    set shada=!,'300,<50,s10,h
+    set shada=!,'250,:100,/100,<50,s10,h,c
   else
-    set viminfo=!,'300,<50,s10,h,n$VARPATH/viminfo
+    set viminfo=!,'250,<50,s10,h,n$VARPATH/viminfo
   endif
 endif
 
 set title        " set terminal title
-set titlestring   =NVIM:\ %f
+set titlestring =NVIM:\ %f
 
 " File settings
 set encoding=utf-8                      " sets the file encoding to utf-8
@@ -76,6 +76,10 @@ set ignorecase                          " Ignore case while searching
 set smartcase                           " Ignore case while searching until capital entered
 set incsearch                           " search while typing
 
+" Wildmenu
+set wildmenu
+set wildmode=list,full
+
 " Visual
 if (has("termguicolors"))
     set termguicolors
@@ -83,7 +87,7 @@ if (has("termguicolors"))
 endif
 au VimEnter * colorscheme cleareye
 hi Comment cterm=italic
-set background=dark                     " Dark background is prefered 
+set background=dark                     " Dark background is prefered
 set number                              " displays current line number on the line the cursor is on
 set relativenumber
 set numberwidth=2
@@ -92,7 +96,7 @@ set cmdheight=1                         " Rows at bottom reserved for command, c
 set redrawtime=200
 syntax on
 set fillchars+=vert:│
-set inccommand=nosplit
+" set inccommand=nosplit
 set noshowmode
 set cursorline
 set colorcolumn=80
@@ -119,23 +123,19 @@ set mouse=a                             " enables mouse and scroll wheel
 set magic                               " More characters available for commands
 set noconfirm                           " starts a confim prompt
 set updatetime=10
-set shortmess+=c                        " Changes message/ warning behaviour
 set backspace=indent,eol,start
 set timeoutlen=500                      " Time in miliseconds to complete a mapped sequence
 set whichwrap+=h,l
 set noerrorbells                        " No annoying audio bell
 set novisualbell                        " No annoying visual bell
 
-set formatoptions-=a    " Auto formatting is BAD.
-set formatoptions-=t    " Don't auto format my code. I got linters for that.
-set formatoptions+=c    " In general, I like it when comments respect textwidth
-set formatoptions+=q    " Allow formatting comments w/ gq
-set formatoptions-=o    " O and o, don't continue comments
-set formatoptions-=r    " But do continue when pressing enter.
-set formatoptions+=n    " Indent past the formatlistpat, not underneath it.
-set formatoptions+=j    " Auto-remove comments if possible.
-set formatoptions-=2    " I'm not in gradeschool anymore
-set nojoinspaces        " Two spaces and grade school, we're done
+set shortmess=aosTAI
+
+set formatoptions+=t
+set formatoptions+=c
+set formatoptions-=r
+set formatoptions-=o
+set formatoptions-=r
 
 if !has('nvim')
   set ttyfast " faster redrawing
