@@ -39,6 +39,10 @@ Plug 'liuchengxu/vim-which-key'
 " Startify - nvim
 Plug 'mhinz/vim-startify'
 
+" vimwiki - note taking plugin for vim
+Plug 'vimwiki/vimwiki'
+source $HOME/.config/nvim/config/vimwiki.vim
+
 " vim-inyoface - for showing comments
 Plug 'tjdevries/vim-inyoface'
 
@@ -158,6 +162,9 @@ Plug 'windwp/nvim-autopairs'
 " architext.nvim - structural editing plugin for Neovim
 Plug 'vigoux/architext.nvim'
 
+" sql.nvim - sql bindings for nvim
+Plug 'tami5/sql.nvim'
+
 " dial.nvim - extended increment/decrement
 Plug 'monaqa/dial.nvim'
 
@@ -185,6 +192,7 @@ source $HOME/.config/nvim/config/completion.vim
 Plug 'nvim-lua/telescope.nvim'
   " Plug 'nvim-telescope/telescope-packer.nvim' NEED PACKER.NVIM TO WORK
   Plug 'nvim-telescope/telescope-symbols.nvim'
+  Plug 'nvim-telescope/telescope-frecency.nvim'
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
 
