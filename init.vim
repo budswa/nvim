@@ -29,7 +29,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 Plug 'tjdevries/nlua.nvim'
 Plug 'euclidianAce/BetterLua.vim'
 
-
+" polyglot - for syntax highlighting support
 Plug 'sheerun/vim-polyglot'
 
 " Other plugins
@@ -39,18 +39,11 @@ Plug 'liuchengxu/vim-which-key'
 " Startify - nvim
 Plug 'mhinz/vim-startify'
 
-" vimwiki - note taking plugin for vim
-Plug 'vimwiki/vimwiki'
-source $HOME/.config/nvim/config/vimwiki.vim
-
 " vim-inyoface - for showing comments
 Plug 'tjdevries/vim-inyoface'
 
 " bbye - bufferbye, used for managing buffers and window structure
 Plug 'moll/vim-bbye'
-
-" vim-godot - godot game engine support and syntax
-Plug 'habamax/vim-godot'
 
 " clever-f
 Plug 'rhysd/clever-f.vim'
@@ -79,18 +72,11 @@ Plug 'tpope/vim-repeat'
 " Vim-sneak - 'sneaking'
 Plug 'justinmk/vim-sneak'
 
-" Gist.vim
-Plug 'mattn/webapi-vim'
-  Plug 'mattn/vim-gist'
-
 " vim-sandwich - surround alternative
 Plug 'machakann/vim-sandwich'
 
 " vim-move - move visually selected text
 Plug 'matze/vim-move'
-
-" vim-commentary - commenting keybinds
-Plug 'tpope/vim-commentary'
 
 " splitjoin - allows you to 'expand' code
 Plug 'AndrewRadev/splitjoin.vim'
@@ -98,9 +84,6 @@ Plug 'AndrewRadev/splitjoin.vim'
 " vim-hexokinase
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 source $HOME/.config/nvim/config/hexokinase.vim
-
-" vim-expand-region - expand visually selected text by objects
-Plug 'terryma/vim-expand-region'
 
 " vim-characterize - pressing 'ga'  on a character reveals its value in hex
 Plug 'tpope/vim-characterize'
@@ -116,6 +99,9 @@ Plug 'wellle/targets.vim'
 
 " vim-cool - after searching disables search highlighting
 Plug 'romainl/vim-cool'
+
+" vim-illuminate - illuminate all visable instances of word under cursor
+Plug 'RRethy/vim-illuminate'
 
 " vim-rooter - sets root directory to vcs root
 Plug 'airblade/vim-rooter'
@@ -135,23 +121,20 @@ Plug 'chrisbra/NrrwRgn'
 " traces.vim - range, pattern and substitute preview for Vim
 Plug 'markonm/traces.vim'
 
-" vim-matchup
-Plug 'andymass/vim-matchup'
+" nvim-ts-rainbow - treesitter compata
+Plug 'p00f/nvim-ts-rainbow'
 
 " gitsigns.nvim
 Plug 'lewis6991/gitsigns.nvim'
-
-" vim-signify - shows diffs with the signcol
-" Plug 'mhinz/vim-signify'
-" let g:signify_sign_add               = '+'
-" let g:signify_sign_delete            = '-'
-" let g:signify_sign_change            = '!'
 
 " minimap.vim - minimap built on code-minimap
 Plug 'wfxr/minimap.vim'
 
 " FTerm.nvim - floating terminal built in Lua
 Plug 'numtostr/FTerm.nvim'
+
+" toggleterm
+Plug 'akinsho/nvim-toggleterm.lua'
 
 " Iron.nvim - interactive repls for whatever language
 Plug 'hkupty/iron.nvim'
@@ -175,6 +158,21 @@ Plug 'mhartington/formatter.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 source $HOME/.config/nvim/config/nvimtree.vim
+
+" kommentary - commenting keybinds
+Plug 'b3nj5m1n/kommentary'
+
+" nvim-compe
+Plug 'hrsh7th/nvim-compe'
+
+" nvim-lightbulb
+Plug 'kosayoda/nvim-lightbulb'
+
+" lspsaga.nvim
+Plug 'glepnir/lspsaga.nvim'
+
+" lspinstall
+Plug 'anott03/nvim-lspinstall'
 
 " nvim-lspconfig
 Plug 'neovim/nvim-lspconfig'
@@ -221,11 +219,4 @@ call plug#end()
 " Keybinds
 source $HOME/.config/nvim/config/keys.vim
 
-" Plugin configs based in lua
-lua require ('galaxy')
-lua require ('lsp-config')
-lua require ('treesitter')
-lua require ('telescope')
-lua require ('format')
-lua require ('gitsigns')
-lua require ('nvim-autopairs').setup()
+lua require ('init')
