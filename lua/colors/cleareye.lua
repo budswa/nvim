@@ -207,10 +207,6 @@ function cleareye.load_syntax()
     VistaIcon       = {fg=cleareye.yellow};
     VistaLineNr     = {fg=cleareye.fg};
 
-    SignifySignAdd    = {fg=cleareye.green};
-    SignifySignChange = {fg=cleareye.blue};
-    SignifySignDelete = {fg=cleareye.red};
-
     dbui_tables       = {fg=cleareye.blue};
 
     DashboardShortCut = {fg=cleareye.violet};
@@ -264,6 +260,10 @@ function cleareye.load_syntax()
 
     BufferTabpages        = {fg=cleareye.fg_dark,bg=cleareye.bg_dark};
     BufferTabpageFill     = {fg=cleareye.fg_dark,bg=cleareye.bg_dark};
+
+    GitSignsAdd		  = {fg=cleareye.green};
+    GitSignsChange	  = {fg=cleareye.blue};
+    GitSignDelete	  = {fg=cleareye.red};
 
   }
   return syntax

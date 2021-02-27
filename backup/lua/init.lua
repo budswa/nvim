@@ -3,13 +3,15 @@ require ('lsp-config')
 
   -- Completion
 require ('lightbulb')
-require ('compe')
+require ('compeconf')
+require ('lspkind')
 
   -- UI
 require ('galaxy')
 require ('telescope')
 require ('treesitter')
 require ('gitsigns')
+require ('indentline')
 require ('iron')
 
 -- Tools & other

@@ -39,4 +39,4 @@ of the dependencies.
 * Ripgrep
 * fd
 * Universal-ctags
-* Lazygit
+* gh (github-cli)

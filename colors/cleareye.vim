@@ -1,1 +1,1 @@
-lua require('cleareye')
+lua require('colors/cleareye')

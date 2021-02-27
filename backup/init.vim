@@ -45,6 +45,13 @@ Plug 'tjdevries/vim-inyoface'
 " bbye - bufferbye, used for managing buffers and window structure
 Plug 'moll/vim-bbye'
 
+" vim-apm
+Plug 'ThePrimeagen/vim-apm'
+
+" indent-blankline.nvim
+Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
+source $HOME/.config/nvim/config/indentline.vim
+
 " clever-f
 Plug 'rhysd/clever-f.vim'
 
@@ -127,6 +134,13 @@ Plug 'p00f/nvim-ts-rainbow'
 " gitsigns.nvim
 Plug 'lewis6991/gitsigns.nvim'
 
+" instant.nvim - colab
+Plug 'jbyuki/instant.nvim'
+let g:instant_username = "m2"
+
+" Sidekick
+Plug 'ElPiloto/sidekick.nvim'
+
 " minimap.vim - minimap built on code-minimap
 Plug 'wfxr/minimap.vim'
 
@@ -151,6 +165,9 @@ Plug 'tami5/sql.nvim'
 " dial.nvim - extended increment/decrement
 Plug 'monaqa/dial.nvim'
 
+" nvim-autospace
+Plug 'windwp/nvim-autospace'
+
 " Formatter.nvim - a format runner for neovime written in Lua
 Plug 'mhartington/formatter.nvim'
 
@@ -165,26 +182,37 @@ Plug 'b3nj5m1n/kommentary'
 " nvim-compe
 Plug 'hrsh7th/nvim-compe'
 
+" complextras
+Plug 'tjdevries/complextras.nvim'
+
 " nvim-lightbulb
 Plug 'kosayoda/nvim-lightbulb'
 
 " lspsaga.nvim
 Plug 'glepnir/lspsaga.nvim'
 
+" lspkind-nvim - shows the result type of lsp results in completion window
+Plug 'onsails/lspkind-nvim'
+
 " lspinstall
 Plug 'anott03/nvim-lspinstall'
+
+" lspupdate
+Plug 'alexaandru/nvim-lspupdate'
 
 " nvim-lspconfig
 Plug 'neovim/nvim-lspconfig'
   Plug 'RishabhRD/nvim-lsputils'
   Plug 'nvim-lua/lsp_extensions.nvim'
 
+" nvim-cursorline
+Plug 'yamatsum/nvim-cursorline'
+
 " Completion, snippets and snippet engine
 Plug 'nvim-lua/completion-nvim'
   Plug 'steelsojka/completion-buffers'
 Plug 'hrsh7th/vim-vsnip'
   Plug 'honza/vim-snippets'
-source $HOME/.config/nvim/config/completion.vim
 
 " telescope.nvim
 Plug 'nvim-lua/telescope.nvim'
@@ -210,6 +238,9 @@ Plug 'tjdevries/vlog.nvim'
 
 " nsync.nvim
 Plug 'tjdevries/nsync.nvim'
+
+" Train.nvim - train yourself the vim motion keybinds
+Plug 'tjdevries/train.nvim'
 
 " galaxyline.nvim
 Plug 'glepnir/galaxyline.nvim'
