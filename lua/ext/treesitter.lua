@@ -3,11 +3,6 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
   },
-  playground = {
-    enable = true,
-    updatetime = 25,
-    persist_queries = false
-  },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -20,7 +15,12 @@ require'nvim-treesitter.configs'.setup {
 	indent = {
     enable = true
   },
-	rainbow = {
+  playground = {
+    enable = true,
+    updatetime = 25,
+    persist_queries = false
+  },
+  rainbow = {
     enable = true
   },
   refactor = {

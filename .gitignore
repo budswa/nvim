@@ -1,4 +1,7 @@
-autoload/
+plugin/
 .backupdir/
 .undodir/
-
+init.lua~
+lua/*.lua~
+lua/*/*.lua~
+.gitignore~

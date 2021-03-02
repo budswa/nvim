@@ -1,79 +1,89 @@
-local o = vim.o
 local g = vim.g
-local w = vim.w
-local b = vim.b
+
+local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
+
+local function opt(scope, key, value)
+  scopes[scope][key] = value
+  if scope ~= 'o' then scopes['o'][key] = value end
+end
+
+-- Encoding
+opt('o', 'encoding' , 'utf8')
 
 -- Indentation and tabs
-b.expandtab = false
-b.shiftwidth = 2
-b.smartindent = true
-b.tabstop = 2
-o.smarttab = true
-o.softtabstop = 2
-o.shiftround = true
+opt('b', 'expandtab', false)
+opt('b', 'shiftwidth', 2)
+opt('b', 'smartindent', true)
+opt('b', 'tabstop', 2)
+opt('o', 'smarttab', true)
+opt('b', 'smartindent', true)
+opt('b', 'softtabstop', 2)
+opt('o', 'shiftround', true)
 
 -- Clipboard
-o.clipboard = 'unnamedplus'
+-- opt('o', 'clipboard', 'unamedplus')
 
 -- Number column
-w.number = true
-w.relativenumber = true
-w.numberwidth = 3
+opt('w', 'number', true)
+opt('w', 'relativenumber', true)
+opt('w', 'numberwidth', 2)
 
 -- Other interface options
-b.formatoptions = 'Mj'
-w.colorcolumn = '80'
-o.shortmess = 'asTAI'
-o.termguicolors = true
-o.hidden = true
-
--- Signcolumn
-w.signcolumn = 'yes:1'
+opt('b', 'formatoptions', 'Mj')
+opt('w', 'colorcolumn', '80')
+opt('o', 'shortmess', 'asTAI')
+opt('o', 'termguicolors', true)
+opt('w', 'signcolumn', 'yes:1')
 
 -- Wildmenu
-o.wildmenu = true
-o.wildmode = 'list:longest'
+opt('o', 'wildmenu', true)
+opt('o', 'wildmode', 'list:longest')
 
 -- List
-w.list = true
-o.listchars = 'precedes:<,extends:>,eol:⏎'
+opt('w', 'list', true)
+opt('o', 'listchars', 'precedes:<,extends:>,eol:⏎')
 
 -- Scrolloff
-o.scrolloff = 2
-o.sidescrolloff = 2
+opt('o', 'scrolloff', 2)
+opt('o', 'sidescrolloff', 2)
 
 -- Wrap
-w.wrap = false
+opt('w', 'wrap', false)
 
 -- Fold
 
 -- Split
-o.splitbelow = true
-o.splitright = true
+opt('o', 'splitbelow', true)
+opt('o', 'splitright', true)
 
 -- Backup
-o.backup = false
---o.writebackup = true
---o.backupdir = '.backupdir/'
+opt('o', 'backup', true)
+opt('o', 'writebackup', true)
+-- g.backupdir = vim.fn.expand(vim.fn.stdpath("data") .. "./backupdir//")
+-- opt('o', 'backupdir', '')
 
 -- Undo
-o.undofile = true
-o.undodir = '.undodir/'
-o.undolevels = 250
-o.undoreload = 500
+opt('o', 'undofile', true)
+-- g.undodir = vim.fn.expand(vim.fn.stdpath("data") .. "./undodir//")
+-- opt('o', 'undodir', '')
+opt('o', 'undolevels', 500)
+opt('o', 'undoreload', 500)
 
 --Search
-o.incsearch = true
-o.smartcase = true
-o.ignorecase = true
 
 -- Swapfiles
-o.swapfile = false
+opt('b', 'swapfile', false)
 
 -- Completion
-o.completeopt = "menuone,noinsert,noselect"
-o.pumheight = 10
-o.pumwidth = 16
+opt('o', 'completeopt', 'menuone,noinsert,noselect')
+opt('o', 'pumheight', 10)
+opt('o', 'pumwidth', 16)
+
+-- Yanks
+vim.cmd('au TextYankPost * silent! lua vim.highlight.on_yank {timeout = 500}')
+
+-- Mouse
+opt('o', 'mouse', 'a')
 
 -- Providers
 g.python_host_skip_check = 0
@@ -104,8 +114,3 @@ g.loaded_netrwPlugin = 1
 g.loaded_netrwSettings = 1
 g.loaded_netrwFileHandlers = 1
 
--- Yanks
-vim.cmd('au TextYankPost * silent! lua vim.highlight.on_yank {timeout = 500}')
-
--- Mouse
-o.mouse = 'a'

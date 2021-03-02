@@ -1,5 +1,5 @@
-local api = vim.api
+local map = vim.api.nvim_set_keymap
 
 vim.g.mapleader = ' '
-vim.b.mapleader = ' '
 
+-- map('n')

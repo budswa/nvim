@@ -1,9 +1,5 @@
 -- Configrations
 require ('plugins')
+require ('cleareye')
 require ('options')
 require ('mappings')
-
--- Colorscheme
-require ('colors/cleareye')
-
-
