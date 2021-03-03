@@ -1,3 +1,5 @@
+vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
+
 local install_path = vim.fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.api.vim_command('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
@@ -17,11 +19,18 @@ return require('packer').startup(function()
       require('ext.lsp')
     end
   }
+	use {'RishabhRD/nvim-lsputils'}
   use {'alexaandru/nvim-lspupdate'}
   use {'glepnir/lspsaga.nvim'}
   use {'onsails/lspkind-nvim'}
   use {'nvim-lua/lsp-status.nvim'}
 	use {'tjdevries/lsp_extensions.nvim'}
+	use {
+		'kosayoda/nvim-lightbulb',
+		config = function()
+			require ('ext/lightbulb')
+		end
+	}
 
   -- Completion
   use {
@@ -30,6 +39,12 @@ return require('packer').startup(function()
       require ('ext/completion')
     end
   }
+
+	-- Debugging & linting
+	use {'mfussenegger/nvim-lint'}
+	use {'mfussenegger/nvim-dap'}
+	use {'theHamsta/nvim-dap-virtual-text'}
+
   -- Snippets
   use {
     'norcalli/snippets.nvim',
@@ -60,13 +75,18 @@ return require('packer').startup(function()
       require ('ext/telescope')
     end
   }
+	use {
+		'nvim-telescope/telescope-dap.nvim',
+		config = function()
+			require('telescope').load_extension('dap')
+		end
+	}
   use {
     'nvim-telescope/telescope-snippets.nvim',
     config = function()
       require ('telescope').load_extension('snippets')
     end
   }
-
   use {'nvim-telescope/telescope-symbols.nvim'}
   use {
     'nvim-telescope/telescope-github.nvim',
@@ -80,7 +100,6 @@ return require('packer').startup(function()
       require"telescope".load_extension("frecency")
     end
   }
-
   use {'nvim-telescope/telescope-packer.nvim'}
 
   -- Filetree
@@ -104,6 +123,7 @@ return require('packer').startup(function()
       require ('ext/fterm')
     end
   }
+	use {'oberblastmeister/termwrapper.nvim'}
 
   -- Statusline
   use {
@@ -126,6 +146,7 @@ return require('packer').startup(function()
 	}
 
   -- UI
+	use {'notomo/cmdbuf.nvim'}
   use {'kyazdani42/nvim-web-devicons'}
   use {
     'beauwilliams/focus.nvim',
@@ -163,6 +184,7 @@ return require('packer').startup(function()
 
   -- Git
   use {'TimUntersberger/neogit'}
+	use {'f-person/git-blame.nvim'}
   use {
     'lewis6991/gitsigns.nvim',
     requires = {
@@ -220,6 +242,17 @@ return require('packer').startup(function()
 	-- Misc
   use {'andweeb/presence.nvim'}
 
+  use {
+		'oberblastmeister/neuron.nvim',
+		config = function()
+			require ('ext/neuron')
+		end
+	}
+
+	-- use {'gelguy/wilder.nvim'}
+
+	use {'lucc/nvimpager'}
+
   use {'tjdevries/nsync.nvim'}
 
   use {'mhinz/vim-startify'}
@@ -230,7 +263,7 @@ return require('packer').startup(function()
 
   use {
 		'dstein64/vim-startuptime',
-	  cmd = 'StartupTime',  
+	  cmd = 'StartupTime',
 	}
 
   use {'tami5/sql.nvim'}
@@ -241,10 +274,11 @@ return require('packer').startup(function()
   use {'budswa/cleareye-nvim'}
   -- Language specific plugins
   -- Lua
-  use {'tjdevries/nlua.nvim'}
-  use {'euclidianAce/BetterLua.vim'}
-	use {'bfredl/nvim-luadev'}
-	use {'rafcamlet/nvim-luapad'}
-	use {'tjdevries/manillua.nvim'}
+  use {'tjdevries/nlua.nvim', ft='lua'}
+	-- use {'tjdevries/tree-sitter-lua', ft='lua'}
+  use {'euclidianAce/BetterLua.vim', ft='lua'}
+	use {'bfredl/nvim-luadev', ft='lua'}
+	use {'rafcamlet/nvim-luapad', ft='lua'}
+	use {'tjdevries/manillua.nvim', ft='lua'}
 
 end)

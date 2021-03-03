@@ -1,12 +1,12 @@
 require('gitsigns').setup{
    signs = {
-    add          = {hl = 'GitSignsAdd'   , text = '+'},
-    change       = {hl = 'GitSignsChange', text = '~'},
-    changedelete = {hl = 'GitSignsDelete', text = '-'},
-    delete       = {hl = 'GitSignsDelete', text = '-'},
-    topdelete    = {hl = 'GitSignsDelete', text = '-'},
+    add          = {hl = 'GitSignsAdd'   , text = '▊', numhl = 'GitSignsAdd'},
+    change       = {hl = 'GitSignsChange', text = '▊', numhl = 'GitSignsChage'},
+    changedelete = {hl = 'GitSignsDelete', text = '▊', numhl = 'GitSignsDelete'},
+    delete       = {hl = 'GitSignsDelete', text = '▊', numhl = 'GitSignsDelete'},
+    topdelete    = {hl = 'GitSignsDelete', text = '▊', numhl = 'GitSignsDelete'},
   },
-  numhl = false,
+  numhl = true,
   keymaps = {
     noremap = true,
     buffer = true,
@@ -19,13 +19,9 @@ require('gitsigns').setup{
     ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
     ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
     ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line()<CR>',
-
-    -- Text objects
-    ['o ih'] = ':<C-U>lua require"gitsigns".text_object()<CR>',
-    ['x ih'] = ':<C-U>lua require"gitsigns".text_object()<CR>'
   },
   watch_index = {
-    interval = 1000
+    interval = 100
   },
   sign_priority = 6,
 }

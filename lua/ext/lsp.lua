@@ -25,7 +25,7 @@ local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-l
 local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
 
 require'lspconfig'.sumneko_lua.setup {
-  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
   settings = {
     Lua = {
       runtime = {
@@ -43,4 +43,46 @@ require'lspconfig'.sumneko_lua.setup {
       },
     },
   },
+}
+
+require'lspconfig'.intelephense.setup{
+	cmd = { "intelephense", "--stdio" },
+	filetypes = { "php" },
+}
+
+require'lspconfig'.html.setup{
+	cmd = { "html-languageserver", "--stdio" },
+	filetypes = { "html", "php" },
+	init_options = {
+		configurationSection = { "html", "css", "javascript" },
+		embeddedLanguages = {
+			css = true,
+			javascript = true
+		},
+  },
+}
+
+
+require'lspconfig'.cssls.setup{
+	cmd = { "css-languageserver", "--stdio" },
+	filetypes = { "css", "scss", "less" },
+	settings = {
+		css = {
+			validate = true
+		},
+		less = {
+			validate = true
+		},
+		scss = {
+			validate = true
+		},
+	}
+}
+
+require'lspconfig'.bashls.setup{
+	cmd = { "bash-language-server", "start" },
+	cmd_env = {
+		GLOB_PATTERN = "*@(.sh|.inc|.bash|.command)"
+	},
+	filetypes = { "sh" },
 }
