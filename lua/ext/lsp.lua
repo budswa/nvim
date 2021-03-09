@@ -86,3 +86,28 @@ require'lspconfig'.bashls.setup{
 	},
 	filetypes = { "sh" },
 }
+local pid = vim.fn.getpid()
+local omnisharp_bin = "/usr/bin/omnisharp"
+require'lspconfig'.omnisharp.setup{
+	cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+}
+
+require'lspconfig'.gdscript.setup{
+	filetypes = { "gd", "gdscript3" }
+}
+
+require'lspconfig'.jsonls.setup{
+	filetypes = { "json" }
+}
+
+require'lspconfig'.pyls.setup{
+	filetypes = { "python" }
+}
+
+require'lspconfig'.gopls.setup{
+	filetypes = { "go" }
+}
+
+require'lspconfig'.clangd.setup{
+	filetypes = { "c", "cpp" ,"objc" , "objcpp" }
+}

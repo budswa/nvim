@@ -72,6 +72,7 @@ opt('o', 'undoreload', 500)
 --Search
 
 -- Swapfiles
+opt('o', 'swapfile', false)
 opt('b', 'swapfile', false)
 
 -- Completion

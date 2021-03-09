@@ -20,17 +20,17 @@ return require('packer').startup(function()
     end
   }
 	use {'RishabhRD/nvim-lsputils'}
-  use {'alexaandru/nvim-lspupdate'}
+  use {'glepnir/lspmeta.nvim'}
   use {'glepnir/lspsaga.nvim'}
   use {'onsails/lspkind-nvim'}
   use {'nvim-lua/lsp-status.nvim'}
 	use {'tjdevries/lsp_extensions.nvim'}
-	use {
+	--[[ use {
 		'kosayoda/nvim-lightbulb',
 		config = function()
 			require ('ext/lightbulb')
 		end
-	}
+	} ]]
 
   -- Completion
   use {
@@ -178,7 +178,12 @@ return require('packer').startup(function()
     end
   }
 
-  use {'kevinhwang91/nvim-hlslens'}
+  use {
+		'kevinhwang91/nvim-hlslens',
+		config = function()
+			require ('ext/hlslens')
+		end
+	}
 
   use {'yamatsum/nvim-cursorline'}
 
@@ -223,12 +228,14 @@ return require('packer').startup(function()
     config = function()
       vim.api.nvim_set_keymap('n', 'j', '<Plug>(faster_move_j)', {noremap=false, silent=true})
       vim.api.nvim_set_keymap('n', 'k', '<Plug>(faster_move_k)', {noremap=false, silent=true})
-    end
+		end
   }
+
+	use {'justinmk/vim-sneak'}
 
   use {'blackCauldron7/surround.nvim'}
 
-  use {'phaazon/hop.nvim'}
+	use {'phaazon/hop.nvim'}
 
   use {'tjdevries/train.nvim'}
 
@@ -239,7 +246,12 @@ return require('packer').startup(function()
   use {'jbyuki/instant.nvim'}
   vim.g.instant_username = "m2"
 
+  use {'zegervdv/nrpattern.nvim'}
+
 	-- Misc
+
+  use {'AndrewRadev/splitjoin.vim'}
+
   use {'andweeb/presence.nvim'}
 
   use {
@@ -249,13 +261,24 @@ return require('packer').startup(function()
 		end
 	}
 
-	-- use {'gelguy/wilder.nvim'}
+  use {'tpope/vim-repeat'}
+
+	use {'delphinus/artify.nvim'}
+
+	use {'rhysd/clever-f.vim'}
+
+	use {'gelguy/wilder.nvim'}
 
 	use {'lucc/nvimpager'}
 
   use {'tjdevries/nsync.nvim'}
 
-  use {'mhinz/vim-startify'}
+	use {
+		'glepnir/dashboard-nvim',
+		config = function()
+			require ('ext/dashboard')
+		end
+	}
 
   use {'vigoux/architext.nvim'}
 
@@ -266,19 +289,28 @@ return require('packer').startup(function()
 	  cmd = 'StartupTime',
 	}
 
+  use {'jbyuki/ntangle.nvim'}
+
   use {'tami5/sql.nvim'}
 
   use {'delphinus/characterize.nvim'}
 
+	use {'liuchengxu/vim-which-key'}
+
   -- Colorscheme
-  use {'budswa/cleareye-nvim'}
-  -- Language specific plugins
-  -- Lua
+  use {'budswa/cleareye-nvim', as = 'cleareye'}
+
+  -- Language support plugins
+  -- Generic
+	use {'sheerun/vim-polyglot'}
+	-- Lua
   use {'tjdevries/nlua.nvim', ft='lua'}
-	-- use {'tjdevries/tree-sitter-lua', ft='lua'}
+  use {'tjdevries/tree-sitter-lua', ft='lua'}
   use {'euclidianAce/BetterLua.vim', ft='lua'}
 	use {'bfredl/nvim-luadev', ft='lua'}
 	use {'rafcamlet/nvim-luapad', ft='lua'}
 	use {'tjdevries/manillua.nvim', ft='lua'}
+  -- Godot
+  use {'habamax/vim-godot'}
 
 end)
