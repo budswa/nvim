@@ -1,1 +1,1 @@
-require'snippets'.use_suggested_mappings(true)
+vim.g.vsnip_snippet_dir = "~/.config/nvim/snippets"
