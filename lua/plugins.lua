@@ -74,6 +74,7 @@ return require("packer").startup(function()
 
 	-- Quickfix
 	use({ "kevinhwang91/nvim-bqf" })
+	use({"alexanderjeurissen/qedit.nvim"})
 
 	-- Treesitter
 	use({
@@ -277,6 +278,8 @@ return require("packer").startup(function()
 
 	use({ "phaazon/hop.nvim" })
 
+	use({"https://github.com/jbyuki/monolithic.nvim"})
+
 	use({ "tjdevries/train.nvim" })
 
 	use({ "ThePrimeagen/vim-be-good" })
@@ -288,11 +291,6 @@ return require("packer").startup(function()
 
 	use({ "zegervdv/nrpattern.nvim" })
 
-	use({
-		"edluffy/specs.nvim",
-		config = [[require({"ext/specs"})]],
-	})
-
 	-- Notes
 	use({"jbyuki/nabla.nvim"})
 	use {'kristijanhusak/line-notes.nvim'}
@@ -302,6 +300,11 @@ return require("packer").startup(function()
 	use({ "AndrewRadev/splitjoin.vim" })
 
 	use({ "tjdevries/astronauta.nvim" })
+
+	use({
+		"npxbr/glow.nvim",
+		run = ':GlowInstall'
+	})
 
 	use({ "andweeb/presence.nvim" })
 
@@ -340,7 +343,7 @@ return require("packer").startup(function()
 	use({ "jbyuki/ntangle.nvim" })
 
 	use({ "tami5/sql.nvim" })
-	
+
 	use({"pwntester/codeql.nvim"})
 
 	use({ "delphinus/characterize.nvim" })
