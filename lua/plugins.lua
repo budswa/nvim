@@ -25,9 +25,9 @@ return require("packer").startup(function()
 	})
 	use({ "glepnir/lspmeta.nvim" })
 	use({ "alexaandru/nvim-lspupdate" })
+	use({ "kabouzeid/nvim-lspinstall" })
 	use({
 		"glepnir/lspsaga.nvim",
-		cmd = "Lspsaga",
 	})
 	use({ "onsails/lspkind-nvim" })
 	use({ "nvim-lua/lsp-status.nvim" })
@@ -43,7 +43,6 @@ return require("packer").startup(function()
 	-- Completion
 	use({
 		"hrsh7th/nvim-compe",
-		event = "InsertEnter",
 		config = function()
 			require("ext/completion")
 		end,
@@ -74,7 +73,7 @@ return require("packer").startup(function()
 
 	-- Quickfix
 	use({ "kevinhwang91/nvim-bqf" })
-	use({"alexanderjeurissen/qedit.nvim"})
+	use({ "alexanderjeurissen/qedit.nvim" })
 
 	-- Treesitter
 	use({
@@ -105,6 +104,9 @@ return require("packer").startup(function()
 		config = function()
 			require("nvim-ts-autotag").setup()
 		end,
+	})
+	use({
+		"JoosepAlviste/nvim-ts-context-commentstring",
 	})
 
 	-- Telescope
@@ -174,7 +176,6 @@ return require("packer").startup(function()
 	-- Undotree
 	use({
 		"mbbill/undotree",
-		cmd = "UndotreeToggle",
 		config = function()
 			require("ext/undotree")
 		end,
@@ -272,13 +273,16 @@ return require("packer").startup(function()
 		end,
 	})
 
+	-- Script running
+	use({ "jbyuki/dash.nvim" })
+
 	use({ "justinmk/vim-sneak" })
 
 	use({ "blackCauldron7/surround.nvim" })
 
 	use({ "phaazon/hop.nvim" })
 
-	use({"https://github.com/jbyuki/monolithic.nvim"})
+	use({ "https://github.com/jbyuki/monolithic.nvim" })
 
 	use({ "tjdevries/train.nvim" })
 
@@ -289,11 +293,14 @@ return require("packer").startup(function()
 	use({ "jbyuki/instant.nvim" })
 	vim.g.instant_username = "m2"
 
-	use({ "zegervdv/nrpattern.nvim" })
+	use({ "ThePrimeagen/vim-apm" })
+
+	-- use({ "zegervdv/nrpattern.nvim" })
 
 	-- Notes
-	use({"jbyuki/nabla.nvim"})
-	use {'kristijanhusak/line-notes.nvim'}
+	use({ "jbyuki/nabla.nvim" })
+	use({ "oberblastmeister/neuron.nvim" })
+	use({ "kristijanhusak/line-notes.nvim" })
 
 	-- Misc
 
@@ -303,7 +310,7 @@ return require("packer").startup(function()
 
 	use({
 		"npxbr/glow.nvim",
-		run = ':GlowInstall'
+		run = ":GlowInstall",
 	})
 
 	use({ "andweeb/presence.nvim" })
@@ -340,15 +347,19 @@ return require("packer").startup(function()
 		cmd = "StartupTime",
 	})
 
+	use({ "jbyuki/ntangle-lsp.nvim" })
 	use({ "jbyuki/ntangle.nvim" })
 
 	use({ "tami5/sql.nvim" })
 
-	use({"pwntester/codeql.nvim"})
+	use({ "pwntester/codeql.nvim" })
 
 	use({ "delphinus/characterize.nvim" })
 
-	use({"svermeulen/vimpeccable"})
+	use({ "svermeulen/vimpeccable" })
+
+	-- GAMES!
+	use({ "alec-gibson/nvim-tetris" })
 
 	-- Colorscheme
 	use({

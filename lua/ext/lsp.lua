@@ -1,39 +1,24 @@
--- vim.fn.sign_define(
--- 	"LspDiagnosticsSignError",
--- 	{ text = "●", texthl = "LspDiagnosticsSignError", linehl = "", numhl = "" }
--- )
--- vim.fn.sign_define(
--- 	"LspDiagnosticsSignWarning",
--- 	{ text = "●", texthl = "LspDiagnosticsSignWarning", linehl = "", numhl = "" }
--- )
--- vim.fn.sign_define(
--- 	"LspDiagnosticsSignInformation",
--- 	{ text = "●", texthl = "LspDiagnosticsSignInformation", linehl = "", numhl = "" }
--- )
--- vim.fn.sign_define(
--- 	"LspDiagnosticsSignHint",
--- 	{ text = "●", texthl = "LspDiagnosticsSignHint", linehl = "", numhl = "" }
--- )
-
 vim.fn.sign_define(
 	"LspDiagnosticsSignError",
-	{ text = "", texthl = "", linehl = "", numhl = "LspDiagnosticsSignError" }
+	{ text = "●", texthl = "LspDiagnosticsSignError", linehl = "", numhl = "" }
 )
 vim.fn.sign_define(
 	"LspDiagnosticsSignWarning",
-	{ text = "", texthl = "", linehl = "", numhl = "LspDiagnosticsSignWarning" }
+	{ text = "●", texthl = "LspDiagnosticsSignWarning", linehl = "", numhl = "" }
 )
 vim.fn.sign_define(
 	"LspDiagnosticsSignInformation",
-	{ text = "", texthl = "", linehl = "", numhl = "LspDiagnosticsSignInformation" }
+	{ text = "●", texthl = "LspDiagnosticsSignInformation", linehl = "", numhl = "" }
 )
 vim.fn.sign_define(
 	"LspDiagnosticsSignHint",
-	{ text = "", texthl = "", linehl = "", numhl = "LspDiagnosticsSignHint" }
+	{ text = "●", texthl = "LspDiagnosticsSignHint", linehl = "", numhl = "" }
 )
 
 require("lspkind").init()
+require'lspinstall'.setup()
 require'lsp_signature'.on_attach()
+
 require("lspconfig").vimls.setup({
 	cmd = { "vim-language-server", "--stdio" },
 	filetypes = { "vim" },
@@ -56,6 +41,7 @@ require("lspconfig").vimls.setup({
 		vimruntime = "",
 	},
 })
+
 local sumneko_root_path = vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server"
 local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
 
@@ -144,4 +130,8 @@ require("lspconfig").gopls.setup({
 
 require("lspconfig").clangd.setup({
 	filetypes = { "c", "cpp", "objc", "objcpp" },
+})
+
+require("lspconfig").efm.setup({
+    cmd = { "efm-langserver" }
 })

@@ -28,14 +28,14 @@ gls.left[2] = {
 				["i"] = "insert ",
 				["R"] = "replace ",
 				["Rv"] = "v·replace ",
-				["c"] = "command ",
+				["c"] = "COMMAND ",
 				["cv"] = "vim ex ",
 				["ce"] = "ex ",
-				["r"] = "prompt ",
+				["r"] = "PROMPT ",
 				["rm"] = "more ",
 				["r?"] = "confirm ",
-				["!"] = "shell ",
-				["t"] = "terminal ",
+				["!"] = "SHELL ",
+				["t"] = "TERMINAL ",
 			}
 
 			local mode_color = {
@@ -61,7 +61,7 @@ gls.left[2] = {
 				t = colors.red,
 			}
 			vim.api.nvim_command("hi GalaxyViMode guifg=" .. mode_color[vim.fn.mode()])
-			return alias[vim.fn.mode()]
+			return "" .. alias[vim.fn.mode()]
 		end,
 		highlight = { colors.bg, colors.bg, "bold" },
 		separator = " ",

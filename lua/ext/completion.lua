@@ -2,7 +2,7 @@ require("lspkind").init()
 require("compe").setup({
 	enabled = true,
 	autocomplete = true,
-	min_length = 1,
+	min_length = 0,
 	preselect = "enable",
 	documentation = true,
 

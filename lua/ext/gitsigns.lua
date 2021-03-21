@@ -1,12 +1,17 @@
 require("gitsigns").setup({
 	signs = {
-		add = { hl = "GitSignsAdd", text = "▍" },
-		change = { hl = "GitSignsChange", text = "▍" },
-		changedelete = { hl = "GitSignsDelete", text = "▍" },
-		delete = { hl = "GitSignsDelete", text = "▍" },
-		topdelete = { hl = "GitSignsDelete", text = "▍" },
+		add = { hl = "GitSignsAdd", text = "", numhl = "gitsignsAdd" },
+		change = { hl = "GitSignsChange", text = "", numhl = "gitsignsChange" },
+		changedelete = { hl = "GitSignsDelete", text = "", numhl = "gitsignsDelete" },
+		delete = { hl = "GitSignsDelete", text = "", numhl = "gitsignsDelete" },
+		topdelete = { hl = "GitSignsDelete", text = "", numhl = "gitsignsDelete" },
+		-- add = { hl = "GitSignsAdd", text = "▍", numhl = "gitsignsAdd" },
+		-- change = { hl = "GitSignsChange", text = "▍", numhl = "gitsignsChange" },
+		-- changedelete = { hl = "GitSignsDelete", text = "▍", numhl = "gitsignsDelete" },
+		-- delete = { hl = "GitSignsDelete", text = "▍", numhl = "gitsignsDelete" },
+		-- topdelete = { hl = "GitSignsDelete", text = "▍", numhl = "gitsignsDelete" },
 	},
-	numhl = false,
+	numhl = true,
 	keymaps = {
 		noremap = true,
 		buffer = true,
