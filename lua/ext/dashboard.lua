@@ -1,8 +1,12 @@
-local g = vim.g
+vim.g.dashboard_default_executive = "telescope"
 
-g.dashboard_default_executive = "telescope"
+vim.g.dashboard_session_directory = vim.fn.expand(vim.fn.stdpath("config") .. "/.session//")
+if vim.fn.isdirectory(vim.g.dashboard_session_directory) == 0 then
+	vim.fn.mkdir(vim.g.dashboard_session_directory, "p")
+end
 
-g.dashboard_custom_section = {
+
+vim.g.dashboard_custom_section = {
 
 	last_session = {
 		description = { "  Load session                           SPC s l" },

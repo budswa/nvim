@@ -16,7 +16,6 @@ vim.fn.sign_define(
 )
 
 require("lspkind").init()
-require'lspinstall'.setup()
 require'lsp_signature'.on_attach()
 
 require("lspconfig").vimls.setup({

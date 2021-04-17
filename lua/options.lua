@@ -1,12 +1,40 @@
+local utils = require("utils")
+
+-- Autocommands
+local definitions = {
+	buffer = {
+		{'BufWritePre', "*", [[silent! lua require('utils').remove_trailing_whitespace()]]},
+		{'BufWritePost', "plugins.lua", "PackerCompile"}
+	},
+	window = {
+		{"VimLeave", "*", [[wshada! | wviminfo!]]},
+		{"VimResized", "*", [[tabdo wincmd =]]}, -- When resizing nvim window, equalize window dimensions
+		{"FocusGained", "* checktime"} -- More eager version of autoread
+	},
+	ft = {
+		{"FileType", "dashboard", "set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2"}
+	},
+	yank = {
+		{"TextYankPost", [[* silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=400})]]}
+	},
+}
+utils.create_augroups(definitions)
+
 -- Encoding
-vim.o.encoding = "utf8"
+vim.o.encoding = "utf-8"
 
 -- Indentation and tabs
+vim.o.expandtab = false
+vim.g.expandtab = false
 vim.bo.expandtab = false
+vim.o.shiftwidth = 2
 vim.bo.shiftwidth = 2
+vim.o.smartindent = true
 vim.bo.smartindent = true
+vim.o.tabstop = 2
 vim.bo.tabstop = 2
 vim.o.smarttab = true
+vim.o.softtabstop = 2
 vim.bo.softtabstop = 2
 vim.o.shiftround = true
 
@@ -20,7 +48,7 @@ vim.wo.numberwidth = 2
 
 -- Other interface options
 vim.bo.formatoptions = "Mj"
-vim.wo.colorcolumn = "80"
+-- vim.wo.colorcolumn = "80"
 vim.o.shortmess = "asTAI"
 vim.o.termguicolors = true
 vim.wo.signcolumn = "yes:1"
@@ -30,11 +58,14 @@ vim.o.wildmenu = true
 vim.o.wildmode = "list:longest"
 
 -- List
-vim.wo.list = true
--- vim.o.listchars = "precedes:«,extends:»,tab:├─┤,nbsp:⍽,trail:$,eol:↲"
--- vim.o.listchars = "precedes:«,extends:»,tab:│ ,nbsp:⍽,trail:$,eol:↲"
--- vim.o.listchars = "precedes:«,extends:»,tab:┊ ,nbsp:⍽,trail:$,eol:↲"
-vim.o.listchars = "precedes:«,extends:»,tab:▏ ,nbsp:⍽,trail:$,eol:↲"
+--vim.wo.list = true
+--vim.o.listchars = "nbsp:⍽,trail:$,precedes:<,extends:>"
+-- vim.o.listchars = "tab:▏ ,space:·,nbsp:⍽,trail:$,precedes:<,extends:>,eol:↲"
+--vim.o.listchars = "tab:▏ ,space:·,nbsp:⍽,trail:$,precedes:<,extends:>"
+
+-- Fillchars
+vim.o.fillchars = "vert:│,eob: "
+-- vim.o.fillchars = "stlnc:─,vert:│,eob: "
 
 -- Scrolloff
 vim.o.scrolloff = 2
@@ -52,28 +83,40 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 -- Backup
-vim.o.backup = false
-vim.o.writebackup = false
-vim.o.backupdir = "~/.config/nvim/.backup//"
+vim.o.backup = true
+vim.o.writebackup = true
+vim.o.backupdir = vim.fn.expand(vim.fn.stdpath("config") .. "./backupdir//")
+if vim.fn.isdirectory(vim.o.backupdir) == 0 then
+	vim.fn.mkdir(vim.o.backupdir, "p")
+end
 
 -- Undo
 vim.o.undofile = true
-vim.o.undodir = "~/.config/nvim/.undo//"
 vim.o.undolevels = 500
 vim.o.undoreload = 500
+vim.o.undodir = vim.fn.expand(vim.fn.stdpath("config") .. "./undodir//")
+if vim.fn.isdirectory(vim.o.undodir) == 0 then
+	vim.fn.mkdir(vim.o.undodir, "p")
+end
+
+-- Swapfiles
+vim.o.swapfile = true
+vim.bo.swapfile = true
+vim.o.directory = vim.fn.expand(vim.fn.stdpath("config") .. "./swap//")
+if vim.fn.isdirectory(vim.o.directory) == 0 then
+	vim.fn.mkdir(vim.o.directory, "p")
+end
 
 -- Title
 vim.o.title = true
+vim.o.titlelen = 16
+vim.o.titlestring = "NVIM: %F"
 
 --Search
-vim.o.inccommand = 'nosplit'
+vim.o.inccommand = "nosplit"
 vim.o.ignorecase = true
 vim.o.incsearch = true
 vim.o.hlsearch = true
-
--- Swapfiles
-vim.o.swapfile = false
-vim.bo.swapfile = false
 
 -- Cursor
 vim.wo.cursorline = true
@@ -85,9 +128,7 @@ vim.o.pumwidth = 16
 
 -- Statusbar/ commandline
 vim.o.showmode = false
-
--- Yanks
-vim.cmd("au TextYankPost * silent! lua vim.highlight.on_yank {timeout = 500}")
+vim.g.modelines = 0
 
 -- Mouse
 vim.o.mouse = "a"

@@ -1,14 +1,14 @@
-vim.cmd("autocmd BufWritePost plugins.lua PackerCompile")
-
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-	vim.api.vim_command("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-	vim.api.vim_command("packadd packer.nvim")
+	vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
+	vim.api.nvim_command("packadd packer.nvim")
 end
 
 vim.cmd([[packadd packer.nvim]])
 
-return require("packer").startup(function()
+local packer = require("packer")
+
+return packer.startup(function()
 	-- Packer can manage itself as an optional plugin
 	use({ "wbthomason/packer.nvim", opt = true })
 
@@ -16,7 +16,7 @@ return require("packer").startup(function()
 	use({
 		"neovim/nvim-lspconfig",
 		config = function()
-			require("ext/lsp")
+			require("lsp")
 		end,
 	})
 	use({
@@ -25,7 +25,6 @@ return require("packer").startup(function()
 	})
 	use({ "glepnir/lspmeta.nvim" })
 	use({ "alexaandru/nvim-lspupdate" })
-	use({ "kabouzeid/nvim-lspinstall" })
 	use({
 		"glepnir/lspsaga.nvim",
 	})
@@ -66,7 +65,7 @@ return require("packer").startup(function()
 			require("ext/snippets")
 		end,
 	})
-	use({ "honza/vim-snippets" })
+	use({ "rafamadriz/friendly-snippets", opt = true })
 
 	-- Registers
 	use({ "tversteeg/registers.nvim" })
@@ -74,6 +73,7 @@ return require("packer").startup(function()
 	-- Quickfix
 	use({ "kevinhwang91/nvim-bqf" })
 	use({ "alexanderjeurissen/qedit.nvim" })
+	use({ "gennaro-tedesco/nvim-jqx" })
 
 	-- Treesitter
 	use({
@@ -108,6 +108,12 @@ return require("packer").startup(function()
 	use({
 		"JoosepAlviste/nvim-ts-context-commentstring",
 	})
+	use({
+		"lewis6991/spellsitter.nvim",
+		config = function()
+			require("spellsitter").setup()
+		end,
+	})
 
 	-- Telescope
 	use({
@@ -128,6 +134,7 @@ return require("packer").startup(function()
 		"nvim-telescope/telescope-symbols.nvim",
 		requires = "nvim-telescope/telescope.nvim",
 	})
+	use({ "nvim-telescope/telescope-project.nvim" })
 	use({
 		"nvim-telescope/telescope-frecency.nvim",
 		requires = "nvim-telescope/telescope.nvim",
@@ -140,6 +147,18 @@ return require("packer").startup(function()
 		requires = "nvim-telescope/telescope.nvim",
 		config = function()
 			require("telescope").load_extension("fzy_native")
+		end,
+	})
+	use({
+		"gbrlsnchs/telescope-lsp-handlers.nvim",
+		config = function()
+			require("telescope").load_extension("lsp_handlers")
+		end,
+	})
+	use({
+		"nvim-telescope/telescope-arecibo.nvim",
+		config = function()
+			require("telescope").load_extension("arecibo")
 		end,
 	})
 
@@ -160,13 +179,14 @@ return require("packer").startup(function()
 		end,
 	})
 	use({ "oberblastmeister/termwrapper.nvim" })
+	use({ "LoricAndre/OneTerm.nvim" })
 
 	-- Statusline
 	use({
 		"glepnir/galaxyline.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 		config = function()
-			require("ext/galaxyline")
+			require("ext/statusline")
 		end,
 	})
 
@@ -184,17 +204,17 @@ return require("packer").startup(function()
 	-- UI
 	use({ "notomo/cmdbuf.nvim" })
 	use({
-		"glepnir/indent-guides.nvim",
+		"lukas-reineke/indent-blankline.nvim",
+		branch = "lua",
 		config = function()
-			require("ext/indentguides")
+			require("ext/indentlines")
 		end,
 	})
-
 	use({
-		"akinsho/nvim-bufferline.lua",
+		"romgrk/barbar.nvim",
 		requires = { "kyazdani42/nvim-web-devicons" },
 		config = function()
-			require("ext/tabline")
+			require("ext/barbar")
 		end,
 	})
 
@@ -212,13 +232,33 @@ return require("packer").startup(function()
 		end,
 	})
 
-	-- use({ "yamatsum/nvim-cursorline" })
+	--use({ "yamatsum/nvim-cursorline" })
+
+	-- Folds
+	use({
+		"lewis6991/foldsigns.nvim",
+		config = function()
+			require("foldsigns").setup()
+		end,
+	})
 
 	-- Git
 	use({ "TimUntersberger/neogit" })
+	use({ "f-person/git-blame.nvim" })
 	use({
-		"f-person/git-blame.nvim",
-		event = { "BufRead", "BufNewFile" },
+		"ruifm/gitlinker.nvim",
+		config = function()
+			require("ext/gitlinker")
+		end,
+	})
+	use({
+		"ThePrimeagen/git-worktree.nvim",
+		config = function()
+			require("git-worktree").setup({
+				update_on_change = true,
+				clearjumps_on_change = true,
+			})
+		end,
 	})
 	use({
 		"pwntester/octo.nvim",
@@ -238,6 +278,8 @@ return require("packer").startup(function()
 		end,
 	})
 
+	--
+
 	-- Commenting
 	use({
 		"b3nj5m1n/kommentary",
@@ -254,16 +296,30 @@ return require("packer").startup(function()
 		end,
 	})
 
+	-- Whichkey
+	use({
+		"AckslD/nvim-whichkey-setup.lua",
+		requires = { "liuchengxu/vim-which-key" },
+		config = function()
+			require("ext/whichkey")
+		end,
+	})
+
 	-- Format
 	use({
 		"mhartington/formatter.nvim",
-		cmd = "Format",
 		config = function()
 			require("ext/format")
 		end,
 	})
 
 	-- Motions
+	use({
+		"nacro90/numb.nvim",
+		config = function()
+			require("numb").setup()
+		end,
+	})
 	use({
 		"PHSix/faster.nvim",
 		event = { "VimEnter *" },
@@ -272,8 +328,15 @@ return require("packer").startup(function()
 			vim.api.nvim_set_keymap("n", "k", "<Plug>(faster_move_k)", { noremap = false, silent = true })
 		end,
 	})
+	use({ "karb94/neoscroll.nvim" })
+	use({
+		"AckslD/nvim-revJ.lua",
+		requires = { "sgur/vim-textobj-parameter", "kana/vim-textobj-user" },
+	})
 
 	-- Script running
+	use({ "michaelb/sniprun" })
+
 	use({ "jbyuki/dash.nvim" })
 
 	use({ "justinmk/vim-sneak" })
@@ -282,7 +345,7 @@ return require("packer").startup(function()
 
 	use({ "phaazon/hop.nvim" })
 
-	use({ "https://github.com/jbyuki/monolithic.nvim" })
+	use({ "jbyuki/monolithic.nvim" })
 
 	use({ "tjdevries/train.nvim" })
 
@@ -291,7 +354,6 @@ return require("packer").startup(function()
 	use({ "monaqa/dial.nvim" })
 
 	use({ "jbyuki/instant.nvim" })
-	vim.g.instant_username = "m2"
 
 	use({ "ThePrimeagen/vim-apm" })
 
@@ -302,16 +364,32 @@ return require("packer").startup(function()
 	use({ "oberblastmeister/neuron.nvim" })
 	use({ "kristijanhusak/line-notes.nvim" })
 
+	-- Session management
+	use({
+		"glepnir/dashboard-nvim",
+		config = function()
+			require("ext/dashboard")
+		end,
+	})
+	use({
+		"rmagatti/auto-session",
+	})
+	use({
+		"rmagatti/session-lens",
+		requires = "nvim-telescope/telescope.nvim",
+	})
+
 	-- Misc
+	use({
+		"code-biscuits/nvim-biscuits",
+		config = function()
+			require("ext/biscuits")
+		end,
+	})
 
 	use({ "AndrewRadev/splitjoin.vim" })
 
 	use({ "tjdevries/astronauta.nvim" })
-
-	use({
-		"npxbr/glow.nvim",
-		run = ":GlowInstall",
-	})
 
 	use({ "andweeb/presence.nvim" })
 
@@ -321,18 +399,9 @@ return require("packer").startup(function()
 
 	use({ "rhysd/clever-f.vim" })
 
-	use({ "gelguy/wilder.nvim" })
-
 	use({ "lucc/nvimpager" })
 
 	use({ "tjdevries/nsync.nvim" })
-
-	use({
-		"glepnir/dashboard-nvim",
-		config = function()
-			require("ext/dashboard")
-		end,
-	})
 
 	use({ "vigoux/architext.nvim" })
 
@@ -340,8 +409,8 @@ return require("packer").startup(function()
 
 	use({ "romgrk/fzy-lua-native" })
 
+	use({ "airblade/vim-rooter" })
 	use({ "oberblastmeister/rooter.nvim" })
-
 	use({
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
@@ -349,6 +418,7 @@ return require("packer").startup(function()
 
 	use({ "jbyuki/ntangle-lsp.nvim" })
 	use({ "jbyuki/ntangle.nvim" })
+	use({ "jbyuki/ntangle-ts.nvim" })
 
 	use({ "tami5/sql.nvim" })
 
@@ -356,7 +426,14 @@ return require("packer").startup(function()
 
 	use({ "delphinus/characterize.nvim" })
 
-	use({ "svermeulen/vimpeccable" })
+	use({ "RRethy/nvim-sourcerer" })
+
+	use({
+		"numToStr/Navigator.nvim",
+		config = function()
+			require("Navigator").setup()
+		end,
+	})
 
 	-- GAMES!
 	use({ "alec-gibson/nvim-tetris" })
@@ -370,8 +447,6 @@ return require("packer").startup(function()
 	})
 
 	-- Language support plugins
-	-- Generic
-	use({ "sheerun/vim-polyglot" })
 	-- Lua
 	use({ "tjdevries/nlua.nvim", ft = "lua" })
 	-- use({ "tjdevries/tree-sitter-lua", ft = "lua" })
@@ -380,6 +455,18 @@ return require("packer").startup(function()
 	use({ "rafcamlet/nvim-luapad", ft = "lua" })
 	use({ "tjdevries/manillua.nvim", ft = "lua" })
 	-- Godot
+	use({
+		"simrat39/rust-tools.nvim",
+		ft = "rs",
+		config = function()
+			require("rust-tools").setup()
+		end,
+	})
+	-- Rust
 	use({ "habamax/vim-godot" })
+	use({
+		"Joakker/godot.nvim",
+		requires = "nvim-lua/plenary.nvim",
+	})
 
 end)
