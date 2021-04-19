@@ -54,8 +54,18 @@ return packer.startup(function()
 			require("ext/lint")
 		end,
 	})
-	use({ "mfussenegger/nvim-dap" })
+	use({
+		"mfussenegger/nvim-dap",
+		config = function()
+			require("ext/dap")
+		end,
+	})
+	use({
+		"rcarriga/nvim-dap-ui",
+		requires = "mfussenegger/nvim-dap",
+	})
 	use({ "theHamsta/nvim-dap-virtual-text" })
+	use({ "jbyuki/one-small-step-for-vimkind" })
 
 	-- Snippets
 	use({
@@ -108,12 +118,13 @@ return packer.startup(function()
 	use({
 		"JoosepAlviste/nvim-ts-context-commentstring",
 	})
-	use({
-		"lewis6991/spellsitter.nvim",
-		config = function()
-			require("spellsitter").setup()
-		end,
-	})
+	use({ "romgrk/nvim-treesitter-context" })
+	-- use({
+	-- 	"lewis6991/spellsitter.nvim",
+	-- 	config = function()
+	-- 		require("spellsitter").setup()
+	-- 	end,
+	-- })
 
 	-- Telescope
 	use({
@@ -292,7 +303,7 @@ return packer.startup(function()
 	use({
 		"windwp/nvim-autopairs",
 		config = function()
-			require("nvim-autopairs").setup()
+			require("ext/autopairs")
 		end,
 	})
 
@@ -333,6 +344,12 @@ return packer.startup(function()
 		"AckslD/nvim-revJ.lua",
 		requires = { "sgur/vim-textobj-parameter", "kana/vim-textobj-user" },
 	})
+	use({
+		"micmine/jumpwire.nvim",
+		config = function()
+			require("ext/jumpwire") -- not configured yet
+		end,
+	})
 
 	-- Script running
 	use({ "michaelb/sniprun" })
@@ -357,7 +374,7 @@ return packer.startup(function()
 
 	use({ "ThePrimeagen/vim-apm" })
 
-	-- use({ "zegervdv/nrpattern.nvim" })
+	use({ "zegervdv/nrpattern.nvim" })
 
 	-- Notes
 	use({ "jbyuki/nabla.nvim" })
@@ -373,6 +390,9 @@ return packer.startup(function()
 	})
 	use({
 		"rmagatti/auto-session",
+		config = function()
+			require("ext/autosession")
+		end,
 	})
 	use({
 		"rmagatti/session-lens",

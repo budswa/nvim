@@ -3,19 +3,19 @@ local utils = require("utils")
 -- Autocommands
 local definitions = {
 	buffer = {
-		{'BufWritePre', "*", [[silent! lua require('utils').remove_trailing_whitespace()]]},
-		{'BufWritePost', "plugins.lua", "PackerCompile"}
+		{ "BufWritePre", "*", [[silent! lua require('utils').remove_trailing_whitespace()]] },
+		{ "BufWritePost", "plugins.lua", "PackerCompile" },
 	},
 	window = {
-		{"VimLeave", "*", [[wshada! | wviminfo!]]},
-		{"VimResized", "*", [[tabdo wincmd =]]}, -- When resizing nvim window, equalize window dimensions
-		{"FocusGained", "* checktime"} -- More eager version of autoread
+		{ "VimLeave", "*", [[wshada! | wviminfo!]] },
+		{ "VimResized", "*", [[tabdo wincmd =]] }, -- When resizing nvim window, equalize window dimensions
+		{ "FocusGained", "* checktime" }, -- More eager version of autoread
 	},
 	ft = {
-		{"FileType", "dashboard", "set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2"}
+		{ "FileType", "dashboard", "set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2" },
 	},
 	yank = {
-		{"TextYankPost", [[* silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=400})]]}
+		{ "TextYankPost", [[* silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=400})]] },
 	},
 }
 utils.create_augroups(definitions)
@@ -37,6 +37,10 @@ vim.o.smarttab = true
 vim.o.softtabstop = 2
 vim.bo.softtabstop = 2
 vim.o.shiftround = true
+vim.wo.breakindent = true
+
+-- Wrap
+vim.wo.wrap = false
 
 -- Clipboard
 -- vim.o.clipboard = "unamedplus"
@@ -47,6 +51,7 @@ vim.wo.relativenumber = false
 vim.wo.numberwidth = 2
 
 -- Other interface options
+vim.o.updatetime = 200
 vim.bo.formatoptions = "Mj"
 -- vim.wo.colorcolumn = "80"
 vim.o.shortmess = "asTAI"
@@ -71,9 +76,6 @@ vim.o.fillchars = "vert:│,eob: "
 vim.o.scrolloff = 2
 vim.o.sidescrolloff = 2
 
--- Wrap
-vim.wo.wrap = false
-
 -- Fold
 vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
@@ -85,7 +87,7 @@ vim.o.splitright = true
 -- Backup
 vim.o.backup = true
 vim.o.writebackup = true
-vim.o.backupdir = vim.fn.expand(vim.fn.stdpath("config") .. "./backupdir//")
+vim.o.backupdir = vim.fn.expand(vim.fn.stdpath("config") .. "./backup//")
 if vim.fn.isdirectory(vim.o.backupdir) == 0 then
 	vim.fn.mkdir(vim.o.backupdir, "p")
 end
@@ -94,7 +96,7 @@ end
 vim.o.undofile = true
 vim.o.undolevels = 500
 vim.o.undoreload = 500
-vim.o.undodir = vim.fn.expand(vim.fn.stdpath("config") .. "./undodir//")
+vim.o.undodir = vim.fn.expand(vim.fn.stdpath("config") .. "./.undo//")
 if vim.fn.isdirectory(vim.o.undodir) == 0 then
 	vim.fn.mkdir(vim.o.undodir, "p")
 end
@@ -102,7 +104,7 @@ end
 -- Swapfiles
 vim.o.swapfile = true
 vim.bo.swapfile = true
-vim.o.directory = vim.fn.expand(vim.fn.stdpath("config") .. "./swap//")
+vim.o.directory = vim.fn.expand(vim.fn.stdpath("config") .. "./.swap//")
 if vim.fn.isdirectory(vim.o.directory) == 0 then
 	vim.fn.mkdir(vim.o.directory, "p")
 end
@@ -115,6 +117,7 @@ vim.o.titlestring = "NVIM: %F"
 --Search
 vim.o.inccommand = "nosplit"
 vim.o.ignorecase = true
+vim.o.smartcase = true
 vim.o.incsearch = true
 vim.o.hlsearch = true
 

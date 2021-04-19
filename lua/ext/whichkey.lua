@@ -35,13 +35,17 @@ local keymap = {
 			C = {'<cmd>Telescope git_bcommits<CR>', 'buffer commits'},
 			b = {'<cmd>Telescope git_branches<CR>', 'branches'},
     },
-	f = {'<cmd>Telescope find_files<CR>', 'files'},
-	w = {'<cmd>Telescope live_grep<CR>', 'grep'},
+		f = {'<cmd>Telescope find_files<CR>', 'files'},
+		w = {'<cmd>Telescope live_grep<CR>', 'grep'},
   },
 	s = {
 		name = '+session',
 		s = {'<cmd>SessionSave<CR>', 'save'},
 		l = {'<cmd>SessionLoad<CR>', 'load'},
+	},
+	g = {
+	  name = "+git",
+		-- y = {'<cmd>lua require"gitlinker".get_buf_range_url('n')<CR>', 'gitlink'}
 	},
 	U = {'<cmd>UndotreeToggle<CR>', 'Undotree'},
 	E = {'<cmd>NvimTreeToggle<CR>', 'NvimTree'},
