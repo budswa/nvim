@@ -25,9 +25,7 @@ return packer.startup(function()
 	})
 	use({ "glepnir/lspmeta.nvim" })
 	use({ "alexaandru/nvim-lspupdate" })
-	use({
-		"glepnir/lspsaga.nvim",
-	})
+	use({ "glepnir/lspsaga.nvim" })
 	use({ "onsails/lspkind-nvim" })
 	use({ "nvim-lua/lsp-status.nvim" })
 	use({ "tjdevries/lsp_extensions.nvim" })
@@ -93,6 +91,7 @@ return packer.startup(function()
 			require("ext/treesitter")
 		end,
 	})
+	use({ "nvim-treesitter/nvim-tree-docs" })
 	use({
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		requires = "nvim-treesitter/nvim-treesitter",
@@ -213,6 +212,12 @@ return packer.startup(function()
 	})
 
 	-- UI
+	use({
+		"mortepau/codicons.nvim",
+		config = function()
+			require("ext/codicons")
+		end,
+	})
 	use({ "notomo/cmdbuf.nvim" })
 	use({
 		"lukas-reineke/indent-blankline.nvim",
@@ -235,13 +240,25 @@ return packer.startup(function()
 			require("ext/colorizer")
 		end,
 	})
-
+	use({
+		"sunjon/shade.nvim",
+		config = function()
+			require("ext/shade")
+		end,
+	})
+	use({
+		"kdav5758/TrueZen.nvim",
+		config = function()
+			require("ext/zen")
+		end,
+	})
 	use({
 		"kevinhwang91/nvim-hlslens",
 		config = function()
 			require("ext/hlslens")
 		end,
 	})
+	use({ "bfredl/nvim-miniyank" })
 
 	--use({ "yamatsum/nvim-cursorline" })
 
@@ -362,8 +379,6 @@ return packer.startup(function()
 
 	use({ "phaazon/hop.nvim" })
 
-	use({ "jbyuki/monolithic.nvim" })
-
 	use({ "tjdevries/train.nvim" })
 
 	use({ "ThePrimeagen/vim-be-good" })
@@ -397,6 +412,9 @@ return packer.startup(function()
 	use({
 		"rmagatti/session-lens",
 		requires = "nvim-telescope/telescope.nvim",
+		config = function()
+			require("telescope").load_extension("session-lens")
+		end,
 	})
 
 	-- Misc
@@ -429,7 +447,8 @@ return packer.startup(function()
 
 	use({ "romgrk/fzy-lua-native" })
 
-	use({ "airblade/vim-rooter" })
+	use({ "Olical/aniseed" })
+	-- use({ "airblade/vim-rooter" })
 	use({ "oberblastmeister/rooter.nvim" })
 	use({
 		"dstein64/vim-startuptime",

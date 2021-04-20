@@ -2,7 +2,7 @@ require("nvim-treesitter.configs").setup({
 	ensure_installed = "maintained",
 	highlight = {
 		enable = true,
-		use_languagetree = true
+		use_languagetree = true,
 	},
 	incremental_selection = {
 		enable = true,
@@ -13,20 +13,17 @@ require("nvim-treesitter.configs").setup({
 			node_decremental = "grm",
 		},
 	},
-	indent = {
-		enable = true,
-	},
+	indent = { enable = true },
+	tree_docs = { enable = true },
 	context_commentstring = {
-    enable = true
+		enable = true,
 	},
 	playground = {
 		enable = true,
 		updatetime = 25,
 		persist_queries = false,
 	},
-	rainbow = {
-		enable = true,
-	},
+	rainbow = { enable = true },
 	refactor = {
 		highlight_definitions = { enable = true },
 		smart_rename = {

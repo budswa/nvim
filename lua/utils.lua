@@ -40,4 +40,36 @@ function utils.remove_trailing_whitespace()
 	vim.fn.winrestview(view)
 end
 
+local special_buffers = {
+  'qf',
+  'git',
+  'help',
+  'term',
+  'vista',
+  'help',
+  'packer',
+  'undotree',
+  'startify',
+  'NvimTree',
+  'startuptime',
+}
+
+function utils.list_special_buffers()
+  return special_buffers
+end
+
+function utils.is_special_buffer()
+  local buftype = vim.api.nvim_buf_get_option(0, 'buftype')
+  if buftype == 'terminal' or buftype == 'quickfix' or buftype == 'help' then
+    return true
+  end
+  local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
+  for _, b in ipairs(special_buffers) do
+    if filetype == b then
+      return true
+    end
+  end
+  return false
+end
+
 return utils

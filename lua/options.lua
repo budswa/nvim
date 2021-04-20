@@ -1,25 +1,5 @@
 local utils = require("utils")
 
--- Autocommands
-local definitions = {
-	buffer = {
-		{ "BufWritePre", "*", [[silent! lua require('utils').remove_trailing_whitespace()]] },
-		{ "BufWritePost", "plugins.lua", "PackerCompile" },
-	},
-	window = {
-		{ "VimLeave", "*", [[wshada! | wviminfo!]] },
-		{ "VimResized", "*", [[tabdo wincmd =]] }, -- When resizing nvim window, equalize window dimensions
-		{ "FocusGained", "* checktime" }, -- More eager version of autoread
-	},
-	ft = {
-		{ "FileType", "dashboard", "set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2" },
-	},
-	yank = {
-		{ "TextYankPost", [[* silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=400})]] },
-	},
-}
-utils.create_augroups(definitions)
-
 -- Encoding
 vim.o.encoding = "utf-8"
 
@@ -163,3 +143,24 @@ vim.g.loaded_rrhelper = 0
 vim.g.loaded_netrwPlugin = 0
 vim.g.loaded_netrwSettings = 0
 vim.g.loaded_netrwFileHandlers = 0
+
+-- Autocommands
+local definitions = {
+	buffer = {
+		{ "BufWritePre", "*", [[silent! lua require('utils').remove_trailing_whitespace()]] },
+		{ "BufWritePost", "plugins.lua", "PackerCompile" },
+	},
+	window = {
+		{ "VimLeave", "*", [[wshada! | wviminfo!]] },
+		{ "VimResized", "*", [[tabdo wincmd =]] }, -- When resizing nvim window, equalize window dimensions
+		{ "FocusGained", "* checktime" }, -- More eager version of autoread
+	},
+	ft = {
+		{ "FileType", "dashboard", "set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2" },
+	},
+	yank = {
+		{ "TextYankPost", [[* silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=400})]] },
+	},
+}
+utils.create_augroups(definitions)
+

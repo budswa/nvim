@@ -47,6 +47,12 @@ local keymap = {
 	  name = "+git",
 		-- y = {'<cmd>lua require"gitlinker".get_buf_range_url('n')<CR>', 'gitlink'}
 	},
+	z = {
+		name = "+zen",
+		s = {'<cmd>lua require("shade").toggle()', 'Shade'},
+		a = {'<cmd>TZAtaraxis<CR>', 'Ataraxis'},
+		m = {'<cmd>TZMinimalist<CR>', 'Minimalist'},
+	},
 	U = {'<cmd>UndotreeToggle<CR>', 'Undotree'},
 	E = {'<cmd>NvimTreeToggle<CR>', 'NvimTree'},
 }
