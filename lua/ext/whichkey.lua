@@ -45,7 +45,8 @@ local keymap = {
 	},
 	g = {
 	  name = "+git",
-		-- y = {'<cmd>lua require"gitlinker".get_buf_range_url('n')<CR>', 'gitlink'}
+		b = {'<cmd>GitBlameToggle<CR>', 'blame'},
+		y = {'<cmd>lua require"gitlinker".get_buf_range_url("n")<CR>', 'gitlink'},
 	},
 	z = {
 		name = "+zen",

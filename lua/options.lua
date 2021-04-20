@@ -23,7 +23,7 @@ vim.wo.breakindent = true
 vim.wo.wrap = false
 
 -- Clipboard
--- vim.o.clipboard = "unamedplus"
+vim.cmd([[set clipboard = "unamedplus"]])
 
 -- Number column
 vim.wo.number = true
@@ -115,6 +115,9 @@ vim.g.modelines = 0
 
 -- Mouse
 vim.o.mouse = "a"
+
+-- Spell
+vim.o.spellfile = vim.fn.expand(vim.fn.stdpath("config") .. "./spell/en.uft-8.add")
 
 -- Providers
 vim.g.python_host_skip_check = 0

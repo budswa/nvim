@@ -212,12 +212,6 @@ return packer.startup(function()
 	})
 
 	-- UI
-	use({
-		"mortepau/codicons.nvim",
-		config = function()
-			require("ext/codicons")
-		end,
-	})
 	use({ "notomo/cmdbuf.nvim" })
 	use({
 		"lukas-reineke/indent-blankline.nvim",
@@ -272,7 +266,12 @@ return packer.startup(function()
 
 	-- Git
 	use({ "TimUntersberger/neogit" })
-	use({ "f-person/git-blame.nvim" })
+	use({
+		"f-person/git-blame.nvim",
+		config = function()
+			require("ext/blame")
+		end
+	})
 	use({
 		"ruifm/gitlinker.nvim",
 		config = function()
@@ -360,6 +359,9 @@ return packer.startup(function()
 	use({
 		"AckslD/nvim-revJ.lua",
 		requires = { "sgur/vim-textobj-parameter", "kana/vim-textobj-user" },
+		config = function()
+			require("revj").setup({})
+		end,
 	})
 	use({
 		"micmine/jumpwire.nvim",
