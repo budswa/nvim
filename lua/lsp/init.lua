@@ -16,7 +16,7 @@ vim.fn.sign_define(
 )
 
 require("lspkind").init()
-require'lsp_signature'.on_attach()
+require('lsp_signature').on_attach()
 
 require('lsp/vimls')
 require('lsp/luals')

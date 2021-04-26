@@ -23,6 +23,7 @@ require("nvim-treesitter.configs").setup({
 		updatetime = 25,
 		persist_queries = false,
 	},
+	node_movement = {enable = true},
 	rainbow = { enable = true },
 	refactor = {
 		highlight_definitions = { enable = true },

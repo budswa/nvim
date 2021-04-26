@@ -1,3 +1,5 @@
+vim.cmd[[packadd nvim-tree.lua]]
+
 local g = vim.g
 
 g.nvim_tree_width = 30
@@ -32,21 +34,5 @@ vim.g.nvim_tree_show_icons = {
 			empty = "",
 			empty_open = "",
 			symlink = ""
-		-- default': '',
-  --   \ 'symlink': '',
-  --   \ 'git': {
-  --   \   'unstaged': "✗",
-  --   \   'staged': "✓",
-  --   \   'unmerged': "",
-  --   \   'renamed': "➜",
-  --   \   'untracked': "★"
-  --   \   },
-  --   \ 'folder': {
-  --   \   'default': "",
-  --   \   'open': "",
-  --   \   'empty': "",
-  --   \   'empty_open': "",
-  --   \   'symlink': "",
-  --   \   }
     }
   }

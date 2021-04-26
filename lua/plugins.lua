@@ -30,12 +30,13 @@ return packer.startup(function()
 	use({ "nvim-lua/lsp-status.nvim" })
 	use({ "tjdevries/lsp_extensions.nvim" })
 	use({ "ray-x/lsp_signature.nvim" })
-	use({
-		"kosayoda/nvim-lightbulb",
-		config = function()
-			require("ext/lightbulb")
-		end,
-	})
+	use({ "folke/lsp-trouble.nvim" })
+	-- use({
+	-- 	"kosayoda/nvim-lightbulb",
+	-- 	config = function()
+	-- 		require("ext/lightbulb")
+	-- 	end,
+	-- })
 
 	-- Completion
 	use({
@@ -118,6 +119,7 @@ return packer.startup(function()
 		"JoosepAlviste/nvim-ts-context-commentstring",
 	})
 	use({ "romgrk/nvim-treesitter-context" })
+	use({ "theHamsta/crazy-node-movement" })
 	-- use({
 	-- 	"lewis6991/spellsitter.nvim",
 	-- 	config = function()
@@ -200,8 +202,14 @@ return packer.startup(function()
 		end,
 	})
 
-	-- Tag viewer
+	-- Tag/symbol viewer
 	use({ "liuchengxu/vista.vim" })
+	use({
+		"simrat39/symbols-outline.nvim",
+		config = function()
+			require('symbols-outline').setup()
+		end
+	})
 
 	-- Undotree
 	use({
@@ -212,7 +220,16 @@ return packer.startup(function()
 	})
 
 	-- UI
+	-- use({
+	-- 	"ray-x/navigator.lua",
+	-- 	requires = 'ray-x/guihua.lua',
+	-- 	run = 'cd lua/fzy && make',
+	-- 	config = function()
+	-- 		require('navigator').setup()
+	-- 	end
+	-- })
 	use({ "notomo/cmdbuf.nvim" })
+	use({ "notomo/flompt.nvim" })
 	use({
 		"lukas-reineke/indent-blankline.nvim",
 		branch = "lua",
@@ -270,7 +287,7 @@ return packer.startup(function()
 		"f-person/git-blame.nvim",
 		config = function()
 			require("ext/blame")
-		end
+		end,
 	})
 	use({
 		"ruifm/gitlinker.nvim",
@@ -398,6 +415,19 @@ return packer.startup(function()
 	use({ "oberblastmeister/neuron.nvim" })
 	use({ "kristijanhusak/line-notes.nvim" })
 
+	-- Literate programming
+	use({
+		"Vhyrro/neorg",
+		branch = "unstable",
+		config = function()
+			require("neorg").setup({})
+		end,
+	})
+	use({ "jbyuki/ntangle-lsp.nvim" })
+	use({ "jbyuki/ntangle.nvim" })
+	use({ "jbyuki/ntangle-ts.nvim" })
+
+
 	-- Session management
 	use({
 		"glepnir/dashboard-nvim",
@@ -406,18 +436,24 @@ return packer.startup(function()
 		end,
 	})
 	use({
-		"rmagatti/auto-session",
+		"Ind1eMonk3y/zessions",
 		config = function()
-			require("ext/autosession")
-		end,
+			require("ext/zessions")
+		end
 	})
-	use({
-		"rmagatti/session-lens",
-		requires = "nvim-telescope/telescope.nvim",
-		config = function()
-			require("telescope").load_extension("session-lens")
-		end,
-	})
+	-- use({
+	-- 	"rmagatti/auto-session",
+	-- 	config = function()
+	-- 		require("ext/autosession")
+	-- 	end,
+	-- })
+	-- use({
+	-- 	"rmagatti/session-lens",
+	-- 	requires = { "nvim-telescope/telescope.nvim", "rmagatti/auto-session"},
+	-- 	config = function()
+	-- 		require("telescope").load_extension("session-lens")
+	-- 	end,
+	-- })
 
 	-- Misc
 	use({
@@ -427,7 +463,14 @@ return packer.startup(function()
 		end,
 	})
 
-	use({ "AndrewRadev/splitjoin.vim" })
+	use({ "notomo/filetypext.nvim" })
+
+	use({
+		"famiu/nvim-reload",
+		config = function()
+			require("ext/reload")
+		end,
+	})
 
 	use({ "tjdevries/astronauta.nvim" })
 
@@ -457,9 +500,6 @@ return packer.startup(function()
 		cmd = "StartupTime",
 	})
 
-	use({ "jbyuki/ntangle-lsp.nvim" })
-	use({ "jbyuki/ntangle.nvim" })
-	use({ "jbyuki/ntangle-ts.nvim" })
 
 	use({ "tami5/sql.nvim" })
 
@@ -475,6 +515,7 @@ return packer.startup(function()
 			require("Navigator").setup()
 		end,
 	})
+	use({ "notomo/nvimtool" })
 
 	-- GAMES!
 	use({ "alec-gibson/nvim-tetris" })

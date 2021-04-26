@@ -37,4 +37,12 @@ require("telescope").setup({
 		-- Developer configurations: Not meant for general override
 		buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
 	},
+	extensions = {
+    zessions = {
+      cwd = vim.fn.stdpath("config").."./.sessions/",
+      width = 55,
+    },
+  }
 }})
+
+require('telescope').load_extension('zessions')

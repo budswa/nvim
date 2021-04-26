@@ -1,123 +1,159 @@
+require("global/opt")
+
 local utils = require("utils")
 
--- Encoding
-vim.o.encoding = "utf-8"
-
--- Indentation and tabs
-vim.o.expandtab = false
+-- Indentation, spaces and tabs
+vim.opt.expandtab = false
 vim.g.expandtab = false
-vim.bo.expandtab = false
-vim.o.shiftwidth = 2
-vim.bo.shiftwidth = 2
-vim.o.smartindent = true
-vim.bo.smartindent = true
-vim.o.tabstop = 2
-vim.bo.tabstop = 2
-vim.o.smarttab = true
-vim.o.softtabstop = 2
-vim.bo.softtabstop = 2
-vim.o.shiftround = true
-vim.wo.breakindent = true
+vim.opt.expandtab = false
+vim.opt.shiftwidth = 2
+vim.opt.shiftwidth = 2
+vim.opt.smartindent = true
+vim.opt.smartindent = true
+vim.opt.cindent = true
+vim.opt.tabstop = 2
+vim.opt.tabstop = 2
+vim.opt.smarttab = true
+vim.opt.softtabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftround = true
+vim.opt.breakindent = true
+vim.opt.joinspaces = false         -- Two spaces and grade school, we're done
 
 -- Wrap
-vim.wo.wrap = false
+vim.opt.wrap = false
 
 -- Clipboard
-vim.cmd([[set clipboard = "unamedplus"]])
+-- vim.opt.clipboard = "unamedplus"
 
 -- Number column
-vim.wo.number = true
-vim.wo.relativenumber = false
-vim.wo.numberwidth = 2
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.numberwidth = 2
 
 -- Other interface options
-vim.o.updatetime = 200
-vim.bo.formatoptions = "Mj"
--- vim.wo.colorcolumn = "80"
-vim.o.shortmess = "asTAI"
-vim.o.termguicolors = true
-vim.wo.signcolumn = "yes:1"
+vim.opt.updatetime = 200
+vim.opt.colorcolumn = "80"
+vim.opt.shortmess = "asTAI"
+vim.opt.termguicolors = true
+vim.opt.signcolumn = "yes:1"
+-- vim.opt.formatoptions = "Mj"
+vim.opt.formatoptions = vim.opt.formatoptions
+	- 'a'     -- Auto formatting is BAD.
+	- 't'     -- Don't auto format my code. I got linters for that.
+	+ 'c'     -- In general, I like it when comments respect textwidth
+	+ 'q'     -- Allow formatting comments w/ gq
+	- 'o'     -- O and o, don't continue comments
+	+ 'r'     -- But do continue when pressing enter.
+	+ 'n'     -- Indent past the formatlistpat, not underneath it.
+	+ 'j'     -- Auto-remove comments if possible.
+	- '2'     -- I'm not in gradeschool anymore
 
 -- Wildmenu
-vim.o.wildmenu = true
-vim.o.wildmode = "list:longest"
+vim.opt.wildmenu = true
+vim.opt.wildmode = {'longest', 'list', 'full'}
+vim.opt.wildoptions = 'pum'
+vim.opt.wildignore = {
+  '**/node_modules/**',
+  '**/coverage/**',
+  '**/.idea/**',
+  '**/.git/**',
+  '**/.nuxt/**',
+	'*.o',
+	'*~',
+	'*.pyc',
+	'*pycache*',
+}
 
 -- List
---vim.wo.list = true
---vim.o.listchars = "nbsp:⍽,trail:$,precedes:<,extends:>"
--- vim.o.listchars = "tab:▏ ,space:·,nbsp:⍽,trail:$,precedes:<,extends:>,eol:↲"
---vim.o.listchars = "tab:▏ ,space:·,nbsp:⍽,trail:$,precedes:<,extends:>"
+-- vim.opt.list = true
+-- vim.opt.listchars = { nbsp = "⍽", trail = "$",precedes = "<",extends = ">" }
+-- vim.opt.listchars = "tab:▏ ,space:·,nbsp:⍽,trail:$,precedes:<,extends:>,eol:↲"
+--vim.opt.listchars = "tab:▏ ,space:·,nbsp:⍽,trail:$,precedes:<,extends:>"
 
 -- Fillchars
-vim.o.fillchars = "vert:│,eob: "
--- vim.o.fillchars = "stlnc:─,vert:│,eob: "
+vim.g.fillchars = "vert:│,eob: "
 
 -- Scrolloff
-vim.o.scrolloff = 2
-vim.o.sidescrolloff = 2
+vim.opt.scrolloff = 2
+vim.opt.sidescrolloff = 2
 
 -- Fold
-vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 120
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Split
-vim.o.splitbelow = true
-vim.o.splitright = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
 
 -- Backup
-vim.o.backup = true
-vim.o.writebackup = true
-vim.o.backupdir = vim.fn.expand(vim.fn.stdpath("config") .. "./backup//")
-if vim.fn.isdirectory(vim.o.backupdir) == 0 then
-	vim.fn.mkdir(vim.o.backupdir, "p")
+vim.opt.backup = true
+vim.opt.writebackup = true
+vim.opt.backupdir = vim.fn.expand(vim.fn.stdpath("config") .. "./backup//")
+if vim.fn.isdirectory(vim.opt.backupdir) == 0 then
+	vim.fn.mkdir(vim.opt.backupdir, "p")
 end
 
 -- Undo
-vim.o.undofile = true
-vim.o.undolevels = 500
-vim.o.undoreload = 500
-vim.o.undodir = vim.fn.expand(vim.fn.stdpath("config") .. "./.undo//")
-if vim.fn.isdirectory(vim.o.undodir) == 0 then
-	vim.fn.mkdir(vim.o.undodir, "p")
+vim.opt.undofile = true
+vim.opt.undolevels = 500
+vim.opt.undoreload = 500
+vim.opt.undodir = vim.fn.expand(vim.fn.stdpath("config") .. "./.undo//")
+if vim.fn.isdirectory(vim.opt.undodir) == 0 then
+	vim.fn.mkdir(vim.opt.undodir, "p")
 end
 
 -- Swapfiles
-vim.o.swapfile = true
-vim.bo.swapfile = true
-vim.o.directory = vim.fn.expand(vim.fn.stdpath("config") .. "./.swap//")
-if vim.fn.isdirectory(vim.o.directory) == 0 then
-	vim.fn.mkdir(vim.o.directory, "p")
+vim.opt.swapfile = true
+vim.opt.swapfile = true
+vim.opt.directory = vim.fn.expand(vim.fn.stdpath("config") .. "./.swap//")
+if vim.fn.isdirectory(vim.opt.directory) == 0 then
+	vim.fn.mkdir(vim.opt.directory, "p")
 end
 
+-- Sessions
+if vim.fn.isdirectory(vim.fn.stdpath("config") .. "./.session/") == 0 then
+	vim.fn.mkdir(vim.fn.stdpath("config") .. "./.session/", "p")
+end
+
+-- Shada/viminfo
+vim.opt.shada = { "!", "'1000", "<50", "s10", "h" }
+
 -- Title
-vim.o.title = true
-vim.o.titlelen = 16
-vim.o.titlestring = "NVIM: %F"
+vim.opt.title = true
+vim.opt.titlelen = 16
+vim.opt.titlestring = "NVIM: %F"
 
 --Search
-vim.o.inccommand = "nosplit"
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.incsearch = true
-vim.o.hlsearch = true
+vim.opt.inccommand = "split"
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.incsearch = true
+vim.opt.hlsearch = true
 
 -- Cursor
-vim.wo.cursorline = true
+vim.opt.cursorline = true
 
 -- Completion
-vim.o.completeopt = "menuone,noinsert,noselect"
-vim.o.pumheight = 10
-vim.o.pumwidth = 16
+vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
+vim.opt.pumheight = 10
+vim.opt.pumwidth = 16
+vim.opt.pumblend = 17
 
 -- Statusbar/ commandline
-vim.o.showmode = false
+vim.opt.showmode = false
 vim.g.modelines = 0
 
+
 -- Mouse
-vim.o.mouse = "a"
+vim.g.mouse = "a"
 
 -- Spell
-vim.o.spellfile = vim.fn.expand(vim.fn.stdpath("config") .. "./spell/en.uft-8.add")
+vim.opt.spellfile = vim.fn.expand(vim.fn.stdpath("config") .. "./spell/en.uft-8.add")
+
+-- Notifications
+vim.opt.belloff = 'all'
 
 -- Providers
 vim.g.python_host_skip_check = 0
