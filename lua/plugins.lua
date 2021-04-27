@@ -493,8 +493,9 @@ return packer.startup(function()
 	use({ "romgrk/fzy-lua-native" })
 
 	use({ "Olical/aniseed" })
-	-- use({ "airblade/vim-rooter" })
+
 	use({ "oberblastmeister/rooter.nvim" })
+	use({ "ingram1107/origin.nvim" })
 	use({
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",

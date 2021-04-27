@@ -1,5 +1,6 @@
 require("global/opt")
 
+
 local utils = require("utils")
 
 -- Indentation, spaces and tabs
@@ -37,7 +38,6 @@ vim.opt.colorcolumn = "80"
 vim.opt.shortmess = "asTAI"
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes:1"
--- vim.opt.formatoptions = "Mj"
 vim.opt.formatoptions = vim.opt.formatoptions
 	- 'a'     -- Auto formatting is BAD.
 	- 't'     -- Don't auto format my code. I got linters for that.
@@ -90,40 +90,42 @@ vim.opt.splitright = true
 -- Backup
 vim.opt.backup = true
 vim.opt.writebackup = true
-vim.opt.backupdir = vim.fn.expand(vim.fn.stdpath("config") .. "./backup//")
-if vim.fn.isdirectory(vim.opt.backupdir) == 0 then
-	vim.fn.mkdir(vim.opt.backupdir, "p")
+local backupdir = vim.fn.expand(vim.fn.stdpath("config") .. "/backup//")
+vim.opt.backupdir = backupdir
+if vim.fn.isdirectory(backupdir) == 0 then
+	vim.fn.mkdir(backupdir)
 end
 
 -- Undo
 vim.opt.undofile = true
 vim.opt.undolevels = 500
 vim.opt.undoreload = 500
-vim.opt.undodir = vim.fn.expand(vim.fn.stdpath("config") .. "./.undo//")
-if vim.fn.isdirectory(vim.opt.undodir) == 0 then
-	vim.fn.mkdir(vim.opt.undodir, "p")
+local undodir = vim.fn.expand(vim.fn.stdpath("config") .. "/.undo//")
+vim.opt.undodir = undodir
+if vim.fn.isdirectory(undodir) == 0 then
+	vim.fn.mkdir(undodir, "p")
 end
 
 -- Swapfiles
 vim.opt.swapfile = true
-vim.opt.swapfile = true
-vim.opt.directory = vim.fn.expand(vim.fn.stdpath("config") .. "./.swap//")
-if vim.fn.isdirectory(vim.opt.directory) == 0 then
-	vim.fn.mkdir(vim.opt.directory, "p")
+local swapdir = vim.fn.expand(vim.fn.stdpath("config") .. "/.swap//")
+vim.opt.directory = swapdir
+if vim.fn.isdirectory(swapdir) == 0 then
+	vim.fn.mkdir(swapdir, "p")
 end
 
 -- Sessions
-if vim.fn.isdirectory(vim.fn.stdpath("config") .. "./.session/") == 0 then
+if vim.fn.isdirectory(vim.fn.stdpath("config") .. "/.session/") == 0 then
 	vim.fn.mkdir(vim.fn.stdpath("config") .. "./.session/", "p")
 end
 
 -- Shada/viminfo
-vim.opt.shada = { "!", "'1000", "<50", "s10", "h" }
+vim.g.shada = { "!", "'1000", "<50", "s10", "h" }
 
 -- Title
 vim.opt.title = true
 vim.opt.titlelen = 16
-vim.opt.titlestring = "NVIM: %F"
+-- vim.opt.titlestring = "NVIM: %F"
 
 --Search
 vim.opt.inccommand = "split"
@@ -144,13 +146,13 @@ vim.opt.pumblend = 17
 -- Statusbar/ commandline
 vim.opt.showmode = false
 vim.g.modelines = 0
-
+vim.g.showmode = 0
 
 -- Mouse
-vim.g.mouse = "a"
+vim.opt.mouse = "a"
 
 -- Spell
-vim.opt.spellfile = vim.fn.expand(vim.fn.stdpath("config") .. "./spell/en.uft-8.add")
+vim.opt.spellfile = vim.fn.expand(vim.fn.stdpath("config") .. "/spell/en.uft-8.add")
 
 -- Notifications
 vim.opt.belloff = 'all'

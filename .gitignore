@@ -1,7 +1,9 @@
-plugin/
 .backupdir/
 .undodir/
+.session/
+.vscode/
+.*/
+.gitignore~
 init.lua~
 lua/*.lua~
 lua/*/*.lua~
-.gitignore~

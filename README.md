@@ -18,6 +18,4 @@
 
 ## Todo
 - [ ] Configure DAP
-- [ ] Sort options out, waiting for vim.opt
 - [ ] Configure whichkey
-ee
