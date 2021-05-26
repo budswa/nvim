@@ -9,25 +9,6 @@ gl.short_line_list = {'defx', 'packager', 'vista', 'NvimTree'}
 
 local colors = require('cleareye')
 
--- local colors = {
---     base2 = '#282c34',
---     fg = '#bbc2bf',
---     bg_popup = '#38393f',
---     blue = '#61afef',
---     green = '#98c379',
---     purple = '#c678dd',
---     orange = '#e5c07b',
---     dark_red = '#e06c75',
---     red = '#be5046',
---     yellow = '#e5c07b',
---     base6 = '#5c6370',
---     base2 = '#2c323d',
---     base4 = '#3e4452',
---     grey = '#848586',
---     fg = '#8791A5'
--- }
-
--- Local helper functions
 local buffer_not_empty = function() return not utils.is_buffer_empty() end
 
 local checkwidth = function()

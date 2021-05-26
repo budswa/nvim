@@ -1,32 +1,23 @@
-vim.fn.sign_define(
-	"LspDiagnosticsSignError",
-	{ text = "●", texthl = "LspDiagnosticsSignError", linehl = "", numhl = "" }
-)
-vim.fn.sign_define(
-	"LspDiagnosticsSignWarning",
-	{ text = "●", texthl = "LspDiagnosticsSignWarning", linehl = "", numhl = "" }
-)
-vim.fn.sign_define(
-	"LspDiagnosticsSignInformation",
-	{ text = "●", texthl = "LspDiagnosticsSignInformation", linehl = "", numhl = "" }
-)
-vim.fn.sign_define(
-	"LspDiagnosticsSignHint",
-	{ text = "●", texthl = "LspDiagnosticsSignHint", linehl = "", numhl = "" }
-)
+-- local utils = require("lspconfig/util")
+local lspconfig = require('lspconfig')
 
-require("lspkind").init()
-require('lsp_signature').on_attach()
+-- lua language server
+local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
+local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
 
-require('lsp/vimls')
-require('lsp/luals')
-require('lsp/phpls')
-require('lsp/htmlls')
-require('lsp/cssls')
-require('lsp/bashls')
-require('lsp/gdls')
-require('lsp/jsonls')
-require('lsp/pyls')
-require('lsp/gopls')
-require('lsp/clangd')
-require('lsp/omnisharp')
+local luadev = require("lua-dev").setup({
+	cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+        path = vim.split(package.path, ';'),
+      },
+      diagnostics = {
+        globals = {'vim', 'use'},
+      },
+    },
+  },
+})
+
+lspconfig.sumneko_lua.setup(luadev)

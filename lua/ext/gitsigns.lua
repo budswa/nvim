@@ -8,7 +8,7 @@ require("gitsigns").setup({
 		delete = { hl = "GitSignsDelete", text = "", numhl = "gitsignsDelete" },
 		topdelete = { hl = "GitSignsDelete", text = "", numhl = "gitsignsDelete" },
 	},
-	numhl = true,
+	numhl = false,
 	keymaps = {
 		noremap = true,
 		buffer = true,

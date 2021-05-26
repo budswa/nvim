@@ -3,6 +3,7 @@ require("nvim-treesitter.configs").setup({
 	highlight = {
 		enable = true,
 		use_languagetree = true,
+		additional_vim_regex_highlighting = true,
 	},
 	incremental_selection = {
 		enable = true,
@@ -24,7 +25,11 @@ require("nvim-treesitter.configs").setup({
 		persist_queries = false,
 	},
 	node_movement = {enable = true},
-	rainbow = { enable = true },
+	rainbow = {
+		enable = true,
+		extended_mode = true,
+		colors = {'#98C579', '#61AFEF'}
+	},
 	refactor = {
 		highlight_definitions = { enable = true },
 		smart_rename = {

@@ -21,6 +21,10 @@ vim.opt.shiftround = true
 vim.opt.breakindent = true
 vim.opt.joinspaces = false         -- Two spaces and grade school, we're done
 
+-- Paren
+vim.g.showmatch = true
+vim.g.matchtime = 10
+
 -- Wrap
 vim.opt.wrap = false
 
@@ -34,7 +38,7 @@ vim.opt.numberwidth = 2
 
 -- Other interface options
 vim.opt.updatetime = 200
-vim.opt.colorcolumn = "80"
+-- vim.opt.colorcolumn = ""
 vim.opt.shortmess = "asTAI"
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes:1"
@@ -68,7 +72,7 @@ vim.opt.wildignore = {
 -- List
 -- vim.opt.list = true
 -- vim.opt.listchars = { nbsp = "⍽", trail = "$",precedes = "<",extends = ">" }
--- vim.opt.listchars = "tab:▏ ,space:·,nbsp:⍽,trail:$,precedes:<,extends:>,eol:↲"
+-- vim.opt.listchars = "eol:↲"
 --vim.opt.listchars = "tab:▏ ,space:·,nbsp:⍽,trail:$,precedes:<,extends:>"
 
 -- Fillchars
@@ -119,7 +123,7 @@ if vim.fn.isdirectory(vim.fn.stdpath("config") .. "/.session/") == 0 then
 	vim.fn.mkdir(vim.fn.stdpath("config") .. "./.session/", "p")
 end
 
--- Shada/viminfo
+-- Shada
 vim.g.shada = { "!", "'1000", "<50", "s10", "h" }
 
 -- Title
@@ -192,7 +196,7 @@ local definitions = {
 		{ "BufWritePost", "plugins.lua", "PackerCompile" },
 	},
 	window = {
-		{ "VimLeave", "*", [[wshada! | wviminfo!]] },
+		{ "VimLeave", "*", [[wshada!]] },
 		{ "VimResized", "*", [[tabdo wincmd =]] }, -- When resizing nvim window, equalize window dimensions
 		{ "FocusGained", "* checktime" }, -- More eager version of autoread
 	},
@@ -202,6 +206,10 @@ local definitions = {
 	yank = {
 		{ "TextYankPost", [[* silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=400})]] },
 	},
+	cursorline = {
+		{ "WinEnter", "*", "set cursorline"},
+		{	"WinLeave", "*", "set nocursorline"}
+	}
 }
 utils.create_augroups(definitions)
 
