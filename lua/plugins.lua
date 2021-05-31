@@ -270,7 +270,7 @@ return packer.startup(function()
 
 	-- Spelling
 	use({
-		"Pocco81/ISuckAtSpelling.nvim",
+		"Pocco81/AbbrevMan.nvim",
 	config = function ()
 		require("ext/isas")
 	end
