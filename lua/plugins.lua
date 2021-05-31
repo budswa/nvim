@@ -205,10 +205,10 @@ return packer.startup(function()
 
 	-- Statusline
 	use({
-		"glepnir/galaxyline.nvim",
+		"hoob3rt/lualine.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 		config = function()
-			require("ext/galaxyline")
+			require("ext/lualine")
 		end,
 	})
 
@@ -253,12 +253,12 @@ return packer.startup(function()
 			require("ext/colorizer")
 		end,
 	})
-	use({
-		"sunjon/shade.nvim",
-		config = function()
-			require("ext/shade")
-		end,
-	})
+	-- use({
+	-- 	"sunjon/shade.nvim",
+	-- 	config = function()
+	-- 		require("ext/shade")
+	-- 	end,
+	-- })
 	use({
 		"kdav5758/TrueZen.nvim",
 		config = function()
