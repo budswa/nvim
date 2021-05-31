@@ -229,22 +229,6 @@ return packer.startup(function()
 		end,
 	})
 
-	-- IRC
-	--[[ use({
-		"shadmansaleh/IRC.nvim",
-		config = function()
-	    require'nirc'.setup({
-				freenode = {
-					server = 'irc.freenode.net',
-					port = 6667,
-					nick = os.getenv('USER') or 'nirc_user',
-					username = os.getenv('USER') or 'nirc_user',
-					password = nil,
-				}
-			})
-		end
-	}) ]]
-
 	-- Indent guides
 	use({
 		"lukas-reineke/indent-blankline.nvim",
@@ -283,6 +267,14 @@ return packer.startup(function()
 	})
 	use({ "bfredl/nvim-miniyank" })
 	--use({ "yamatsum/nvim-cursorline" })
+
+	-- Spelling
+	use({
+		"Pocco81/ISuckAtSpelling.nvim",
+	config = function ()
+		require("ext/isas")
+	end
+	})
 
 	-- Folds
 	use({
@@ -380,6 +372,9 @@ return packer.startup(function()
 		end,
 	})
 
+	-- 'swap'
+	use({ "mizlan/iswap.nvim" })
+
 	-- Motions
 	use({
 		"nacro90/numb.nvim",
@@ -434,15 +429,14 @@ return packer.startup(function()
 	-- use({ "delphinus/characterize.nvim" })
 
 	-- Notes and literate programming
-	use({ "jbyuki/nabla.nvim" })
-	use({ "kristijanhusak/line-notes.nvim" })
-	use({
-		"Vhyrro/neorg",
-		branch = "unstable",
-		config = function()
-			require("neorg").setup({})
-		end,
-	})
+	-- use({ "kristijanhusak/line-notes.nvim" })
+	-- use({
+	-- 	"Vhyrro/neorg",
+	-- 	branch = "unstable",
+	-- 	config = function()
+	-- 		require("neorg").setup({})
+	-- 	end,
+	-- })
 	use({ "jbyuki/ntangle-lsp.nvim" })
 	use({ "jbyuki/ntangle.nvim" })
 	use({ "jbyuki/ntangle-ts.nvim" })

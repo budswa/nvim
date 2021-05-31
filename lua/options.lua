@@ -94,7 +94,7 @@ vim.opt.splitright = true
 -- Backup
 vim.opt.backup = true
 vim.opt.writebackup = true
-local backupdir = vim.fn.expand(vim.fn.stdpath("config") .. "/backup//")
+local backupdir = vim.fn.expand(vim.fn.stdpath("config") .. "/.backup//")
 vim.opt.backupdir = backupdir
 if vim.fn.isdirectory(backupdir) == 0 then
 	vim.fn.mkdir(backupdir)
@@ -154,9 +154,6 @@ vim.g.showmode = 0
 
 -- Mouse
 vim.opt.mouse = "a"
-
--- Spell
-vim.opt.spellfile = vim.fn.expand(vim.fn.stdpath("config") .. "/spell/en.uft-8.add")
 
 -- Notifications
 vim.opt.belloff = 'all'
