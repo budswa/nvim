@@ -36,6 +36,10 @@ return packer.startup(function()
 		"RishabhRD/nvim-lsputils",
 		requires = "RishabhRD/popfix",
 	})
+	use ({
+		"WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
+	config = function() require'toggle_lsp_diagnostics'.init() end
+	})
 
 	-- Completion
 	use({
@@ -65,6 +69,7 @@ return packer.startup(function()
 			require("ext/dap")
 		end,
 	})
+	use ({ "mfussenegger/nvim-dap-python" })
 	use({
 		"rcarriga/nvim-dap-ui",
 		requires = "mfussenegger/nvim-dap",
@@ -83,12 +88,11 @@ return packer.startup(function()
 			require("ext/hlslens")
 		end,
 	})
-	use({ "windwp/nvim-spectre" })
 
 	-- Quickfix
 	use({ "kevinhwang91/nvim-bqf" })
 	use({ "alexanderjeurissen/qedit.nvim" })
-	use({ "gennaro-tedesco/nvim-jqx" })
+	use({ "gabrielpoca/replacer.nvim" })
 
 	-- Treesitter
 	use({
@@ -102,6 +106,8 @@ return packer.startup(function()
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		requires = "nvim-treesitter/nvim-treesitter",
 	})
+	use({ "mfussenegger/nvim-ts-hint-textobject" })
+	use({ "RRethy/nvim-treesitter-textsubjects" })
 	use({
 		"nvim-treesitter/nvim-treesitter-refactor",
 		requires = "nvim-treesitter/nvim-treesitter",
@@ -115,29 +121,26 @@ return packer.startup(function()
 		requires = "nvim-treesitter/nvim-treesitter",
 	})
 	use({
-		"windwp/nvim-ts-autotag",
-		requires = "nvim-treesitter/nvim-treesitter",
-		config = function()
-			require("nvim-ts-autotag").setup()
-		end,
-	})
-	use({
-		"JoosepAlviste/nvim-ts-context-commentstring",
-	})
-	use({
 		"romgrk/nvim-treesitter-context",
 		requires = "nvim-treesitter/nvim-treesitter",
 	})
-	use({
-		"theHamsta/crazy-node-movement",
-		requires = "nvim-treesitter/nvim-treesitter",
-	})
-	use({
-		"lewis6991/spellsitter.nvim",
-		config = function()
-			require("ext/spellsitter")
-		end,
-	})
+	-- use({
+	-- 	"windwp/nvim-ts-autotag",
+	-- 	requires = "nvim-treesitter/nvim-treesitter",
+	-- 	config = function()
+	-- 		require("nvim-ts-autotag").setup()
+	-- 	end,
+	-- })
+	-- use({
+	-- 	"theHamsta/crazy-node-movement",
+	-- 	requires = "nvim-treesitter/nvim-treesitter",
+	-- })
+	-- use({
+	-- 	"lewis6991/spellsitter.nvim",
+	-- 	config = function()
+	-- 		require("ext/spellsitter")
+	-- 	end,
+	-- })
 
 	-- Telescope
 	use({
@@ -184,6 +187,14 @@ return packer.startup(function()
 		config = function()
 			require("telescope").load_extension("arecibo")
 		end,
+	})
+	use({
+		'sudormrfbin/cheatsheet.nvim',
+		requires = {
+			{'nvim-telescope/telescope.nvim'},
+			{'nvim-lua/popup.nvim'},
+			{'nvim-lua/plenary.nvim'},
+		}
 	})
 
 	-- Filetree
@@ -232,7 +243,6 @@ return packer.startup(function()
 	-- Indent guides
 	use({
 		"lukas-reineke/indent-blankline.nvim",
-		branch = "lua",
 		config = function()
 			require("ext/indentlines")
 		end,
@@ -240,10 +250,10 @@ return packer.startup(function()
 
 	-- Tab bar
 	use({
-		"romgrk/barbar.nvim",
+		"akinsho/nvim-bufferline.lua",
 		requires = { "kyazdani42/nvim-web-devicons" },
 		config = function()
-			require("ext/barbar")
+			require("ext/bufferline")
 		end,
 	})
 
@@ -271,9 +281,9 @@ return packer.startup(function()
 	-- Spelling
 	use({
 		"Pocco81/AbbrevMan.nvim",
-	config = function ()
-		require("ext/isas")
-	end
+		config = function ()
+			require("ext/abbrev")
+		end
 	})
 
 	-- Folds
@@ -337,8 +347,8 @@ return packer.startup(function()
 		"folke/todo-comments.nvim",
 		config = function()
 			require("ext/todo")
-  end
-})
+		end
+	})
 
 	-- Autopairs
 	use({
@@ -377,6 +387,10 @@ return packer.startup(function()
 
 	-- Motions
 	use({
+		"ggandor/lightspeed.nvim",
+		config = function() require("ext/lightspeed") end
+	})
+	use({
 		"nacro90/numb.nvim",
 		config = function()
 			require("numb").setup()
@@ -388,6 +402,19 @@ return packer.startup(function()
 	-- 			require'range-highlight'.setup{}
 	-- 		end
 	-- })
+	use({
+    'AckslD/nvim-revJ.lua',
+    requires = {'kana/vim-textobj-user', 'sgur/vim-textobj-parameter'},
+		config = function()
+			require("revj").setup{}
+		end
+	})
+	use({
+		"pta2002/intellitab.nvim",
+		config = {
+			vim.api.nvim_set_keymap("i", "<Tab>", "<CMD>lua require('intellitab').indent()<CR>", {noremap = true, silent = true})
+		}
+	})
 	use({
 		"PHSix/faster.nvim",
 		config = function()
@@ -401,13 +428,6 @@ return packer.startup(function()
 			require('neoscroll').setup()
 		end
 	})
-	-- use({
-	-- 	"AckslD/nvim-revJ.lua",
-	-- 	requires = { "sgur/vim-textobj-parameter", "kana/vim-textobj-user" },
-	-- 	config = function()
-	-- 		require("revj").setup()
-	-- 	end,
-	-- })
 	use({
 		"micmine/jumpwire.nvim",
 		config = function()
@@ -492,8 +512,12 @@ return packer.startup(function()
 
 	-- Theme
 	use({ "folke/tokyonight.nvim", opt = true })
+	use({ "/home/m2/Code/nvim-plugins/cleareye.nvim", as = "cleareye", opt = true})
 
-	-- -- Language specific plugins
+	-- Help pages
+	use({ "milisims/nvim-luaref" })
+
+	-- Language specific plugins
 	-- Lua
 	use({ "tjdevries/nlua.nvim", ft = "lua" })
 	use({ "euclidianAce/BetterLua.vim", ft = "lua" })

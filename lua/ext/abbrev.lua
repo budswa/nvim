@@ -1,12 +1,13 @@
-local isas = require("isas")
+local abbrev_man = require("abbrev-man")
 
-isas.setup({
+abbrev_man.setup({
 	load_natural_dictionaries_at_startup = false,
 	load_programming_dictionaries_at_startup = false,
 	natural_dictionaries = {
 		["nt_en"] = {}
 	},
-	-- programming_dictionaries = {
-	--	 ["pr_py"] = {}
-	-- }
+	programming_dictionaries = {
+		["pr_py"] = {}
+	}
+
 })

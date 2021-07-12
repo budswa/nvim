@@ -9,13 +9,11 @@ require("telescope").setup({
 			"--column",
 			"--smart-case",
 		},
-		prompt_position = "bottom",
-		prompt_prefix = ">> ",
+		prompt_prefix = "> ",
 		initial_mode = "insert",
 		selection_strategy = "reset",
 		sorting_strategy = "descending",
 		layout_strategy = "horizontal",
-		layout_defaults = { -- TODO add builtin options.},
 		file_sorter = require("telescope.sorters").get_fuzzy_file,
 		file_ignore_patterns = {},
 		generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
@@ -36,11 +34,4 @@ require("telescope").setup({
 
 		-- Developer configurations: Not meant for general override
 		buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
-	},
-	extensions = {
-    zessions = {
-      cwd = vim.fn.stdpath("config").."./.sessions/",
-      width = 55,
-    },
-  }
 }})

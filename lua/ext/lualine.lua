@@ -71,12 +71,6 @@ local function ins_right(component)
 end
 
 ins_left {
-  function() return '▊' end,
-  color = {fg = colors.blue}, -- Sets highlighting of component
-  left_padding = 0 -- We don't need space before this
-}
-
-ins_left {
   -- mode component
   function()
     -- auto change color according to neovims mode
@@ -111,26 +105,26 @@ ins_left {
   left_padding = 0
 }
 
-ins_left {
-  -- filesize component
-  function()
-    local function format_file_size(file)
-      local size = vim.fn.getfsize(file)
-      if size <= 0 then return '' end
-      local sufixes = {'b', 'k', 'm', 'g'}
-      local i = 1
-      while size > 1024 do
-        size = size / 1024
-        i = i + 1
-      end
-      return string.format('%.1f%s', size, sufixes[i])
-    end
-    local file = vim.fn.expand('%:p')
-    if string.len(file) == 0 then return '' end
-    return format_file_size(file)
-  end,
-  condition = conditions.buffer_not_empty
-}
+-- ins_left {
+--   -- filesize component
+--   function()
+--     local function format_file_size(file)
+--       local size = vim.fn.getfsize(file)
+--       if size <= 0 then return '' end
+--       local sufixes = {'b', 'k', 'm', 'g'}
+--       local i = 1
+--       while size > 1024 do
+--         size = size / 1024
+--         i = i + 1
+--       end
+--       return string.format('%.1f%s', size, sufixes[i])
+--     end
+--     local file = vim.fn.expand('%:p')
+--     if string.len(file) == 0 then return '' end
+--     return format_file_size(file)
+--   end,
+--   condition = conditions.buffer_not_empty
+-- }
 
 ins_left {
   'filename',
@@ -199,17 +193,12 @@ ins_right {
 ins_right {
   'diff',
   -- Is it me or the symbol for modified us really weird
-  symbols = {added = ' ', modified = '柳 ', removed = ' '},
+  -- symbols = {added = ' ', modified = '柳 ', removed = ' '},
+  symbols = {added = '+', modified = '~', removed = '-'},
   color_added = colors.green,
   color_modified = colors.orange,
   color_removed = colors.red,
   condition = conditions.hide_in_width
-}
-
-ins_right {
-  function() return '▊' end,
-  color = {fg = colors.blue},
-  right_padding = 0
 }
 
 -- Now don't forget to initialize lualine

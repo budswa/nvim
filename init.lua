@@ -1,4 +1,5 @@
 require("plugins")
 require("options")
 require("mappings")
-require("cleareye")
+-- require("cleareye")
+-- vim.cmd[[colorscheme cleareye]]

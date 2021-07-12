@@ -47,3 +47,9 @@ require'lspconfig'.rust_analyzer.setup{
 	cmd = { "rust-analyzer" },
 	filetypes = { "rust" },
 }
+
+-- Pyright
+require'lspconfig'.pyright.setup{}
+
+-- Clangd
+require'lspconfig'.clangd.setup{}

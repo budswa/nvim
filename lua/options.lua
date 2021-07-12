@@ -1,6 +1,3 @@
-require("global/opt")
-
-
 local utils = require("utils")
 
 -- Indentation, spaces and tabs
@@ -19,7 +16,7 @@ vim.opt.softtabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftround = true
 vim.opt.breakindent = true
-vim.opt.joinspaces = false         -- Two spaces and grade school, we're done
+vim.opt.joinspaces = false
 
 -- Paren
 vim.g.showmatch = true
@@ -43,15 +40,15 @@ vim.opt.shortmess = "asTAI"
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes:1"
 vim.opt.formatoptions = vim.opt.formatoptions
-	- 'a'     -- Auto formatting is BAD.
-	- 't'     -- Don't auto format my code. I got linters for that.
-	+ 'c'     -- In general, I like it when comments respect textwidth
-	+ 'q'     -- Allow formatting comments w/ gq
-	- 'o'     -- O and o, don't continue comments
-	+ 'r'     -- But do continue when pressing enter.
-	+ 'n'     -- Indent past the formatlistpat, not underneath it.
-	+ 'j'     -- Auto-remove comments if possible.
-	- '2'     -- I'm not in gradeschool anymore
+	- 'a'
+	- 't'
+	+ 'c'
+	+ 'q'
+	- 'o'
+	+ 'r'
+	+ 'n'
+	+ 'j'
+	- '2'
 
 -- Wildmenu
 vim.opt.wildmenu = true
@@ -70,7 +67,8 @@ vim.opt.wildignore = {
 }
 
 -- List
--- vim.opt.list = true
+vim.opt.list = true
+-- vim.opt.listchars = table.concat
 -- vim.opt.listchars = { nbsp = "⍽", trail = "$",precedes = "<",extends = ">" }
 -- vim.opt.listchars = "eol:↲"
 --vim.opt.listchars = "tab:▏ ,space:·,nbsp:⍽,trail:$,precedes:<,extends:>"
@@ -195,9 +193,10 @@ local definitions = {
 	window = {
 		{ "VimLeave", "*", [[wshada!]] },
 		{ "VimResized", "*", [[tabdo wincmd =]] }, -- When resizing nvim window, equalize window dimensions
-		{ "FocusGained", "* checktime" }, -- More eager version of autoread
+		{ "FocusGained", "*", [[checktime]] }, -- More eager version of autoread
 	},
 	ft = {
+		-- { "FileType", "NvimTree", "setlocal winhighlights=Normal:Terminal" },
 		{ "FileType", "dashboard", "set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2" },
 	},
 	yank = {
