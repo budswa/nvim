@@ -188,7 +188,7 @@ vim.g.loaded_netrwFileHandlers = 0
 local definitions = {
 	buffer = {
 		{ "BufWritePre", "*", [[silent! lua require('utils').remove_trailing_whitespace()]] },
-		{ "BufWritePost", "plugins.lua", "PackerCompile" },
+		-- { "BufWritePost", "plugins.lua", "PackerCompile" },
 	},
 	window = {
 		{ "VimLeave", "*", [[wshada!]] },
