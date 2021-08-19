@@ -1,4 +1,4 @@
--- local utils = require("lspconfig/util")
+-- local util = require("lspconfig/util")
 local lspconfig = require('lspconfig')
 
 vim.fn.sign_define(

@@ -1,5 +1,6 @@
 require("nvim-treesitter.configs").setup({
 	ensure_installed = "maintained",
+    tree_docs = { enable = true },
 	highlight = {
 		enable = true,
 		use_languagetree = true,
@@ -14,40 +15,28 @@ require("nvim-treesitter.configs").setup({
 			node_decremental = "grm",
 		},
 	},
-	autopairs = {enable = true},
 	indent = { enable = true },
-	tree_docs = { enable = true },
-	context_commentstring = {
-		enable = true,
-	},
+    --autopairs = { enable = true },
 	playground = {
 		enable = true,
 		updatetime = 25,
-		persist_queries = false,
+		persist_queries = true,
+		keybindings = {
+			toggle_query_editor = 'o',
+			toggle_hl_groups = 'i',
+			toggle_injected_languages = 't',
+			toggle_anonymous_nodes = 'a',
+			toggle_language_display = 'I',
+			focus_language = 'f',
+			unfocus_language = 'F',
+			update = 'R',
+			goto_node = '<cr>',
+			show_help = '?',
+		},
 	},
-	node_movement = {enable = true},
 	rainbow = {
 		enable = true,
 		extended_mode = true,
 		colors = {'#98C579', '#61AFEF'}
-	},
-	refactor = {
-		highlight_definitions = { enable = true },
-		smart_rename = {
-			enable = true,
-			keymaps = {
-				smart_rename = "grr",
-			},
-		},
-		navigation = {
-			enable = true,
-			keymaps = {
-				goto_definition = "gnd",
-				list_definitions = "gnD",
-				list_definitions_toc = "gO",
-				goto_next_usage = "<a-*>",
-				goto_previous_usage = "<a-#>",
-			},
-		},
 	},
 })
