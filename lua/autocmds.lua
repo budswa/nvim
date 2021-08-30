@@ -1,25 +1,25 @@
-local util = require("util")
+local util = require('util')
 
 local definitions = {
-	buffer = {
-		{ "BufWritePre", "*", [[silent! lua require('util').remove_trailing_whitespace()]] },
-		{ "BufWritePost", "plugins.lua", "PackerCompile" },
+	packer = {
+		{ 'BufWritePost', 'plugins.lua', 'PackerCompile' },
+	},
+	trailing_whitespace = {
+		{ 'BufWritePre', '*', [[silent! lua require('util').remove_trailing_whitespace()]] },
+	},
+	dashboard = {
+		{ 'FileType', 'dashboard', 'set showtabline=0' },
 	},
 	window = {
-		{ "VimLeave", "*", [[wshada!]] },
-		{ "VimResized", "*", [[tabdo wincmd =]] }, -- When resizing nvim window, equalize window dimensions
-		{ "FocusGained", "*", [[checktime]] }, -- More eager version of autoread
-	},
-	ft = {
-		-- { "FileType", "NvimTree", "setlocal winhighlights=Normal:Terminal" },
-		{ "FileType", "dashboard", "set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2" },
+		{ 'VimResized', '*', 'tabdo wincmd =' }, -- When resizing nvim window, equalize window dimensions
+		{ 'FocusGained', '*', 'checktime' }, -- More eager version of autoread
 	},
 	yank = {
-		{ "TextYankPost", [[* silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=400})]] },
+		{ 'TextYankPost', [[* silent! lua vim.highlight.on_yank({higroup='IncSearch', timeout=400})]] },
 	},
 	cursorline = {
-		{ "WinEnter", "*", "set cursorline"},
-		{ "WinLeave", "*", "set nocursorline"}
+		{ 'WinEnter', '*', 'set cursorline' },
+		{ 'WinLeave', '*', 'set nocursorline' }
 	}
 }
 util.create_augroups(definitions)

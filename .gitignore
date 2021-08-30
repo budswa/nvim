@@ -1,6 +1,6 @@
 .backupdir/
 .undodir/
-.session/
+.sessions/
 .vscode/
 .*/
 .gitignore~

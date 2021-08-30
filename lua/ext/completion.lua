@@ -1,9 +1,10 @@
+local cmp = require('cmp')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
-local cmp = require('cmp')
+
+
 
 require('cmp_nvim_lsp').setup()
-
 require('nvim-autopairs').setup()
 require("nvim-autopairs.completion.cmp").setup({
   map_cr = true,
@@ -14,12 +15,24 @@ cmp.setup {
   formatting = {
     format = function(entry, vim_item)
       vim_item.kind = lspkind.presets.default[vim_item.kind]
+			.. ' ' .. vim_item.kind
+
+			vim_item.menu = ({
+        path   = '[Path]',
+        buffer = '[Buffer]',
+        calc   = '[Calc]',
+        nvim_lsp = '[LSP]',
+        nvim_lua = '[Lua]',
+				luasnip = '[LuaSnip]',
+        cmp_tabnine = '[TN]',
+      }) [entry.source.name]
+
       return vim_item
     end
   },
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = {
@@ -37,7 +50,9 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+		{ name = 'cmp_tabnine' },
     { name = 'buffer' },
-    { name = 'path' }
+    { name = 'path' },
+    { name = 'calc' }
   },
 }

@@ -64,6 +64,11 @@ require('packer').startup({function()
 				'hrsh7th/cmp-nvim-lsp',
 				'hrsh7th/cmp-buffer',
 				'hrsh7th/cmp-path',
+				'hrsh7th/cmp-calc',
+				{
+					'tzachar/cmp-tabnine',
+					run='./install.sh',
+				},
 				{
 					'L3MON4D3/LuaSnip',
 					requires = {
@@ -89,14 +94,23 @@ require('packer').startup({function()
   })
 
 	-- Statusline
-	use {
+	use ({
 		'glepnir/galaxyline.nvim',
 		branch = 'main',
 		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
 		config = function()
 			require('ext/statusline')
 		end
-	}
+	})
+
+	-- Tabline
+	use({
+		'romgrk/barbar.nvim',
+		requires = 'kyazdani42/nvim-web-devicons',
+		config = function()
+			require('ext/tabline')
+		end
+	})
 
 	-- Treesitter
 	use {
@@ -129,7 +143,8 @@ require('packer').startup({function()
 		event = 'BufReadPre',
 		module = 'persistence',
 		config = function()
-			require('persistence').setup()
+			-- require('persistence').setup()
+			require('ext/persistence')
 		end,
 	})
 	use({
@@ -153,8 +168,20 @@ require('packer').startup({function()
 		end
 	})
 
+	-- Debug
+	use({
+		'mfussenegger/nvim-dap',
+		config = function()
+			require('ext/dap')
+		end,
+		requires = {
+			'rcarriga/nvim-dap-ui',
+			'jbyuki/one-small-step-for-vimkind'
+		}
+	})
+
 	-- Quickfix
-	use ({
+	use({
 		'kevinhwang91/nvim-bqf'
 	})
 
@@ -171,6 +198,15 @@ require('packer').startup({function()
 		end
 	})
 
+	-- Lightspeed motions
+	use({
+		'ggandor/lightspeed.nvim',
+		config = function()
+			require('ext/lightspeed')
+		end
+	})
+
+
 	-- Surround
 	use({
 		'blackCauldron7/surround.nvim',
@@ -180,8 +216,29 @@ require('packer').startup({function()
 	})
 
 	-- Commenting
-	use ({
+	use({
 		'b3nj5m1n/kommentary'
+	})
+
+  -- Search
+	use({
+		'kevinhwang91/nvim-hlslens',
+		config = function()
+			require('ext/hlslens')
+		end
+	})
+
+	-- Cursor word
+	use({
+		'xiyaowong/nvim-cursorword'
+	})
+
+	-- Lastplace
+	use({
+		'ethanholz/nvim-lastplace',
+		config = function()
+			require('nvim-lastplace').setup()
+		end
 	})
 
 	-- Indentlines
@@ -193,6 +250,18 @@ require('packer').startup({function()
 	})
 
 	-- Colorscheme
-	use({ 'NTBBloodbath/doom-one.nvim' })
+	use({
+		'NTBBloodbath/doom-one.nvim'
+	})
 	vim.cmd('colorscheme doom-one')
+
+	-- Misc
+	use {
+		'lewis6991/impatient.nvim',
+		rocks = 'mpack'
+	}
+	use {
+		'jdhao/better-escape.vim',
+		event = 'InsertEnter'
+	}
 end})

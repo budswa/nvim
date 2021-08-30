@@ -33,46 +33,29 @@ vim.opt.numberwidth = 2
 
 -- Other interface options
 vim.opt.updatetime = 200
--- vim.opt.colorcolumn = ""
 vim.opt.shortmess = "asTAI"
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes:1"
 vim.opt.formatoptions = vim.opt.formatoptions
-	- 'a'
-	- 't'
-	+ 'c'
-	+ 'q'
-	- 'o'
-	+ 'r'
-	+ 'n'
-	+ 'j'
-	- '2'
+	+ 'j' -- Delete comment character when joining commented lines
+	- 'r' -- Disable new line comment leader on <Enter> in insert mode
+	- 'o' -- Disable new line comment leader on 'o' or 'O' in normal mode
+	- 'a' -- Disable autoformatting
 
 -- Wildmenu
 vim.opt.wildmenu = true
 vim.opt.wildmode = {'longest', 'list', 'full'}
 vim.opt.wildoptions = 'pum'
 vim.opt.wildignore = {
-  '**/node_modules/**',
-  '**/coverage/**',
-  '**/.idea/**',
-  '**/.git/**',
-  '**/.nuxt/**',
-	'*.o',
-	'*~',
-	'*.pyc',
-	'*pycache*',
+	'',
 }
 
 -- List
 vim.opt.list = true
--- vim.opt.listchars = table.concat
--- vim.opt.listchars = { nbsp = "⍽", trail = "$",precedes = "<",extends = ">" }
--- vim.opt.listchars = "eol:↲"
---vim.opt.listchars = "tab:▏ ,space:·,nbsp:⍽,trail:$,precedes:<,extends:>"
+vim.opt.listchars = { trail = '·', nbsp = '⍽', eol = "↴" }
 
 -- Fillchars
-vim.g.fillchars = "vert:│,eob: "
+vim.g.fillchars = { vert = '│', eob = ' ' }
 
 -- Scrolloff
 vim.opt.scrolloff = 2
@@ -112,11 +95,6 @@ local swapdir = vim.fn.expand(vim.fn.stdpath("config") .. "/.swap//")
 vim.opt.directory = swapdir
 if vim.fn.isdirectory(swapdir) == 0 then
 	vim.fn.mkdir(swapdir, "p")
-end
-
--- Sessions
-if vim.fn.isdirectory(vim.fn.stdpath("config") .. "/.session//") == 0 then
-	vim.fn.mkdir(vim.fn.stdpath("config") .. "./.session/", "p")
 end
 
 -- Shada

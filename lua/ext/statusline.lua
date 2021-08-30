@@ -20,24 +20,23 @@ local colors = {
 gls.left[1] = {
    FirstElement = {
       provider = function()
-         return "▌"
+         return '▌'
       end,
       highlight = {colors.blue,colors.bg},
    },
 }
-
 gls.left[2] = {
 	ViMode = {
 		provider = function()
       local mode = {
-        n = "NORMAL",
-				i = "INSERT",
-				v = "VISUAL",
+        n = 'NORMAL',
+				i = 'INSERT',
+				v = 'VISUAL',
       }
 			return mode[vim.fn.mode()]
 		end,
 		highlight = {colors.blue, colors.bg,'bold'},
-    separator_highlight = {colors.blue, colors.bg,'bold'},
+    separator_highlight = {colors.blue, colors.bg},
 		separator = ' ',
 	}
 }
@@ -71,7 +70,7 @@ gls.right[1] = {
   ShowLspClient = {
     provider = 'GetLspClient',
     condition = function()
-      local tbl = {['dashboard'] = true,['']=true}
+      local tbl = {['dashboard'] = true, ['']=true}
       if tbl[vim.bo.filetype] then
         return false
       end
@@ -85,7 +84,6 @@ gls.right[2] = {
     provider = 'GitBranch',
     condition = condition.check_git_workspace,
     highlight = {colors.fg,colors.bg,'bold'},
-    separator_highlight = {colors.blue, colors.bg,'bold'},
 		separator = ' ',
   }
 }
@@ -111,19 +109,50 @@ gls.right[5] = {
     condition = condition.hide_in_width,
     icon = ' -',
     highlight = {colors.red,colors.bg},
+    separator_highlight = {colors.blue, colors.bg},
   }
 }
 gls.right[6] = {
+  LineInfo = {
+    provider = 'LineColumn',
+    condition = buffer_not_empty,
+    highlight = {colors.blue,colors.bg},
+    --[[ separator = ' ',
+    separator_highlight = { colors.bg, colors.bg }, ]]
+  },
+}
+gls.right[7] = {
   LastElement = {
     provider = function()
-       return "▐"
+       return '▐'
     end,
     highlight = {colors.blue,colors.bg},
  },
 }
 
 -- Short statusline
-gl.short_line_list = {'NvimTree', 'packer'}
+gl.short_line_list = {
+	'NvimTree',
+	'packer',
+	'Outline',
+	'LspTrouble',
+}
 
-gls.short_line_left[1] = {}
+gls.short_line_left[1] = {
+	FirstElement = {
+		provider = function()
+			return '▌'
+		end,
+		highlight = {colors.blue,colors.bg},
+	},
+}
+
+gls.short_line_right[1] = {
+  LastElement = {
+    provider = function()
+			return '▐'
+    end,
+    highlight = {colors.blue,colors.bg},
+	},
+}
 
