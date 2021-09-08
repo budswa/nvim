@@ -1,6 +1,6 @@
 -- Indentation, spaces and tabs
 vim.opt.expandtab = false
-vim.g.expandtab = false
+vim.opt.expandtab = false
 vim.opt.expandtab = false
 vim.opt.shiftwidth = 2
 vim.opt.shiftwidth = 2
@@ -33,7 +33,7 @@ vim.opt.numberwidth = 2
 
 -- Other interface options
 vim.opt.updatetime = 200
-vim.opt.shortmess = "asTAI"
+-- vim.opt.shortmess = "asTAI"
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes:1"
 vim.opt.formatoptions = vim.opt.formatoptions
@@ -42,17 +42,20 @@ vim.opt.formatoptions = vim.opt.formatoptions
 	- 'o' -- Disable new line comment leader on 'o' or 'O' in normal mode
 	- 'a' -- Disable autoformatting
 
+-- Grep
+vim.opt.grepprg = 'rg --vimgrep'
+
 -- Wildmenu
 vim.opt.wildmenu = true
 vim.opt.wildmode = {'longest', 'list', 'full'}
 vim.opt.wildoptions = 'pum'
-vim.opt.wildignore = {
+--[[ vim.opt.wildignore = {
 	'',
-}
+} ]]
 
 -- List
 vim.opt.list = true
-vim.opt.listchars = { trail = '·', nbsp = '⍽', eol = "↴" }
+-- vim.opt.listchars = { tab = '|', trail = '·', nbsp = '⍽', eol = "↴" }
 
 -- Fillchars
 vim.g.fillchars = { vert = '│', eob = ' ' }
@@ -120,6 +123,7 @@ vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 vim.opt.pumheight = 10
 vim.opt.pumwidth = 16
 vim.opt.pumblend = 17
+vim.opt.omnifunc = 'syntaxcomplete#Complete'
 
 -- Statusbar/ commandline
 vim.opt.showmode = false
@@ -133,15 +137,15 @@ vim.opt.mouse = "a"
 vim.opt.belloff = 'all'
 
 -- Providers
-vim.g.python_host_skip_check   = 0
 vim.g.loaded_python_provider   = 0
-vim.g.python3_host_skip_check  = 0
 vim.g.loaded_python3_provider  = 0
+vim.g.python_host_skip_check   = 1
+vim.g.python3_host_skip_check  = 1
 vim.g.loaded_node_provider     = 0
 vim.g.loaded_ruby_provider     = 0
 vim.g.loaded_perl_provider     = 0
 
--- Disabled
+-- Disable builtins
 vim.g.loaded_tutor             = 1
 vim.g.loaded_spec              = 1
 vim.g.loaded_2html_plugin      = 1

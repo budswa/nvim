@@ -1,158 +1,63 @@
-require('nvim-gps').setup()
+require('nvim-gps')
 
-local gps = require('nvim-gps')
-local gl = require('galaxyline')
-local condition = require('galaxyline.condition')
+local lsp = require('feline.providers.lsp')
+local vi_mode_utils = require('feline.providers.vi_mode')
 
-local gls = gl.section
+local checkwidth = function()
+  local squeeze_width  = vim.fn.winwidth(0) / 2
+  if squeeze_width > 40 then
+    return true
+  end
+  return false
+end
 
-local colors = {
-  bg = '#23272e',
-  fg = '#bbc2cf',
-	purple = '#a9a1e1',
-	blue = '#50abea',
-	green = '#98be65',
-	orange = '#da8548',
-	red = '#ff6c6b'
+local function current_line_percent()
+  local current_line = vim.fn.line('.')
+  local total_line = vim.fn.line('$')
+  if current_line == 1 then
+    return ' Top '
+  elseif current_line == vim.fn.line('$') then
+    return ' Bot '
+  end
+  local result,_ = math.modf((current_line/total_line)*100)
+  return ' '.. result .. '% '
+end
+
+
+local components = {
+  left = {active = {}, inactive = {}},
+  mid = {active = {}, inactive = {}},
+  right = {active = {}, inactive = {}}
 }
 
--- Standard statusline
-gls.left[1] = {
-   FirstElement = {
-      provider = function()
-         return '▌'
-      end,
-      highlight = {colors.blue,colors.bg},
-   },
+components.left.active[1] = {
+  provider = function()
+   return vi_mode_utils.get_vim_mode()
+  end,
+  hl = function()
+    local val = {}
+
+    val.bg = vi_mode_utils.get_mode_color()
+    val.fg = 'black'
+    val.style = 'bold'
+
+    return val
+  end,
+  right_sep = ' '
 }
-gls.left[2] = {
-	ViMode = {
-		provider = function()
-      local mode = {
-        n = 'NORMAL',
-				i = 'INSERT',
-				v = 'VISUAL',
-      }
-			return mode[vim.fn.mode()]
-		end,
-		highlight = {colors.blue, colors.bg,'bold'},
-    separator_highlight = {colors.blue, colors.bg},
-		separator = ' ',
-	}
-}
-gls.left[3] ={
-  FileIcon = {
-    provider = 'FileIcon',
-    condition = condition.buffer_not_empty,
-    highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,colors.bg},
-  },
-}
-gls.left[4] = {
-  FileName = {
-    provider = 'FileName',
-    condition = condition.buffer_not_empty,
-    highlight = {colors.fg,colors.bg,'bold'}
-  }
-}
-gls.left[5] = {
-	nvimGPS = {
-		provider = function()
-			return gps.get_location()
-		end,
-		condition = function()
-			return gps.is_available()
-		end,
-    highlight = {colors.fg,colors.bg,'bold'},
+
+local properties = {
+	filetypes = {
+		'NvimTree',
+		'packer',
+		'alpha'
+	},
+	buftypes = {
+		'terminal'
 	}
 }
 
-gls.right[1] = {
-  ShowLspClient = {
-    provider = 'GetLspClient',
-    condition = function()
-      local tbl = {['dashboard'] = true, ['']=true}
-      if tbl[vim.bo.filetype] then
-        return false
-      end
-      return true
-    end,
-    highlight = {colors.fg,colors.bg,'bold'}
-  }
-}
-gls.right[2] = {
-  GitBranch = {
-    provider = 'GitBranch',
-    condition = condition.check_git_workspace,
-    highlight = {colors.fg,colors.bg,'bold'},
-		separator = ' ',
-  }
-}
-gls.right[3] = {
-  DiffAdd = {
-    provider = 'DiffAdd',
-    condition = condition.hide_in_width,
-    icon = ' +',
-    highlight = {colors.green,colors.bg},
-  }
-}
-gls.right[4] = {
-  DiffModified = {
-    provider = 'DiffModified',
-    condition = condition.hide_in_width,
-    icon = ' ~',
-    highlight = {colors.orange,colors.bg},
-  }
-}
-gls.right[5] = {
-  DiffRemove = {
-    provider = 'DiffRemove',
-    condition = condition.hide_in_width,
-    icon = ' -',
-    highlight = {colors.red,colors.bg},
-    separator_highlight = {colors.blue, colors.bg},
-  }
-}
-gls.right[6] = {
-  LineInfo = {
-    provider = 'LineColumn',
-    condition = buffer_not_empty,
-    highlight = {colors.blue,colors.bg},
-    --[[ separator = ' ',
-    separator_highlight = { colors.bg, colors.bg }, ]]
-  },
-}
-gls.right[7] = {
-  LastElement = {
-    provider = function()
-       return '▐'
-    end,
-    highlight = {colors.blue,colors.bg},
- },
-}
-
--- Short statusline
-gl.short_line_list = {
-	'NvimTree',
-	'packer',
-	'Outline',
-	'LspTrouble',
-}
-
-gls.short_line_left[1] = {
-	FirstElement = {
-		provider = function()
-			return '▌'
-		end,
-		highlight = {colors.blue,colors.bg},
-	},
-}
-
-gls.short_line_right[1] = {
-  LastElement = {
-    provider = function()
-			return '▐'
-    end,
-    highlight = {colors.blue,colors.bg},
-	},
-}
-
+require('feline').setup({
+	components = components,
+	properties = properties,
+})
