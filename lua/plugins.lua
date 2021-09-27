@@ -258,14 +258,6 @@ require('packer').startup({
 			'b3nj5m1n/kommentary',
 		})
 
-		-- Increment/ decrement
-		use({
-			'monaqa/dial.nvim',
-			config = function()
-				require('ext/dial')
-			end,
-		})
-
 		-- Search
 		use({
 			'kevinhwang91/nvim-hlslens',
