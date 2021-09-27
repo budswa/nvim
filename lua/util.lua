@@ -21,12 +21,6 @@ function util.has_width_gt(cols)
     return vim.fn.winwidth(0) / 2 > cols
 end
 
-function util.join_paths(...)
-  local separator = util.get_separator()
-  return table.concat({ ... }, separator)
-end
-
-
 function util.create_augroups(definitions)
   for group_name, definition in pairs(definitions) do
     vim.api.nvim_command('augroup '..group_name)
@@ -37,6 +31,10 @@ function util.create_augroups(definitions)
     end
     vim.api.nvim_command('augroup END')
   end
+end
+
+function util.set_local(...)
+	vim.api.nvim_buf_set_option(0, ...)
 end
 
 -- Removes trailing whitespace within window

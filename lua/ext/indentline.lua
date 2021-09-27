@@ -1,7 +1,13 @@
 require("indent_blankline").setup({
-	show_end_of_line = true,
 	char = '▏',
-	buftype_exclude = {"terminal"},
+	viewport_buffer = 20,
+	show_current_context = true,
+	show_end_of_line = true,
+	use_treesitter = true,
+	buftype_exclude = {
+		'terminal',
+		'nofile'
+	},
 	filetype_exclude = {
 		'alpha',
 		'help',

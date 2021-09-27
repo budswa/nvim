@@ -1,3 +1,3 @@
 require("presence"):setup({
-	auto_update         = true,
+	auto_update = true,
 })

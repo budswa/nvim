@@ -1,17 +1,15 @@
 -- Indentation, spaces and tabs
 vim.opt.expandtab = false
-vim.opt.expandtab = false
-vim.opt.expandtab = false
-vim.opt.shiftwidth = 2
-vim.opt.shiftwidth = 2
+vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 vim.opt.smartindent = true
 vim.opt.cindent = true
-vim.opt.tabstop = 2
-vim.opt.tabstop = 2
+vim.opt.tabstop = 4
+vim.opt.tabstop = 4
 vim.opt.smarttab = true
-vim.opt.softtabstop = 2
-vim.opt.softtabstop = 2
+vim.opt.softtabstop = 4
+vim.opt.softtabstop = 4
 vim.opt.shiftround = true
 vim.opt.breakindent = true
 vim.opt.joinspaces = false
@@ -33,6 +31,7 @@ vim.opt.numberwidth = 2
 
 -- Other interface options
 vim.opt.updatetime = 200
+vim.opt.redrawtime = 100
 -- vim.opt.shortmess = "asTAI"
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes:1"
@@ -55,19 +54,34 @@ vim.opt.wildoptions = 'pum'
 
 -- List
 vim.opt.list = true
--- vim.opt.listchars = { tab = '|', trail = '·', nbsp = '⍽', eol = "↴" }
+vim.opt.listchars = {
+	tab = '▏ ',
+	trail = '·',
+	nbsp = '⍽',
+	--eol = "↴"
+}
 
 -- Fillchars
-vim.g.fillchars = { vert = '│', eob = ' ' }
+fillchars = vim.o.fillchars .. "vert: "
+--[[ vim.g.fillchars = {
+	fold = '▶',
+	vert = '/ ',
+	-- vert = '│',
+	eob = ' '
+} ]]
 
 -- Scrolloff
-vim.opt.scrolloff = 2
-vim.opt.sidescrolloff = 2
+vim.opt.scrolloff = 4
+vim.opt.sidescrolloff = 4
 
 -- Fold
 vim.opt.foldlevel = 120
+vim.opt.foldnestmax = 4
+vim.opt.foldminlines = 1
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldtext =
+	[[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
 
 -- Split
 vim.opt.splitbelow = true
@@ -119,7 +133,7 @@ vim.opt.hlsearch = true
 vim.opt.cursorline = true
 
 -- Completion
-vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
+vim.opt.completeopt = { "menuone","preview" }
 vim.opt.pumheight = 10
 vim.opt.pumwidth = 16
 vim.opt.pumblend = 17
@@ -135,6 +149,8 @@ vim.opt.mouse = "a"
 
 -- Notifications
 vim.opt.belloff = 'all'
+
+vim.opt.virtualedit = "onemore"
 
 -- Providers
 vim.g.loaded_python_provider   = 0

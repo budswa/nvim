@@ -2,7 +2,15 @@ local cmp = require('cmp')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
 
-
+require "lsp_signature".setup({
+  bind = true,
+  max_height = 12,
+  max_width = 120,
+  transpancy = 10,
+  handler_opts = {
+    border = "single"
+  }
+})
 
 require('cmp_nvim_lsp').setup()
 require('nvim-autopairs').setup()
@@ -11,7 +19,10 @@ require("nvim-autopairs.completion.cmp").setup({
   map_complete = true,
 })
 
-cmp.setup {
+cmp.setup{
+  completion = {
+    completeopt = 'menu,menuone,preview,noinsert'
+  },
   formatting = {
     format = function(entry, vim_item)
       vim_item.kind = lspkind.presets.default[vim_item.kind]
@@ -19,12 +30,12 @@ cmp.setup {
 
 			vim_item.menu = ({
         nvim_lsp = '[LSP]',
+				luasnip = '[LuaSnip]',
 				treesitter = '[TS]',
-        nvim_lua = '[Lua]',
-        path   = '[Path]',
         buffer = '[Buffer]',
         calc   = '[Calc]',
-				luasnip = '[LuaSnip]',
+        path   = '[Path]',
+        nvim_lua = '[Lua]',
       }) [entry.source.name]
 
       return vim_item
@@ -36,8 +47,6 @@ cmp.setup {
     end,
   },
   mapping = {
-		['<C-p>'] = cmp.mapping.select_prev_item(),
-		['<C-n>'] = cmp.mapping.select_next_item(),
 		['<C-d>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
 		['<C-Space>'] = cmp.mapping.complete(),
@@ -49,6 +58,7 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
+		{ name = 'nvim_lua' },
 		{ name = 'treesitter' },
     { name = 'path' },
     { name = 'buffer' },

@@ -4,22 +4,19 @@ local definitions = {
 	packer = {
 		{ 'BufWritePost', 'plugins.lua', 'PackerCompile' },
 	},
-	trailing_whitespace = {
+	whitespace = {
 		{ 'BufWritePre', '*', [[silent! lua require('util').remove_trailing_whitespace()]] },
 	},
-	dashboard = {
-		{ 'FileType', 'dashboard', 'set showtabline=0' },
-	},
 	window = {
-		{ 'VimResized', '*', 'tabdo wincmd =' }, -- When resizing nvim window, equalize window dimensions
-		{ 'FocusGained', '*', 'checktime' }, -- More eager version of autoread
+		{ 'VimResized', '*', 'tabdo wincmd =' },
+		{ 'FocusGained', '*', 'checktime' },
 	},
 	yank = {
-		{ 'TextYankPost', [[* silent! lua vim.highlight.on_yank({higroup='IncSearch', timeout=400})]] },
+		{ 'TextYankPost', [[* silent! lua vim.highlight.on_yank({higroup='IncSearch', timeout=500})]] },
 	},
 	cursorline = {
 		{ 'WinEnter', '*', 'set cursorline' },
 		{ 'WinLeave', '*', 'set nocursorline' }
-	}
+	},
 }
 util.create_augroups(definitions)

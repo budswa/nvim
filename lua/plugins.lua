@@ -14,9 +14,9 @@ require('packer').init({
 	git = {
 		clone_timeout = 300,
 	},
-	profile = {
+	--[[ profile = {
 		enable = true,
-	},
+	}, ]]
 })
 
 local use = require('packer').use
@@ -57,6 +57,7 @@ require('packer').startup({
 			end,
 			requires = {
 				'onsails/lspkind-nvim',
+				'ray-x/lsp_signature.nvim',
 				'ray-x/cmp-treesitter',
 				'hrsh7th/cmp-nvim-lsp',
 				'hrsh7th/cmp-buffer',
@@ -91,24 +92,14 @@ require('packer').startup({
 				},
 			},
 		})
-		use({
-			'SmiteshP/nvim-gps',
-			requires = {
-				'nvim-treesitter/nvim-treesitter',
-			},
-		})
 
 		-- Statusline
-		--[[ use({
-			'famiu/feline.nvim',
-			requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-			config = function()
-				require('ext/statusline')
-			end,
-		}) ]]
 		use({
 			'glepnir/galaxyline.nvim',
-			requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+			requires = {
+				'kyazdani42/nvim-web-devicons',
+				'SmiteshP/nvim-gps'
+			},
 			config = function()
 				require('ext/galaxyline')
 			end,
@@ -116,7 +107,7 @@ require('packer').startup({
 
 		-- Tabline
 		use({
-			'romgrk/barbar.nvim',
+			'akinsho/bufferline.nvim',
 			requires = 'kyazdani42/nvim-web-devicons',
 			config = function()
 				require('ext/tabline')
@@ -151,6 +142,9 @@ require('packer').startup({
 		})
 		use({
 			'ahmedkhalf/project.nvim',
+			config = function()
+				require('ext/project')
+			end
 		})
 		use({
 			'gpanders/editorconfig.nvim',
@@ -172,6 +166,13 @@ require('packer').startup({
 				require('ext/diffview')
 			end,
 		})
+		use({
+			'ruifm/gitlinker.nvim',
+			requires = 'nvim-lua/plenary.nvim',
+			config = function()
+				require('gitlinker').setup()
+			end,
+		})
 
 		-- Debug
 		use({
@@ -181,6 +182,7 @@ require('packer').startup({
 			end,
 			requires = {
 				'rcarriga/nvim-dap-ui',
+				'Pocco81/DAPInstall.nvim',
 				'jbyuki/one-small-step-for-vimkind',
 			},
 		})
@@ -211,12 +213,15 @@ require('packer').startup({
 			'simrat39/symbols-outline.nvim',
 		})
 
-		-- Whichkey
+		-- Keymap
 		use({
 			'folke/which-key.nvim',
 			config = function()
 				require('keybindings')
 			end,
+		})
+		use({
+			'tjdevries/astronauta.nvim'
 		})
 
 		-- Motions
@@ -277,12 +282,22 @@ require('packer').startup({
 			'xiyaowong/nvim-cursorword',
 		})
 
+		-- Template manager
+		use({
+			'vigoux/templar.nvim',
+		})
+
 		-- Lastplace
 		use({
 			'ethanholz/nvim-lastplace',
 			config = function()
-				require('nvim-lastplace').setup()
+				require('ext/lastplace')
 			end,
+		})
+
+		-- Pastebin
+		use({
+			'rktjmp/paperplanes.nvim',
 		})
 
 		-- Indentlines
@@ -303,15 +318,25 @@ require('packer').startup({
 		})
 
 		-- Colorscheme
-		use({
+		--[[ use({
 			'NTBBloodbath/doom-one.nvim',
 		})
+		-- vim.cmd('colorscheme doom-one' ]]
 		use({
-		  'projekt0n/github-nvim-theme'
+			'projekt0n/github-nvim-theme',
 		})
-		vim.cmd('colorscheme doom-one')
+		require('github-theme').setup()
 
 		-- Misc
+		use({
+			'lewis6991/impatient.nvim',
+		})
+		use({
+			'nathom/filetype.nvim',
+			config = function()
+				vim.g.did_load_filetypes = 1
+			end
+		})
 		use({
 			'andweeb/presence.nvim',
 			config = function()
@@ -319,11 +344,11 @@ require('packer').startup({
 			end,
 		})
 		use({
-			'jdhao/better-escape.vim',
+			'max397574/better-escape.nvim',
 			event = 'InsertEnter',
 		})
 		use({
-			'rktjmp/paperplanes.nvim',
+			'Darazaki/indent-o-matic'
 		})
-	end,
+		end,
 })

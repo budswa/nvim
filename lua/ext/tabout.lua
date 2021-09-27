@@ -1,1 +1,3 @@
-require('tabout').setup()
+require('tabout').setup({
+	ignore_beginning = true
+})
