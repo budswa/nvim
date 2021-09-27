@@ -58,17 +58,15 @@ vim.opt.listchars = {
 	tab = '▏ ',
 	trail = '·',
 	nbsp = '⍽',
-	--eol = "↴"
 }
 
 -- Fillchars
-fillchars = vim.o.fillchars .. "vert: "
---[[ vim.g.fillchars = {
+vim.g.fillchars = {
 	fold = '▶',
 	vert = '/ ',
 	-- vert = '│',
 	eob = ' '
-} ]]
+}
 
 -- Scrolloff
 vim.opt.scrolloff = 4
