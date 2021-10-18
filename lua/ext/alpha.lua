@@ -10,4 +10,4 @@ end
 
 startify.section.footer.val = footer() ]]
 
-require"alpha".setup(startify.opts)
+require('alpha').setup(startify.opts)

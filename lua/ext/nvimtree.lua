@@ -1,3 +1,17 @@
-vim.g.nvim_tree_auto_close = 1
-vim.g.nvim_tree_respect_buf_cwd = 1
-vim.g.nvim_tree_indent_markers = 1
+require'nvim-tree'.setup {
+	view = {
+	    width = 30,
+		side = 'left',
+	},
+	update_focused_file = {
+		enable = true,
+		update_cwd  = false,
+	},
+	disable_netrw = true,
+	hijack_netrw = true,
+	hijack_cursor = true,
+	auto_close = true,
+	respect_buf_cwd = true,
+	indent_markers = true,
+	lsp_diagnostics = false,
+}

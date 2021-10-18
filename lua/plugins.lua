@@ -7,16 +7,18 @@ end
 vim.cmd('packadd packer.nvim')
 
 require('packer').init({
-	compile_path = vim.fn.stdpath('config') .. '/plugin/packer_compiled.lua',
+	compile_path = vim.fn.stdpath('config') .. '/lua/.packer_compiled.lua',
 	display = {
 		title = 'Packer',
+		prompt_border = 'single'
 	},
 	git = {
 		clone_timeout = 300,
 	},
-	--[[ profile = {
+	log = {level = 'info'},
+	profile = {
 		enable = true,
-	}, ]]
+	},
 })
 
 local use = require('packer').use
@@ -27,11 +29,14 @@ require('packer').startup({
 		-- Treesitter
 		use({
 			'nvim-treesitter/nvim-treesitter',
+			-- event = "BufRead",
 			run = ':TSUpdate',
 			config = function()
 				require('ext/treesitter')
 			end,
 			requires = {
+				'nvim-treesitter/nvim-treesitter-textobjects',
+				'nvim-treesitter/playground',
 				'p00f/nvim-ts-rainbow',
 			},
 		})
@@ -39,13 +44,19 @@ require('packer').startup({
 		-- LSP
 		use({
 			'neovim/nvim-lspconfig',
+			-- event = "InsertCharPre",
 			config = function()
 				require('ext/lsp')
 			end,
 			requires = {
-				'jose-elias-alvarez/null-ls.nvim',
-				'kabouzeid/nvim-lspinstall',
+			'jose-elias-alvarez/null-ls.nvim',
+				--'kabouzeid/nvim-lspinstall',
+				'williamboman/nvim-lsp-installer',
 				'folke/lua-dev.nvim',
+				{
+					'weilbith/nvim-code-action-menu',
+					cmd = 'CodeActionMenu',
+				}
 			},
 		})
 
@@ -63,6 +74,7 @@ require('packer').startup({
 				'hrsh7th/cmp-buffer',
 				'hrsh7th/cmp-path',
 				'hrsh7th/cmp-calc',
+				'quangnguyen30192/cmp-nvim-tags',
 				{
 					'L3MON4D3/LuaSnip',
 					requires = {
@@ -86,22 +98,20 @@ require('packer').startup({
 				'nvim-lua/plenary.nvim',
 				'nvim-telescope/telescope-symbols.nvim',
 				'sudormrfbin/cheatsheet.nvim',
-				{
-					'nvim-telescope/telescope-frecency.nvim',
-					requires = 'tami5/sql.nvim',
-				},
 			},
 		})
 
 		-- Statusline
 		use({
-			'glepnir/galaxyline.nvim',
+			'famiu/feline.nvim',
+			branch = 'develop',
 			requires = {
+				'windwp/floatline.nvim',
 				'kyazdani42/nvim-web-devicons',
-				'SmiteshP/nvim-gps'
+				'SmiteshP/nvim-gps',
 			},
 			config = function()
-				require('ext/galaxyline')
+				require('ext/statusline')
 			end,
 		})
 
@@ -109,6 +119,7 @@ require('packer').startup({
 		use({
 			'akinsho/bufferline.nvim',
 			requires = 'kyazdani42/nvim-web-devicons',
+			-- event = "ColorScheme",
 			config = function()
 				require('ext/tabline')
 			end,
@@ -118,6 +129,10 @@ require('packer').startup({
 		use({
 			'kyazdani42/nvim-tree.lua',
 			requires = 'kyazdani42/nvim-web-devicons',
+			--[[ cmd = {
+				'NvimTreeToggle',
+				'NvimTreeRefresh'
+			}, ]]
 			config = function()
 				require('ext/nvimtree')
 			end,
@@ -129,12 +144,13 @@ require('packer').startup({
 			config = function()
 				require('ext/toggleterm')
 			end,
+			-- cmd = { "ToggleTerm", "TermExec" },
 		})
 
 		-- Project and session management
 		use({
 			'folke/persistence.nvim',
-			event = 'BufReadPre',
+			-- event = 'BufReadPre',
 			module = 'persistence',
 			config = function()
 				require('ext/persistence')
@@ -153,12 +169,13 @@ require('packer').startup({
 		-- Git & VCS
 		use({
 			'lewis6991/gitsigns.nvim',
-			config = function()
-				require('ext/gitsigns')
-			end,
 			requires = {
 				'nvim-lua/plenary.nvim',
 			},
+			config = function()
+				require('ext/gitsigns')
+			end,
+			-- event = "BufRead",
 		})
 		use({
 			'sindrets/diffview.nvim',
@@ -217,12 +234,20 @@ require('packer').startup({
 		use({
 			'folke/which-key.nvim',
 			config = function()
-				require('keybindings')
+				require('ext/whichkey')
 			end,
 		})
 		use({
 			'tjdevries/astronauta.nvim'
 		})
+
+		-- Marks
+		--use({
+		--	'chentau/marks.nvim',
+		--	config = function()
+		--		require('marks').setup()
+		--	end
+		--})
 
 		-- Motions
 		use({
@@ -255,14 +280,15 @@ require('packer').startup({
 
 		-- Commenting
 		use({
-			'b3nj5m1n/kommentary',
+			'winston0410/commented.nvim',
 		})
 
 		-- Search
 		use({
 			'kevinhwang91/nvim-hlslens',
 			config = function()
-				require('ext/hlslens')
+				require('hlslens').setup()
+
 			end,
 		})
 		use({
@@ -272,6 +298,14 @@ require('packer').startup({
 		-- Cursor word
 		use({
 			'xiyaowong/nvim-cursorword',
+		})
+
+		-- Colorizer
+		use({
+			'norcalli/nvim-colorizer.lua',
+			config = function()
+				require('ext/colorizer')
+			end
 		})
 
 		-- Template manager
@@ -310,10 +344,6 @@ require('packer').startup({
 		})
 
 		-- Colorscheme
-		--[[ use({
-			'NTBBloodbath/doom-one.nvim',
-		})
-		-- vim.cmd('colorscheme doom-one' ]]
 		use({
 			'projekt0n/github-nvim-theme',
 		})
@@ -337,7 +367,7 @@ require('packer').startup({
 		})
 		use({
 			'max397574/better-escape.nvim',
-			event = 'InsertEnter',
+			-- event = 'InsertEnter',
 		})
 		use({
 			'Darazaki/indent-o-matic'

@@ -1,5 +1,10 @@
 local lspconfig = require('lspconfig')
 
+vim.fn.sign_define("LspDiagnosticsSignError", { text = "E", numhl = "LspDiagnosticsDefaultError" })
+vim.fn.sign_define("LspDiagnosticsSignWarning", { text = "W", numhl = "LspDiagnosticsDefaultWarning" })
+vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "I", numhl = "LspDiagnosticsDefaultInformation" })
+vim.fn.sign_define("LspDiagnosticsSignHint", { text = "H", numhl = "LspDiagnosticsDefaultHint" })
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.documentationFormat = { 'markdown' }
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -20,7 +25,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
         virtual_text = true,
         signs = {
             enable = true,
-            priority = 100
+            priority = 10
         },
         update_in_insert = true,
     }
@@ -30,11 +35,8 @@ local on_attach = function(_, bufnr)
 	local function buf_set_keymap(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
 	end
-	local function buf_set_option(...)
-		vim.api.nvim_buf_set_option(bufnr, ...)
-	end
 
-	buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
 	local opts = { noremap = true, silent = true }
 	buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -62,7 +64,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-local configurations = {
+local settings = {
 	lua = require('lua-dev').setup({
 		library = { plugins = true, types = true, vimruntime = true },
 		lspconfig = {
@@ -84,35 +86,33 @@ local configurations = {
 			},
 		},
 	}),
-	python = {
-		lspconfig = {
-			on_attach = on_attach,
-			capabilities = capabilities,
-		},
-	},
-	rust = {
-		lspconfig = {
-			on_attach = on_attach,
-			capabilities = capabilities,
-		}
-	},
-	go = {
-		lspconfig = {
-			on_attach = on_attach,
-			capabilities = capabilities,
-		}
-	}
 }
+
+local function setup_lsp()
+	local lsp_installer = require('nvim-lsp-installer')
+
+	lsp_installer.on_server_ready(function(server)
+	  	local opts = {
+			on_attach = on_attach,
+	  		capabilities = capabilities,
+	  		settings = settings,
+			root_dir = vim.loop.cwd,
+		}
+	  	server:setup(opts)
+		vim.cmd[[ do User LspAttachBuffers ]]
+	end)
+end
 
 local function setup_null_ls()
 	local null = require('null-ls')
 
 	null.config({
+		debounce = 150,
 		debug = true,
 		sources = {
 			null.builtins.code_actions.gitsigns,
 			null.builtins.diagnostics.luacheck,
-			-- null.builtins.diagnostics.selene.with({ extra_args = { '--config', 'selene.toml' } }),
+			null.builtins.diagnostics.selene,
 			null.builtins.formatting.stylua,
 			null.builtins.formatting.black,
 			null.builtins.formatting.clang_format,
@@ -128,16 +128,5 @@ local function setup_null_ls()
 	})
 end
 
-local function setup_servers()
-	require('lspinstall').setup()
-	local servers = require('lspinstall').installed_servers()
-	for _, server in pairs(servers) do
-		lspconfig[server].setup(configurations[server] or {
-			on_attach = on_attach,
-			capabilities = capabilities,
-		})
-	end
-end
-
-setup_servers()
+setup_lsp()
 setup_null_ls()

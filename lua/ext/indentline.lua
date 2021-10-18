@@ -6,9 +6,10 @@ require("indent_blankline").setup({
 	use_treesitter = true,
 	buftype_exclude = {
 		'terminal',
-		'nofile'
+		'nofile',
 	},
 	filetype_exclude = {
+		'floatline',
 		'alpha',
 		'help',
 		'man',

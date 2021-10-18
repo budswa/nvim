@@ -6,19 +6,19 @@ require('bufferline').setup({
 			{
 				filetype = 'NvimTree',
 				text = 'File Explorer',
-				text_align = 'left',
+				text_align = 'center',
 				highlight = 'NvimTreeNormal',
 			},
 			{
-				filetype = 'alpha',
-				text = 'Alpha',
+				filetype = 'packer',
+				text = 'Packer',
 				text_align = 'center'
 			},
 			{
 				filetype = "Outline",
 				text = 'Symbol outline',
-				highlight = "Green",
 				text_align = "center",
+				highlight = "Green",
 			},
 		},
 	}

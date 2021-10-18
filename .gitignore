@@ -1,7 +1,6 @@
 .backupdir/
 .undodir/
 .sessions/
-.vscode/
 .*/
 .gitignore~
 init.lua~
