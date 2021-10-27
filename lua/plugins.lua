@@ -15,7 +15,6 @@ require('packer').init({
 	git = {
 		clone_timeout = 300,
 	},
-	log = {level = 'info'},
 	profile = {
 		enable = true,
 	},
@@ -61,7 +60,6 @@ require('packer').startup({
 		})
 
 		-- Completion
--- require('impatient').enable_profile()
 		use({
 			'hrsh7th/nvim-cmp',
 			config = function()
@@ -75,7 +73,9 @@ require('packer').startup({
 				'hrsh7th/cmp-buffer',
 				'hrsh7th/cmp-path',
 				'hrsh7th/cmp-calc',
+				'lukas-reineke/cmp-rg',
 				'quangnguyen30192/cmp-nvim-tags',
+				'hrsh7th/cmp-cmdline',
 				{
 					'L3MON4D3/LuaSnip',
 					requires = {
@@ -109,20 +109,9 @@ require('packer').startup({
 			requires = {
 				'windwp/floatline.nvim',
 				'kyazdani42/nvim-web-devicons',
-				'SmiteshP/nvim-gps',
 			},
 			config = function()
 				require('ext/statusline')
-			end,
-		})
-
-		-- Tabline
-		use({
-			'akinsho/bufferline.nvim',
-			requires = 'kyazdani42/nvim-web-devicons',
-			-- event = "ColorScheme",
-			config = function()
-				require('ext/tabline')
 			end,
 		})
 

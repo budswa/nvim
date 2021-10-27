@@ -1,9 +1,9 @@
 local lspconfig = require('lspconfig')
 
-vim.fn.sign_define("LspDiagnosticsSignError", { text = "E", numhl = "LspDiagnosticsDefaultError" })
-vim.fn.sign_define("LspDiagnosticsSignWarning", { text = "W", numhl = "LspDiagnosticsDefaultWarning" })
-vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "I", numhl = "LspDiagnosticsDefaultInformation" })
-vim.fn.sign_define("LspDiagnosticsSignHint", { text = "H", numhl = "LspDiagnosticsDefaultHint" })
+vim.fn.sign_define('LspDiagnosticsSignError', { text = 'E', numhl = 'LspDiagnosticsDefaultError' })
+vim.fn.sign_define('LspDiagnosticsSignWarning', { text = 'W', numhl = 'LspDiagnosticsDefaultWarning' })
+vim.fn.sign_define('LspDiagnosticsSignInformation', { text = 'I', numhl = 'LspDiagnosticsDefaultInformation' })
+vim.fn.sign_define('LspDiagnosticsSignHint', { text = 'H', numhl = 'LspDiagnosticsDefaultHint' })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.documentationFormat = { 'markdown' }
@@ -19,17 +19,15 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        underline = true,
-        virtual_text = true,
-        signs = {
-            enable = true,
-            priority = 10
-        },
-        update_in_insert = true,
-    }
-)
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+	underline = true,
+	virtual_text = true,
+	signs = {
+		enable = true,
+		priority = 10,
+	},
+	update_in_insert = true,
+})
 
 local on_attach = function(_, bufnr)
 	local function buf_set_keymap(...)
@@ -92,14 +90,14 @@ local function setup_lsp()
 	local lsp_installer = require('nvim-lsp-installer')
 
 	lsp_installer.on_server_ready(function(server)
-	  	local opts = {
+		local opts = {
 			on_attach = on_attach,
-	  		capabilities = capabilities,
-	  		settings = settings,
+			capabilities = capabilities,
+			settings = settings,
 			root_dir = vim.loop.cwd,
 		}
-	  	server:setup(opts)
-		vim.cmd[[ do User LspAttachBuffers ]]
+		server:setup(opts)
+		vim.cmd([[ do User LspAttachBuffers ]])
 	end)
 end
 
@@ -112,7 +110,6 @@ local function setup_null_ls()
 		sources = {
 			null.builtins.code_actions.gitsigns,
 			null.builtins.diagnostics.luacheck,
-			null.builtins.diagnostics.selene,
 			null.builtins.formatting.stylua,
 			null.builtins.formatting.black,
 			null.builtins.formatting.clang_format,

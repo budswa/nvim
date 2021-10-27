@@ -1,12 +1,6 @@
 local mode = require('feline.providers.vi_mode')
 local git = require('feline.providers.git')
 
-require('nvim-gps').setup({
-    icons = {
-        ['container-name'] = ' '
-    }
-})
-
 local components = {
     active = {},
     inactive = {}
@@ -14,22 +8,22 @@ local components = {
 
 local force_inactive = {
     filetypes = {
-        '^packer$',
-        '^alpha$',
-        '^NvimTree$',
-        '^Trouble$',
-        '^toggleterm$',
-        '^dap-repl$',
-        '^dapui_repl$',
-        '^dapui_scopes$',
-        '^dapui_stacks$',
-        '^dapui_breakpoints$',
-        '^dapui_watches$',
-        '^qf$',
-        '^help$'
+        'packer',
+        'alpha',
+        'NvimTree',
+        'Trouble',
+        'toggleterm',
+        'dap-repl',
+        'dapui_repl',
+        'dapui_scopes',
+        'dapui_stacks',
+        'dapui_breakpoints',
+        'dapui_watches',
+        'qf',
+        'help'
     },
     buftypes = {
-        '^terminal$'
+        'terminal'
     },
     bufnames = {}
 }
@@ -40,7 +34,7 @@ local c = {
     blue = '#9ecbff',
     red = '#f97583',
     bg = '#131619',
-    bg_alt = '#1b1e22'
+    bg_alt = '#1B1F23'
 }
 
 local mode_colors = {
@@ -115,16 +109,6 @@ table.insert(components.active[1], {
     hl = {
         bg = c.bg_alt
     },
-})
-
-table.insert(components.active[1], {
-    provider = function()
-		return require('nvim-gps').get_location()
-	end,
-    enabled = function()
-		return require('nvim-gps').is_available()
-    end,
-    left_sep = ' '
 })
 
 table.insert(components.active[3], {
@@ -273,13 +257,14 @@ table.insert(components.active[3], {
     }
 })
 
-require('feline').setup {
-    components = components,
-    colors = c,
-    force_inactive = force_inactive,
-    vi_mode_colors = mode_colors
-}
-
 require('floatline').setup({
-    interval = 100
+	interval = 100,
+	status = function()
+        return require('feline').setup({
+            components = components,
+            colors = c,
+            force_inactive = force_inactive,
+            vi_mode_colors = mode_colors
+        })
+	end,
 })

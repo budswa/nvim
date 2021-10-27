@@ -1,69 +1,69 @@
-local opt = vim.opt
+local o = vim.opt
 local g = vim.g
 
 -- Indentation, spaces and tabs
-opt.expandtab = false
-opt.shiftwidth = 4
-opt.shiftwidth = 4
-opt.smartindent = true
-opt.smartindent = true
-opt.cindent = true
-opt.tabstop = 4
-opt.tabstop = 4
-opt.smarttab = true
-opt.softtabstop = 4
-opt.softtabstop = 4
-opt.shiftround = true
-opt.breakindent = true
-opt.joinspaces = false
+o.expandtab = false
+o.shiftwidth = 4
+o.shiftwidth = 4
+o.smartindent = true
+o.smartindent = true
+o.cindent = true
+o.tabstop = 4
+o.tabstop = 4
+o.smarttab = true
+o.softtabstop = 4
+o.softtabstop = 4
+o.shiftround = true
+o.breakindent = true
+o.joinspaces = false
 
 -- Paren
 g.showmatch = true
 g.matchtime = 10
 
 -- Wrap
-opt.wrap = false
+o.wrap = false
 
 -- Clipboard
-opt.clipboard:prepend({ 'unnamedplus' })
+o.clipboard:prepend({ 'unnamedplus' })
 
 -- Number column
-opt.number = true
-opt.relativenumber = true
-opt.numberwidth = 2
+o.number = true
+o.relativenumber = true
+o.numberwidth = 2
 
 -- Other interface options
-opt.updatetime = 200
-opt.redrawtime = 300
-opt.termguicolors = true
--- opt.shortmess = opt.shortmess + { 'a', 'I' }
-opt.termguicolors = true
-opt.signcolumn = 'yes:1'
-opt.formatoptions:append('j')
-opt.formatoptions:remove('r')
-opt.formatoptions:remove('o')
-opt.formatoptions:remove('a')
+o.updatetime = 200
+o.redrawtime = 300
+o.termguicolors = true
+-- o.shortmess = o.shortmess + { 'a', 'I' }
+o.termguicolors = true
+o.signcolumn = 'yes:1'
+o.formatoptions:append('j')
+o.formatoptions:remove('r')
+o.formatoptions:remove('o')
+o.formatoptions:remove('a')
 -- Grep
-opt.grepprg = 'rg --vimgrep'
+o.grepprg = 'rg --vimgrep'
 
 -- Wildmenu
-opt.wildmenu = true
--- opt.wildmode = opt.wildmode + { 'full', 'longest', 'list' }
-opt.wildoptions = 'pum'
---[[ opt.wildignore = {
+o.wildmenu = true
+-- o.wildmode = o.wildmode + { 'full', 'longest', 'list' }
+o.wildoptions = 'pum'
+--[[ o.wildignore = {
 	'',
 } ]]
 
 -- List
-opt.list = true
-opt.listchars = {
+o.list = true
+o.listchars = {
 	tab = '▏ ',
 	trail = '·',
 	nbsp = '⍽',
 }
 
 -- Fillchars
-opt.fillchars = {
+o.fillchars = {
 	fold = ' ',
 	-- vert = '│',
 	vert = ' ', -- blank character
@@ -71,37 +71,37 @@ opt.fillchars = {
 }
 
 -- Scrolloff
-opt.scrolloff = 0
-opt.sidescrolloff = 0
+o.scrolloff = 0
+o.sidescrolloff = 0
 
 -- Fold
-opt.foldlevel = 120
-opt.foldnestmax = 4
-opt.foldminlines = 1
-opt.foldmethod = 'expr'
-opt.foldexpr = 'nvim_treesitter#foldexpr()'
-opt.foldtext =
+o.foldlevel = 120
+o.foldnestmax = 4
+o.foldminlines = 1
+o.foldmethod = 'expr'
+o.foldexpr = 'nvim_treesitter#foldexpr()'
+o.foldtext =
 	[[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
 
 -- Split
-opt.splitbelow = true
-opt.splitright = true
+o.splitbelow = true
+o.splitright = true
 
 -- Backup
-opt.backup = true
-opt.writebackup = true
+o.backup = true
+o.writebackup = true
 local backupdir = vim.fn.expand(vim.fn.stdpath('config') .. '/.backup//')
-opt.backupdir = backupdir
+o.backupdir = backupdir
 if vim.fn.isdirectory(backupdir) == 0 then
 	vim.fn.mkdir(backupdir)
 end
 
 -- Undo
-opt.undofile = true
-opt.undolevels = 500
-opt.undoreload = 500
+o.undofile = true
+o.undolevels = 500
+o.undoreload = 500
 local undodir = vim.fn.expand(vim.fn.stdpath('config') .. '/.undo//')
-opt.undodir = undodir
+o.undodir = undodir
 if vim.fn.isdirectory(undodir) == 0 then
 	vim.fn.mkdir(undodir, 'p')
 end
@@ -110,41 +110,41 @@ end
 g.shada = { '!', "'1000", '<50', 's10', 'h' }
 
 -- Title
-opt.title = true
-opt.titlelen = 16
---opt.titlestring = "NVIM: %F"
+o.title = true
+o.titlelen = 16
+--o.titlestring = "NVIM: %F"
 
 --Search
-opt.inccommand = 'split'
-opt.ignorecase = true
-opt.smartcase = true
-opt.incsearch = true
-opt.hlsearch = true
+o.inccommand = 'split'
+o.ignorecase = true
+o.smartcase = true
+o.incsearch = true
+o.hlsearch = true
 
 -- Cursor
-opt.cursorline = true
+o.cursorline = true
 
 -- Completion
-opt.completeopt = { 'menuone', 'preview' }
-opt.pumheight = 10
-opt.pumwidth = 16
-opt.pumblend = 17
-opt.omnifunc = 'syntaxcomplete#Complete'
+o.completeopt = { 'menuone', 'preview' }
+o.pumheight = 10
+o.pumwidth = 16
+o.pumblend = 17
+o.omnifunc = 'syntaxcomplete#Complete'
 
 -- Statusbar/ commandline
-opt.showmode = false
+o.showmode = false
 g.modelines = 0
 g.showmode = 0
 
 -- Mouse
-opt.mouse = 'a'
+o.mouse = 'a'
 
 -- Notifications
-opt.belloff = 'all'
+o.belloff = 'all'
 
-opt.shada = { "!", "'100", "%", "/100", "<100" }
+o.shada = { "!", "'100", "%", "/100", "<100" }
 
-opt.virtualedit = 'onemore'
+o.virtualedit = 'onemore'
 
 -- Providers
 g.loaded_python_provider = 0
@@ -180,5 +180,3 @@ g.loaded_vimballPlugin = 1
 g.loaded_zip = 1
 g.loaded_zipPlugin = 1
 g.vimsyn_embed = 1
-
-vim.cmd('packadd cfilter')

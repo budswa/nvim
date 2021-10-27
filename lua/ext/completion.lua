@@ -37,6 +37,7 @@ cmp.setup{
         buffer = '[Buffer]',
         tags = '[Tags]',
         calc   = '[Calc]',
+        rg = '[Rg]'
       }) [entry.source.name]
 
       return vim_item
@@ -66,5 +67,17 @@ cmp.setup{
     { name = 'buffer' },
     { name = 'tags' },
 		{ name = 'calc' },
+    { name = 'rg' },
   }
 }
+
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' }
+  }
+})
+cmp.setup.cmdline(':', {
+  sources = {
+    { name = 'cmdline' }
+  }
+})
