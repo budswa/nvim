@@ -61,6 +61,7 @@ require('packer').startup({
 		})
 
 		-- Completion
+-- require('impatient').enable_profile()
 		use({
 			'hrsh7th/nvim-cmp',
 			config = function()

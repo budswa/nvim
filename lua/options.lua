@@ -106,14 +106,6 @@ if vim.fn.isdirectory(undodir) == 0 then
 	vim.fn.mkdir(undodir, 'p')
 end
 
--- Swapfiles
-opt.swapfile = true
-local swapdir = vim.fn.expand(vim.fn.stdpath('config') .. '/.swap//')
-opt.directory = swapdir
-if vim.fn.isdirectory(swapdir) == 0 then
-	vim.fn.mkdir(swapdir, 'p')
-end
-
 -- Shada
 g.shada = { '!', "'1000", '<50', 's10', 'h' }
 
@@ -149,6 +141,8 @@ opt.mouse = 'a'
 
 -- Notifications
 opt.belloff = 'all'
+
+opt.shada = { "!", "'100", "%", "/100", "<100" }
 
 opt.virtualedit = 'onemore'
 

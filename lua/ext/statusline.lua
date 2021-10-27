@@ -20,10 +20,13 @@ local force_inactive = {
         '^Trouble$',
         '^toggleterm$',
         '^dap-repl$',
+        '^dapui_repl$',
         '^dapui_scopes$',
         '^dapui_stacks$',
         '^dapui_breakpoints$',
         '^dapui_watches$',
+        '^qf$',
+        '^help$'
     },
     buftypes = {
         '^terminal$'
