@@ -49,7 +49,6 @@ require('packer').startup({
 			end,
 			requires = {
 			'jose-elias-alvarez/null-ls.nvim',
-				--'kabouzeid/nvim-lspinstall',
 				'williamboman/nvim-lsp-installer',
 				'folke/lua-dev.nvim',
 				{
@@ -76,6 +75,7 @@ require('packer').startup({
 				'lukas-reineke/cmp-rg',
 				'quangnguyen30192/cmp-nvim-tags',
 				'hrsh7th/cmp-cmdline',
+				'hrsh7th/cmp-nvim-lsp-document-symbol',
 				{
 					'L3MON4D3/LuaSnip',
 					requires = {
@@ -103,16 +103,22 @@ require('packer').startup({
 		})
 
 		-- Statusline
+		--use({
+		--	'famiu/feline.nvim',
+		--	branch = 'develop',
+		--	requires = {
+		--		'windwp/floatline.nvim',
+		--		'kyazdani42/nvim-web-devicons',
+		--	},
+		--	config = function()
+		--		require('ext/statusline')
+		--	end,
+		--})
 		use({
-			'famiu/feline.nvim',
-			branch = 'develop',
-			requires = {
-				'windwp/floatline.nvim',
-				'kyazdani42/nvim-web-devicons',
-			},
+			'windwp/windline.nvim',
 			config = function()
-				require('ext/statusline')
-			end,
+				require('ext/windline')
+			end
 		})
 
 		-- File explorer
@@ -271,6 +277,9 @@ require('packer').startup({
 		-- Commenting
 		use({
 			'winston0410/commented.nvim',
+			config = function()
+				require('ext/commented')
+			end
 		})
 
 		-- Search
@@ -298,9 +307,9 @@ require('packer').startup({
 			end
 		})
 
-		-- Template manager
+		-- Copilot
 		use({
-			'vigoux/templar.nvim',
+			'github/copilot.vim',
 		})
 
 		-- Lastplace

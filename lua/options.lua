@@ -64,10 +64,12 @@ o.listchars = {
 
 -- Fillchars
 o.fillchars = {
-	fold = ' ',
-	-- vert = '│',
-	vert = ' ', -- blank character
+	--vert = '│',
+	vert = ' ',
 	eob = ' ',
+	fold = '·',
+	foldopen = '▼',
+	foldclose = '▶'
 }
 
 -- Scrolloff
@@ -80,8 +82,7 @@ o.foldnestmax = 4
 o.foldminlines = 1
 o.foldmethod = 'expr'
 o.foldexpr = 'nvim_treesitter#foldexpr()'
-o.foldtext =
-	[[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
+--o.foldtext = "▶▼"
 
 -- Split
 o.splitbelow = true
@@ -90,7 +91,7 @@ o.splitright = true
 -- Backup
 o.backup = true
 o.writebackup = true
-local backupdir = vim.fn.expand(vim.fn.stdpath('config') .. '/.backup//')
+local backupdir = vim.fn.expand(vim.fn.stdpath('data') .. '/backup//')
 o.backupdir = backupdir
 if vim.fn.isdirectory(backupdir) == 0 then
 	vim.fn.mkdir(backupdir)
@@ -100,7 +101,7 @@ end
 o.undofile = true
 o.undolevels = 500
 o.undoreload = 500
-local undodir = vim.fn.expand(vim.fn.stdpath('config') .. '/.undo//')
+local undodir = vim.fn.expand(vim.fn.stdpath('data') .. '/undo//')
 o.undodir = undodir
 if vim.fn.isdirectory(undodir) == 0 then
 	vim.fn.mkdir(undodir, 'p')
@@ -142,9 +143,12 @@ o.mouse = 'a'
 -- Notifications
 o.belloff = 'all'
 
+-- Shada
 o.shada = { "!", "'100", "%", "/100", "<100" }
 
+-- Misc
 o.virtualedit = 'onemore'
+o.hidden = true
 
 -- Providers
 g.loaded_python_provider = 0

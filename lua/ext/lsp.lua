@@ -111,6 +111,8 @@ local function setup_null_ls()
 			null.builtins.code_actions.gitsigns,
 			null.builtins.diagnostics.luacheck,
 			null.builtins.formatting.stylua,
+			null.builtins.formatting.markdownlint,
+			null.builtins.formatting.prettier,
 			null.builtins.formatting.black,
 			null.builtins.formatting.clang_format,
 			null.builtins.formatting.rustfmt,
