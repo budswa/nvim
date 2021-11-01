@@ -22,4 +22,4 @@ jobs:
         run: luarocks install luacheck
 
       - name: run_luacheck
-        run: luacheck lua/
+        run: luacheck lua/garden/
