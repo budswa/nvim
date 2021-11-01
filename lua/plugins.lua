@@ -43,13 +43,12 @@ require('packer').startup({
 		-- LSP
 		use({
 			'neovim/nvim-lspconfig',
-			-- event = "InsertCharPre",
 			config = function()
 				require('ext/lsp')
 			end,
 			requires = {
-			'jose-elias-alvarez/null-ls.nvim',
 				'williamboman/nvim-lsp-installer',
+				'jose-elias-alvarez/null-ls.nvim',
 				'folke/lua-dev.nvim',
 				{
 					'weilbith/nvim-code-action-menu',
@@ -99,6 +98,10 @@ require('packer').startup({
 				'nvim-lua/plenary.nvim',
 				'nvim-telescope/telescope-symbols.nvim',
 				'sudormrfbin/cheatsheet.nvim',
+				{
+					'benfowler/telescope-luasnip.nvim',
+					module = "telescope._extensions.luasnip"
+				},
 			},
 		})
 
