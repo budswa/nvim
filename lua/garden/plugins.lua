@@ -31,7 +31,7 @@ require('packer').startup({
 			-- event = "BufRead",
 			run = ':TSUpdate',
 			config = function()
-				require('ext/treesitter')
+				require('garden/ext/treesitter')
 			end,
 			requires = {
 				'nvim-treesitter/nvim-treesitter-textobjects',
@@ -44,7 +44,7 @@ require('packer').startup({
 		use({
 			'neovim/nvim-lspconfig',
 			config = function()
-				require('ext/lsp')
+				require('garden/ext/lsp')
 			end,
 			requires = {
 				'williamboman/nvim-lsp-installer',
@@ -61,7 +61,7 @@ require('packer').startup({
 		use({
 			'hrsh7th/nvim-cmp',
 			config = function()
-				require('ext/completion')
+				require('garden/ext/completion')
 			end,
 			requires = {
 				'onsails/lspkind-nvim',
@@ -75,13 +75,13 @@ require('packer').startup({
 				'quangnguyen30192/cmp-nvim-tags',
 				'hrsh7th/cmp-cmdline',
 				'hrsh7th/cmp-nvim-lsp-document-symbol',
-				{
-					'L3MON4D3/LuaSnip',
-					requires = {
-						'rafamadriz/friendly-snippets',
-						'saadparwaiz1/cmp_luasnip',
-					},
-				},
+				'saadparwaiz1/cmp_luasnip',
+			},
+		})
+		use({
+			'L3MON4D3/LuaSnip',
+			requires = {
+				'rafamadriz/friendly-snippets',
 			},
 		})
 		use({
@@ -92,12 +92,11 @@ require('packer').startup({
 		use({
 			'nvim-telescope/telescope.nvim',
 			config = function()
-				require('ext/telescope')
+				require('garden/ext/telescope')
 			end,
 			requires = {
 				'nvim-lua/plenary.nvim',
 				'nvim-telescope/telescope-symbols.nvim',
-				'sudormrfbin/cheatsheet.nvim',
 				{
 					'benfowler/telescope-luasnip.nvim',
 					module = "telescope._extensions.luasnip"
@@ -114,13 +113,13 @@ require('packer').startup({
 		--		'kyazdani42/nvim-web-devicons',
 		--	},
 		--	config = function()
-		--		require('ext/statusline')
+		--		require('garden/ext/statusline')
 		--	end,
 		--})
 		use({
 			'windwp/windline.nvim',
 			config = function()
-				require('ext/windline')
+				require('garden/ext/windline')
 			end
 		})
 
@@ -133,7 +132,7 @@ require('packer').startup({
 				'NvimTreeRefresh'
 			}, ]]
 			config = function()
-				require('ext/nvimtree')
+				require('garden/ext/nvimtree')
 			end,
 		})
 
@@ -141,7 +140,7 @@ require('packer').startup({
 		use({
 			'akinsho/toggleterm.nvim',
 			config = function()
-				require('ext/toggleterm')
+				require('garden/ext/toggleterm')
 			end,
 			-- cmd = { "ToggleTerm", "TermExec" },
 		})
@@ -152,13 +151,13 @@ require('packer').startup({
 			-- event = 'BufReadPre',
 			module = 'persistence',
 			config = function()
-				require('ext/persistence')
+				require('garden/ext/persistence')
 			end,
 		})
 		use({
 			'ahmedkhalf/project.nvim',
 			config = function()
-				require('ext/project')
+				require('garden/ext/project')
 			end
 		})
 		use({
@@ -172,14 +171,14 @@ require('packer').startup({
 				'nvim-lua/plenary.nvim',
 			},
 			config = function()
-				require('ext/gitsigns')
+				require('garden/ext/gitsigns')
 			end,
 			-- event = "BufRead",
 		})
 		use({
 			'sindrets/diffview.nvim',
 			config = function()
-				require('ext/diffview')
+				require('garden/ext/diffview')
 			end,
 		})
 		use({
@@ -194,7 +193,7 @@ require('packer').startup({
 		use({
 			'mfussenegger/nvim-dap',
 			config = function()
-				require('ext/dap')
+				require('garden/ext/dap')
 			end,
 			requires = {
 				'rcarriga/nvim-dap-ui',
@@ -207,7 +206,7 @@ require('packer').startup({
 		use({
 			'ThePrimeagen/refactoring.nvim',
 			config = function()
-				require('ext/refactoring')
+				require('garden/ext/refactoring')
 			end,
 		})
 
@@ -215,7 +214,7 @@ require('packer').startup({
 		use({
 			'folke/trouble.nvim',
 			config = function()
-				require('ext/trouble')
+				require('garden/ext/trouble')
 			end,
 		})
 
@@ -233,7 +232,7 @@ require('packer').startup({
 		use({
 			'folke/which-key.nvim',
 			config = function()
-				require('ext/whichkey')
+				require('garden/ext/whichkey')
 			end,
 		})
 		use({
@@ -252,14 +251,14 @@ require('packer').startup({
 		use({
 			'ggandor/lightspeed.nvim',
 			config = function()
-				require('ext/lightspeed')
+				require('garden/ext/lightspeed')
 			end,
-			after = 'nvim-cmp',
+			--after = 'nvim-cmp',
 		})
 		use({
 			'abecodes/tabout.nvim',
 			config = function()
-				require('ext/tabout')
+				require('garden/ext/tabout')
 			end,
 		})
 		use({
@@ -273,7 +272,7 @@ require('packer').startup({
 		use({
 			'blackCauldron7/surround.nvim',
 			config = function()
-				require('ext/surround')
+				require('garden/ext/surround')
 			end,
 		})
 
@@ -281,7 +280,7 @@ require('packer').startup({
 		use({
 			'winston0410/commented.nvim',
 			config = function()
-				require('ext/commented')
+				require('garden/ext/commented')
 			end
 		})
 
@@ -306,7 +305,7 @@ require('packer').startup({
 		use({
 			'norcalli/nvim-colorizer.lua',
 			config = function()
-				require('ext/colorizer')
+				require('garden/ext/colorizer')
 			end
 		})
 
@@ -319,7 +318,7 @@ require('packer').startup({
 		use({
 			'ethanholz/nvim-lastplace',
 			config = function()
-				require('ext/lastplace')
+				require('garden/ext/lastplace')
 			end,
 		})
 
@@ -332,7 +331,7 @@ require('packer').startup({
 		use({
 			'lukas-reineke/indent-blankline.nvim',
 			config = function()
-				require('ext/indentline')
+				require('garden/ext/indentline')
 			end,
 		})
 
@@ -341,7 +340,7 @@ require('packer').startup({
 			'goolord/alpha-nvim',
 			requires = 'kyazdani42/nvim-web-devicons',
 			config = function()
-				require('ext/alpha')
+				require('garden/ext/alpha')
 			end,
 		})
 
@@ -364,15 +363,17 @@ require('packer').startup({
 		use({
 			'andweeb/presence.nvim',
 			config = function()
-				require('ext/presence')
+				require('garden/ext/presence')
 			end,
 		})
 		use({
 			'max397574/better-escape.nvim',
 			-- event = 'InsertEnter',
 		})
+
+		-- Language specific
 		use({
-			'Darazaki/indent-o-matic'
+			'tjdevries/nlua.nvim'
 		})
 		end,
 })
