@@ -13,5 +13,4 @@ require'nvim-tree'.setup {
 	auto_close = true,
 	respect_buf_cwd = true,
 	indent_markers = true,
-	lsp_diagnostics = false,
 }

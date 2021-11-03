@@ -33,16 +33,17 @@ o.relativenumber = true
 o.numberwidth = 2
 
 -- Other interface options
+o.colorcolumn = '160'
 o.updatetime = 200
 o.redrawtime = 300
 o.termguicolors = true
 -- o.shortmess = o.shortmess + { 'a', 'I' }
-o.termguicolors = true
 o.signcolumn = 'yes:1'
 o.formatoptions:append('j')
 o.formatoptions:remove('r')
 o.formatoptions:remove('o')
 o.formatoptions:remove('a')
+
 -- Grep
 o.grepprg = 'rg --vimgrep'
 
@@ -69,12 +70,12 @@ o.fillchars = {
 	eob = ' ',
 	fold = '·',
 	foldopen = '▼',
-	foldclose = '▶'
+	foldclose = '▶',
 }
 
 -- Scrolloff
-o.scrolloff = 0
-o.sidescrolloff = 0
+o.scrolloff = 2
+o.sidescrolloff = 2
 
 -- Fold
 o.foldlevel = 120
@@ -89,8 +90,8 @@ o.splitbelow = true
 o.splitright = true
 
 -- Backup
-o.backup = true
-o.writebackup = true
+o.backup = false
+o.writebackup = false
 local backupdir = vim.fn.expand(vim.fn.stdpath('data') .. '/backup//')
 o.backupdir = backupdir
 if vim.fn.isdirectory(backupdir) == 0 then
@@ -144,17 +145,28 @@ o.mouse = 'a'
 o.belloff = 'all'
 
 -- Shada
-o.shada = { "!", "'100", "%", "/100", "<100" }
+o.shada = { '!', "'100", '%', '/100', '<100' }
 
 -- Misc
 o.virtualedit = 'onemore'
 o.hidden = true
 
+-- Auto open nvim-tree when writing (nvim .) in command line
+-- and auto open Dashboard when nothing given as argument.
+vim.cmd([[
+	if index(argv(), ".") >= 0
+		autocmd VimEnter * NvimTreeToggle
+		bd1
+	elseif len(argv()) == 0
+		autocmd VimEnter * Alpha
+	endif
+]])
+
 -- Providers
 g.loaded_python_provider = 0
 g.loaded_python3_provider = 0
-g.python_host_skip_check = 1
-g.python3_host_skip_check = 1
+g.python_host_skip_check = 0
+g.python3_host_skip_check = 0
 g.loaded_node_provider = 0
 g.loaded_ruby_provider = 0
 g.loaded_perl_provider = 0

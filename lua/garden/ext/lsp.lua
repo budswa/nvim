@@ -89,6 +89,11 @@ local settings = {
 local function setup_lsp()
 	local lsp_installer = require('nvim-lsp-installer')
 
+	lsp_installer.settings({
+		log_level = vim.log.levels.INFO,
+		max_concurrent_installers = 4
+	})
+
 	lsp_installer.on_server_ready(function(server)
 		local opts = {
 			on_attach = on_attach,
@@ -97,7 +102,6 @@ local function setup_lsp()
 			root_dir = vim.loop.cwd,
 		}
 		server:setup(opts)
-		vim.cmd([[ do User LspAttachBuffers ]])
 	end)
 end
 
@@ -109,6 +113,7 @@ local function setup_null_ls()
 		debug = true,
 		sources = {
 			null.builtins.code_actions.gitsigns,
+			null.builtins.code_actions.refactoring,
 			null.builtins.diagnostics.luacheck,
 			null.builtins.formatting.stylua,
 			null.builtins.formatting.markdownlint,
