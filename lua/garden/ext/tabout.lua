@@ -1,3 +1,3 @@
 require('tabout').setup({
-	ignore_beginning = true
+	ignore_beginning = true,
 })

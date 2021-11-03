@@ -1,5 +1,5 @@
 require('stabilize').setup({
 	ignore = {
-		buftype = { 'terminal' }
-	}
+		buftype = { 'terminal' },
+	},
 })

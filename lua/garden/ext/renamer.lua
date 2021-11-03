@@ -1,4 +1,4 @@
 require('renamer').setup({
 	title = 'Rename',
-	show_refs = true
+	show_refs = true,
 })

@@ -4,7 +4,7 @@ require('commented').setup({
 	prefer_block_comment = false,
 	keybindings = {
 		n = 'gc',
-		v ='gc',
-		nl = 'gcc'
-	}
+		v = 'gc',
+		nl = 'gcc',
+	},
 })

@@ -1,4 +1,4 @@
-require("indent_blankline").setup({
+require('indent_blankline').setup({
 	char = '▏',
 	viewport_buffer = 20,
 	show_current_context = true,
@@ -15,6 +15,6 @@ require("indent_blankline").setup({
 		'man',
 		'packer',
 		'NvimTree',
-		'Trouble'
+		'Trouble',
 	},
 })

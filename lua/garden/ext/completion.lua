@@ -60,7 +60,10 @@ cmp.setup({
 			else
 				fallback()
 			end
-		end, { 'i', 's' }),
+		end, {
+			'i',
+			's',
+		}),
 	},
 	sources = {
 		{ name = 'nvim_lsp' },
@@ -89,4 +92,4 @@ cmp.setup.cmdline('/', {
 })
 
 require('nvim-autopairs').setup()
-cmp.event:on( 'confirm_done', autopairs.on_confirm_done({  map_char = { tex = '' } }))
+cmp.event:on('confirm_done', autopairs.on_confirm_done({ map_char = { tex = '' } }))

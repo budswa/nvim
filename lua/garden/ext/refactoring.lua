@@ -1,3 +1,3 @@
-local refactor = require("refactoring")
+local refactor = require('refactoring')
 
 refactor.setup()

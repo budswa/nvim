@@ -91,7 +91,7 @@ local function setup_lsp()
 
 	lsp_installer.settings({
 		log_level = vim.log.levels.INFO,
-		max_concurrent_installers = 4
+		max_concurrent_installers = 4,
 	})
 
 	lsp_installer.on_server_ready(function(server)
