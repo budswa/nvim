@@ -1,4 +1,4 @@
-name: LuaCheck
+name: luacheck
 
 on:
   push:
