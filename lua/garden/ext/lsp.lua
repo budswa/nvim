@@ -72,7 +72,7 @@ table.insert(runtime_path, 'lua/?/init.lua')
 
 local function setup_lsp()
 	local lsp_installer = require('nvim-lsp-installer')
-	local servers = require("nvim-lsp-installer.servers")
+	local servers = require('nvim-lsp-installer.servers')
 
 	lsp_installer.settings({
 		log_level = vim.log.levels.INFO,
@@ -96,7 +96,7 @@ local function setup_lsp()
 			root_dir = vim.loop.cwd,
 		}
 
-		if server.name == "sumneko_lua" then
+		if server.name == 'sumneko_lua' then
 			local luadev = require('lua-dev').setup({
 				library = { plugins = true, types = true, vimruntime = true },
 				lspconfig = {

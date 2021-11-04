@@ -16,4 +16,3 @@ map('n', '<A-h>', '<C-w><C-h>')
 
 -- Go back from gf
 map('n', 'gb', '<c-o>')
-
