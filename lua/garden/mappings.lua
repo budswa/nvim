@@ -13,3 +13,7 @@ map('n', '<A-j>', '<C-w><C-j>')
 map('n', '<A-k>', '<C-w><C-k>')
 map('n', '<A-l>', '<C-w><C-l>')
 map('n', '<A-h>', '<C-w><C-h>')
+
+-- Go back from gf
+map('n', 'gb', '<c-o>')
+

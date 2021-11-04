@@ -1,8 +1,0 @@
-.backupdir/
-.undodir/
-.sessions/
-.*/
-.gitignore~
-init.lua~
-lua/*.lua~
-lua/*/*.lua~

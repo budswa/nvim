@@ -52,7 +52,7 @@ cmp.setup({
 		['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
 		['<C-y>'] = cmp.config.disable,
 		['<C-e>'] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
-		['<CR>'] = cmp.mapping.confirm({ select = true }),
+		['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
 		['<Right>'] = cmp.mapping(function(fallback)
 			local copilot_keys = vim.fn['copilot#Accept']()
 			if copilot_keys ~= '' then

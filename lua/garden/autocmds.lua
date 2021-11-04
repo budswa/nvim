@@ -14,9 +14,6 @@ local definitions = {
 	packer = {
 		{ 'BufWritePost', 'plugins.lua', 'PackerCompile' },
 	},
-	whitespace = {
-		{ 'BufWritePre', '*', [[silent! lua remove_trailing_whitespace()]] },
-	},
 	window = {
 		{ 'VimResized', '*', 'tabdo wincmd =' },
 		{ 'FocusGained', '*', 'checktime' },

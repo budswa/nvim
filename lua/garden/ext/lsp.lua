@@ -1,5 +1,13 @@
 local lspconfig = require('lspconfig')
 
+local required_servers = {
+	'sumneko_lua',
+	'pyright',
+	'yamlls',
+	'jsonls',
+	'vimls',
+}
+
 vim.fn.sign_define('LspDiagnosticsSignError', { text = 'E', numhl = 'LspDiagnosticsDefaultError' })
 vim.fn.sign_define('LspDiagnosticsSignWarning', { text = 'W', numhl = 'LspDiagnosticsDefaultWarning' })
 vim.fn.sign_define('LspDiagnosticsSignInformation', { text = 'I', numhl = 'LspDiagnosticsDefaultInformation' })
@@ -62,14 +70,36 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-local settings = {
-	lua = require('lua-dev').setup({
-		library = { plugins = true, types = true, vimruntime = true },
-		lspconfig = {
+local function setup_lsp()
+	local lsp_installer = require('nvim-lsp-installer')
+	local servers = require("nvim-lsp-installer.servers")
+
+	lsp_installer.settings({
+		log_level = vim.log.levels.INFO,
+		max_concurrent_installers = 4,
+	})
+
+	-- Install missing servers
+	for _, svr in pairs(required_servers) do
+		local ok, lsp_server = servers.get_server(svr)
+		if ok then
+			if not lsp_server:is_installed() then
+				lsp_server:install()
+			end
+		end
+	end
+
+	lsp_installer.on_server_ready(function(server)
+		local opts = {
 			on_attach = on_attach,
 			capabilities = capabilities,
-			settings = {
-				Lua = {
+			root_dir = vim.loop.cwd,
+		}
+
+		if server.name == "sumneko_lua" then
+			local luadev = require('lua-dev').setup({
+				library = { plugins = true, types = true, vimruntime = true },
+				lspconfig = {
 					runtime = {
 						version = 'LuaJIT',
 						path = runtime_path,
@@ -79,29 +109,15 @@ local settings = {
 					},
 					workspace = {
 						library = vim.api.nvim_get_runtime_file('', true),
+						maxPreload = 10000,
+						preloadFileSize = 10000,
 					},
 				},
-			},
-		},
-	}),
-}
-
-local function setup_lsp()
-	local lsp_installer = require('nvim-lsp-installer')
-
-	lsp_installer.settings({
-		log_level = vim.log.levels.INFO,
-		max_concurrent_installers = 4,
-	})
-
-	lsp_installer.on_server_ready(function(server)
-		local opts = {
-			on_attach = on_attach,
-			capabilities = capabilities,
-			settings = settings,
-			root_dir = vim.loop.cwd,
-		}
-		server:setup(opts)
+			})
+			server:setup(luadev)
+		else
+			server:setup(opts)
+		end
 	end)
 end
 

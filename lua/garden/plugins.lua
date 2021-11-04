@@ -64,26 +64,25 @@ require('packer').startup({
 		-- Completion
 		use({
 			'hrsh7th/nvim-cmp',
+			event = { 'InsertEnter', 'CmdLineEnter' },
 			config = function()
 				require('garden/ext/completion')
 			end,
-			requires = {
-				'onsails/lspkind-nvim',
-				'hrsh7th/cmp-nvim-lsp',
-				'hrsh7th/cmp-buffer',
-				'hrsh7th/cmp-path',
-				'hrsh7th/cmp-calc',
-				'ray-x/cmp-treesitter',
-				'quangnguyen30192/cmp-nvim-tags',
-				'lukas-reineke/cmp-rg',
-				'hrsh7th/cmp-cmdline',
-				'hrsh7th/cmp-nvim-lsp-document-symbol',
-				'saadparwaiz1/cmp_luasnip',
-			},
+			requires = 'onsails/lspkind-nvim',
 		})
+		use({ 'hrsh7th/cmp-nvim-lsp' })
+		use({ 'hrsh7th/cmp-buffer' })
+		use({ 'hrsh7th/cmp-path' })
+		use({ 'hrsh7th/cmp-calc' })
+		use({ 'ray-x/cmp-treesitter' })
+		use({ 'quangnguyen30192/cmp-nvim-tags' })
+		use({ 'lukas-reineke/cmp-rg' })
+		use({ 'hrsh7th/cmp-cmdline' })
+		use({ 'hrsh7th/cmp-nvim-lsp-document-symbol' })
 		use({
 			'L3MON4D3/LuaSnip',
 			requires = {
+				'saadparwaiz1/cmp_luasnip',
 				'rafamadriz/friendly-snippets',
 			},
 		})
@@ -125,6 +124,7 @@ require('packer').startup({
 		--})
 		use({
 			'windwp/windline.nvim',
+			event = 'BufRead',
 			config = function()
 				require('garden/ext/windline')
 			end,
@@ -162,6 +162,7 @@ require('packer').startup({
 		use({
 			'filipdutescu/renamer.nvim',
 			branch = 'master',
+			event = 'BufRead',
 			requires = 'nvim-lua/plenary.nvim',
 			config = function()
 				require('garden/ext/renamer')
@@ -171,16 +172,9 @@ require('packer').startup({
 		-- Project and session management
 		use({
 			'folke/persistence.nvim',
-			-- event = 'BufReadPre',
 			module = 'persistence',
 			config = function()
 				require('garden/ext/persistence')
-			end,
-		})
-		use({
-			'ahmedkhalf/project.nvim',
-			config = function()
-				require('garden/ext/project')
 			end,
 		})
 		use({
@@ -190,13 +184,13 @@ require('packer').startup({
 		-- Git & VCS
 		use({
 			'lewis6991/gitsigns.nvim',
+			event = 'BufRead',
 			requires = {
 				'nvim-lua/plenary.nvim',
 			},
 			config = function()
 				require('garden/ext/gitsigns')
 			end,
-			event = 'BufRead',
 		})
 		use({
 			'sindrets/diffview.nvim',
@@ -211,6 +205,7 @@ require('packer').startup({
 		})
 		use({
 			'ruifm/gitlinker.nvim',
+			event = 'BufRead',
 			requires = 'nvim-lua/plenary.nvim',
 			config = function()
 				require('gitlinker').setup()
@@ -220,15 +215,17 @@ require('packer').startup({
 		-- Debug
 		use({
 			'mfussenegger/nvim-dap',
+			event = 'BufReadPre',
 			config = function()
 				require('garden/ext/dap')
 			end,
-			requires = {
-				'rcarriga/nvim-dap-ui',
-				'Pocco81/DAPInstall.nvim',
-				'jbyuki/one-small-step-for-vimkind',
-			},
+			requires = 'rcarriga/nvim-dap-ui',
 		})
+		use({
+			'Pocco81/DAPInstall.nvim',
+			event = 'BufReadPre',
+		})
+		use({ 'jbyuki/one-small-step-for-vimkind' })
 
 		-- Refactoring
 		use({
@@ -242,6 +239,7 @@ require('packer').startup({
 		-- Trouble
 		use({
 			'folke/trouble.nvim',
+			cmd = { 'Trouble', 'TroubleClose', 'TroubleToggle', 'TroubleRefresh' },
 			config = function()
 				require('garden/ext/trouble')
 			end,
@@ -280,6 +278,7 @@ require('packer').startup({
 		-- Motions
 		use({
 			'ggandor/lightspeed.nvim',
+			event = 'BufRead',
 			config = function()
 				require('garden/ext/lightspeed')
 			end,
@@ -287,6 +286,7 @@ require('packer').startup({
 		})
 		use({
 			'abecodes/tabout.nvim',
+			event = 'BufRead',
 			config = function()
 				require('garden/ext/tabout')
 			end,
@@ -321,14 +321,10 @@ require('packer').startup({
 				require('hlslens').setup()
 			end,
 		})
-		use({
-			'rktjmp/highlight-current-n.nvim',
-		})
+		use({ 'rktjmp/highlight-current-n.nvim' })
 
 		-- Cursor word
-		use({
-			'xiyaowong/nvim-cursorword',
-		})
+		use({ 'xiyaowong/nvim-cursorword' })
 
 		-- Colorizer
 		use({
@@ -342,27 +338,28 @@ require('packer').startup({
 			end,
 		})
 
+		-- Undotree
+		use({ 'mbbill/undotree' })
+
 		-- Copilot
-		use({
-			'github/copilot.vim',
-		})
+		use({ 'github/copilot.vim' })
 
 		-- Lastplace
 		use({
 			'ethanholz/nvim-lastplace',
+			event = 'BufRead',
 			config = function()
 				require('garden/ext/lastplace')
 			end,
 		})
 
 		-- Pastebin
-		use({
-			'rktjmp/paperplanes.nvim',
-		})
+		use({ 'rktjmp/paperplanes.nvim' })
 
 		-- Indentlines
 		use({
 			'lukas-reineke/indent-blankline.nvim',
+			event = 'BufRead',
 			config = function()
 				require('garden/ext/indentline')
 			end,
@@ -388,13 +385,13 @@ require('packer').startup({
 		-- Colorscheme
 		use({
 			'projekt0n/github-nvim-theme',
+			config = function()
+				require('github-theme').setup()
+			end,
 		})
-		require('github-theme').setup()
 
 		-- Misc
-		use({
-			'lewis6991/impatient.nvim',
-		})
+		use({ 'lewis6991/impatient.nvim' })
 		use({
 			'lewis6991/spaceless.nvim',
 			config = function()
@@ -418,10 +415,9 @@ require('packer').startup({
 			'max397574/better-escape.nvim',
 			event = 'InsertEnter',
 		})
+		use({ 'dstein64/vim-startuptime' })
 
 		-- Language specific
-		use({
-			'tjdevries/nlua.nvim',
-		})
+		use({ 'tjdevries/nlua.nvim' })
 	end,
 })

@@ -1,6 +1,11 @@
 vim.opt.termguicolors = true
-require('impatient').enable_profile()
-require('packer_compiled')
+
+local ok, impatient = pcall(require, 'impatient')
+if ok then
+    require('packer_compiled')
+    impatient.enable_profile()
+end
+
 require('garden/plugins')
 require('garden/options')
 require('garden/autocmds')
