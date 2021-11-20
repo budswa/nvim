@@ -17,7 +17,7 @@ telescope.setup({
 	},
 	extensions = {
 		['ui-select'] = {
-			themes.get_ivy()
+			themes.get_ivy(),
 		},
 	},
 })

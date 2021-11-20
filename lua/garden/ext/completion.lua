@@ -19,20 +19,22 @@ require('cmp_nvim_lsp').setup()
 cmp.setup({
 	completion = {
 		completeopt = 'menu,menuone,preview,noinsert',
-
 	},
 	formatting = {
-		format = lspkind.cmp_format({with_text = true, menu = ({
-			nvim_lsp = '[LSP]',
-			nvim_lua = '[Lua]',
-			luasnip = '[Snip]',
-			treesitter = '[TS]',
-			path = '[Path]',
-			buffer = '[Buffer]',
-			tags = '[Tags]',
-			calc = '[Calc]',
-			rg = '[Rg]',
-		})})
+		format = lspkind.cmp_format({
+			with_text = true,
+			menu = {
+				nvim_lsp = '[LSP]',
+				nvim_lua = '[Lua]',
+				luasnip = '[Snip]',
+				treesitter = '[TS]',
+				path = '[Path]',
+				buffer = '[Buffer]',
+				tags = '[Tags]',
+				calc = '[Calc]',
+				rg = '[Rg]',
+			},
+		}),
 	},
 	snippet = {
 		expand = function(args)

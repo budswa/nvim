@@ -13,6 +13,6 @@ require('garden/utils').nvim_create_augroups({
 		{ 'WinLeave', '*', [[set nocursorline]] },
 	},
 	telescope = {
-		{ 'Filetype', 'TelescopePrompt', [[lua require('cmp').setup.buffer { enabled = false }]] }
-	}
+		{ 'Filetype', 'TelescopePrompt', [[lua require('cmp').setup.buffer { enabled = false }]] },
+	},
 })

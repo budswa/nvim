@@ -29,7 +29,7 @@ M.lsp = function(bufnr)
 	buf_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
 end
 
-vim.api.nvim_set_keymap('n', ':', [[<cmd>lua require('fine-cmdline').open()<CR>]], {silent = true})
+vim.api.nvim_set_keymap('n', ':', [[<cmd>lua require('fine-cmdline').open()<CR>]], { silent = true })
 
 -- Navigate between windows
 vim.api.nvim_set_keymap('n', '<A-j>', [[<C-w><C-j>]], opts)

@@ -53,8 +53,8 @@ require('packer').startup({
 				{ 'hrsh7th/cmp-calc', event = 'InsertEnter' },
 				{ 'ray-x/cmp-treesitter', event = 'InsertEnter' },
 				{ 'lukas-reineke/cmp-rg', event = 'InsertEnter' },
-				{ 'saadparwaiz1/cmp_luasnip', event = 'InsertEnter' }
-			}
+				{ 'saadparwaiz1/cmp_luasnip', event = 'InsertEnter' },
+			},
 		})
 		use({
 			'L3MON4D3/LuaSnip',
@@ -75,7 +75,7 @@ require('packer').startup({
 			requires = {
 				'nvim-lua/plenary.nvim',
 				'nvim-telescope/telescope-symbols.nvim',
-				'nvim-telescope/telescope-ui-select.nvim'
+				'nvim-telescope/telescope-ui-select.nvim',
 			},
 		})
 
@@ -85,7 +85,7 @@ require('packer').startup({
 			requires = 'MunifTanjim/nui.nvim',
 			config = function()
 				require('garden/ext/cmdline')
-			end
+			end,
 		})
 
 		-- Statusline
@@ -296,13 +296,13 @@ require('packer').startup({
 		-- Undotree
 		use({
 			'mbbill/undotree',
-			cmd = 'UndotreeToggle'
+			cmd = 'UndotreeToggle',
 		})
 
 		-- Copilot
 		use({
 			'github/copilot.vim',
-			cmd = 'Copilot'
+			cmd = 'Copilot',
 		})
 
 		-- Lastplace
