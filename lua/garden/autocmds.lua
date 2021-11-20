@@ -1,29 +1,18 @@
-local function create_augroups(definitions)
-	for group_name, definition in pairs(definitions) do
-		vim.api.nvim_command('augroup ' .. group_name)
-		vim.api.nvim_command('autocmd!')
-		for _, def in ipairs(definition) do
-			local command = table.concat(vim.tbl_flatten({ 'autocmd', def }), ' ')
-			vim.api.nvim_command(command)
-		end
-		vim.api.nvim_command('augroup END')
-	end
-end
-
-local definitions = {
+require('garden/utils').nvim_create_augroups({
 	packer = {
-		{ 'BufWritePost', 'plugins.lua', 'PackerCompile' },
+		{ 'BufWritePost', 'plugins.lua', [[PackerCompile]] },
 	},
 	window = {
-		{ 'VimResized', '*', 'tabdo wincmd =' },
-		{ 'FocusGained', '*', 'checktime' },
+		{ 'FocusGained', '*', [[checktime]] },
 	},
 	yank = {
-		{ 'TextYankPost', [[* silent! lua vim.highlight.on_yank({higroup='IncSearch', timeout=500})]] },
+		{ 'TextYankPost', '*', [[silent! lua vim.highlight.on_yank({higroup='IncSearch', timeout=500})]] },
 	},
 	cursorline = {
-		{ 'WinEnter', '*', 'set cursorline' },
-		{ 'WinLeave', '*', 'set nocursorline' },
+		{ 'WinEnter', '*', [[set cursorline]] },
+		{ 'WinLeave', '*', [[set nocursorline]] },
 	},
-}
-create_augroups(definitions)
+	telescope = {
+		{ 'Filetype', 'TelescopePrompt', [[lua require('cmp').setup.buffer { enabled = false }]] }
+	}
+})

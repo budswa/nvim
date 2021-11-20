@@ -1,29 +1,12 @@
-local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-	vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-end
-
-vim.cmd('packadd packer.nvim')
-
-require('packer').init({
-	compile_path = vim.fn.stdpath('config') .. '/lua/packer_compiled.lua',
-	display = {
-		title = 'Packer',
-		prompt_border = 'single',
-	},
-	git = {
-		clone_timeout = 300,
-	},
-	profile = {
-		enable = true,
-	},
-})
-
 local use = require('packer').use
+
 require('packer').startup({
 	function()
-		use('wbthomason/packer.nvim')
+		use({
+			'wbthomason/packer.nvim',
+			opt = true,
+			event = 'vimenter',
+		})
 
 		-- Treesitter
 		use({
@@ -37,6 +20,7 @@ require('packer').startup({
 			requires = {
 				'nvim-treesitter/nvim-treesitter-textobjects',
 				'nvim-treesitter/playground',
+				'JoosepAlviste/nvim-ts-context-commentstring',
 				'p00f/nvim-ts-rainbow',
 			},
 		})
@@ -51,47 +35,35 @@ require('packer').startup({
 			end,
 			requires = {},
 		})
-		use({
-			'jose-elias-alvarez/null-ls.nvim',
-		})
-		use({
-			'williamboman/nvim-lsp-installer',
-		})
-		use({
-			'folke/lua-dev.nvim',
-		})
+		use({ 'jose-elias-alvarez/null-ls.nvim' })
+		use({ 'williamboman/nvim-lsp-installer' })
+		use({ 'folke/lua-dev.nvim' })
 
 		-- Completion
 		use({
 			'hrsh7th/nvim-cmp',
-			event = { 'InsertEnter', 'CmdLineEnter' },
+			event = 'InsertEnter',
 			config = function()
 				require('garden/ext/completion')
 			end,
-			requires = 'onsails/lspkind-nvim',
+			requires = {
+				{ 'hrsh7th/cmp-nvim-lsp', event = 'InsertEnter' },
+				{ 'hrsh7th/cmp-buffer', event = 'InsertEnter' },
+				{ 'hrsh7th/cmp-path', event = 'InsertEnter' },
+				{ 'hrsh7th/cmp-calc', event = 'InsertEnter' },
+				{ 'ray-x/cmp-treesitter', event = 'InsertEnter' },
+				{ 'lukas-reineke/cmp-rg', event = 'InsertEnter' },
+				{ 'saadparwaiz1/cmp_luasnip', event = 'InsertEnter' }
+			}
 		})
-		use({ 'hrsh7th/cmp-nvim-lsp' })
-		use({ 'hrsh7th/cmp-buffer' })
-		use({ 'hrsh7th/cmp-path' })
-		use({ 'hrsh7th/cmp-calc' })
-		use({ 'ray-x/cmp-treesitter' })
-		use({ 'quangnguyen30192/cmp-nvim-tags' })
-		use({ 'lukas-reineke/cmp-rg' })
-		use({ 'hrsh7th/cmp-cmdline' })
-		use({ 'hrsh7th/cmp-nvim-lsp-document-symbol' })
 		use({
 			'L3MON4D3/LuaSnip',
-			requires = {
-				'saadparwaiz1/cmp_luasnip',
-				'rafamadriz/friendly-snippets',
-			},
+			event = 'InsertEnter',
+			requires = { 'rafamadriz/friendly-snippets', event = 'InsertEnter' },
 		})
-		use({
-			'windwp/nvim-autopairs',
-		})
-		use({
-			'ray-x/lsp_signature.nvim',
-		})
+		use({ 'windwp/nvim-autopairs' })
+		use({ 'ray-x/lsp_signature.nvim' })
+		use({ 'onsails/lspkind-nvim' })
 
 		-- Telescope
 		use({
@@ -103,11 +75,17 @@ require('packer').startup({
 			requires = {
 				'nvim-lua/plenary.nvim',
 				'nvim-telescope/telescope-symbols.nvim',
-				{
-					'benfowler/telescope-luasnip.nvim',
-					module = 'telescope._extensions.luasnip',
-				},
+				'nvim-telescope/telescope-ui-select.nvim'
 			},
+		})
+
+		-- cmdline
+		use({
+			'VonHeikemen/fine-cmdline.nvim',
+			requires = 'MunifTanjim/nui.nvim',
+			config = function()
+				require('garden/ext/cmdline')
+			end
 		})
 
 		-- Statusline
@@ -122,13 +100,6 @@ require('packer').startup({
 		--		require('garden/ext/statusline')
 		--	end,
 		--})
-		use({
-			'windwp/windline.nvim',
-			event = 'BufRead',
-			config = function()
-				require('garden/ext/windline')
-			end,
-		})
 
 		-- File explorer
 		use({
@@ -177,9 +148,7 @@ require('packer').startup({
 				require('garden/ext/persistence')
 			end,
 		})
-		use({
-			'gpanders/editorconfig.nvim',
-		})
+		use({ 'gpanders/editorconfig.nvim' })
 
 		-- Git & VCS
 		use({
@@ -228,13 +197,13 @@ require('packer').startup({
 		use({ 'jbyuki/one-small-step-for-vimkind' })
 
 		-- Refactoring
-		use({
-			'ThePrimeagen/refactoring.nvim',
-			event = 'BufRead',
-			config = function()
-				require('garden/ext/refactoring')
-			end,
-		})
+		--use({
+		--	'ThePrimeagen/refactoring.nvim',
+		--	event = 'BufRead',
+		--	config = function()
+		--		require('garden/ext/refactoring')
+		--	end,
+		--})
 
 		-- Trouble
 		use({
@@ -246,14 +215,7 @@ require('packer').startup({
 		})
 
 		-- Quickfix
-		use({
-			'kevinhwang91/nvim-bqf',
-		})
-
-		-- Symbol outline
-		use({
-			'simrat39/symbols-outline.nvim',
-		})
+		use({ 'kevinhwang91/nvim-bqf' })
 
 		-- Keymap
 		use({
@@ -262,9 +224,6 @@ require('packer').startup({
 			config = function()
 				require('garden/ext/whichkey')
 			end,
-		})
-		use({
-			'tjdevries/astronauta.nvim',
 		})
 
 		-- Marks
@@ -282,7 +241,6 @@ require('packer').startup({
 			config = function()
 				require('garden/ext/lightspeed')
 			end,
-			--after = 'nvim-cmp',
 		})
 		use({
 			'abecodes/tabout.nvim',
@@ -308,9 +266,10 @@ require('packer').startup({
 
 		-- Commenting
 		use({
-			'winston0410/commented.nvim',
+			'numToStr/Comment.nvim',
+			event = 'BufRead',
 			config = function()
-				require('garden/ext/commented')
+				require('garden/ext/comment')
 			end,
 		})
 
@@ -321,7 +280,6 @@ require('packer').startup({
 				require('hlslens').setup()
 			end,
 		})
-		use({ 'rktjmp/highlight-current-n.nvim' })
 
 		-- Cursor word
 		use({ 'xiyaowong/nvim-cursorword' })
@@ -329,20 +287,23 @@ require('packer').startup({
 		-- Colorizer
 		use({
 			'norcalli/nvim-colorizer.lua',
-			event = {
-				'BufRead',
-				'BufNewFile',
-			},
+			event = { 'BufRead', 'BufNewFile' },
 			config = function()
 				require('garden/ext/colorizer')
 			end,
 		})
 
 		-- Undotree
-		use({ 'mbbill/undotree' })
+		use({
+			'mbbill/undotree',
+			cmd = 'UndotreeToggle'
+		})
 
 		-- Copilot
-		use({ 'github/copilot.vim' })
+		use({
+			'github/copilot.vim',
+			cmd = 'Copilot'
+		})
 
 		-- Lastplace
 		use({
@@ -376,6 +337,7 @@ require('packer').startup({
 		-- Greeter
 		use({
 			'goolord/alpha-nvim',
+			event = 'VimEnter',
 			requires = 'kyazdani42/nvim-web-devicons',
 			config = function()
 				require('garden/ext/alpha')
@@ -385,6 +347,7 @@ require('packer').startup({
 		-- Colorscheme
 		use({
 			'projekt0n/github-nvim-theme',
+			event = 'VimEnter',
 			config = function()
 				require('github-theme').setup()
 			end,

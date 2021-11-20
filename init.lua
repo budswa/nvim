@@ -1,12 +1,13 @@
-vim.opt.termguicolors = true
-
-local ok, impatient = pcall(require, 'impatient')
-if ok then
-    require('packer_compiled')
-    impatient.enable_profile()
+do
+	local ok, impatient = pcall(require, 'impatient')
+	if ok then
+		impatient.enable_profile()
+	elseif not ok and not impatient then
+		print('Impatient not yet installed')
+	end
 end
 
-require('garden/plugins')
-require('garden/options')
-require('garden/autocmds')
-require('garden/mappings')
+local ok, err = pcall(require, 'garden')
+if not ok then
+  error(('Error loading core...\n\n%s'):format(err))
+end

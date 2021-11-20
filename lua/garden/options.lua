@@ -18,7 +18,7 @@ o.breakindent = true
 o.joinspaces = false
 
 -- Paren
-g.showmatch = true
+o.showmatch = true
 g.matchtime = 10
 
 -- Wrap
@@ -33,12 +33,12 @@ o.relativenumber = true
 o.numberwidth = 2
 
 -- Other interface options
-o.colorcolumn = '160'
+o.colorcolumn = '9999'
 o.updatetime = 200
 o.redrawtime = 300
 o.termguicolors = true
 -- o.shortmess = o.shortmess + { 'a', 'I' }
-o.signcolumn = 'yes:1'
+o.signcolumn = 'no'
 o.formatoptions:append('j')
 o.formatoptions:remove('r')
 o.formatoptions:remove('o')
@@ -61,6 +61,8 @@ o.listchars = {
 	tab = '▏ ',
 	trail = '·',
 	nbsp = '⍽',
+	extends = '»',
+	precedes = '«',
 }
 
 -- Fillchars
@@ -83,7 +85,6 @@ o.foldnestmax = 4
 o.foldminlines = 1
 o.foldmethod = 'expr'
 o.foldexpr = 'nvim_treesitter#foldexpr()'
---o.foldtext = "▶▼"
 
 -- Split
 o.splitbelow = true
@@ -128,15 +129,16 @@ o.cursorline = true
 
 -- Completion
 o.completeopt = { 'menuone', 'preview' }
+
+-- popup menu
 o.pumheight = 10
 o.pumwidth = 16
-o.pumblend = 17
-o.omnifunc = 'syntaxcomplete#Complete'
+o.pumblend = 20
 
--- Statusbar/ commandline
-o.showmode = false
+-- Statusline and cmdline
+o.showmode = true
+o.laststatus = 0
 g.modelines = 0
-g.showmode = 0
 
 -- Mouse
 o.mouse = 'a'
@@ -161,25 +163,26 @@ g.loaded_ruby_provider = 0
 g.loaded_perl_provider = 0
 
 -- Disable builtins
-g.loaded_tutor = 1
-g.loaded_spec = 1
 g.loaded_2html_plugin = 1
 g.loaded_getscript = 1
 g.loaded_getscriptPlugin = 1
 g.loaded_gzip = 1
-g.loaded_logipat = 1
 g.loaded_logiPat = 1
+g.loaded_logipat = 1
+g.loaded_matchit = 1
 g.loaded_matchparen = 1
 g.loaded_netrw = 1
 g.loaded_netrwFileHandlers = 1
 g.loaded_netrwPlugin = 1
 g.loaded_netrwSettings = 1
 g.loaded_rrhelper = 1
+g.loaded_spec = 1
 g.loaded_spellfile_plugin = 1
 g.loaded_sql_completion = 1
 g.loaded_syntax_completion = 1
 g.loaded_tar = 1
 g.loaded_tarPlugin = 1
+g.loaded_tutor = 1
 g.loaded_vimball = 1
 g.loaded_vimballPlugin = 1
 g.loaded_zip = 1

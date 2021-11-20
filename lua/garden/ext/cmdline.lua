@@ -1,0 +1,1 @@
+require('fine-cmdline').setup()
