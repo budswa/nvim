@@ -6,6 +6,7 @@ local null = require('null-ls')
 local required_servers = {
 	'sumneko_lua',
 	'vimls',
+	'clangd',
 	'gopls',
 	'rust_analyzer',
 	'pyright',
@@ -20,7 +21,10 @@ vim.fn.sign_define('LspDiagnosticsSignHint', { text = 'H', numhl = 'LspDiagnosti
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	underline = true,
-	virtual_text = true,
+	virtual_text = {
+		spacing = 5,
+		severity_limit = 'Warning',
+	},
 	signs = {
 		enable = true,
 		priority = 10,
@@ -48,11 +52,7 @@ local update_capabilities = function(capabilities, override)
 	completionItem.commitCharactersSupport = if_nil(override.commitCharactersSupport, true)
 	completionItem.tagSupport = if_nil(override.tagSupport, { valueSet = { 1 } })
 	completionItem.resolveSupport = if_nil(override.resolveSupport, {
-		properties = {
-			'documentation',
-			'detail',
-			'additionalTextEdits',
-		},
+		properties = { 'documentation', 'detail', 'additionalTextEdits' },
 	})
 
 	return capabilities

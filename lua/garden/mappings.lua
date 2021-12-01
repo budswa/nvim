@@ -29,7 +29,8 @@ M.lsp = function(bufnr)
 	buf_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
 end
 
-vim.api.nvim_set_keymap('n', ':', [[<cmd>lua require('fine-cmdline').open()<CR>]], { silent = true })
+vim.api.nvim_set_keymap('n', ';', [[<cmd>lua require('fine-cmdline').open()<CR>]], opts)
+vim.api.nvim_set_keymap('v', ';', [[<cmd>lua require('fine-cmdline').open()<CR>]], opts)
 
 -- Navigate between windows
 vim.api.nvim_set_keymap('n', '<A-j>', [[<C-w><C-j>]], opts)
@@ -38,7 +39,11 @@ vim.api.nvim_set_keymap('n', '<A-k>', [[<C-w><C-k>]], opts)
 vim.api.nvim_set_keymap('n', '<A-l>', [[<C-w><C-l>]], opts)
 
 -- Go back from gf
--- map('n', 'gb', '<c-o>', options)
-vim.api.nvim_set_keymap('n', 'bg', '<C-o>', opts)
+vim.api.nvim_set_keymap('n', 'gb', '<C-o>', opts)
+
+-- luasnip
+vim.api.nvim_set_keymap('i', '<C-a>', '<Plug>luasnip-next-choice', {})
+vim.api.nvim_set_keymap('s', '<C-a>', '<Plug>luasnip-next-choice', {})
+
 
 return M

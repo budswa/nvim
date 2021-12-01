@@ -19,19 +19,19 @@ require('cmp_nvim_lsp').setup()
 cmp.setup({
 	completion = {
 		completeopt = 'menu,menuone,preview,noinsert',
+		keyword_length = 1
 	},
 	formatting = {
 		format = lspkind.cmp_format({
 			with_text = true,
 			menu = {
-				nvim_lsp = '[LSP]',
-				nvim_lua = '[Lua]',
 				luasnip = '[Snip]',
-				treesitter = '[TS]',
 				path = '[Path]',
-				buffer = '[Buffer]',
-				tags = '[Tags]',
 				calc = '[Calc]',
+				nvim_lua = '[Lua]',
+				nvim_lsp = '[LSP]',
+				buffer = '[Buffer]',
+				treesitter = '[TS]',
 				rg = '[Rg]',
 			},
 		}),
@@ -47,19 +47,25 @@ cmp.setup({
 		['<C-d>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
 		['<C-Space>'] = cmp.mapping.complete(),
-		['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+		['<CR>'] = cmp.mapping.confirm({
+			select = true,
+			behavior = cmp.ConfirmBehavior.Replace
+		}),
 	},
 	sources = {
-		{ name = 'nvim_lsp' },
-		{ name = 'nvim_lua' },
 		{ name = 'luasnip' },
-		{ name = 'treesitter' },
 		{ name = 'path' },
-		{ name = 'buffer' },
-		{ name = 'tags' },
 		{ name = 'calc' },
-		{ name = 'rg' },
+		{ name = 'nvim_lua' },
+		{ name = 'nvim_lsp' },
+		{ name = 'buffer' },
+		{ name = 'treesitter' },
+		{ name = 'rg' }
 	},
+	experimental = {
+		ghost_text = true,
+		native_menu = false
+	}
 })
 
 require('nvim-autopairs').setup()

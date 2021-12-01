@@ -38,6 +38,7 @@ require('packer').startup({
 		use({ 'jose-elias-alvarez/null-ls.nvim' })
 		use({ 'williamboman/nvim-lsp-installer' })
 		use({ 'folke/lua-dev.nvim' })
+		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
 
 		-- Completion
 		use({
@@ -48,6 +49,7 @@ require('packer').startup({
 			end,
 			requires = {
 				{ 'hrsh7th/cmp-nvim-lsp', event = 'InsertEnter' },
+				{ 'hrsh7th/cmp-nvim-lua', event = 'InsertEnter' },
 				{ 'hrsh7th/cmp-buffer', event = 'InsertEnter' },
 				{ 'hrsh7th/cmp-path', event = 'InsertEnter' },
 				{ 'hrsh7th/cmp-calc', event = 'InsertEnter' },
@@ -111,7 +113,7 @@ require('packer').startup({
 			},
 			config = function()
 				require('garden/ext/nvimtree')
-			end,
+			end
 		})
 
 		-- Terminal
@@ -143,7 +145,6 @@ require('packer').startup({
 		-- Project and session management
 		use({
 			'folke/persistence.nvim',
-			module = 'persistence',
 			config = function()
 				require('garden/ext/persistence')
 			end,
@@ -154,22 +155,16 @@ require('packer').startup({
 		use({
 			'lewis6991/gitsigns.nvim',
 			event = 'BufRead',
-			requires = {
-				'nvim-lua/plenary.nvim',
-			},
+			requires = 'nvim-lua/plenary.nvim',
 			config = function()
 				require('garden/ext/gitsigns')
 			end,
 		})
 		use({
 			'sindrets/diffview.nvim',
-			cmd = {
-				'DiffviewOpen',
-				'DiffviewClose',
-				'DiffviewRefresh',
-			},
+			cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewRefresh' },
 			config = function()
-				require('garden/ext/diffview')
+				require('diffview').setup()
 			end,
 		})
 		use({
@@ -184,11 +179,11 @@ require('packer').startup({
 		-- Debug
 		use({
 			'mfussenegger/nvim-dap',
+			requires = 'rcarriga/nvim-dap-ui',
 			event = 'BufReadPre',
 			config = function()
 				require('garden/ext/dap')
 			end,
-			requires = 'rcarriga/nvim-dap-ui',
 		})
 		use({
 			'Pocco81/DAPInstall.nvim',
@@ -197,13 +192,14 @@ require('packer').startup({
 		use({ 'jbyuki/one-small-step-for-vimkind' })
 
 		-- Refactoring
-		--use({
-		--	'ThePrimeagen/refactoring.nvim',
-		--	event = 'BufRead',
-		--	config = function()
-		--		require('garden/ext/refactoring')
-		--	end,
-		--})
+		use({
+			'ThePrimeagen/refactoring.nvim',
+			requires = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
+			event = 'BufRead',
+			config = function()
+				require('refactoring').setup({})
+			end
+		})
 
 		-- Trouble
 		use({
@@ -211,7 +207,7 @@ require('packer').startup({
 			cmd = { 'Trouble', 'TroubleClose', 'TroubleToggle', 'TroubleRefresh' },
 			config = function()
 				require('garden/ext/trouble')
-			end,
+			end
 		})
 
 		-- Quickfix
@@ -223,7 +219,7 @@ require('packer').startup({
 			event = 'BufWinEnter',
 			config = function()
 				require('garden/ext/whichkey')
-			end,
+			end
 		})
 
 		-- Marks
@@ -260,7 +256,7 @@ require('packer').startup({
 		use({
 			'blackCauldron7/surround.nvim',
 			config = function()
-				require('garden/ext/surround')
+				require('surround').setup({})
 			end,
 		})
 
@@ -289,7 +285,7 @@ require('packer').startup({
 			'norcalli/nvim-colorizer.lua',
 			event = { 'BufRead', 'BufNewFile' },
 			config = function()
-				require('garden/ext/colorizer')
+				require('colorizer').setup()
 			end,
 		})
 
@@ -340,7 +336,8 @@ require('packer').startup({
 			event = 'VimEnter',
 			requires = 'kyazdani42/nvim-web-devicons',
 			config = function()
-				require('garden/ext/alpha')
+				local startify = require('alpha.themes.startify')
+				require('alpha').setup(startify.opts)
 			end,
 		})
 
@@ -371,14 +368,17 @@ require('packer').startup({
 			'andweeb/presence.nvim',
 			event = 'BufRead',
 			config = function()
-				require('garden/ext/presence')
+				require('presence'):setup()
 			end,
 		})
 		use({
 			'max397574/better-escape.nvim',
 			event = 'InsertEnter',
 		})
-		use({ 'dstein64/vim-startuptime' })
+		use({
+			'dstein64/vim-startuptime',
+			cmd = 'StartupTime',
+		})
 
 		-- Language specific
 		use({ 'tjdevries/nlua.nvim' })

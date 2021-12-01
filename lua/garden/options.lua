@@ -30,7 +30,7 @@ o.clipboard:prepend({ 'unnamedplus' })
 -- Number column
 o.number = true
 o.relativenumber = true
-o.numberwidth = 2
+o.numberwidth = 3
 
 -- Other interface options
 o.colorcolumn = '9999'
@@ -38,7 +38,7 @@ o.updatetime = 200
 o.redrawtime = 300
 o.termguicolors = true
 -- o.shortmess = o.shortmess + { 'a', 'I' }
-o.signcolumn = 'no'
+o.signcolumn = 'number'
 o.formatoptions:append('j')
 o.formatoptions:remove('r')
 o.formatoptions:remove('o')
@@ -161,6 +161,8 @@ g.python3_host_skip_check = 0
 g.loaded_node_provider = 0
 g.loaded_ruby_provider = 0
 g.loaded_perl_provider = 0
+
+vim.cmd('packadd! cfilter')
 
 -- Disable builtins
 g.loaded_2html_plugin = 1
