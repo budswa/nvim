@@ -1,4 +1,5 @@
 local cmp = require('cmp')
+local str = require('cmp.utils.str')
 local autopairs = require('nvim-autopairs.completion.cmp')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
@@ -18,13 +19,20 @@ require('lsp_signature').setup({
 require('cmp_nvim_lsp').setup()
 cmp.setup({
 	completion = {
+		border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
+		scrollbar = '║',
 		completeopt = 'menu,menuone,preview,noinsert',
-		keyword_length = 1
+		keyword_length = 1,
+	},
+	documentation = {
+		border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
+		scrollbar = '║',
 	},
 	formatting = {
 		format = lspkind.cmp_format({
 			with_text = true,
 			menu = {
+				copilot = '[CP]',
 				luasnip = '[Snip]',
 				path = '[Path]',
 				calc = '[Calc]',
@@ -36,6 +44,42 @@ cmp.setup({
 			},
 		}),
 	},
+	--formatting = {
+	--	fields = {
+	--		cmp.ItemField.Kind,
+	--		cmp.ItemField.Abbr,
+	--		cmp.ItemField.Menu,
+	--	},
+	--	format = lspkind.cmp_format({
+	--		with_text = false,
+	--
+	--		before = function(entry, vim_item)
+	--			-- Get the full snippet (and only keep first line)
+	--			local word = entry:get_insert_text()
+	--			if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
+	--				word = vim.lsp.util.parse_snippet(word)
+	--			end
+	--			word = str.oneline(word)
+	--
+	--			-- concatenates the string
+	--			-- local max = 50
+	--			-- if string.len(word) >= max then
+	--			-- 	local before = string.sub(word, 1, math.floor((max - 3) / 2))
+	--			-- 	word = before .. "..."
+	--			-- end
+	--
+	--			if
+	--				entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet
+	--				and string.sub(vim_item.abbr, -1, -1) == "~"
+	--			then
+	--				word = word .. "~"
+	--			end
+	--			vim_item.abbr = word
+	--
+	--			return vim_item
+	--		end
+	--	}),
+	--},
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
@@ -49,10 +93,11 @@ cmp.setup({
 		['<C-Space>'] = cmp.mapping.complete(),
 		['<CR>'] = cmp.mapping.confirm({
 			select = true,
-			behavior = cmp.ConfirmBehavior.Replace
+			behavior = cmp.ConfirmBehavior.Replace,
 		}),
 	},
 	sources = {
+		{ name = 'copilot' },
 		{ name = 'luasnip' },
 		{ name = 'path' },
 		{ name = 'calc' },
@@ -60,12 +105,12 @@ cmp.setup({
 		{ name = 'nvim_lsp' },
 		{ name = 'buffer' },
 		{ name = 'treesitter' },
-		{ name = 'rg' }
+		{ name = 'rg' },
 	},
 	experimental = {
 		ghost_text = true,
-		native_menu = false
-	}
+		native_menu = false,
+	},
 })
 
 require('nvim-autopairs').setup()

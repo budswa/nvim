@@ -38,7 +38,8 @@ o.updatetime = 200
 o.redrawtime = 300
 o.termguicolors = true
 -- o.shortmess = o.shortmess + { 'a', 'I' }
-o.signcolumn = 'number'
+--o.signcolumn = 'number'
+o.signcolumn = 'no'
 o.formatoptions:append('j')
 o.formatoptions:remove('r')
 o.formatoptions:remove('o')

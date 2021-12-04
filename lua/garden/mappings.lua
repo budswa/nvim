@@ -45,5 +45,4 @@ vim.api.nvim_set_keymap('n', 'gb', '<C-o>', opts)
 vim.api.nvim_set_keymap('i', '<C-a>', '<Plug>luasnip-next-choice', {})
 vim.api.nvim_set_keymap('s', '<C-a>', '<Plug>luasnip-next-choice', {})
 
-
 return M

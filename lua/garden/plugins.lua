@@ -56,6 +56,7 @@ require('packer').startup({
 				{ 'ray-x/cmp-treesitter', event = 'InsertEnter' },
 				{ 'lukas-reineke/cmp-rg', event = 'InsertEnter' },
 				{ 'saadparwaiz1/cmp_luasnip', event = 'InsertEnter' },
+				{ 'hrsh7th/cmp-copilot', event = 'InsertEnter' },
 			},
 		})
 		use({
@@ -113,7 +114,7 @@ require('packer').startup({
 			},
 			config = function()
 				require('garden/ext/nvimtree')
-			end
+			end,
 		})
 
 		-- Terminal
@@ -198,7 +199,7 @@ require('packer').startup({
 			event = 'BufRead',
 			config = function()
 				require('refactoring').setup({})
-			end
+			end,
 		})
 
 		-- Trouble
@@ -207,7 +208,7 @@ require('packer').startup({
 			cmd = { 'Trouble', 'TroubleClose', 'TroubleToggle', 'TroubleRefresh' },
 			config = function()
 				require('garden/ext/trouble')
-			end
+			end,
 		})
 
 		-- Quickfix
@@ -219,7 +220,7 @@ require('packer').startup({
 			event = 'BufWinEnter',
 			config = function()
 				require('garden/ext/whichkey')
-			end
+			end,
 		})
 
 		-- Marks
@@ -298,7 +299,7 @@ require('packer').startup({
 		-- Copilot
 		use({
 			'github/copilot.vim',
-			cmd = 'Copilot',
+			--cmd = 'Copilot',
 		})
 
 		-- Lastplace
@@ -336,8 +337,7 @@ require('packer').startup({
 			event = 'VimEnter',
 			requires = 'kyazdani42/nvim-web-devicons',
 			config = function()
-				local startify = require('alpha.themes.startify')
-				require('alpha').setup(startify.opts)
+				require('garden/ext/alpha')
 			end,
 		})
 
@@ -379,6 +379,8 @@ require('packer').startup({
 			'dstein64/vim-startuptime',
 			cmd = 'StartupTime',
 		})
+
+		use({ 'tami5/sqlite.lua' })
 
 		-- Language specific
 		use({ 'tjdevries/nlua.nvim' })
