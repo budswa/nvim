@@ -1,5 +1,4 @@
 local cmp = require('cmp')
-local str = require('cmp.utils.str')
 local autopairs = require('nvim-autopairs.completion.cmp')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
