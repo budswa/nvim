@@ -78,7 +78,6 @@ require('packer').startup({
 			requires = {
 				'nvim-lua/plenary.nvim',
 				'nvim-telescope/telescope-symbols.nvim',
-				'nvim-telescope/telescope-ui-select.nvim',
 			},
 		})
 
@@ -99,9 +98,7 @@ require('packer').startup({
 		--		'windwp/floatline.nvim',
 		--		'kyazdani42/nvim-web-devicons',
 		--	},
-		--	config = function()
-		--		require('garden/ext/statusline')
-		--	end,
+		--  config = function() require('garden/ext/statusline') end,
 		--})
 
 		-- File explorer
@@ -261,12 +258,19 @@ require('packer').startup({
 			end,
 		})
 
-		-- Commenting
+		-- Comments
 		use({
 			'numToStr/Comment.nvim',
 			event = 'BufRead',
 			config = function()
 				require('garden/ext/comment')
+			end,
+		})
+		use({
+			'folke/todo-comments.nvim',
+			requires = 'nvim-lua/plenary.nvim',
+			config = function()
+				require('todo-comments').setup({})
 			end,
 		})
 
@@ -302,6 +306,21 @@ require('packer').startup({
 			--cmd = 'Copilot',
 		})
 
+		-- Zen
+		use({
+			'folke/zen-mode.nvim',
+			config = function()
+				require('garden.ext.zenmode')
+			end,
+			cmd = 'ZenMode',
+		})
+		use({
+			'folke/twilight.nvim',
+			config = function()
+				require('garden.ext.twilight')
+			end,
+		})
+
 		-- Lastplace
 		use({
 			'ethanholz/nvim-lastplace',
@@ -331,14 +350,27 @@ require('packer').startup({
 			end,
 		})
 
+		-- UI replacements
+		use({
+			'stevearc/dressing.nvim',
+			config = function()
+				require('garden/ext/dressing')
+			end,
+		})
+		use({
+			'rcarriga/nvim-notify',
+			config = function()
+				require('garden/ext/notify')
+			end,
+		})
+
 		-- Greeter
 		use({
-			'goolord/alpha-nvim',
-			event = 'VimEnter',
-			requires = 'kyazdani42/nvim-web-devicons',
+			"startup-nvim/startup.nvim",
+			requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 			config = function()
-				require('garden/ext/alpha')
-			end,
+			  require"startup".setup()
+			end
 		})
 
 		-- Colorscheme

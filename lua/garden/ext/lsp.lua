@@ -33,7 +33,8 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
 	update_in_insert = true,
 })
 
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+	vim.lsp.handlers.hover, {
 	border = 'rounded',
 })
 
@@ -42,29 +43,35 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with({
 	border = 'rounded',
 })
 
-local if_nil = function(val, default)
-	if val == nil then
-		return default
-	end
-	return val
-end
+local update_capabilities = function(capabilities)
 
-local update_capabilities = function(capabilities, override)
-	override = override or {}
-
-	local completionItem = capabilities.textDocument.completion.completionItem
-
-	completionItem.snippetSupport = if_nil(override.snippetSupport, true)
-	completionItem.preselectSupport = if_nil(override.preselectSupport, true)
-	completionItem.insertReplaceSupport = if_nil(override.insertReplaceSupport, true)
-	completionItem.labelDetailsSupport = if_nil(override.labelDetailsSupport, true)
-	completionItem.deprecatedSupport = if_nil(override.deprecatedSupport, true)
-	completionItem.commitCharactersSupport = if_nil(override.commitCharactersSupport, true)
-	completionItem.tagSupport = if_nil(override.tagSupport, { valueSet = { 1 } })
-	completionItem.resolveSupport = if_nil(override.resolveSupport, {
-		properties = { 'documentation', 'detail', 'additionalTextEdits' },
-	})
-
+	capabilities.textDocument.completion.completionItem.preselectSupport = true
+	capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+	capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+	capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+	capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+	capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+	capabilities.textDocument.completion.completionItem.snippetSupport = true
+	capabilities.textDocument.completion.completionItem.resolveSupport = {
+		properties = { "documentation", "detail", "additionalTextEdits" },
+	}
+	capabilities.textDocument.codeAction = {
+		dynamicRegistration = false,
+		codeActionLiteralSupport = {
+			codeActionKind = {
+				valueSet = {
+					"",
+					"quickfix",
+					"refactor",
+					"refactor.extract",
+					"refactor.inline",
+					"refactor.rewrite",
+					"source",
+					"source.organizeImports",
+				},
+			},
+		},
+	}
 	return capabilities
 end
 

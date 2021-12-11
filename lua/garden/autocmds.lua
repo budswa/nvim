@@ -2,7 +2,7 @@ require('garden/utils').nvim_create_augroups({
 	packer = {
 		{ 'BufWritePost', 'plugins.lua', [[PackerCompile]] },
 	},
-	window = {
+	check_update = {
 		{ 'FocusGained', '*', [[checktime]] },
 	},
 	yank = {
@@ -15,4 +15,10 @@ require('garden/utils').nvim_create_augroups({
 	telescope = {
 		{ 'Filetype', 'TelescopePrompt', [[lua require('cmp').setup.buffer { enabled = false }]] },
 	},
+	close = {
+		{ 'Filetype', 'help,startuptime,lspinfo,qf', [[nnoremap <buffer><silent> q :close<CR>]] }
+	},
+	mkdir = {
+		{ 'BufWritePre', '*', [[lua require('garden.modules.mkdir').mkdir()]] }
+	}
 })

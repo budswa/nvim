@@ -1,3 +1,12 @@
+local parsers = require('nvim-treesitter.parsers').get_parser_configs()
+
+parsers.markdown = {
+	install_info = {
+		url = 'https://github.com/ikatyang/tree-sitter-markdown',
+		files = { 'src/parser.c', 'src/scanner.cc' },
+	},
+}
+
 require('nvim-treesitter.configs').setup({
 	ensure_installed = 'maintained',
 	tree_docs = { enable = true },
@@ -31,3 +40,4 @@ require('nvim-treesitter.configs').setup({
 		colors = { '#98C579', '#61AFEF' },
 	},
 })
+

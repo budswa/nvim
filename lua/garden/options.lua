@@ -45,6 +45,9 @@ o.formatoptions:remove('r')
 o.formatoptions:remove('o')
 o.formatoptions:remove('a')
 
+-- Autowrite
+o.autowriteall = true
+
 -- Grep
 o.grepprg = 'rg --vimgrep'
 
