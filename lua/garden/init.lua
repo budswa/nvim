@@ -1,12 +1,13 @@
 vim.opt.termguicolors = true
 
 local modules = {
-	'garden/packer',
+	'garden.packer',
 	'compiled',
-	'garden/plugins',
-	'garden/options',
-	'garden/autocmds',
-	'garden/mappings',
+	'garden.plugins',
+	'garden.options',
+	'garden.autocmds',
+	'garden.mappings',
+	'garden.modules',
 }
 
 for _, mod in ipairs(modules) do

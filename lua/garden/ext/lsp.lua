@@ -33,8 +33,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
 	update_in_insert = true,
 })
 
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-	vim.lsp.handlers.hover, {
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
 	border = 'rounded',
 })
 
@@ -44,7 +43,6 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with({
 })
 
 local update_capabilities = function(capabilities)
-
 	capabilities.textDocument.completion.completionItem.preselectSupport = true
 	capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
 	capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
@@ -53,21 +51,21 @@ local update_capabilities = function(capabilities)
 	capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
 	capabilities.textDocument.completion.completionItem.snippetSupport = true
 	capabilities.textDocument.completion.completionItem.resolveSupport = {
-		properties = { "documentation", "detail", "additionalTextEdits" },
+		properties = { 'documentation', 'detail', 'additionalTextEdits' },
 	}
 	capabilities.textDocument.codeAction = {
 		dynamicRegistration = false,
 		codeActionLiteralSupport = {
 			codeActionKind = {
 				valueSet = {
-					"",
-					"quickfix",
-					"refactor",
-					"refactor.extract",
-					"refactor.inline",
-					"refactor.rewrite",
-					"source",
-					"source.organizeImports",
+					'',
+					'quickfix',
+					'refactor',
+					'refactor.extract',
+					'refactor.inline',
+					'refactor.rewrite',
+					'source',
+					'source.organizeImports',
 				},
 			},
 		},

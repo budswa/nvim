@@ -6,7 +6,7 @@ require('dressing').setup({
 	select = {
 		backend = { 'telescope', 'nui' },
 		telescope = {
-			theme = 'ivy'
-		}
-	}
+			theme = 'ivy',
+		},
+	},
 })

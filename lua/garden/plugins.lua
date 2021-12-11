@@ -33,7 +33,6 @@ require('packer').startup({
 			config = function()
 				require('garden/ext/lsp')
 			end,
-			requires = {},
 		})
 		use({ 'jose-elias-alvarez/null-ls.nvim' })
 		use({ 'williamboman/nvim-lsp-installer' })
@@ -79,15 +78,6 @@ require('packer').startup({
 				'nvim-lua/plenary.nvim',
 				'nvim-telescope/telescope-symbols.nvim',
 			},
-		})
-
-		-- cmdline
-		use({
-			'VonHeikemen/fine-cmdline.nvim',
-			requires = 'MunifTanjim/nui.nvim',
-			config = function()
-				require('garden/ext/cmdline')
-			end,
 		})
 
 		-- Statusline
@@ -282,9 +272,6 @@ require('packer').startup({
 			end,
 		})
 
-		-- Cursor word
-		use({ 'xiyaowong/nvim-cursorword' })
-
 		-- Colorizer
 		use({
 			'norcalli/nvim-colorizer.lua',
@@ -303,7 +290,7 @@ require('packer').startup({
 		-- Copilot
 		use({
 			'github/copilot.vim',
-			--cmd = 'Copilot',
+			cmd = 'Copilot',
 		})
 
 		-- Zen
@@ -357,20 +344,20 @@ require('packer').startup({
 				require('garden/ext/dressing')
 			end,
 		})
-		use({
-			'rcarriga/nvim-notify',
-			config = function()
-				require('garden/ext/notify')
-			end,
-		})
+		--use({
+		--	'rcarriga/nvim-notify',
+		--	config = function()
+		--		require('garden/ext/notify')
+		--	end,
+		--})
 
 		-- Greeter
 		use({
-			"startup-nvim/startup.nvim",
-			requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+			'startup-nvim/startup.nvim',
+			requires = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
 			config = function()
-			  require"startup".setup()
-			end
+				require('startup').setup()
+			end,
 		})
 
 		-- Colorscheme

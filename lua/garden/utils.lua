@@ -24,23 +24,18 @@ end
 _G.profile = function(command, times)
 	times = times or 100
 	local args = {}
-	if type(cmd) == "string" then
-	  args = { cmd }
-	  cmd = cmd
+	if type(cmd) == 'string' then
+		args = { cmd }
+		cmd = cmd
 	end
 	local start = vim.loop.hrtime()
 	for _ = 1, times, 1 do
-	  local ok = pcall(command, unpack(args))
-	  if not ok then
-		error(
-		  "Command failed: "
-			.. tostring(ok)
-			.. " "
-			.. vim.inspect({ command = command, args = args })
-		)
-	  end
+		local ok = pcall(command, unpack(args))
+		if not ok then
+			error('Command failed: ' .. tostring(ok) .. ' ' .. vim.inspect({ command = command, args = args }))
+		end
 	end
-	print(((vim.loop.hrtime() - start) / 1000000 / times) .. "ms")
+	print(((vim.loop.hrtime() - start) / 1000000 / times) .. 'ms')
 end
 
 return M
