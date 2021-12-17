@@ -113,9 +113,6 @@ if vim.fn.isdirectory(undodir) == 0 then
 	vim.fn.mkdir(undodir, 'p')
 end
 
--- Shada
-g.shada = { '!', "'1000", '<50', 's10', 'h' }
-
 -- Title
 o.title = true
 o.titlelen = 16
@@ -137,7 +134,7 @@ o.completeopt = { 'menuone', 'preview' }
 -- popup menu
 o.pumheight = 10
 o.pumwidth = 16
-o.pumblend = 20
+o.pumblend = 0
 
 -- Statusline and cmdline
 o.showmode = true
@@ -151,7 +148,8 @@ o.mouse = 'a'
 o.belloff = 'all'
 
 -- Shada
-o.shada = { '!', "'100", '%', '/100', '<100' }
+o.shada = { '"0', '\'0', 'n', '/0', '<0' }
+--o.shada = { '!', '"100', '\'100', '%', '/100', '<100' }
 
 -- Misc
 o.virtualedit = 'onemore'

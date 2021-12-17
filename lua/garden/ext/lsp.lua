@@ -2,6 +2,7 @@ local lspconfig = require('lspconfig')
 local installer = require('nvim-lsp-installer')
 local servers = require('nvim-lsp-installer.servers')
 local null = require('null-ls')
+local b = null.builtins
 
 local required_servers = {
 	'sumneko_lua',
@@ -77,11 +78,19 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = update_capabilities(capabilities)
 
 local on_attach = function(_, bufnr)
-	require('garden/mappings').lsp(bufnr)
+	require('garden.keybinds').lsp(bufnr)
 
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
 	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+
+	require('lsp_signature').on_attach({
+		bind = true,
+		max_height = 12,
+		max_width = 120,
+		transpancy = 20,
+		handler_opts = { border = 'rounded' },
+	})
 end
 
 local runtime_path = vim.split(package.path, ';')
@@ -94,11 +103,11 @@ installer.settings({
 })
 
 -- Install missing servers
-for _, svr in pairs(required_servers) do
-	local ok, lsp_server = servers.get_server(svr)
+for _, s in pairs(required_servers) do
+	local ok, lsp_server = servers.get_server(s)
 	if ok then
 		if not lsp_server:is_installed() then
-			print('Installing' .. svr)
+			print('Installing' .. s)
 			lsp_server:install()
 		end
 	end
@@ -142,21 +151,31 @@ installer.on_server_ready(function(server)
 	server:setup(opts)
 end)
 
-null.config({
+null.setup({
 	debounce = 150,
 	debug = true,
 	sources = {
-		null.builtins.code_actions.gitsigns,
-		null.builtins.code_actions.refactoring,
-		null.builtins.diagnostics.luacheck,
-		null.builtins.formatting.stylua,
-		null.builtins.formatting.markdownlint,
-		null.builtins.formatting.prettier,
-		null.builtins.formatting.black,
-		null.builtins.formatting.clang_format,
-		null.builtins.formatting.rustfmt,
-		null.builtins.formatting.gofmt,
-		null.builtins.formatting.goimports,
+		b.code_actions.gitrebase,
+		b.code_actions.gitsigns,
+		b.code_actions.proselint,
+		b.code_actions.refactoring,
+		b.diagnostics.cppcheck,
+		--b.diagnostics.cspell,
+		b.diagnostics.flake8,
+		b.diagnostics.luacheck,
+		b.diagnostics.proselint,
+		b.diagnostics.pylama,
+		b.diagnostics.pylint,
+		--b.diagnostics.selene.with({ extra_args = {'--config', vim.fn.stdpath('config') .. '/selene.toml'} }),
+		b.diagnostics.vale,
+		b.formatting.black,
+		b.formatting.clang_format,
+		b.formatting.gofmt,
+		b.formatting.goimports,
+		b.formatting.markdownlint,
+		b.formatting.prettier,
+		b.formatting.rustfmt,
+		b.formatting.stylua,
 	},
 })
 

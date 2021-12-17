@@ -1,12 +1,3 @@
-_G.reload = function()
-	for module, _ in pairs(package.loaded) do
-		if module:match('garden') then
-			package.loaded[module] = nil
-			require(module)
-		end
-	end
-end
-
 local M = {}
 
 function M.nvim_create_augroups(definitions)
