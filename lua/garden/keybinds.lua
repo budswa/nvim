@@ -1,7 +1,7 @@
 local M = {}
 
-local wk = require('which-key')
 local map = vim.api.nvim_set_keymap
+--local wk = require('which-key')
 
 vim.g.mapleader = ' '
 local opts = { noremap = true, silent = true }

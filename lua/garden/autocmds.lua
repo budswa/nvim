@@ -19,7 +19,7 @@ require('garden/utils').nvim_create_augroups({
 	},
 	telescope = {
 		{ 'Filetype', 'TelescopePrompt', [[lua require('cmp').setup.buffer { enabled = false }]] },
-		{ 'User', 'TelescopePreviewerLoaded', 'setlocal wrap' }
+		{ 'User', 'TelescopePreviewerLoaded', 'setlocal wrap' },
 	},
 	quick_close = {
 		{ 'Filetype', 'help,startuptime,lspinfo,qf', [[nnoremap <buffer><silent> q :close<CR>]] },

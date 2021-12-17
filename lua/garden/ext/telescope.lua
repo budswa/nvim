@@ -15,9 +15,9 @@ telescope.setup({
 		},
 		mappings = {
 			i = {
-				["<C-h>"] = "which_key"
-			}
-		}
+				['<C-h>'] = 'which_key',
+			},
+		},
 	}),
 })
 
