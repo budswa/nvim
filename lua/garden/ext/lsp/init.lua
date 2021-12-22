@@ -15,10 +15,13 @@ local required_servers = {
 	'jsonls',
 }
 
-vim.fn.sign_define('LspDiagnosticsSignError', { text = 'E', numhl = 'LspDiagnosticsDefaultError' })
-vim.fn.sign_define('LspDiagnosticsSignWarning', { text = 'W', numhl = 'LspDiagnosticsDefaultWarning' })
-vim.fn.sign_define('LspDiagnosticsSignInformation', { text = 'I', numhl = 'LspDiagnosticsDefaultInformation' })
-vim.fn.sign_define('LspDiagnosticsSignHint', { text = 'H', numhl = 'LspDiagnosticsDefaultHint' })
+--local signs = { Error = "E", Warn = "W", Info = "I", Hint = "H" }
+--for sign, icon in pairs(signs) do
+--	vim.fn.sign_define(
+--		"DiagnosticSign" .. sign,
+--		{ text = icon, texthl = "Diagnostic" .. sign, linehl = false, numhl = "Diagnostic" .. sign }
+--	)
+--end
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	underline = true,
@@ -28,7 +31,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
 		severity_limit = 'Warning',
 	},
 	signs = {
-		enable = true,
+		enable = false,
 		priority = 10,
 	},
 	update_in_insert = true,
@@ -107,7 +110,7 @@ for _, s in pairs(required_servers) do
 	local ok, lsp_server = servers.get_server(s)
 	if ok then
 		if not lsp_server:is_installed() then
-			print('Installing' .. s)
+			print('Installing ' .. s)
 			lsp_server:install()
 		end
 	end

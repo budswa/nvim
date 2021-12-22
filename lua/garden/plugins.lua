@@ -33,24 +33,19 @@ require('packer').startup({
 		-- LSP
 		use({
 			'neovim/nvim-lspconfig',
-			opt = true,
-			event = 'BufReadPre',
+			requires = 'williamboman/nvim-lsp-installer',
+			--event = 'BufReadPre',
 			config = function()
 				require('garden.ext.lsp')
 			end,
 		})
-		use({ 'jose-elias-alvarez/null-ls.nvim' })
-		use({ 'williamboman/nvim-lsp-installer' })
+		use({ 'jose-elias-alvarez/null-ls.nvim', })
 		use({ 'folke/lua-dev.nvim' })
 		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
 
 		-- Completiond
 		use({
 			'hrsh7th/nvim-cmp',
-			event = 'InsertEnter',
-			config = function()
-				require('garden.ext.completion')
-			end,
 			requires = {
 				{ 'hrsh7th/cmp-nvim-lsp', event = 'InsertEnter' },
 				{ 'hrsh7th/cmp-nvim-lua', event = 'InsertEnter' },
@@ -62,6 +57,10 @@ require('packer').startup({
 				{ 'saadparwaiz1/cmp_luasnip', event = 'InsertEnter' },
 				{ 'hrsh7th/cmp-copilot', event = 'InsertEnter' },
 			},
+			event = 'InsertEnter',
+			config = function()
+				require('garden.ext.completion')
+			end,
 		})
 		use({
 			'L3MON4D3/LuaSnip',
@@ -329,15 +328,6 @@ require('packer').startup({
 			event = 'BufRead',
 			config = function()
 				require('garden.ext.indentline')
-			end,
-		})
-
-		-- Stabalize
-		use({
-			'luukvbaal/stabilize.nvim',
-			event = 'BufRead',
-			config = function()
-				require('garden.ext.stabilize')
 			end,
 		})
 

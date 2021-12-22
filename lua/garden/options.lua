@@ -1,5 +1,5 @@
-local o = vim.opt
 local g = vim.g
+local o = vim.opt
 
 -- Indentation, spaces and tabs
 o.expandtab = false
@@ -37,13 +37,23 @@ o.colorcolumn = '9999'
 o.updatetime = 200
 o.redrawtime = 300
 o.termguicolors = true
--- o.shortmess = o.shortmess + { 'a', 'I' }
---o.signcolumn = 'number'
 o.signcolumn = 'no'
 o.formatoptions:append('j')
 o.formatoptions:remove('r')
 o.formatoptions:remove('o')
 o.formatoptions:remove('a')
+o.shortmess = {
+	t = true,
+	A = true,
+	o = true,
+	O = true,
+	T = true,
+	f = true,
+	F = true,
+	s = true,
+	c = true,
+	W = true,
+}
 
 -- Autowrite
 o.autowriteall = true
@@ -71,8 +81,7 @@ o.listchars = {
 
 -- Fillchars
 o.fillchars = {
-	--vert = '│',
-	vert = ' ',
+	vert = ' ', -- │
 	eob = ' ',
 	fold = '·',
 	foldopen = '▼',
@@ -148,8 +157,8 @@ o.mouse = 'a'
 o.belloff = 'all'
 
 -- Shada
-o.shada = { '"0', "'0", 'n', '/0', '<0' }
 --o.shada = { '!', '"100', '\'100', '%', '/100', '<100' }
+--o.shada = [[!, '100, <0, s100, h']]
 
 -- Misc
 o.virtualedit = 'onemore'
@@ -171,7 +180,6 @@ g.loaded_2html_plugin = 1
 g.loaded_getscript = 1
 g.loaded_getscriptPlugin = 1
 g.loaded_gzip = 1
-g.loaded_logiPat = 1
 g.loaded_logipat = 1
 g.loaded_matchit = 1
 g.loaded_matchparen = 1

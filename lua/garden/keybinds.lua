@@ -32,10 +32,6 @@ M.lsp = function(bufnr)
 end
 
 -- Navigate between windows
---map('n', '<A-j>', [[<C-w><C-j>]], opts)
---map('n', '<A-h>', [[<C-w><C-h>]], opts)
---map('n', '<A-k>', [[<C-w><C-k>]], opts)
---map('n', '<A-l>', [[<C-w><C-l>]], opts)
 map('n', '<Leader>j', ':wincmd j<CR>', { silent = true })
 map('n', '<Leader>k', ':wincmd k<CR>', { silent = true })
 map('n', '<Leader>l', ':wincmd l<CR>', { silent = true })
