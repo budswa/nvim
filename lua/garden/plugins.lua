@@ -34,12 +34,12 @@ require('packer').startup({
 		use({
 			'neovim/nvim-lspconfig',
 			requires = 'williamboman/nvim-lsp-installer',
-			--event = 'BufReadPre',
+			event = 'BufReadPre',
 			config = function()
 				require('garden.ext.lsp')
 			end,
 		})
-		use({ 'jose-elias-alvarez/null-ls.nvim', })
+		use({ 'jose-elias-alvarez/null-ls.nvim' })
 		use({ 'folke/lua-dev.nvim' })
 		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
 

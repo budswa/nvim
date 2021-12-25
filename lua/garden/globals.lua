@@ -4,7 +4,7 @@ end
 
 _G.inspect = function(...)
 	--print(vim.inspect(...))
-	local objects = vim.tbl_map(vim.inspect, {...})
-    print(unpack(objects))
-    return ...
+	local objects = vim.tbl_map(vim.inspect, { ... })
+	print(unpack(objects))
+	return ...
 end
