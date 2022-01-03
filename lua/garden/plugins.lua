@@ -27,6 +27,7 @@ require('packer').startup({
 				'nvim-treesitter/playground',
 				'JoosepAlviste/nvim-ts-context-commentstring',
 				'p00f/nvim-ts-rainbow',
+				'windwp/nvim-ts-autotag',
 			},
 		})
 
@@ -67,6 +68,7 @@ require('packer').startup({
 			event = 'InsertEnter',
 			requires = 'rafamadriz/friendly-snippets',
 		})
+
 		use({ 'windwp/nvim-autopairs' })
 		use({ 'ray-x/lsp_signature.nvim' })
 		use({ 'onsails/lspkind-nvim' })
@@ -194,7 +196,7 @@ require('packer').startup({
 			ft = 'qf',
 			config = function()
 				require('bqf').setup()
-			end
+			end,
 		})
 
 		-- Keymap
@@ -352,12 +354,12 @@ require('packer').startup({
 				require('garden.ext.dressing')
 			end,
 		})
-		--use({
-		--	'rcarriga/nvim-notify',
-		--	config = function()
-		--		require('garden.ext.notify')
-		--	end,
-		--})
+		use({
+			'rcarriga/nvim-notify',
+			config = function()
+				require('garden.ext.notify')
+			end,
+		})
 
 		-- Markdown preview
 		use({
@@ -428,4 +430,3 @@ require('packer').startup({
 		use({ 'tjdevries/nlua.nvim' })
 	end,
 })
-

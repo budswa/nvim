@@ -1,4 +1,4 @@
 require('surround').setup({
 	mappings_style = 'surround',
-	load_autogroups = true
+	load_autogroups = true,
 })

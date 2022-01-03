@@ -29,4 +29,7 @@ require('nvim-treesitter.configs').setup({
 		enable = true,
 		extended_mode = true,
 	},
+	autotag = {
+		enable = true,
+	},
 })

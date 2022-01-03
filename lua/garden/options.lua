@@ -127,7 +127,7 @@ end
 -- Title
 o.title = true
 o.titlelen = 64
-o.titlestring = "Neovim • %f %m"
+o.titlestring = 'Neovim • %f %m'
 
 --Search
 o.inccommand = 'split'

@@ -12,7 +12,10 @@ vim.g.copilot_tab_fallback = ''
 --require('luasnip/loaders/from_vscode').lazy_load()
 require('luasnip/loaders/from_vscode').load()
 
-require('nvim-autopairs').setup()
+require('nvim-autopairs').setup({
+	disable_filetype = { 'TelescopePrompt' },
+	check_ts = true,
+})
 cmp.event:on('confirm_done', autopairs.on_confirm_done({ map_char = { tex = '' } }))
 
 require('cmp_nvim_lsp').setup()
