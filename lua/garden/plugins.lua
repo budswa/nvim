@@ -189,7 +189,13 @@ require('packer').startup({
 		})
 
 		-- Quickfix
-		use({ 'kevinhwang91/nvim-bqf' })
+		use({
+			'kevinhwang91/nvim-bqf',
+			ft = 'qf',
+			config = function()
+				require('bqf').setup()
+			end
+		})
 
 		-- Keymap
 		use({
@@ -243,7 +249,7 @@ require('packer').startup({
 			'blackCauldron7/surround.nvim',
 			event = 'BufRead',
 			config = function()
-				require('surround').setup({})
+				require('garden.ext.surround')
 			end,
 		})
 
@@ -319,6 +325,13 @@ require('packer').startup({
 			end,
 		})
 
+		-- Note taking
+		use({
+			'mickael-menu/zk-nvim',
+			config = function()
+				require('garden.ext.zk')
+			end,
+		})
 		-- Pastebin
 		use({ 'rktjmp/paperplanes.nvim' })
 
@@ -358,26 +371,29 @@ require('packer').startup({
 		use({ 'fedepujol/move.nvim' })
 
 		-- Colorschemes
-		--use({
-		--	'projekt0n/github-nvim-theme',
-		--	event = 'VimEnter',
-		--	config = function()
-		--		require('github-theme').setup()
-		--	end,
-		--})
 		use({
-			'rose-pine/neovim',
-			as = 'rose-pine',
+			'projekt0n/github-nvim-theme',
 			event = 'VimEnter',
 			config = function()
-				vim.g.rose_pine_disable_float_background = true
-				vim.cmd('colorscheme rose-pine')
+				require('github-theme').setup()
 			end,
 		})
+		--use({
+		--	'rose-pine/neovim',
+		--	as = 'rose-pine',
+		--	event = 'VimEnter',
+		--	config = function()
+		--		vim.g.rose_pine_disable_float_background = true
+		--		vim.cmd('colorscheme rose-pine')
+		--	end,
+		--})
 
 		-- Misc
 		use({ 'lewis6991/impatient.nvim' })
-		use({ 'dhruvasagar/vim-table-mode' })
+		use({
+			'dhruvasagar/vim-table-mode',
+			event = 'BufRead',
+		})
 		use({
 			'lewis6991/spaceless.nvim',
 			config = function()
@@ -405,10 +421,11 @@ require('packer').startup({
 			'dstein64/vim-startuptime',
 			cmd = 'StartupTime',
 		})
-
 		use({ 'tami5/sqlite.lua' })
+		use({ 'antoinemadec/FixCursorHold.nvim' })
 
 		-- Language specific
 		use({ 'tjdevries/nlua.nvim' })
 	end,
 })
+

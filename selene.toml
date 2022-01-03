@@ -1,4 +1,1 @@
-#std="lua51+vim"
-
-[vim]
-any = true
+std="lua51+vim"

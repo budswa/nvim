@@ -21,4 +21,6 @@ telescope.setup({
 	}),
 })
 
+require('telescope').load_extension('zk')
+
 vim.cmd([[highlight TelescopeResultsTitle guifg=#191724]])

@@ -1,6 +1,8 @@
 local g = vim.g
 local o = vim.opt
 
+o.syntax = 'off'
+
 -- Indentation, spaces and tabs
 o.expandtab = false
 o.shiftwidth = 4
@@ -124,8 +126,8 @@ end
 
 -- Title
 o.title = true
-o.titlelen = 16
---o.titlestring = "NVIM: %F"
+o.titlelen = 64
+o.titlestring = "Neovim • %f %m"
 
 --Search
 o.inccommand = 'split'
@@ -180,6 +182,7 @@ g.loaded_2html_plugin = 1
 g.loaded_getscript = 1
 g.loaded_getscriptPlugin = 1
 g.loaded_gzip = 1
+g.loaded_fzf = 1
 g.loaded_logipat = 1
 g.loaded_matchit = 1
 g.loaded_matchparen = 1

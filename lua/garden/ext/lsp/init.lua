@@ -1,3 +1,5 @@
+local M = {}
+
 local lspconfig = require('lspconfig')
 local installer = require('nvim-lsp-installer')
 local servers = require('nvim-lsp-installer.servers')
@@ -80,10 +82,12 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = update_capabilities(capabilities)
 
-local on_attach = function(_, bufnr)
+M.on_attach = function(_, bufnr)
 	require('garden.keybinds').lsp(bufnr)
 
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+	vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
+	vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
 
 	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 
@@ -119,7 +123,7 @@ end
 installer.on_server_ready(function(server)
 	local opts = {
 		capabilities = capabilities,
-		on_attach = on_attach,
+		on_attach = M.on_attach,
 		root_dir = vim.loop.cwd,
 	}
 
@@ -155,7 +159,7 @@ installer.on_server_ready(function(server)
 end)
 
 null.setup({
-	debounce = 150,
+	debounce = 100,
 	debug = true,
 	sources = {
 		b.code_actions.gitrebase,
@@ -163,13 +167,12 @@ null.setup({
 		b.code_actions.proselint,
 		b.code_actions.refactoring,
 		b.diagnostics.cppcheck,
-		--b.diagnostics.cspell,
 		b.diagnostics.flake8,
 		b.diagnostics.luacheck,
 		b.diagnostics.proselint,
 		b.diagnostics.pylama,
 		b.diagnostics.pylint,
-		--b.diagnostics.selene.with({ extra_args = {'--config', vim.fn.stdpath('config') .. '/selene.toml'} }),
+		b.diagnostics.selene.with({ extra_args = { '--config', vim.fn.stdpath('config') .. '/selene.toml' } }),
 		b.diagnostics.vale,
 		b.formatting.black,
 		b.formatting.clang_format,
@@ -178,12 +181,14 @@ null.setup({
 		b.formatting.markdownlint,
 		b.formatting.prettier,
 		b.formatting.rustfmt,
-		b.formatting.stylua,
+		b.formatting.stylua.with({ extra_args = { '--config-path', vim.fn.stdpath('config') .. '/stylua.toml' } }),
 	},
 })
 
 lspconfig['null-ls'].setup({
-	on_attach = on_attach,
+	on_attach = M.on_attach,
 	capabilities = capabilities,
 	autostart = true,
 })
+
+return M

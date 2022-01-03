@@ -1,7 +1,7 @@
 local M = {}
 
-local api = vim.api
 local fn = vim.fn
+local api = vim.api
 
 function M.highlight()
 	if fn.hlexists('CursorWord') == 0 or api.nvim_exec('hi CursorWord', true):find('cleared') then
@@ -28,6 +28,10 @@ local function matchstr(...)
 end
 
 function M.matchadd()
+	if vim.tbl_contains(vim.g.cursorword_disable_filetypes or {}, vim.bo.filetype) then
+		return
+	end
+
 	local column = api.nvim_win_get_cursor(0)[2]
 	local line = api.nvim_get_current_line()
 
@@ -49,7 +53,7 @@ function M.matchadd()
 	end
 
 	cursorword = fn.escape(cursorword, [[~"\.^$[]*]])
-	vim.w.cursorword_match_id = fn.matchadd('CursorWord', [[\<]] .. cursorword .. [[\>]])
+	vim.w.cursorword_match_id = fn.matchadd('CursorWord', [[\<]] .. cursorword .. [[\>]], -1)
 end
 
 function M.matchdelete()
