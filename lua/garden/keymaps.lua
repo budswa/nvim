@@ -83,4 +83,9 @@ vim.api.nvim_set_keymap(
 	{ noremap = true, silent = true }
 )
 
+map('i', '<C-E>', '<Plug>luasnip-next-choice', {})
+map('s', '<C-E>', '<Plug>luasnip-next-choice', {})
+map('i', '<C-K>', '<Plug>luasnip-expand-or-jump', {})
+map('s', '<C-K>', '<Plug>luasnip-expand-or-jump', {})
+
 return M

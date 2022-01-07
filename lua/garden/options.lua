@@ -1,7 +1,7 @@
 local g = vim.g
 local o = vim.opt
 
-o.syntax = 'off'
+o.syntax = 'on'
 
 -- Indentation, spaces and tabs
 o.expandtab = false
@@ -85,10 +85,9 @@ o.listchars = {
 o.fillchars = {
 	vert = ' ', -- │
 	eob = ' ',
-	fold = '·',
-	foldopen = '▼',
-	foldclose = '▶',
 }
+
+o.spellfile = vim.fn.expand(vim.fn.stdpath('config') .. '/spell/en.utf-8.add')
 
 -- Scrolloff
 o.scrolloff = 2
@@ -178,11 +177,12 @@ g.loaded_perl_provider = 0
 vim.cmd('packadd! cfilter')
 
 -- Disable builtins
+g.did_load_filetypes = 1
 g.loaded_2html_plugin = 1
+g.loaded_fzf = 1
 g.loaded_getscript = 1
 g.loaded_getscriptPlugin = 1
 g.loaded_gzip = 1
-g.loaded_fzf = 1
 g.loaded_logipat = 1
 g.loaded_matchit = 1
 g.loaded_matchparen = 1

@@ -164,24 +164,79 @@ null.setup({
 	sources = {
 		b.code_actions.gitrebase,
 		b.code_actions.gitsigns,
-		b.code_actions.proselint,
+		b.code_actions.proselint.with({
+			condition = function()
+				return vim.fn.executable('proselint') > 0
+			end,
+		}),
 		b.code_actions.refactoring,
 		b.diagnostics.cppcheck,
-		b.diagnostics.flake8,
-		b.diagnostics.luacheck,
-		b.diagnostics.proselint,
-		b.diagnostics.pylama,
-		b.diagnostics.pylint,
-		b.diagnostics.selene.with({ extra_args = { '--config', vim.fn.stdpath('config') .. '/selene.toml' } }),
-		b.diagnostics.vale,
-		b.formatting.black,
-		b.formatting.clang_format,
-		b.formatting.gofmt,
-		b.formatting.goimports,
-		b.formatting.markdownlint,
-		b.formatting.prettier,
-		b.formatting.rustfmt,
-		b.formatting.stylua.with({ extra_args = { '--config-path', vim.fn.stdpath('config') .. '/stylua.toml' } }),
+		b.diagnostics.flake8.with({
+			condition = function()
+				return vim.fn.executable('flake8') > 0
+			end,
+		}),
+		b.diagnostics.luacheck.with({
+			condition = function()
+				return vim.fn.executable('flake8') > 0
+			end,
+		}),
+		b.diagnostics.proselint.with({
+			condition = function()
+				return vim.fn.executable('proselint') > 0
+			end,
+		}),
+		b.diagnostics.pylama.with({
+			condition = function()
+				return vim.fn.executable('pylama') > 0
+			end,
+		}),
+		b.diagnostics.pylint.with({
+			condition = function()
+				return vim.fn.executable('pylint') > 0
+			end,
+		}),
+		b.diagnostics.selene.with({
+			extra_args = { '--config', vim.fn.stdpath('config') .. '/selene.toml' },
+		}),
+		b.diagnostics.vale.with({
+			condition = function()
+				return vim.fn.executable('vale') > 0
+			end,
+		}),
+		b.formatting.black.with({
+			condition = function()
+				return vim.fn.executable('black') > 0
+			end,
+		}),
+		b.formatting.clang_format.with({
+			condition = function()
+				return vim.fn.executable('clang-format') > 0
+			end,
+		}),
+		b.formatting.gofmt.with({
+			condition = function()
+				return vim.fn.executable('clang-format') > 0
+			end,
+		}),
+		b.formatting.markdownlint.with({
+			condition = function()
+				return vim.fn.executable('markdownlint') > 0
+			end,
+		}),
+		b.formatting.prettierd.with({
+			condition = function()
+				return vim.fn.executable('prettierd') > 0
+			end,
+		}),
+		b.formatting.rustfmt.with({
+			condition = function()
+				return vim.fn.executable('rustfmt') > 0
+			end,
+		}),
+		b.formatting.stylua.with({
+			extra_args = { '--config-path', vim.fn.stdpath('config') .. '/stylua.toml' },
+		}),
 	},
 })
 
@@ -189,6 +244,13 @@ lspconfig['null-ls'].setup({
 	on_attach = M.on_attach,
 	capabilities = capabilities,
 	autostart = true,
+})
+
+require('glow-hover').setup({
+	max_width = 120,
+	padding = 1,
+	border = 'rounded',
+	glow_path = 'glow',
 })
 
 return M

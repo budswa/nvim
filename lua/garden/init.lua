@@ -6,9 +6,9 @@ local modules = {
 	'garden.plugins',
 	'garden.options',
 	'garden.autocmds',
-	'garden.keybinds',
+	'garden.keymaps',
 	'garden.modules',
-	'garden.globals',
+	'garden.globals'
 }
 
 for _, mod in ipairs(modules) do

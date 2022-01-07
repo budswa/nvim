@@ -1,3 +1,7 @@
+vim.g.start_time = vim.fn.reltime()
+
+vim.o.syntax = 'off'
+
 do
 	local ok, impatient = pcall(require, 'impatient')
 	if ok then

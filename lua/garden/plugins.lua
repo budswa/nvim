@@ -3,6 +3,20 @@ if not ok then
 	print('Packer is not installed')
 end
 
+packer.init({
+	compile_path = vim.fn.stdpath('config') .. '/lua/compiled.lua',
+	display = {
+		title = 'Packer',
+		prompt_border = 'rounded',
+	},
+	git = {
+		clone_timeout = 300,
+	},
+	profile = {
+		enable = true,
+	},
+})
+
 local use = packer.use
 
 require('packer').startup({
@@ -42,9 +56,8 @@ require('packer').startup({
 		})
 		use({ 'jose-elias-alvarez/null-ls.nvim' })
 		use({ 'folke/lua-dev.nvim' })
-		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
 
-		-- Completiond
+		-- Completion
 		use({
 			'hrsh7th/nvim-cmp',
 			requires = {
@@ -71,6 +84,7 @@ require('packer').startup({
 
 		use({ 'windwp/nvim-autopairs' })
 		use({ 'ray-x/lsp_signature.nvim' })
+		use({ 'JASONews/glow-hover' })
 		use({ 'onsails/lspkind-nvim' })
 
 		-- Telescope
@@ -199,14 +213,28 @@ require('packer').startup({
 			end,
 		})
 
-		-- Keymap
+		--use({
+		--	'ldelossa/litee.nvim',
+		--	requires = {
+		--		'ldelossa/litee-calltree.nvim',
+		--		'ldelossa/litee-symboltree.nvim',
+		--		'ldelossa/litee-filetree.nvim'
+		--	},
+		--	config = function()
+		--		require('garden.ext.litee')
+		--	end
+		--})
+
+		-- Whichkey
 		use({
-			'folke/which-key.nvim',
+			'max397574/which-key.nvim',
+			--'folke/which-key.nvim',
 			event = 'BufWinEnter',
 			config = function()
 				require('garden.ext.whichkey')
 			end,
 		})
+
 
 		-- spellsitter
 		--use({
@@ -302,6 +330,14 @@ require('packer').startup({
 			cmd = 'Copilot',
 		})
 
+		use({
+			'mizlan/iswap.nvim',
+			cmd = { 'ISwap', 'ISwapWith' },
+			config = function()
+				require('garden.ext.iswap')
+			end,
+		})
+
 		-- Zen
 		use({
 			'folke/zen-mode.nvim',
@@ -315,6 +351,20 @@ require('packer').startup({
 			cmd = { 'Twilight', 'TwilightEnable', 'TwilightDisable' },
 			config = function()
 				require('garden.ext.twilight')
+			end,
+		})
+
+		use({
+			'goolord/alpha-nvim',
+			config = function()
+				require('garden.ext.alpha')
+			end,
+		})
+
+		use({
+			'anuvyklack/pretty-fold.nvim',
+			config = function()
+				require('garden.ext.fold')
 			end,
 		})
 
@@ -349,6 +399,7 @@ require('packer').startup({
 		-- UI replacements
 		use({
 			'stevearc/dressing.nvim',
+			opt = true,
 			event = 'BufWinEnter',
 			config = function()
 				require('garden.ext.dressing')
@@ -368,6 +419,8 @@ require('packer').startup({
 				vim.g.nvim_markdown_preview_theme = 'github'
 			end,
 		})
+		-- Emacs Narrowing for Vim
+		use({ 'chrisbra/NrrwRgn' })
 
 		-- Move
 		use({ 'fedepujol/move.nvim' })
@@ -402,10 +455,11 @@ require('packer').startup({
 				require('spaceless').setup()
 			end,
 		})
+		use({ 'nathom/filetype.nvim' })
 		use({
-			'nathom/filetype.nvim',
+			'monkoose/matchparen.nvim',
 			config = function()
-				vim.g.did_load_filetypes = 1
+				require('matchparen').setup()
 			end,
 		})
 		use({
@@ -428,5 +482,9 @@ require('packer').startup({
 
 		-- Language specific
 		use({ 'tjdevries/nlua.nvim' })
+
+		if require('garden.packer').bootsrap then
+			require('packer').sync()
+		end
 	end,
 })
