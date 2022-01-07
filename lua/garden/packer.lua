@@ -15,4 +15,4 @@ end
 
 vim.cmd('packadd packer.nvim')
 
-return { bootstrap = packer_bootstrap }
+return { bootstrap = bootstrap }

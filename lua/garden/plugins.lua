@@ -235,7 +235,6 @@ require('packer').startup({
 			end,
 		})
 
-
 		-- spellsitter
 		--use({
 		--	'lewis6991/spellsitter.nvim',
