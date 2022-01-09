@@ -94,7 +94,7 @@ require('packer').startup({
 			'nvim-telescope/telescope.nvim',
 			requires = {
 				'nvim-lua/plenary.nvim',
-				'nvim-telescope/telescope-frecency.nvim'
+				'nvim-telescope/telescope-frecency.nvim',
 			},
 			cmd = 'Telescope',
 			config = function()
@@ -130,7 +130,6 @@ require('packer').startup({
 			'weilbith/nvim-code-action-menu',
 			cmd = 'CodeActionMenu',
 		})
-
 
 		-- Session management
 		use({
@@ -205,7 +204,7 @@ require('packer').startup({
 			'stefandtw/quickfix-reflector.vim',
 			config = function()
 				vim.g.qf_write_changes = 0
-			end
+			end,
 		})
 
 		use({
@@ -428,7 +427,7 @@ require('packer').startup({
 		use({
 			'chrisbra/NrrwRgn',
 			opt = 'true',
-			cmd = 'NR'
+			cmd = 'NR',
 		})
 
 		-- Move

@@ -43,7 +43,7 @@ require('which-key').setup({
 		spacing = 3,
 		align = 'left',
 	},
-	hidden = { '<silent>', '<cmd>',  '<cr>', 'call', 'lua', '^:', '^ ' },
+	hidden = { '<silent>', '<cmd>', '<cr>', 'call', 'lua', '^:', '^ ' },
 	show_help = true,
 	triggers = 'auto',
 	triggers_blacklist = {

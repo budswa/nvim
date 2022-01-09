@@ -26,5 +26,5 @@ require('garden/utils').nvim_create_augroups({
 	},
 	mkdir = {
 		{ 'BufWritePre', '*', [[lua require('garden.modules.mkdir').mkdir()]] },
-	}
+	},
 })

@@ -30,7 +30,7 @@ dashboard.section.buttons.val = {
 	dashboard.button('e', '  New file', ':ene<cr>'),
 	dashboard.button('f', ' Find file', ':Telescope find_files<cr>'),
 	dashboard.button('w', ' Find word', ':Telescope live_grep<cr>'),
-	dashboard.button('q', ' Quit', ':q!<cr>')
+	dashboard.button('q', ' Quit', ':q!<cr>'),
 }
 
 dashboard.section.footer.val = {
