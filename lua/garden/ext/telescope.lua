@@ -22,5 +22,7 @@ telescope.setup({
 })
 
 require('telescope').load_extension('zk')
+require('telescope').load_extension('sessions')
+require"telescope".load_extension("frecency")
 
 vim.cmd([[highlight TelescopeResultsTitle guifg=#191724]])

@@ -83,7 +83,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = update_capabilities(capabilities)
 
 M.on_attach = function(_, bufnr)
-	require('garden.keybinds').lsp(bufnr)
+	require('garden.keymaps').lsp_on_attach(bufnr)
 
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 	vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
@@ -159,6 +159,8 @@ installer.on_server_ready(function(server)
 end)
 
 null.setup({
+	on_attach = M.on_attach,
+	capabilities = capabilities,
 	debounce = 100,
 	debug = true,
 	sources = {
@@ -238,12 +240,6 @@ null.setup({
 			extra_args = { '--config-path', vim.fn.stdpath('config') .. '/stylua.toml' },
 		}),
 	},
-})
-
-lspconfig['null-ls'].setup({
-	on_attach = M.on_attach,
-	capabilities = capabilities,
-	autostart = true,
 })
 
 require('glow-hover').setup({

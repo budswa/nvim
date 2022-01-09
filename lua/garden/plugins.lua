@@ -18,6 +18,7 @@ packer.init({
 })
 
 local use = packer.use
+local rocks = packer.use_rocks
 
 require('packer').startup({
 	function()
@@ -56,6 +57,7 @@ require('packer').startup({
 		})
 		use({ 'jose-elias-alvarez/null-ls.nvim' })
 		use({ 'folke/lua-dev.nvim' })
+		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
 
 		-- Completion
 		use({
@@ -71,7 +73,7 @@ require('packer').startup({
 				{ 'saadparwaiz1/cmp_luasnip', event = 'InsertEnter' },
 				{ 'hrsh7th/cmp-copilot', event = 'InsertEnter' },
 			},
-			event = 'InsertEnter',
+			--event = 'InsertEnter',
 			config = function()
 				require('garden.ext.completion')
 			end,
@@ -90,7 +92,10 @@ require('packer').startup({
 		-- Telescope
 		use({
 			'nvim-telescope/telescope.nvim',
-			requires = 'nvim-lua/plenary.nvim',
+			requires = {
+				'nvim-lua/plenary.nvim',
+				'nvim-telescope/telescope-frecency.nvim'
+			},
 			cmd = 'Telescope',
 			config = function()
 				require('garden.ext.telescope')
@@ -113,10 +118,11 @@ require('packer').startup({
 		-- Terminal
 		use({
 			'akinsho/toggleterm.nvim',
+			event = 'BufWinEnter',
 			config = function()
 				require('garden.ext.toggleterm')
 			end,
-			cmd = { 'ToggleTerm', 'TermExec', 'ToggleTermOpenAll', 'ToggleTermCloseAll' },
+			--cmd = { 'ToggleTerm', 'TermExec', 'ToggleTermOpenAll', 'ToggleTermCloseAll' },
 		})
 
 		-- Code Actions
@@ -125,22 +131,12 @@ require('packer').startup({
 			cmd = 'CodeActionMenu',
 		})
 
-		-- Renamer
-		use({
-			'filipdutescu/renamer.nvim',
-			branch = 'master',
-			event = 'BufRead',
-			requires = 'nvim-lua/plenary.nvim',
-			config = function()
-				require('garden.ext.renamer')
-			end,
-		})
 
-		-- Project and session management
+		-- Session management
 		use({
-			'folke/persistence.nvim',
+			'Shatur/neovim-session-manager',
 			config = function()
-				require('garden.ext.persistence')
+				require('garden.ext.sessions')
 			end,
 		})
 		use({ 'gpanders/editorconfig.nvim' })
@@ -205,6 +201,13 @@ require('packer').startup({
 		})
 
 		-- Quickfix
+		use({
+			'stefandtw/quickfix-reflector.vim',
+			config = function()
+				vim.g.qf_write_changes = 0
+			end
+		})
+
 		use({
 			'kevinhwang91/nvim-bqf',
 			ft = 'qf',
@@ -290,14 +293,14 @@ require('packer').startup({
 				require('garden.ext.comment')
 			end,
 		})
-		use({
-			'folke/todo-comments.nvim',
-			requires = 'nvim-lua/plenary.nvim',
-			event = 'BufRead',
-			config = function()
-				require('todo-comments').setup({})
-			end,
-		})
+		--use({
+		--	'folke/todo-comments.nvim',
+		--	requires = 'nvim-lua/plenary.nvim',
+		--	event = 'BufRead',
+		--	config = function()
+		--		require('todo-comments').setup({})
+		--	end,
+		--})
 
 		-- Search
 		use({
@@ -383,6 +386,7 @@ require('packer').startup({
 				require('garden.ext.zk')
 			end,
 		})
+
 		-- Pastebin
 		use({ 'rktjmp/paperplanes.nvim' })
 
@@ -406,6 +410,7 @@ require('packer').startup({
 		})
 		use({
 			'rcarriga/nvim-notify',
+			event = 'VimEnter',
 			config = function()
 				require('garden.ext.notify')
 			end,
@@ -418,8 +423,13 @@ require('packer').startup({
 				vim.g.nvim_markdown_preview_theme = 'github'
 			end,
 		})
+
 		-- Emacs Narrowing for Vim
-		use({ 'chrisbra/NrrwRgn' })
+		use({
+			'chrisbra/NrrwRgn',
+			opt = 'true',
+			cmd = 'NR'
+		})
 
 		-- Move
 		use({ 'fedepujol/move.nvim' })
@@ -476,11 +486,13 @@ require('packer').startup({
 			'dstein64/vim-startuptime',
 			cmd = 'StartupTime',
 		})
-		use({ 'tami5/sqlite.lua' })
 		use({ 'antoinemadec/FixCursorHold.nvim' })
+		use({ 'tami5/sqlite.lua', module = 'sqlite' })
 
 		-- Language specific
 		use({ 'tjdevries/nlua.nvim' })
+
+		rocks({ 'luazip' })
 
 		if require('garden.packer').bootsrap then
 			require('packer').sync()

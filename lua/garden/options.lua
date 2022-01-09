@@ -174,6 +174,7 @@ g.loaded_node_provider = 0
 g.loaded_ruby_provider = 0
 g.loaded_perl_provider = 0
 
+vim.cmd('hi Statusline guibg=#24292e guifg=#3b8eea')
 vim.cmd('packadd! cfilter')
 
 -- Disable builtins

@@ -1,6 +1,6 @@
 require('garden/utils').nvim_create_augroups({
 	packer = {
-		{ 'BufWritePost', 'plugins.lua', [[ source <afile> | PackerCompile]] },
+		{ 'BufWritePost', 'plugins.lua', [[PackerCompile]] },
 	},
 	check_update = {
 		{ 'FocusGained', '*', [[checktime]] },
@@ -26,5 +26,5 @@ require('garden/utils').nvim_create_augroups({
 	},
 	mkdir = {
 		{ 'BufWritePre', '*', [[lua require('garden.modules.mkdir').mkdir()]] },
-	},
+	}
 })

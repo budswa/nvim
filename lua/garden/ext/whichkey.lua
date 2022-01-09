@@ -33,7 +33,6 @@ require('which-key').setup({
 	},
 	window = {
 		position = 'bottom',
-		-- [top, right, bottom, left]
 		margin = { 0, 0, 0, 0 },
 		padding = { 1, 1, 1, 1 },
 		winblend = 20,
@@ -44,7 +43,7 @@ require('which-key').setup({
 		spacing = 3,
 		align = 'left',
 	},
-	hidden = { '<silent>', '<cmd>', '<Cmd>', '<CR>', 'call', 'lua', '^:', '^ ' },
+	hidden = { '<silent>', '<cmd>',  '<cr>', 'call', 'lua', '^:', '^ ' },
 	show_help = true,
 	triggers = 'auto',
 	triggers_blacklist = {
