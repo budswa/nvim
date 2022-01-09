@@ -1,6 +1,5 @@
 local M = {}
 
-local lspconfig = require('lspconfig')
 local installer = require('nvim-lsp-installer')
 local servers = require('nvim-lsp-installer.servers')
 local null = require('null-ls')
