@@ -22,11 +22,7 @@ local rocks = packer.use_rocks
 
 require('packer').startup({
 	function()
-		use({
-			'wbthomason/packer.nvim',
-			opt = true,
-			event = 'vimenter',
-		})
+		use({ 'wbthomason/packer.nvim' })
 
 		-- Treesitter
 		use({
@@ -55,29 +51,35 @@ require('packer').startup({
 				require('garden.ext.lsp')
 			end,
 		})
-		use({ 'jose-elias-alvarez/null-ls.nvim' })
+		use({
+			'jose-elias-alvarez/null-ls.nvim',
+			requires = 'PlatyPew/format-installer.nvim',
+		})
 		use({ 'folke/lua-dev.nvim' })
 		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
 
 		-- Completion
 		use({
-			'hrsh7th/nvim-cmp',
-			requires = {
-				{ 'hrsh7th/cmp-nvim-lsp', event = 'InsertEnter' },
-				{ 'hrsh7th/cmp-nvim-lua', event = 'InsertEnter' },
-				{ 'hrsh7th/cmp-buffer', event = 'InsertEnter' },
-				{ 'hrsh7th/cmp-path', event = 'InsertEnter' },
-				{ 'hrsh7th/cmp-calc', event = 'InsertEnter' },
-				{ 'ray-x/cmp-treesitter', event = 'InsertEnter' },
-				{ 'lukas-reineke/cmp-rg', event = 'InsertEnter' },
-				{ 'saadparwaiz1/cmp_luasnip', event = 'InsertEnter' },
-				{ 'hrsh7th/cmp-copilot', event = 'InsertEnter' },
-			},
+			'iron-e/nvim-cmp',
+			event = { 'InsertEnter', 'CmdLineEnter' },
+			branch = 'feat/completion-menu-borders',
+			requires = {},
 			--event = 'InsertEnter',
 			config = function()
 				require('garden.ext.completion')
 			end,
 		})
+		use({ 'hrsh7th/cmp-nvim-lsp', event = 'InsertEnter' })
+		use({ 'hrsh7th/cmp-nvim-lua', event = 'InsertEnter' })
+		use({ 'hrsh7th/cmp-buffer', event = 'InsertEnter' })
+		use({ 'hrsh7th/cmp-path', event = 'InsertEnter' })
+		use({ 'hrsh7th/cmp-calc', event = 'InsertEnter' })
+		use({ 'ray-x/cmp-treesitter', event = 'InsertEnter' })
+		use({ 'lukas-reineke/cmp-rg', event = 'InsertEnter' })
+		use({ 'saadparwaiz1/cmp_luasnip', event = 'InsertEnter' })
+		use({ 'hrsh7th/cmp-copilot', event = 'InsertEnter' })
+		use({ 'hrsh7th/cmp-cmdline', event = 'CmdLineEnter', after = 'nvim-cmp' })
+		use({ 'hrsh7th/cmp-nvim-lsp-signature-help', event = 'CmdLineEnter', after = 'nvim-cmp' })
 		use({
 			'L3MON4D3/LuaSnip',
 			event = 'InsertEnter',
@@ -124,6 +126,15 @@ require('packer').startup({
 			end,
 			--cmd = { 'ToggleTerm', 'TermExec', 'ToggleTermOpenAll', 'ToggleTermCloseAll' },
 		})
+		use({
+			'yioneko/nvim-yati',
+			requires = 'nvim-treesitter/nvim-treesitter',
+			config = function()
+				require('nvim-treesitter.configs').setup({
+					yati = { enable = true },
+				})
+			end,
+		})
 
 		-- Code Actions
 		use({
@@ -165,7 +176,7 @@ require('packer').startup({
 			end,
 		})
 
-		-- Debug
+		-- Debugging and testing
 		use({
 			'mfussenegger/nvim-dap',
 			requires = 'rcarriga/nvim-dap-ui',
@@ -179,6 +190,7 @@ require('packer').startup({
 			event = 'BufReadPre',
 		})
 		use({ 'jbyuki/one-small-step-for-vimkind' })
+		use({ 'notomo/vusted' })
 
 		-- Refactoring
 		use({
@@ -273,6 +285,16 @@ require('packer').startup({
 			config = function()
 				require('numb').setup()
 			end,
+		})
+
+		-- Textobjects
+		use({
+			'kana/vim-textobj-user',
+			event = 'BufEnter',
+		})
+		use({
+			'Julian/vim-textobj-variable-segment',
+			event = 'BufEnter',
 		})
 
 		-- Surround
@@ -487,11 +509,12 @@ require('packer').startup({
 		})
 		use({ 'antoinemadec/FixCursorHold.nvim' })
 		use({ 'tami5/sqlite.lua', module = 'sqlite' })
+		use({ 'nanotee/luv-vimdocs' })
 
 		-- Language specific
 		use({ 'tjdevries/nlua.nvim' })
 
-		rocks({ 'luazip' })
+		rocks({ 'luazip', 'penlight', 'lua-cjson' })
 
 		if require('garden.packer').bootsrap then
 			require('packer').sync()

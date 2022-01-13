@@ -1,19 +1,17 @@
 local M = {}
 
-local installer = require('nvim-lsp-installer')
+local lsp_install = require('nvim-lsp-installer')
+local format_install = require('format-installer')
 local servers = require('nvim-lsp-installer.servers')
 local null = require('null-ls')
 local b = null.builtins
+
+local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
 
 local required_servers = {
 	'sumneko_lua',
 	'vimls',
 	'clangd',
-	'gopls',
-	'rust_analyzer',
-	'pyright',
-	'yamlls',
-	'jsonls',
 }
 
 --local signs = { Error = "E", Warn = "W", Info = "I", Hint = "H" }
@@ -24,7 +22,12 @@ local required_servers = {
 --	)
 --end
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+vim.diagnostic.config({
+	float = {
+		focusable = false,
+		border = border,
+		scope = 'cursor',
+	},
 	underline = true,
 	virtual_text = {
 		prefix = '▸',
@@ -36,6 +39,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
 		priority = 10,
 	},
 	update_in_insert = true,
+	severity_sort = true,
 })
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -89,21 +93,13 @@ M.on_attach = function(_, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
 
 	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
-
-	require('lsp_signature').on_attach({
-		bind = true,
-		max_height = 12,
-		max_width = 120,
-		transpancy = 20,
-		handler_opts = { border = 'rounded' },
-	})
 end
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-installer.settings({
+lsp_install.settings({
 	log_level = vim.log.levels.INFO,
 	max_concurrent_installers = 4,
 })
@@ -119,11 +115,14 @@ for _, s in pairs(required_servers) do
 	end
 end
 
-installer.on_server_ready(function(server)
+lsp_install.on_server_ready(function(server)
 	local opts = {
 		capabilities = capabilities,
 		on_attach = M.on_attach,
 		root_dir = vim.loop.cwd,
+		flags = {
+			debounce_text_changes = 100,
+		},
 	}
 
 	if server.name == 'sumneko_lua' then
@@ -157,95 +156,46 @@ installer.on_server_ready(function(server)
 	server:setup(opts)
 end)
 
+local sources = {
+	b.code_actions.gitrebase,
+	b.code_actions.gitsigns,
+	b.code_actions.proselint,
+	b.code_actions.refactoring,
+	b.diagnostics.cppcheck,
+	b.diagnostics.flake8,
+	b.diagnostics.luacheck,
+	b.diagnostics.proselint,
+	b.diagnostics.pylama,
+	b.diagnostics.pylint,
+	b.diagnostics.vale,
+	b.formatting.black,
+	b.formatting.clang_format,
+	b.formatting.gofmt,
+	b.formatting.markdownlint,
+	b.formatting.prettierd,
+	b.formatting.rustfmt,
+	b.formatting.stylua,
+}
+
+for _, formatter in ipairs(format_install.get_installed_formatters()) do
+	local config = { command = formatter.cmd }
+
+	-- Passes extra_args into null-ls configurations
+	if formatter.name == 'stylua' then
+		config['extra_args'] = { '--config-path', vim.fn.stdpath('config') .. '/stylua.toml' }
+	elseif formatter.name == '' then
+		config['extra_args'] = { '--config', vim.fn.stdpath('config') .. '/selene.toml' }
+	end
+
+	table.insert(sources, null.builtins.formatting[formatter.name].with(config))
+end
+
 null.setup({
 	on_attach = M.on_attach,
 	capabilities = capabilities,
 	debounce = 100,
 	debug = true,
-	sources = {
-		b.code_actions.gitrebase,
-		b.code_actions.gitsigns,
-		b.code_actions.proselint.with({
-			condition = function()
-				return vim.fn.executable('proselint') > 0
-			end,
-		}),
-		b.code_actions.refactoring,
-		b.diagnostics.cppcheck,
-		b.diagnostics.flake8.with({
-			condition = function()
-				return vim.fn.executable('flake8') > 0
-			end,
-		}),
-		b.diagnostics.luacheck.with({
-			condition = function()
-				return vim.fn.executable('flake8') > 0
-			end,
-		}),
-		b.diagnostics.proselint.with({
-			condition = function()
-				return vim.fn.executable('proselint') > 0
-			end,
-		}),
-		b.diagnostics.pylama.with({
-			condition = function()
-				return vim.fn.executable('pylama') > 0
-			end,
-		}),
-		b.diagnostics.pylint.with({
-			condition = function()
-				return vim.fn.executable('pylint') > 0
-			end,
-		}),
-		b.diagnostics.selene.with({
-			extra_args = { '--config', vim.fn.stdpath('config') .. '/selene.toml' },
-		}),
-		b.diagnostics.vale.with({
-			condition = function()
-				return vim.fn.executable('vale') > 0
-			end,
-		}),
-		b.formatting.black.with({
-			condition = function()
-				return vim.fn.executable('black') > 0
-			end,
-		}),
-		b.formatting.clang_format.with({
-			condition = function()
-				return vim.fn.executable('clang-format') > 0
-			end,
-		}),
-		b.formatting.gofmt.with({
-			condition = function()
-				return vim.fn.executable('clang-format') > 0
-			end,
-		}),
-		b.formatting.markdownlint.with({
-			condition = function()
-				return vim.fn.executable('markdownlint') > 0
-			end,
-		}),
-		b.formatting.prettierd.with({
-			condition = function()
-				return vim.fn.executable('prettierd') > 0
-			end,
-		}),
-		b.formatting.rustfmt.with({
-			condition = function()
-				return vim.fn.executable('rustfmt') > 0
-			end,
-		}),
-		b.formatting.stylua.with({
-			extra_args = { '--config-path', vim.fn.stdpath('config') .. '/stylua.toml' },
-		}),
-	},
-})
-
-require('glow-hover').setup({
-	max_width = 120,
-	padding = 1,
-	border = 'rounded',
-	glow_path = 'glow',
+	sources = sources,
 })
 
 return M

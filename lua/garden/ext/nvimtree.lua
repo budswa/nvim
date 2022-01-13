@@ -2,10 +2,15 @@ require('nvim-tree').setup({
 	view = {
 		width = 30,
 		side = 'left',
+		signcolumn = 'no',
 	},
 	update_focused_file = {
 		enable = true,
 		update_cwd = false,
+	},
+	trash = {
+		cmd = 'trash',
+		require_confirm = true,
 	},
 	tree_ignore = { '.git', 'node_modules' },
 	disable_netrw = true,

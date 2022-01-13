@@ -105,7 +105,7 @@ map({ 'i', 's' }, '<C-E>', '<Plug>luasnip-next-choice', {})
 map({ 'i', 's' }, '<C-K>', '<Plug>luasnip-expand-or-jump', {})
 
 local function telescope(provider)
-	return '<cmd>Telescope ' .. provider .. '<cr>'
+	return ':Telescope ' .. provider .. '<cr>'
 end
 
 wk.register({

@@ -25,12 +25,12 @@ dashboard.section.header.val = {
 }
 
 dashboard.section.buttons.val = {
-	dashboard.button('l', 'Load session', ':LoadCurrentDirSession<cr>'),
-	dashboard.button('s', 'Find session', ':Telescope sessions<cr>'),
 	dashboard.button('e', '  New file', ':ene<cr>'),
 	dashboard.button('f', ' Find file', ':Telescope find_files<cr>'),
 	dashboard.button('w', ' Find word', ':Telescope live_grep<cr>'),
-	dashboard.button('q', ' Quit', ':q!<cr>'),
+	dashboard.button('s', 'Find session', ':SessionManager load_session<cr>'),
+	dashboard.button('l', 'Load session', ':SessionManager load_current_dir_session<cr>'),
+	dashboard.button('q', ' Quit Neovim', ':q!<cr>'),
 }
 
 dashboard.section.footer.val = {

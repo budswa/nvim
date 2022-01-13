@@ -5,3 +5,5 @@ vim.cmd([[
 		au BufLeave,WinClosed,WinLeave,CmdLineEnter <buffer> set guicursor&
 	augroup END
 ]])
+
+vim.o.signcolumn = 'no'

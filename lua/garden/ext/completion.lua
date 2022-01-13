@@ -5,12 +5,27 @@ local autopairs = require('nvim-autopairs.completion.cmp')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
 
+local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
+
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
 vim.g.copilot_tab_fallback = ''
 
---require('luasnip/loaders/from_vscode').lazy_load()
-require('luasnip/loaders/from_vscode').load()
+require('lsp_signature').setup({
+	bind = true,
+	max_height = 12,
+	max_width = 120,
+	transpancy = 20,
+	handler_opts = { border = 'rounded' },
+	hint_prefix = ' ',
+})
+
+require('glow-hover').setup({
+	max_width = 120,
+	padding = 1,
+	border = 'rounded',
+	glow_path = 'glow',
+})
 
 require('nvim-autopairs').setup({
 	disable_filetype = { 'TelescopePrompt' },
@@ -18,34 +33,24 @@ require('nvim-autopairs').setup({
 })
 cmp.event:on('confirm_done', autopairs.on_confirm_done({ map_char = { tex = '' } }))
 
+require('luasnip.loaders.from_vscode').load()
+
 require('cmp_nvim_lsp').setup()
 cmp.setup({
 	completion = {
-		--border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-		--scrollbar = '║',
 		completeopt = 'menu,menuone,preview,noinsert',
 		keyword_length = 1,
 	},
-	documentation = {
-		border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-		scrollbar = '║',
+	window = {
+		completion = {
+			border = border,
+			scrollbar = '┃',
+		},
+		documentation = {
+			border = border,
+			scrollbar = '┃',
+		},
 	},
-	--formatting = {
-	--	format = lspkind.cmp_format({
-	--		with_text = true,
-	--		menu = {
-	--			copilot = '[CP]',
-	--			luasnip = '[Snip]',
-	--			path = '[Path]',
-	--			calc = '[Calc]',
-	--			nvim_lua = '[Lua]',
-	--			nvim_lsp = '[LSP]',
-	--			buffer = '[Buffer]',
-	--			treesitter = '[TS]',
-	--			rg = '[Rg]',
-	--		},
-	--	}),
-	--},
 	formatting = {
 		fields = {
 			cmp.ItemField.Kind,
@@ -61,7 +66,7 @@ cmp.setup({
 				calc = '[Calc]',
 				nvim_lua = '[Lua]',
 				nvim_lsp = '[LSP]',
-				buffer = '[Buffer]',
+				buffer = '[Buf]',
 				treesitter = '[TS]',
 				rg = '[Rg]',
 			},
@@ -72,6 +77,12 @@ cmp.setup({
 				end
 				word = str.oneline(word)
 
+				local max = 50
+				if string.len(word) >= max then
+					local before = string.sub(word, 1, math.floor((max - 3) / 2))
+					word = before .. '...'
+				end
+
 				if
 					entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet
 					and string.sub(vim_item.abbr, -1, -1) == '~'
@@ -79,6 +90,12 @@ cmp.setup({
 					word = word .. '~'
 				end
 				vim_item.abbr = word
+
+				vim_item.dup = ({
+					buffer = 1,
+					path = 1,
+					nvim_lsp = 0,
+				})[entry.source.name] or 0
 
 				return vim_item
 			end,
@@ -110,9 +127,46 @@ cmp.setup({
 		{ name = 'buffer' },
 		{ name = 'treesitter' },
 		{ name = 'rg' },
+		{ name = 'nvim_lsp_signature_help' },
 	},
 	experimental = {
 		ghost_text = true,
 		native_menu = false,
+	},
+})
+
+cmp.setup.cmdline(':', {
+	enabled = function()
+		return true
+	end,
+	completion = {
+		border = border,
+		scrollbar = '▌',
+	},
+	documentation = {
+		border = border,
+		scrollbar = '▌',
+	},
+	sources = cmp.config.sources({
+		{ name = 'path' },
+	}, {
+		{ name = 'cmdline' },
+	}),
+})
+
+cmp.setup.cmdline('/', {
+	enabled = function()
+		return true
+	end,
+	sources = {
+		{ name = 'buffer', keyword_length = 1 },
+	},
+	completion = {
+		border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
+		scrollbar = '┃',
+	},
+	documentation = {
+		border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
+		scrollbar = '┃',
 	},
 })

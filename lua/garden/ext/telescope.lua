@@ -4,7 +4,7 @@ local themes = require('telescope.themes')
 telescope.setup({
 	defaults = themes.get_ivy({
 		selection_caret = '➤ ',
-		prompt_prefix = ': ',
+		prompt_prefix = ' ',
 		results_title = true,
 		color_devicons = true,
 		preview = {
@@ -22,7 +22,4 @@ telescope.setup({
 })
 
 require('telescope').load_extension('zk')
-require('telescope').load_extension('sessions')
 require('telescope').load_extension('frecency')
-
-vim.cmd([[highlight TelescopeResultsTitle guifg=#191724]])

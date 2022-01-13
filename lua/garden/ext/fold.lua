@@ -1,6 +1,6 @@
 require('pretty-fold').setup({
 	fill_char = ' ',
-	comment_signs = 'delete',
+	process_comment_signs = 'delete',
 	sections = {
 		left = {
 			'content',
@@ -18,3 +18,5 @@ require('pretty-fold').setup({
 	},
 	keep_indentation = true,
 })
+
+vim.cmd([[hi Folded guibg=#1f2428]])
