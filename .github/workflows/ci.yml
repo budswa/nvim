@@ -20,7 +20,7 @@ jobs:
       - name: Setup luacheck
         run: sudo luarocks install luacheck
       - name: Lint using luacheck
-        run: luacheck lua/garden/
+        run: luacheck lua/
 
   format:
     name: stylua
@@ -32,4 +32,4 @@ jobs:
         uses: JohnnyMorganz/stylua-action@1.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --color always --check lua/garden/
+          args: --color always --check lua/
