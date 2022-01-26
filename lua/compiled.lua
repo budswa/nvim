@@ -1108,14 +1108,30 @@ local no_errors, error_msg = pcall(function()
 	time([[Defining lazy-load filetype autocommands]], false)
 	-- Event lazy-loads
 	time([[Defining lazy-load event autocommands]], true)
-	vim.cmd([[au BufRead * ++once lua require("packer.load")({'presence.nvim', 'gitlinker.nvim', 'refactoring.nvim', 'nvim-treesitter-textobjects', 'surround.nvim', 'indent-blankline.nvim', 'nvim-autopairs', 'tabout.nvim', 'lightspeed.nvim', 'gitsigns.nvim', 'nvim-treesitter', 'nvim-lastplace', 'numb.nvim', 'nvim-hlslens', 'Comment.nvim', 'nvim-colorizer.lua'}, { event = "BufRead *" }, _G.packer_plugins)]])
-	vim.cmd([[au BufNewFile * ++once lua require("packer.load")({'nvim-colorizer.lua'}, { event = "BufNewFile *" }, _G.packer_plugins)]])
-	vim.cmd([[au BufEnter * ++once lua require("packer.load")({'vim-textobj-user'}, { event = "BufEnter *" }, _G.packer_plugins)]])
-	vim.cmd([[au BufWinEnter * ++once lua require("packer.load")({'dressing.nvim', 'toggleterm.nvim', 'which-key.nvim'}, { event = "BufWinEnter *" }, _G.packer_plugins)]])
-	vim.cmd([[au CmdLineEnter * ++once lua require("packer.load")({'nvim-cmp', 'cmp-cmdline', 'cmp-nvim-lsp-signature-help'}, { event = "CmdLineEnter *" }, _G.packer_plugins)]])
-	vim.cmd([[au VimEnter * ++once lua require("packer.load")({'nvim-notify'}, { event = "VimEnter *" }, _G.packer_plugins)]])
-	vim.cmd([[au InsertEnter * ++once lua require("packer.load")({'cmp-treesitter', 'cmp_luasnip', 'nvim-cmp', 'cmp-rg', 'LuaSnip', 'cmp-buffer', 'better-escape.nvim', 'cmp-calc', 'cmp-path', 'cmp-copilot', 'cmp-nvim-lsp', 'cmp-nvim-lua'}, { event = "InsertEnter *" }, _G.packer_plugins)]])
-	vim.cmd([[au BufReadPre * ++once lua require("packer.load")({'DAPInstall.nvim', 'nvim-lspconfig', 'nvim-dap'}, { event = "BufReadPre *" }, _G.packer_plugins)]])
+	vim.cmd(
+		[[au BufRead * ++once lua require("packer.load")({'presence.nvim', 'gitlinker.nvim', 'refactoring.nvim', 'nvim-treesitter-textobjects', 'surround.nvim', 'indent-blankline.nvim', 'nvim-autopairs', 'tabout.nvim', 'lightspeed.nvim', 'gitsigns.nvim', 'nvim-treesitter', 'nvim-lastplace', 'numb.nvim', 'nvim-hlslens', 'Comment.nvim', 'nvim-colorizer.lua'}, { event = "BufRead *" }, _G.packer_plugins)]]
+	)
+	vim.cmd(
+		[[au BufNewFile * ++once lua require("packer.load")({'nvim-colorizer.lua'}, { event = "BufNewFile *" }, _G.packer_plugins)]]
+	)
+	vim.cmd(
+		[[au BufEnter * ++once lua require("packer.load")({'vim-textobj-user'}, { event = "BufEnter *" }, _G.packer_plugins)]]
+	)
+	vim.cmd(
+		[[au BufWinEnter * ++once lua require("packer.load")({'dressing.nvim', 'toggleterm.nvim', 'which-key.nvim'}, { event = "BufWinEnter *" }, _G.packer_plugins)]]
+	)
+	vim.cmd(
+		[[au CmdLineEnter * ++once lua require("packer.load")({'nvim-cmp', 'cmp-cmdline', 'cmp-nvim-lsp-signature-help'}, { event = "CmdLineEnter *" }, _G.packer_plugins)]]
+	)
+	vim.cmd(
+		[[au VimEnter * ++once lua require("packer.load")({'nvim-notify'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+	)
+	vim.cmd(
+		[[au InsertEnter * ++once lua require("packer.load")({'cmp-treesitter', 'cmp_luasnip', 'nvim-cmp', 'cmp-rg', 'LuaSnip', 'cmp-buffer', 'better-escape.nvim', 'cmp-calc', 'cmp-path', 'cmp-copilot', 'cmp-nvim-lsp', 'cmp-nvim-lua'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
+	)
+	vim.cmd(
+		[[au BufReadPre * ++once lua require("packer.load")({'DAPInstall.nvim', 'nvim-lspconfig', 'nvim-dap'}, { event = "BufReadPre *" }, _G.packer_plugins)]]
+	)
 	time([[Defining lazy-load event autocommands]], false)
 	vim.cmd('augroup END')
 	if should_profile then
