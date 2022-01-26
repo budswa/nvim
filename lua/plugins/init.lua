@@ -495,7 +495,7 @@ require('packer').startup({
 			'nvim-pack/nvim-spectre',
 			config = function()
 				require('spectre').setup()
-			end
+			end,
 		})
 
 		-- Move

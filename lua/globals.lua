@@ -13,5 +13,3 @@ _G.inspect = function(...)
 	print(unpack(objects))
 	return ...
 end
-
-

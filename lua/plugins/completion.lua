@@ -11,8 +11,8 @@ vim.g.copilot_assume_mapped = true
 vim.g.copilot_tab_fallback = ''
 
 luasnip.config.setup({
-	region_check_events = "CursorMoved",
-    delete_check_events = "TextChanged",
+	region_check_events = 'CursorMoved',
+	delete_check_events = 'TextChanged',
 })
 
 require('lsp_signature').setup({
