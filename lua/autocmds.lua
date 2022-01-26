@@ -1,4 +1,4 @@
-require('garden/utils').nvim_create_augroups({
+require('utils').nvim_create_augroups({
 	packer = {
 		{ 'BufWritePost', 'plugins.lua', [[PackerCompile]] },
 	},
@@ -13,9 +13,9 @@ require('garden/utils').nvim_create_augroups({
 		{ 'WinLeave', '*', [[set nocursorline]] },
 	},
 	cursorword = {
-		{ 'Vimenter,ColorScheme', '*', [[lua require('garden.modules.cursorword').highlight()]] },
-		{ 'CursorMoved,CursorMovedI', '*', [[lua require('garden.modules.cursorword').matchadd()]] },
-		{ 'WinLeave', '*', [[lua require('garden.modules.cursorword').matchdelete()]] },
+		{ 'Vimenter,ColorScheme', '*', [[lua require('modules.cursorword').highlight()]] },
+		{ 'CursorMoved,CursorMovedI', '*', [[lua require('modules.cursorword').matchadd()]] },
+		{ 'WinLeave', '*', [[lua require('modules.cursorword').matchdelete()]] },
 	},
 	telescope = {
 		{ 'Filetype', 'TelescopePrompt', [[lua require('cmp').setup.buffer { enabled = false }]] },
@@ -25,6 +25,6 @@ require('garden/utils').nvim_create_augroups({
 		{ 'Filetype', 'help,startuptime,lspinfo,qf', [[nnoremap <buffer><silent> q :close<CR>]] },
 	},
 	mkdir = {
-		{ 'BufWritePre', '*', [[lua require('garden.modules.mkdir').mkdir()]] },
+		{ 'BufWritePre', '*', [[lua require('modules.mkdir').mkdir()]] },
 	},
 })

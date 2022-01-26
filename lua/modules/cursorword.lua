@@ -5,7 +5,7 @@ local api = vim.api
 
 function M.highlight()
 	if fn.hlexists('CursorWord') == 0 or api.nvim_exec('hi CursorWord', true):find('cleared') then
-		vim.cmd('hi! CursorWord cterm=underline gui=underline')
+		vim.cmd('hi! CursorWord gui=underline')
 	end
 end
 

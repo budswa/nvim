@@ -1,17 +1,29 @@
 vim.g.start_time = vim.fn.reltime()
 
-vim.o.syntax = "off"
+vim.opt.termguicolors = true
 
-do
-	local ok, impatient = pcall(require, "impatient")
-	if ok then
-		impatient.enable_profile()
-	elseif not ok and not impatient then
-		print("Impatient not yet installed")
+local modules = {
+	'globals',
+	'plugins',
+	'compiled',
+	'options',
+	'autocmds',
+	'keymaps',
+	'modules',
+}
+
+local impatient_ok, impatient = pcall(require, 'impatient')
+if impatient_ok and vim.fn.exists(vim.fn.stdpath('cache') .. '/luacache') then
+	impatient.enable_profile()
+end
+
+for _, mod in ipairs(modules) do
+	local ok, err = pcall(require, mod)
+	if not ok then
+		error(('Error loading %s...\n\n%s'):format(mod, err))
 	end
 end
 
-local ok, err = pcall(require, "garden")
-if not ok then
-	error(("Error loading core...\n\n%s"):format(err))
-end
+vim.defer_fn(function()
+	vim.cmd([[ silent! bufdo e ]])
+end, 1)

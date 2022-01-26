@@ -1,7 +1,6 @@
 local cmp = require('cmp')
 local types = require('cmp.types')
 local str = require('cmp.utils.str')
-local autopairs = require('nvim-autopairs.completion.cmp')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
 
@@ -10,6 +9,11 @@ local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
 vim.g.copilot_tab_fallback = ''
+
+luasnip.config.setup({
+	region_check_events = "CursorMoved",
+    delete_check_events = "TextChanged",
+})
 
 require('lsp_signature').setup({
 	bind = true,
@@ -27,18 +31,12 @@ require('glow-hover').setup({
 	glow_path = 'glow',
 })
 
-require('nvim-autopairs').setup({
-	disable_filetype = { 'TelescopePrompt' },
-	check_ts = true,
-})
-cmp.event:on('confirm_done', autopairs.on_confirm_done({ map_char = { tex = '' } }))
-
 require('luasnip.loaders.from_vscode').load()
 
 require('cmp_nvim_lsp').setup()
 cmp.setup({
 	completion = {
-		completeopt = 'menu,menuone,preview,noinsert',
+		completeopt = 'menu,menuone,preview,noinsert,select',
 		keyword_length = 1,
 	},
 	window = {

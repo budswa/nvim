@@ -1,8 +1,8 @@
 local M = {}
 
 local lsp_install = require('nvim-lsp-installer')
-local format_install = require('format-installer')
 local servers = require('nvim-lsp-installer.servers')
+local format_install = require('format-installer')
 local null = require('null-ls')
 local b = null.builtins
 
@@ -86,7 +86,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = update_capabilities(capabilities)
 
 M.on_attach = function(_, bufnr)
-	require('garden.keymaps').lsp_on_attach(bufnr)
+	require('keymaps').lsp_on_attach(bufnr)
 
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 	vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.vim.lsp.tagfunc')

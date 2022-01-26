@@ -39,6 +39,7 @@ require('indent_blankline').setup({
 		'terminal',
 	},
 	filetype_exclude = {
+		'',
 		'help',
 		'man',
 		'log',

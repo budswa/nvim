@@ -21,5 +21,6 @@ telescope.setup({
 	}),
 })
 
-require('telescope').load_extension('zk')
-require('telescope').load_extension('frecency')
+telescope.load_extension('zk')
+telescope.load_extension('frecency')
+telescope.load_extension('file_browser')
