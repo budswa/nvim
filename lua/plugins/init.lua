@@ -1,4 +1,3 @@
---local present, packer = pcall(require, 'plugins.packer')
 require('plugins.packer')
 local packer = require('packer')
 
@@ -63,6 +62,14 @@ require('packer').startup({
 		})
 		use({ 'folke/lua-dev.nvim' })
 		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
+		use({
+			'j-hui/fidget.nvim',
+			config = function()
+				require('fidget').setup({
+					text = { spinner = 'bouncing_bar' }
+				})
+			end,
+		})
 
 		-- Completion
 		use({
@@ -128,10 +135,7 @@ require('packer').startup({
 					require('nvim-web-devicons').setup()
 				end,
 			},
-			cmd = {
-				'NvimTreeToggle',
-				'NvimTreeRefresh',
-			},
+			cmd = { 'NvimTreeToggle', 'NvimTreeRefresh' },
 			config = function()
 				require('plugins.nvimtree')
 			end,
@@ -160,14 +164,6 @@ require('packer').startup({
 		use({
 			'weilbith/nvim-code-action-menu',
 			cmd = 'CodeActionMenu',
-		})
-
-		-- Tabline
-		use({
-			'nanozuki/tabby.nvim',
-			config = function()
-				require('plugins.tabline')
-			end,
 		})
 
 		-- Annotation generator

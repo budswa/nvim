@@ -3,8 +3,13 @@ local types = require('cmp.types')
 local str = require('cmp.utils.str')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
+local neogen = require('neogen')
 
 local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
+
+local t = function(s)
+	return vim.api.nvim_replace_termcodes(s, true, true, true)
+end
 
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
@@ -34,8 +39,11 @@ require('glow-hover').setup({
 require('luasnip.loaders.from_vscode').load()
 
 require('cmp_nvim_lsp').setup()
+
 cmp.setup({
 	completion = {
+		border = border,
+		scrollbar = '┃',
 		completeopt = 'menu,menuone,preview,noinsert,select',
 		keyword_length = 1,
 	},
@@ -75,11 +83,11 @@ cmp.setup({
 				end
 				word = str.oneline(word)
 
-				local max = 50
-				if string.len(word) >= max then
-					local before = string.sub(word, 1, math.floor((max - 3) / 2))
-					word = before .. '...'
-				end
+				--local max = 50
+				--if string.len(word) >= max then
+				--	local before = string.sub(word, 1, math.floor((max - 3) / 2))
+				--	word = before .. '...'
+				--end
 
 				if
 					entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet
@@ -89,11 +97,11 @@ cmp.setup({
 				end
 				vim_item.abbr = word
 
-				vim_item.dup = ({
-					buffer = 1,
-					path = 1,
-					nvim_lsp = 0,
-				})[entry.source.name] or 0
+				--vim_item.dup = ({
+				--	buffer = 1,
+				--	path = 1,
+				--	nvim_lsp = 0,
+				--})[entry.source.name] or 0
 
 				return vim_item
 			end,
@@ -105,15 +113,40 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		['<C-y>'] = cmp.config.disable,
-		['<C-e>'] = cmp.mapping.abort(),
-		['<C-d>'] = cmp.mapping.scroll_docs(-4),
-		['<C-f>'] = cmp.mapping.scroll_docs(4),
-		['<C-Space>'] = cmp.mapping.complete(),
 		['<CR>'] = cmp.mapping.confirm({
 			select = true,
 			behavior = cmp.ConfirmBehavior.Replace,
 		}),
+		['<C-j>'] = cmp.mapping({
+			cmp.mapping.select_next_item({ behavior = cmp.ConfirmBehavior.select }),
+			{ 'i', 's', 'c' },
+		}),
+		['<C-k>'] = cmp.mapping({
+			cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+			{ 'i', 's', 'c' },
+		}),
+		--['<C-l>'] = cmp.mapping(function(fallback)
+		--	if luasnip.expand_or_jumpable() then
+		--		vim.fn.feedkeys(t('<Plug>luasnip-expand-or-jump'), '')
+		--	elseif neogen.jumpable() then
+		--		vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_next()<CR>"), '')
+		--	else
+		--		fallback()
+		--	end
+		--end, { 'i', 's' }),
+		--['<C-h>'] = cmp.mapping(function(fallback)
+		--	if luasnip.jumpable(-1) then
+		--		vim.fn.feedkeys(t('<Plug>luasnip-jump-prev'), '')
+		--	elseif neogen.jumpable(-1) then
+		--		vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_prev()<CR>"), '')
+		--	else
+		--		fallback()
+		--	end
+		--end, { 'i', 's' }),
+		['<C-d>'] = cmp.mapping.scroll_docs(-4),
+		['<C-f>'] = cmp.mapping.scroll_docs(4),
+		['<C-e>'] = cmp.mapping.abort(),
+		['<C-y>'] = cmp.config.disable,
 	},
 	sources = {
 		{ name = 'copilot' },
@@ -129,7 +162,7 @@ cmp.setup({
 	},
 	experimental = {
 		ghost_text = true,
-		native_menu = false,
+		--native_menu = false,
 	},
 })
 

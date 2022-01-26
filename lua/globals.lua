@@ -8,6 +8,11 @@ _G.reload = function(...)
 	return require('plenary.reload').reload_module(...)
 end
 
+_G.preload = function(module)
+	local ok, mod = pcall(require, module)
+	return ok, mod
+end
+
 _G.inspect = function(...)
 	local objects = vim.tbl_map(vim.inspect, { ... })
 	print(unpack(objects))
