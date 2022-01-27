@@ -118,32 +118,26 @@ cmp.setup({
 			select = true,
 			behavior = cmp.ConfirmBehavior.Replace,
 		}),
-		['<C-j>'] = cmp.mapping({
-			cmp.mapping.select_next_item({ behavior = cmp.ConfirmBehavior.select }),
-			{ 'i', 's', 'c' },
-		}),
-		['<C-k>'] = cmp.mapping({
-			cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-			{ 'i', 's', 'c' },
-		}),
-		--['<C-l>'] = cmp.mapping(function(fallback)
-		--	if luasnip.expand_or_jumpable() then
-		--		vim.fn.feedkeys(t('<Plug>luasnip-expand-or-jump'), '')
-		--	elseif neogen.jumpable() then
-		--		vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_next()<CR>"), '')
-		--	else
-		--		fallback()
-		--	end
-		--end, { 'i', 's' }),
-		--['<C-h>'] = cmp.mapping(function(fallback)
-		--	if luasnip.jumpable(-1) then
-		--		vim.fn.feedkeys(t('<Plug>luasnip-jump-prev'), '')
-		--	elseif neogen.jumpable(-1) then
-		--		vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_prev()<CR>"), '')
-		--	else
-		--		fallback()
-		--	end
-		--end, { 'i', 's' }),
+		['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.ConfirmBehavior.select }),
+		['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+		['<C-l>'] = cmp.mapping(function(fallback)
+			if luasnip.expand_or_jumpable() then
+				vim.fn.feedkeys(t('<Plug>luasnip-expand-or-jump'), '')
+			elseif neogen.jumpable() then
+				vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_next()<CR>"), '')
+			else
+				fallback()
+			end
+		end, { 'i', 's' }),
+		['<C-h>'] = cmp.mapping(function(fallback)
+			if luasnip.jumpable(-1) then
+				vim.fn.feedkeys(t('<Plug>luasnip-jump-prev'), '')
+			elseif neogen.jumpable(-1) then
+				vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_prev()<CR>"), '')
+			else
+				fallback()
+			end
+		end, { 'i', 's' }),
 		['<C-d>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
 		['<C-e>'] = cmp.mapping.abort(),

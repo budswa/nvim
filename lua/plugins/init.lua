@@ -76,9 +76,8 @@ require('packer').startup({
 			'hrsh7th/nvim-cmp',
 			--'iron-e/nvim-cmp',
 			--branch = 'feat/completion-menu-borders',
-			event = { 'InsertEnter', 'CmdLineEnter' },
+			--event = { 'InsertEnter', 'CmdLineEnter' },
 			requires = {},
-			--event = 'InsertEnter',
 			config = function()
 				require('plugins.cmp')
 			end,
@@ -399,9 +398,9 @@ require('packer').startup({
 
 		-- Zen
 		use({
-			'folke/zen-mode.nvim',
+			'Pocco81/TrueZen.nvim',
 			config = function()
-				require('plugins.zenmode')
+				require('plugins.zen')
 			end,
 			cmd = 'ZenMode',
 		})
@@ -442,7 +441,7 @@ require('packer').startup({
 			require = 'nvim-lua/plenary.nvim',
 			config = function()
 				require('plugins.neorg')
-			end
+			end,
 		})
 		use({
 			'mickael-menu/zk-nvim',

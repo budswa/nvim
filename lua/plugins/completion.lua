@@ -5,7 +5,6 @@ local lspkind = require('lspkind')
 local luasnip = require('luasnip')
 local luasnip_types = require('luasnip.util.types')
 local neogen = require('neogen')
-local neorg = require('neorg')
 
 local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
 
@@ -209,15 +208,3 @@ cmp.setup.cmdline('/', {
 		scrollbar = '┃',
 	},
 })
-
-local function load_completion()
-	neorg.modules.load_module('core.norg.completion', nil, {
-		engine = 'nvim-cmp',
-	})
-end
-
-if neorg.is_loaded() then
-	load_completion()
-else
-	neorg.callbacks.on_event('core.started', load_completion)
-end
