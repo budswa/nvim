@@ -9,7 +9,7 @@ _G.reload = function(...)
 end
 
 _G.R = function(name)
-	reload(name)
+	_G.reload(name)
 	return require(name)
 end
 

@@ -22,7 +22,7 @@ telescope.setup({
 				['<S-TAB>'] = actions.send_selected_to_qflist + actions.open_qflist,
 				['<C-DOWN>'] = actions.cycle_history_next,
 				['<C-UP>'] = actions.cycle_history_prev,
-				['<C-q>'] = R('telescope').extensions.hop.hop,
+				['<C-q>'] = _G.R('telescope').extensions.hop.hop,
 				['<C-h>'] = 'which_key',
 			},
 		},
