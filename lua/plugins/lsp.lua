@@ -93,6 +93,12 @@ M.on_attach = function(_, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
 
 	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+
+	require('lsp_signature').on_attach({
+		bind = true,
+		hint_prefix = '> ',
+		handler_opts = { border = 'rounded' },
+	}, bufnr)
 end
 
 local runtime_path = vim.split(package.path, ';')
@@ -144,6 +150,7 @@ lsp_install.on_server_ready(function(server)
 			},
 		})
 	end
+
 	if server.name == 'pyright' then
 		opts.settings = {
 			pyright = {

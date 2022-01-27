@@ -102,7 +102,6 @@ map('n', '<A-h>', [[<cmd>lua require('move').MoveHChar(-1)<CR>]], opts)
 map('v', '<A-l>', [[<cmd>lua require('move').MoveHBlock(1)<CR>]], opts)
 
 map({ 'i', 's' }, '<C-E>', '<Plug>luasnip-next-choice', {})
-map({ 'i', 's' }, '<C-K>', '<Plug>luasnip-expand-or-jump', {})
 
 local function telescope(provider)
 	return ':Telescope ' .. provider .. '<cr>'

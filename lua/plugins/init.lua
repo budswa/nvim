@@ -66,7 +66,7 @@ require('packer').startup({
 			'j-hui/fidget.nvim',
 			config = function()
 				require('fidget').setup({
-					text = { spinner = 'bouncing_bar' }
+					text = { spinner = 'bouncing_bar' },
 				})
 			end,
 		})
@@ -80,9 +80,10 @@ require('packer').startup({
 			requires = {},
 			--event = 'InsertEnter',
 			config = function()
-				require('plugins.completion')
+				require('plugins.cmp')
 			end,
 		})
+		use({ 'petertriho/cmp-git', event = 'InsertEnter', after = 'nvim-cmp' })
 		use({ 'hrsh7th/cmp-nvim-lsp', event = 'InsertEnter', after = 'nvim-cmp' })
 		use({ 'hrsh7th/cmp-nvim-lua', event = 'InsertEnter', after = 'nvim-cmp' })
 		use({ 'hrsh7th/cmp-buffer', event = 'InsertEnter', after = 'nvim-cmp' })
@@ -119,6 +120,7 @@ require('packer').startup({
 				'nvim-lua/popup.nvim',
 				'nvim-telescope/telescope-frecency.nvim',
 				'nvim-telescope/telescope-file-browser.nvim',
+				'nvim-telescope/telescope-hop.nvim',
 			},
 			cmd = 'Telescope',
 			config = function()
@@ -271,6 +273,13 @@ require('packer').startup({
 		--		require('plugins.litee')
 		--	end
 		--})
+
+		use({
+			'ThePrimeagen/harpoon',
+			config = function()
+				require('harpoon').setup({})
+			end,
+		})
 
 		-- Whichkey
 		use({
@@ -429,6 +438,13 @@ require('packer').startup({
 
 		-- Note taking
 		use({
+			'nvim-neorg/neorg',
+			require = 'nvim-lua/plenary.nvim',
+			config = function()
+				require('plugins.neorg')
+			end
+		})
+		use({
 			'mickael-menu/zk-nvim',
 			config = function()
 				require('plugins.zk')
@@ -441,7 +457,7 @@ require('packer').startup({
 		-- Indentlines
 		use({
 			'lukas-reineke/indent-blankline.nvim',
-			event = 'BufRead',
+			--event = 'BufRead',
 			config = function()
 				require('plugins.indentline')
 			end,
@@ -483,12 +499,13 @@ require('packer').startup({
 		use({
 			'chrisbra/NrrwRgn',
 			opt = 'true',
-			cmd = 'NR',
+			cmd = { 'NR', 'NW' },
 		})
 
 		-- Search and replace
 		use({
 			'nvim-pack/nvim-spectre',
+			event = 'BufEnter',
 			config = function()
 				require('spectre').setup()
 			end,
@@ -500,6 +517,7 @@ require('packer').startup({
 		-- Colorschemes
 		use({
 			'themercorp/themer.lua',
+			event = 'VimEnter',
 			config = function()
 				require('plugins.themer')
 			end,
@@ -551,6 +569,7 @@ require('packer').startup({
 			'max397574/better-escape.nvim',
 			event = 'InsertEnter',
 		})
+		use({ 'tjdevries/vim9jit' })
 		use({
 			'dstein64/vim-startuptime',
 			cmd = 'StartupTime',

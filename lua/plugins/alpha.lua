@@ -30,6 +30,7 @@ dashboard.section.buttons.val = {
 	dashboard.button('w', ' Find word', '<cmd>Telescope live_grep<cr>'),
 	dashboard.button('s', 'Find session', '<cmd>SessionManager load_session<cr>'),
 	dashboard.button('l', 'Load session', '<cmd>SessionManager load_current_dir_session<cr>'),
+	dashboard.button('t', 'Terminal', '<cmd>ToggleTerm<cr>'),
 	dashboard.button('q', ' Quit Neovim', '<cmd>q!<cr>'),
 }
 

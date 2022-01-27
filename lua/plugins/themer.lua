@@ -1,5 +1,5 @@
 require('themer').setup({
-	colorscheme = 'kanagawa',
+	colorscheme = 'gruvbox',
 	styles = {
 		comment = { style = 'italic' },
 		['function'] = { style = 'italic' },
