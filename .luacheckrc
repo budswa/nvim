@@ -10,5 +10,7 @@ ignore = {
 -- Global objects defined by the C code
 read_globals = {
   "vim",
+  "reload",
+  "R",
   "packer_plugins"
 }

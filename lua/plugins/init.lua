@@ -543,12 +543,12 @@ require('packer').startup({
 			'dhruvasagar/vim-table-mode',
 			cmd = 'TableModeToggle',
 		})
-		use({
-			'lewis6991/spaceless.nvim',
-			config = function()
-				require('spaceless').setup()
-			end,
-		})
+		--use({
+		--	'lewis6991/spaceless.nvim',
+		--	config = function()
+		--		require('spaceless').setup()
+		--	end,
+		--})
 		use({ 'nathom/filetype.nvim' })
 		use({ 'zeertzjq/nvim-paste-fix' })
 		use({

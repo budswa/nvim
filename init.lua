@@ -7,9 +7,9 @@ local modules = {
 	'plugins',
 	'compiled',
 	'options',
+	'modules',
 	'autocmds',
 	'keymaps',
-	'modules',
 }
 
 local impatient_ok, impatient = pcall(require, 'impatient')
