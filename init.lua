@@ -27,3 +27,4 @@ end
 vim.defer_fn(function()
 	vim.cmd([[ silent! bufdo e ]])
 end, 1)
+

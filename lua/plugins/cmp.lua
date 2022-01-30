@@ -3,7 +3,7 @@ local types = require('cmp.types')
 local str = require('cmp.utils.str')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
-local neogen = require('neogen')
+--local neogen = require('neogen')
 local neorg = require('neorg')
 
 local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
@@ -28,13 +28,6 @@ require('lsp_signature').setup({
 	transpancy = 20,
 	handler_opts = { border = 'rounded' },
 	hint_prefix = ' ',
-})
-
-require('glow-hover').setup({
-	max_width = 120,
-	padding = 1,
-	border = 'rounded',
-	glow_path = 'glow',
 })
 
 require('luasnip.loaders.from_vscode').load()
@@ -123,8 +116,8 @@ cmp.setup({
 		['<C-l>'] = cmp.mapping(function(fallback)
 			if luasnip.expand_or_jumpable() then
 				vim.fn.feedkeys(t('<Plug>luasnip-expand-or-jump'), '')
-			elseif neogen.jumpable() then
-				vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_next()<CR>"), '')
+			--elseif neogen.jumpable() then
+			--	vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_next()<CR>"), '')
 			else
 				fallback()
 			end
@@ -132,8 +125,8 @@ cmp.setup({
 		['<C-h>'] = cmp.mapping(function(fallback)
 			if luasnip.jumpable(-1) then
 				vim.fn.feedkeys(t('<Plug>luasnip-jump-prev'), '')
-			elseif neogen.jumpable(-1) then
-				vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_prev()<CR>"), '')
+			--elseif neogen.jumpable(-1) then
+			--	vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_prev()<CR>"), '')
 			else
 				fallback()
 			end

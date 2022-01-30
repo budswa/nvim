@@ -27,6 +27,11 @@ telescope.setup({
 			},
 		},
 	}),
+	extensions = {
+		file_browser = {
+			theme = 'ivy',
+		},
+	},
 })
 
 telescope.load_extension('zk')

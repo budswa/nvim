@@ -42,13 +42,6 @@ require('lsp_signature').setup({
 	hint_prefix = ' ',
 })
 
-require('glow-hover').setup({
-	max_width = 120,
-	padding = 1,
-	border = 'rounded',
-	glow_path = 'glow',
-})
-
 require('luasnip.loaders.from_vscode').load()
 
 cmp.setup({

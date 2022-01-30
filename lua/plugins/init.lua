@@ -108,7 +108,6 @@ require('packer').startup({
 			end,
 		})
 		use({ 'ray-x/lsp_signature.nvim' })
-		use({ 'JASONews/glow-hover' })
 		use({ 'onsails/lspkind-nvim' })
 
 		-- Telescope
@@ -118,10 +117,11 @@ require('packer').startup({
 				'nvim-lua/plenary.nvim',
 				'nvim-lua/popup.nvim',
 				'nvim-telescope/telescope-frecency.nvim',
+				'nvim-telescope/telescope-symbols.nvim',
 				'nvim-telescope/telescope-file-browser.nvim',
 				'nvim-telescope/telescope-hop.nvim',
 			},
-			cmd = 'Telescope',
+			--cmd = 'Telescope',
 			config = function()
 				require('plugins.telescope')
 			end,
@@ -168,13 +168,13 @@ require('packer').startup({
 		})
 
 		-- Annotation generator
-		use({
-			'danymat/neogen',
-			after = 'nvim-treesitter',
-			config = function()
-				require('plugins.neogen')
-			end,
-		})
+		--use({
+		--	'danymat/neogen',
+		--	after = 'nvim-treesitter',
+		--	config = function()
+		--		require('plugins.neogen')
+		--	end,
+		--})
 
 		-- Session management
 		use({
@@ -471,13 +471,13 @@ require('packer').startup({
 				require('plugins.dressing')
 			end,
 		})
-		use({
-			'rcarriga/nvim-notify',
-			event = 'VimEnter',
-			config = function()
-				require('plugins.notify')
-			end,
-		})
+		--use({
+		--	'rcarriga/nvim-notify',
+		--	event = 'VimEnter',
+		--	config = function()
+		--		require('plugins.notify')
+		--	end,
+		--})
 
 		use({
 			'AckslD/nvim-neoclip.lua',
@@ -516,7 +516,7 @@ require('packer').startup({
 		-- Colorschemes
 		use({
 			'themercorp/themer.lua',
-			event = 'VimEnter',
+			--event = 'VimEnter',
 			config = function()
 				require('plugins.themer')
 			end,
