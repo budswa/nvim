@@ -9,13 +9,13 @@
 --	return ok, mod
 --end
 
-_G.reload = function(...)
-	return require('plenary.reload').reload_module(...)
-end
-
-_G.R = function(name)
+_G.r = function(name)
 	_G.reload(name)
 	return require(name)
+end
+
+_G.reload = function(...)
+	return require('plenary.reload').reload_module(...)
 end
 
 _G.dump = function(...)
