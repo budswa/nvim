@@ -245,6 +245,14 @@ require('packer').startup({
 			end,
 		})
 
+		-- Statusline
+		use({
+			'nvim-lualine/lualine.nvim',
+			config = function()
+				require('plugins.lualine')
+			end,
+		})
+
 		-- Quickfix
 		use({
 			'stefandtw/quickfix-reflector.vim',

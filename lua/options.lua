@@ -147,8 +147,8 @@ o.pumwidth = 16
 o.pumblend = 0
 
 -- Statusline and cmdline
-o.showmode = true
-o.laststatus = 0
+o.showmode = false
+o.laststatus = 2
 g.modelines = 0
 
 -- Mouse
