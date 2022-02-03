@@ -84,7 +84,7 @@ map('v', '<A-l>', [[<cmd>lua require('move').MoveHBlock(1)<cr>]], opts)
 wk.register({
 	['<leader>'] = {
 		E = { '<cmd>NvimTreeToggle<cr>', 'Toggle NvimTree' },
-		U = { '<cmd>UndoTreeToggle<cr>', 'Toggle UndoTree' },
+		U = { '<cmd>UndotreeToggle<cr>', 'Toggle UndoTree' },
 		[':'] = { telescope('commands'), 'Commands' },
 		f = {
 			name = '[Find]',

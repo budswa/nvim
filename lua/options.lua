@@ -167,6 +167,8 @@ o.hidden = true
 
 vim.cmd('packadd! cfilter')
 
+g.loaded_remote_plugins = 1
+
 -- Providers
 g.loaded_python_provider = 0
 g.loaded_python3_provider = 0
