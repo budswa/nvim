@@ -3,68 +3,57 @@ local M = {}
 local wk = require('which-key')
 local map = vim.keymap.set
 
+local function telescope(provider)
+	return '<cmd>Telescope ' .. provider .. '<cr>'
+end
+
 vim.g.mapleader = ' '
 local opts = { noremap = true, silent = true }
 
 M.lsp_on_attach = function(bufnr)
-	map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', { buffer = bufnr, silent = true, noremap = true })
-	map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { buffer = bufnr, silent = true, noremap = true })
-	map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { buffer = bufnr, silent = true, noremap = true })
-	map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { buffer = bufnr, silent = true, noremap = true })
-	map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { buffer = bufnr, silent = true, noremap = true })
-	map(
-		'n',
-		'<leader>wa',
-		'<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',
-		{ buffer = bufnr, silent = true, noremap = true }
-	)
-	map(
-		'n',
-		'<leader>wr',
-		'<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
-		{ buffer = bufnr, silent = true, noremap = true }
-	)
-	map(
-		'n',
-		'<leader>wl',
-		'<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
-		{ buffer = bufnr, silent = true, noremap = true }
-	)
-	map(
-		'n',
-		'<leader>D',
-		'<cmd>lua vim.lsp.buf.type_definition()<CR>',
-		{ buffer = bufnr, silent = true, noremap = true }
-	)
-	map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { buffer = bufnr, silent = true, noremap = true })
-	map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { buffer = bufnr, silent = true, noremap = true })
-	map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { buffer = bufnr, silent = true, noremap = true })
-	map(
-		'v',
-		'<leader>ca',
-		'<cmd>lua vim.lsp.buf.range_code_action()<CR>',
-		{ buffer = bufnr, silent = true, noremap = true }
-	)
-	map(
-		'n',
-		'<leader>e',
-		'<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
-		{ buffer = bufnr, silent = true, noremap = true }
-	)
-	map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', { buffer = bufnr, silent = true, noremap = true })
-	map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', { buffer = bufnr, silent = true, noremap = true })
-	map(
-		'n',
-		'<leader>q',
-		'<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>',
-		{ buffer = bufnr, silent = true, noremap = true }
-	)
-	map(
-		'n',
-		'<leader>so',
-		[[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
-		{ buffer = bufnr, silent = true, noremap = true }
-	)
+	local on_attach_opts = { buffer = bufnr, silent = true, noremap = true }
+
+	map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', on_attach_opts)
+	map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', on_attach_opts)
+	map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', on_attach_opts)
+	map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', on_attach_opts)
+	map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', on_attach_opts)
+	map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', on_attach_opts)
+	map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', on_attach_opts)
+	map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', on_attach_opts)
+	map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', on_attach_opts)
+
+	wk.register({
+		['<leader>'] = {
+			l = {
+				name = '[LSP]',
+				d = { '<cmd>lua vim.lsp.buf.definition()<CR>', 'Go to definition' },
+				D = { '<cmd>lua vim.lsp.buf.declaration()<CR>', 'Go to declaration' },
+				i = { '<cmd>lua vim.lsp.buf.implementation()<CR>', 'Show implementation' },
+				r = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Rename symbol' },
+				R = { '<cmd>lua vim.lsp.buf.references()<CR>', 'Show references' },
+				t = { '<cmd>lua vim.lsp.buf.type_definition()<CR>', 'Show type definition' },
+				a = { '<cmd>CodeActionMenu<CR>', 'Code action' },
+				A = { telescope('lsp_range_code_actions'), 'Range code action' },
+				s = { telescope('lsp_workspace_symbols'), 'Workspace symbols' },
+				S = { telescope('lsp_document_symbols'), 'Document symbols' },
+				w = {
+					name = '[Workspace]',
+					l = { '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', 'Workspace list' },
+					a = { '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', 'Workspace add' },
+					r = { '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', 'Workspace remove' },
+				},
+			},
+			d = {
+				name = '[Diagnostics]',
+				q = { '<cmd>lua vim.diagnostic.setqflist()<CR>', 'Diagnostics Quickfix list' },
+				l = { '<cmd>lua vim.diagnostic.setloclist()<CR>', 'Diagnostics Location list' },
+				f = { '<cmd>lua vim.diagnostic.open_float()<CR>', 'Diagnostics open float' },
+				n = { '<cmd>lua vim.diagnostic.goto_next()<CR>', 'Diagnostics next' },
+				p = { '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'Diagnostics previous' },
+			},
+		},
+	})
 end
 
 -- Navigate between windows
@@ -103,15 +92,11 @@ map('v', '<A-l>', [[<cmd>lua require('move').MoveHBlock(1)<CR>]], opts)
 
 map({ 'i', 's' }, '<C-E>', '<Plug>luasnip-next-choice', {})
 
-local function telescope(provider)
-	return ':Telescope ' .. provider .. '<cr>'
-end
-
 wk.register({
 	['<leader>'] = {
 		E = { ':NvimTreeToggle<cr>', 'Toggle NvimTree' },
 		f = {
-			name = 'Telescope',
+			name = '[Telescope]',
 			f = { telescope('find_files'), 'Files' },
 			g = { telescope('live_grep'), 'Grep' },
 			r = { telescope('frecency'), 'Frecency' },
@@ -122,15 +107,18 @@ wk.register({
 			['/'] = { telescope('search_history'), 'Search history' },
 		},
 		t = {
-			name = 'Trouble',
-			t = { ':TroubleToggle<cr>', 'Toggle' },
-			w = { ':TroubleToggle workspace_diagnostics<cr>', 'Toggle workspace' },
+			name = '[Trouble]',
+			t = { '<cmd>TroubleToggle<cr>', 'Toggle' },
+			w = { '<cmd>TroubleToggle workspace_diagnostics<cr>', 'Toggle workspace' },
 		},
 		s = {
-			name = 'Session',
-			s = { ':SaveSession<cr>', 'Save' },
-			c = { ':LoadLastSession<cr>', 'Last' },
-			l = { ':LoadCurrentDirSession<cr>', 'Current' },
+			name = '[Session]',
+			s = { '<cmd>SaveSession<cr>', 'Save' },
+			c = { '<cmd>LoadLastSession<cr>', 'Last' },
+			l = { '<cmd>LoadCurrentDirSession<cr>', 'Current' },
+		},
+		g = {
+			name = '[Git]',
 		},
 		['<A-h>'] = { '<C-w>h', 'Window left' },
 		['<A-j>'] = { '<C-w>j', 'Widnow down' },

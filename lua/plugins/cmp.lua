@@ -3,8 +3,7 @@ local types = require('cmp.types')
 local str = require('cmp.utils.str')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
---local neogen = require('neogen')
-local neorg = require('neorg')
+local neogen = require('neogen')
 
 local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
 
@@ -77,11 +76,11 @@ cmp.setup({
 				end
 				word = str.oneline(word)
 
-				--local max = 50
-				--if string.len(word) >= max then
-				--	local before = string.sub(word, 1, math.floor((max - 3) / 2))
-				--	word = before .. '...'
-				--end
+				local max = 50
+				if string.len(word) >= max then
+					local before = string.sub(word, 1, math.floor((max - 3) / 2))
+					word = before .. '...'
+				end
 
 				if
 					entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet
@@ -91,16 +90,21 @@ cmp.setup({
 				end
 				vim_item.abbr = word
 
-				--vim_item.dup = ({
-				--	buffer = 1,
-				--	path = 1,
-				--	nvim_lsp = 0,
-				--})[entry.source.name] or 0
+				vim_item.dup = ({
+					buffer = 1,
+					path = 1,
+					nvim_lsp = 0,
+				})[entry.source.name] or 0
 
 				return vim_item
 			end,
 		}),
 	},
+	enabled = function()
+		if vim.bo.ft == 'TelescopePrompt' then
+			return false
+		end
+	end,
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
@@ -116,8 +120,8 @@ cmp.setup({
 		['<C-l>'] = cmp.mapping(function(fallback)
 			if luasnip.expand_or_jumpable() then
 				vim.fn.feedkeys(t('<Plug>luasnip-expand-or-jump'), '')
-				--elseif neogen.jumpable() then
-				--	vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_next()<CR>"), '')
+			elseif neogen.jumpable() then
+				vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_next()<CR>"), '')
 			else
 				fallback()
 			end
@@ -125,8 +129,8 @@ cmp.setup({
 		['<C-h>'] = cmp.mapping(function(fallback)
 			if luasnip.jumpable(-1) then
 				vim.fn.feedkeys(t('<Plug>luasnip-jump-prev'), '')
-				--elseif neogen.jumpable(-1) then
-				--	vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_prev()<CR>"), '')
+			elseif neogen.jumpable(-1) then
+				vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_prev()<CR>"), '')
 			else
 				fallback()
 			end
@@ -150,7 +154,7 @@ cmp.setup({
 	},
 	experimental = {
 		ghost_text = true,
-		--native_menu = false,
+		native_menu = false,
 	},
 })
 
@@ -189,15 +193,3 @@ cmp.setup.cmdline('/', {
 		scrollbar = '┃',
 	},
 })
-
-local function load_completion()
-	neorg.modules.load_module('core.norg.completion', nil, {
-		engine = 'nvim-cmp',
-	})
-end
-
-if neorg.is_loaded() then
-	load_completion()
-else
-	neorg.callbacks.on_event('core.started', load_completion)
-end

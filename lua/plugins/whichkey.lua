@@ -25,7 +25,7 @@ require('which-key').setup({
 	icons = {
 		breadcrumb = '+',
 		separator = '▏',
-		group = '+',
+		group = '',
 	},
 	popup_mappings = {
 		scroll_down = '<C-d>',

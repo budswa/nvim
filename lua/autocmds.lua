@@ -15,10 +15,6 @@ require('utils').nvim_create_augroups({
 	quick_close = {
 		{ 'Filetype', 'help,startuptime,lspinfo,qf', [[nnoremap <buffer><silent> q :close<CR>]] },
 	},
-	telescope = {
-		{ 'Filetype', 'TelescopePrompt', [[lua require('cmp').setup.buffer { enabled = false }]] },
-		{ 'User', 'TelescopePreviewerLoaded', 'setlocal wrap' },
-	},
 	cursorword = {
 		{ 'Vimenter,ColorScheme', '*', [[lua require('modules.cursorword').highlight()]] },
 		{ 'CursorMoved,CursorMovedI', '*', [[lua require('modules.cursorword').matchadd()]] },

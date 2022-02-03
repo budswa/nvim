@@ -14,28 +14,47 @@ local required_servers = {
 	'clangd',
 }
 
---local signs = { Error = "E", Warn = "W", Info = "I", Hint = "H" }
---for sign, icon in pairs(signs) do
---	vim.fn.sign_define(
---		"DiagnosticSign" .. sign,
---		{ text = icon, texthl = "Diagnostic" .. sign, linehl = false, numhl = "Diagnostic" .. sign }
---	)
---end
+local signs = { Error = 'E', Warn = 'W', Info = 'I', Hint = 'H' }
+for sign, icon in pairs(signs) do
+	vim.fn.sign_define(
+		'DiagnosticSign' .. sign,
+		{ text = icon, texthl = 'Diagnostic' .. sign, linehl = false, numhl = 'Diagnostic' .. sign }
+	)
+end
 
 vim.diagnostic.config({
 	float = {
 		focusable = false,
 		border = border,
 		scope = 'cursor',
+		header = { 'Diagnostics:', 'DiagnosticHeader' },
+		pos = 1,
+		prefix = function(diagnostic, i, total)
+			local icon, highlight
+			if diagnostic.severity == 1 then
+				icon = 'E'
+				highlight = 'DiagnosticError'
+			elseif diagnostic.severity == 2 then
+				icon = 'W'
+				highlight = 'DiagnosticWarn'
+			elseif diagnostic.severity == 3 then
+				icon = 'I'
+				highlight = 'DiagnosticInfo'
+			elseif diagnostic.severity == 4 then
+				icon = 'H'
+				highlight = 'DiagnosticHint'
+			end
+			return i .. '/' .. total .. ' ' .. icon .. '  ', highlight
+		end,
 	},
 	underline = true,
 	virtual_text = {
-		prefix = '▸',
-		spacing = 5,
+		prefix = '⋄',
+		spacing = 2,
 		severity_limit = 'Warning',
 	},
 	signs = {
-		enable = false,
+		enable = true,
 		priority = 10,
 	},
 	update_in_insert = true,
@@ -96,7 +115,7 @@ M.on_attach = function(_, bufnr)
 
 	require('lsp_signature').on_attach({
 		bind = true,
-		hint_prefix = '> ',
+		hint_prefix = '⋉ ',
 		handler_opts = { border = 'rounded' },
 	}, bufnr)
 end
@@ -138,6 +157,7 @@ lsp_install.on_server_ready(function(server)
 				runtime = {
 					version = 'LuaJIT',
 					path = runtime_path,
+					vim.fn.expand('~') .. '/.config/nvim/lua/?.lua',
 				},
 				diagnostics = {
 					globals = { 'vim' },
@@ -145,7 +165,7 @@ lsp_install.on_server_ready(function(server)
 				workspace = {
 					library = vim.api.nvim_get_runtime_file('', true),
 					maxPreload = 10000,
-					preloadFileSize = 10000,
+					preloadFileSize = 1000,
 				},
 			},
 		})

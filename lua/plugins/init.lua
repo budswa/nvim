@@ -1,4 +1,3 @@
-require('plugins.packer')
 local packer = require('packer')
 
 packer.init({
@@ -32,8 +31,8 @@ require('packer').startup({
 		-- Treesitter
 		use({
 			'nvim-treesitter/nvim-treesitter',
-			opt = true,
-			event = 'BufRead',
+			-- opt = true,
+			-- event = 'BufRead',
 			run = ':TSUpdate',
 			config = function()
 				require('plugins.treesitter')
@@ -46,6 +45,7 @@ require('packer').startup({
 			},
 		})
 		use({ 'p00f/nvim-ts-rainbow' })
+		use({ 'TornaxO7/tree-setter' })
 
 		-- LSP
 		use({
@@ -168,13 +168,13 @@ require('packer').startup({
 		})
 
 		-- Annotation generator
-		--use({
-		--	'danymat/neogen',
-		--	after = 'nvim-treesitter',
-		--	config = function()
-		--		require('plugins.neogen')
-		--	end,
-		--})
+		use({
+			'danymat/neogen',
+			after = 'nvim-treesitter',
+			config = function()
+				require('plugins.neogen')
+			end,
+		})
 
 		-- Session management
 		use({
@@ -357,6 +357,15 @@ require('packer').startup({
 		--		require('todo-comments').setup({})
 		--	end,
 		--})
+
+		use({
+			'haringsrob/nvim_context_vt',
+			config = function()
+				require('nvim_context_vt').setup({
+					prefix = '-->',
+				})
+			end,
+		})
 
 		-- Search
 		use({
@@ -558,13 +567,6 @@ require('packer').startup({
 			end,
 		})
 		use({
-			'andweeb/presence.nvim',
-			event = 'BufRead',
-			config = function()
-				require('presence'):setup()
-			end,
-		})
-		use({
 			'max397574/better-escape.nvim',
 			event = 'InsertEnter',
 		})
@@ -581,5 +583,9 @@ require('packer').startup({
 		use({ 'tjdevries/nlua.nvim' })
 
 		rocks({ 'luazip', 'penlight', 'lua-cjson' })
+
+		if vim.fn.isdirectory(vim.fn.stdpath('data') .. '/site/pack/packer/start/impatient.nvim') == false then
+			packer.sync()
+		end
 	end,
 })
