@@ -39,6 +39,8 @@ require('packer').startup({
 			end,
 			requires = {
 				{ 'nvim-treesitter/nvim-treesitter-textobjects', event = 'BufRead' },
+				'RRethy/nvim-treesitter-textsubjects',
+				'nvim-treesitter/nvim-treesitter-refactor',
 				'nvim-treesitter/playground',
 				'JoosepAlviste/nvim-ts-context-commentstring',
 				'windwp/nvim-ts-autotag',
@@ -299,20 +301,12 @@ require('packer').startup({
 		})
 
 		-- spellsitter
-		--use({
-		--	'lewis6991/spellsitter.nvim',
-		--config = function()
-		--	require('spellsitter').setup()
-		--end
-		--})
-
-		-- Marks
-		--use({
-		--	'chentau/marks.nvim',
-		--	config = function()
-		--		require('marks').setup()
-		--	end
-		--})
+		use({
+			'lewis6991/spellsitter.nvim',
+		config = function()
+			require('spellsitter').setup()
+		end
+		})
 
 		-- Motions
 		use({
@@ -357,14 +351,14 @@ require('packer').startup({
 			end,
 		})
 		use({ 'LudoPinelli/comment-box.nvim' })
-		--use({
-		--	'folke/todo-comments.nvim',
-		--	requires = 'nvim-lua/plenary.nvim',
-		--	event = 'BufRead',
-		--	config = function()
-		--		require('todo-comments').setup({})
-		--	end,
-		--})
+		use({
+			'folke/todo-comments.nvim',
+			requires = 'nvim-lua/plenary.nvim',
+			event = 'BufRead',
+			config = function()
+				require('todo-comments').setup({})
+			end,
+		})
 
 		use({
 			'haringsrob/nvim_context_vt',

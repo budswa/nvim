@@ -9,11 +9,11 @@ require('utils').nvim_create_augroups({
 		{ 'TextYankPost', '*', [[silent! lua vim.highlight.on_yank({higroup='IncSearch', timeout=500})]] },
 	},
 	cursorline = {
-		{ 'WinEnter', '*', [[set cursorline]] },
-		{ 'WinLeave', '*', [[set nocursorline]] },
+		{ 'WinEnter,InsertLeave', '*', [[set cursorline]] },
+		{ 'WinLeave,InsertEnter', '*', [[set nocursorline]] },
 	},
 	quick_close = {
-		{ 'Filetype', 'help,startuptime,lspinfo,qf', [[nnoremap <buffer><silent> q :close<CR>]] },
+		{ 'Filetype', 'help,startuptime,lspinfo,qf', [[nnoremap <buffer><silent> q :close<cr>]] },
 	},
 	cursorword = {
 		{ 'Vimenter,ColorScheme', '*', [[lua require('modules.cursorword').highlight()]] },
@@ -30,5 +30,14 @@ require('utils').nvim_create_augroups({
 	},
 	mkdir = {
 		{ 'BufWritePre', '*', [[lua require('modules.mkdir').mkdir()]] },
+	},
+	telescope = {
+		{
+			'User',
+			'TelescopeFindPre',
+			[[
+				lua vim.o.laststatus=0; vim.cmd'autocmd BufWinLeave * ++once lua vim.o.laststatus=2'
+			]],
+		},
 	},
 })

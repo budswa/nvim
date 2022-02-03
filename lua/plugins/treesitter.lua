@@ -43,6 +43,66 @@ require('nvim-treesitter.configs').setup({
 		},
 	},
 	indent = { enable = true },
+	textobjects = {
+		select = {
+			enable = true,
+			lookahead = true,
+			keymaps = {
+				['af'] = '@function.outer',
+				['if'] = '@function.inner',
+				['ac'] = '@class.outer',
+				['ic'] = '@class.inner',
+			},
+		},
+		move = {
+			enable = true,
+			set_jumps = true,
+			goto_next_start = {
+				[']m'] = '@function.outer',
+				[']]'] = '@class.outer',
+			},
+			goto_next_end = {
+				[']M'] = '@function.outer',
+				[']['] = '@class.outer',
+			},
+			goto_previous_start = {
+				['[m'] = '@function.outer',
+				['[['] = '@class.outer',
+			},
+			goto_previous_end = {
+				['[M'] = '@function.outer',
+				['[]'] = '@class.outer',
+			},
+		},
+	},
+	textsubjects = {
+		enable = true,
+		keymaps = {
+			[','] = 'textsubjects-smart',
+		},
+	},
+	refactor = {
+		navigation = {
+			enable = true,
+			keymaps = {
+				goto_definition = 'gnd',
+				list_definitions = 'gnD',
+				list_definitions_toc = 'gO',
+				goto_next_usage = '<a-*>',
+				goto_previous_usage = '<a-#>',
+			},
+		},
+		highlight_definitions = {
+			enable = true,
+			clear_on_cursor_move = true,
+		},
+		smart_rename = {
+			enable = true,
+			keymaps = {
+				smart_rename = 'grr',
+			},
+		},
+	},
 	autopairs = { enable = true },
 	playground = {
 		enable = true,

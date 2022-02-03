@@ -13,103 +13,113 @@ local opts = { noremap = true, silent = true }
 M.lsp_on_attach = function(bufnr)
 	local on_attach_opts = { buffer = bufnr, silent = true, noremap = true }
 
-	map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', on_attach_opts)
-	map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', on_attach_opts)
-	map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', on_attach_opts)
-	map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', on_attach_opts)
-	map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', on_attach_opts)
-	map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', on_attach_opts)
-	map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', on_attach_opts)
-	map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', on_attach_opts)
-	map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', on_attach_opts)
+	map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', on_attach_opts)
+	map('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', on_attach_opts)
+	map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', on_attach_opts)
+	map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', on_attach_opts)
+	map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', on_attach_opts)
+	map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', on_attach_opts)
+	map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', on_attach_opts)
 
 	wk.register({
 		['<leader>'] = {
 			l = {
 				name = '[LSP]',
-				d = { '<cmd>lua vim.lsp.buf.definition()<CR>', 'Go to definition' },
-				D = { '<cmd>lua vim.lsp.buf.declaration()<CR>', 'Go to declaration' },
-				i = { '<cmd>lua vim.lsp.buf.implementation()<CR>', 'Show implementation' },
-				r = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Rename symbol' },
-				R = { '<cmd>lua vim.lsp.buf.references()<CR>', 'Show references' },
-				t = { '<cmd>lua vim.lsp.buf.type_definition()<CR>', 'Show type definition' },
-				a = { '<cmd>CodeActionMenu<CR>', 'Code action' },
+				d = { '<cmd>lua vim.lsp.buf.definition()<cr>', 'Go to definition' },
+				D = { '<cmd>lua vim.lsp.buf.declaration()<cr>', 'Go to declaration' },
+				i = { '<cmd>lua vim.lsp.buf.implementation()<cr>', 'Show implementation' },
+				r = { '<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename symbol' },
+				R = { '<cmd>lua vim.lsp.buf.references()<cr>', 'Show references' },
+				t = { '<cmd>lua vim.lsp.buf.type_definition()<cr>', 'Show type definition' },
+				f = { '<cmd>lua vim.diagnostic.open_float()<cr>', 'Diagnostics open float' },
+				a = { '<cmd>CodeActionMenu<cr>', 'Code action' },
 				A = { telescope('lsp_range_code_actions'), 'Range code action' },
 				s = { telescope('lsp_workspace_symbols'), 'Workspace symbols' },
 				S = { telescope('lsp_document_symbols'), 'Document symbols' },
 				w = {
 					name = '[Workspace]',
-					l = { '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', 'Workspace list' },
-					a = { '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', 'Workspace add' },
-					r = { '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', 'Workspace remove' },
+					l = { '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', 'Workspace list' },
+					a = { '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', 'Workspace add' },
+					r = { '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', 'Workspace remove' },
 				},
-			},
-			d = {
-				name = '[Diagnostics]',
-				q = { '<cmd>lua vim.diagnostic.setqflist()<CR>', 'Diagnostics Quickfix list' },
-				l = { '<cmd>lua vim.diagnostic.setloclist()<CR>', 'Diagnostics Location list' },
-				f = { '<cmd>lua vim.diagnostic.open_float()<CR>', 'Diagnostics open float' },
-				n = { '<cmd>lua vim.diagnostic.goto_next()<CR>', 'Diagnostics next' },
-				p = { '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'Diagnostics previous' },
 			},
 		},
 	})
 end
 
 -- Navigate between windows
---map('n', '<Leader>j', ':wincmd j<CR>', { silent = true })
---map('n', '<Leader>k', ':wincmd k<CR>', { silent = true })
---map('n', '<Leader>l', ':wincmd l<CR>', { silent = true })
---map('n', '<Leader>h', ':wincmd h<CR>', { silent = true })
---map('n', '<Leader>r', '<C-w>r<CR>', { silent = true })
---map('n', '<Leader>vs', '<C-w>v', { silent = true })
+map('n', '<A-H>', ':wincmd h<cr>', { silent = true })
+map('n', '<A-J>', ':wincmd j<cr>', { silent = true })
+map('n', '<A-K>', ':wincmd k<cr>', { silent = true })
+map('n', '<A-L>', ':wincmd l<cr>', { silent = true })
 
 map('n', 'n', 'nzzzv', {})
 map('n', 'N', 'Nzzzv', {})
 
 map('n', 'J', 'mzJ`z', { noremap = true })
 
+map('x', '<', '<gv', { noremap = true })
+map('x', '>', '>gv', { noremap = true })
+
+map('v', '<c-p>', '"_dP', { noremap = true })
+
 -- Reverse join-line
-map('n', 'gJ', 'i<CR><Esc>J', { noremap = true })
+map('n', 'gJ', 'i<cr><Esc>J', { noremap = true })
 
 -- Remove selection hl after search
-map('n', '<Esc>', ':noh<CR>', opts)
+map('n', '<Esc>', ':noh<cr>', opts)
 
 -- Leave terminal
-map('t', '<Esc>', '<C-\\><C-n>', {})
+map('t', '<Esc>', '<c-\\><c-n>', {})
 
--- Go back from gf
-map('n', 'gb', '<C-o>', opts)
-
--- -- move
-map('n', '<A-j>', [[<cmd>lua require('move').MoveLine(1)<CR>]], opts)
-map('n', '<A-k>', [[<cmd>lua require('move').MoveLine(-1)<CR>]], opts)
-map('v', '<A-j>', [[<cmd>lua require('move').MoveBlock(1)<CR>]], opts)
-map('v', '<A-k>', [[<cmd>lua require('move').MoveBlock(-1)<CR>]], opts)
-map('n', '<A-l>', [[<cmd>lua require('move').MoveHChar(1)<CR>]], opts)
-map('n', '<A-h>', [[<cmd>lua require('move').MoveHChar(-1)<CR>]], opts)
-map('v', '<A-l>', [[<cmd>lua require('move').MoveHBlock(1)<CR>]], opts)
-
-map({ 'i', 's' }, '<C-E>', '<Plug>luasnip-next-choice', {})
+-- move
+map('n', '<A-j>', [[<cmd>lua require('move').MoveLine(1)<cr>]], opts)
+map('n', '<A-k>', [[<cmd>lua require('move').MoveLine(-1)<cr>]], opts)
+map('v', '<A-j>', [[<cmd>lua require('move').MoveBlock(1)<cr>]], opts)
+map('v', '<A-k>', [[<cmd>lua require('move').MoveBlock(-1)<cr>]], opts)
+map('n', '<A-l>', [[<cmd>lua require('move').MoveHChar(1)<cr>]], opts)
+map('n', '<A-h>', [[<cmd>lua require('move').MoveHChar(-1)<cr>]], opts)
+map('v', '<A-l>', [[<cmd>lua require('move').MoveHBlock(1)<cr>]], opts)
 
 wk.register({
 	['<leader>'] = {
-		E = { ':NvimTreeToggle<cr>', 'Toggle NvimTree' },
+		E = { '<cmd>NvimTreeToggle<cr>', 'Toggle NvimTree' },
+		U = { '<cmd>UndoTreeToggle<cr>', 'Toggle UndoTree' },
+		[':'] = { telescope('commands'), 'Commands' },
 		f = {
-			name = '[Telescope]',
+			name = '[Find]',
 			f = { telescope('find_files'), 'Files' },
 			g = { telescope('live_grep'), 'Grep' },
 			r = { telescope('frecency'), 'Frecency' },
 			k = { telescope('keymaps'), 'Maps' },
 			m = { telescope('marks'), 'Marks' },
 			b = { telescope('buffers'), 'Buffers' },
+			n = { '<cmd>lua require("telescope").extensions.notify.notify()', 'Notifications' },
+			y = { '<cmd>lua require("telescope").extensions.neoclip.default()<cr>', 'Clipboard manager' },
 			[':'] = { telescope('command_history'), 'Command history' },
 			['/'] = { telescope('search_history'), 'Search history' },
 		},
 		t = {
 			name = '[Trouble]',
-			t = { '<cmd>TroubleToggle<cr>', 'Toggle' },
-			w = { '<cmd>TroubleToggle workspace_diagnostics<cr>', 'Toggle workspace' },
+			t = { '<cmd>TroubleToggle<cr>', 'Document' },
+			T = { '<cmd>TodoTrouble<cr>' },
+			w = { '<cmd>TroubleToggle workspace_diagnostics<cr>', 'Workspace' },
+		},
+		h = {
+			name = '[Help]',
+			t = { telescope('builtins'), 'Telescope' },
+			h = { telescope('help_tags'), 'Help tags' },
+			m = { telescope('man_pages'), 'Man pages' },
+			k = { telescope('keymaps'), 'Keymaps' },
+			o = { telescope('vim_options'), 'Options' },
+		},
+		H = {
+			name = '[Harpoon]',
+			a = { "<cmd>lua require'harpoon.mark'.add_file()<cr>", 'Add file' },
+			m = { "<cmd>lua require'harpoon.ui'.toggle_quick_menu()<cr>", 'Menu' },
+			n = { "<cmd>lua require'harpoon.ui'.nav_next()", 'Next file' },
+			p = { "<cmd>lua require'harpoon.ui'.nav_prev()<cr>", 'Previous file' },
+			t = { '<cmd>Telescope harpoon marks<cr>', 'Telescope' },
 		},
 		s = {
 			name = '[Session]',
@@ -119,11 +129,34 @@ wk.register({
 		},
 		g = {
 			name = '[Git]',
+			y = { 'Gitlinker' },
+			b = { '<cmd>Gitsigns toggle_current_line_blame<cr>', 'Toggle line blame' },
+			h = {
+				name = '[Hunk]',
+				s = { '<cmd>Gitsings stage_hunk<cr>', 'Stage' },
+				u = { '<cmd>Gitsings undo_stage_hunk<cr>', 'Undo stage' },
+				r = { '<cmd>Gitsigns reset_hunk<cr>', 'Reset hunk' },
+				R = { '<cmd>Gitsigns reset_buffer<cr>', 'Reset buffer' },
+				P = { '<cmd>Gitsigns preiew_hunk<cr>', 'Preview hunk' },
+				p = { '<cmd>Gitsigns prev_hunk<cr>', 'Previous hunk' },
+				n = { '<cmd>Gitsigns next_hunk<cr>', 'Next hunk' },
+			},
 		},
-		['<A-h>'] = { '<C-w>h', 'Window left' },
-		['<A-j>'] = { '<C-w>j', 'Widnow down' },
-		['<A-k>'] = { '<C-w>k', 'Window up' },
-		['<A-l>'] = { '<C-w>l', 'Window right' },
+		w = {
+			name = '[Window]',
+			c = { '<c-w>c', 'Close window' },
+			h = { '<c-w>h', 'Left' },
+			j = { '<c-w>j', 'Down' },
+			k = { '<c-w>k', 'Up' },
+			l = { '<c-w>l', 'Right' },
+			H = { '<c-w>5<', 'Resize left' },
+			J = { '<cmd>resize +5<cr>', 'Resize down' },
+			K = { '<cmd>resize -5<cr>', 'Resize up' },
+			L = { '<c-w>5>', 'Resize right' },
+			x = { '<c-w>s', 'Horizontal split' },
+			v = { '<c-w>v', 'Vertical split' },
+			['='] = { '<c-w>=', 'Balance window' },
+		},
 	},
 }, { mode = 'n' })
 

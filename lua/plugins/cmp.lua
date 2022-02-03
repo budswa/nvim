@@ -115,6 +115,7 @@ cmp.setup({
 			select = true,
 			behavior = cmp.ConfirmBehavior.Replace,
 		}),
+		['<C-Space>'] = cmp.mapping.complete(),
 		['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.ConfirmBehavior.select }),
 		['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
 		['<C-l>'] = cmp.mapping(function(fallback)
@@ -185,11 +186,11 @@ cmp.setup.cmdline('/', {
 		{ name = 'buffer', keyword_length = 1 },
 	},
 	completion = {
-		border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
+		border = border,
 		scrollbar = '┃',
 	},
 	documentation = {
-		border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
+		border = border,
 		scrollbar = '┃',
 	},
 })
