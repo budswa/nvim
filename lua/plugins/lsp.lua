@@ -195,7 +195,7 @@ local sources = {
 	b.diagnostics.pylama,
 	b.diagnostics.pylint,
 	b.diagnostics.vale,
-	b.formatting.black,
+	--b.formatting.black,
 	b.formatting.clang_format,
 	b.formatting.gofmt,
 	b.formatting.markdownlint,

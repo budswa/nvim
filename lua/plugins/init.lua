@@ -75,9 +75,9 @@ require('packer').startup({
 
 		-- Completion
 		use({
-			'hrsh7th/nvim-cmp',
-			--'iron-e/nvim-cmp',
-			--branch = 'feat/completion-menu-borders',
+			'iron-e/nvim-cmp',
+			--'hrsh7th/nvim-cmp',
+			branch = 'feat/completion-menu-borders',
 			--event = { 'InsertEnter', 'CmdLineEnter' },
 			requires = {},
 			config = function()
@@ -98,7 +98,7 @@ require('packer').startup({
 		use({ 'hrsh7th/cmp-nvim-lsp-signature-help', event = 'CmdLineEnter', after = 'nvim-cmp' })
 		use({
 			'L3MON4D3/LuaSnip',
-			event = 'InsertEnter',
+			--event = 'InsertEnter',
 			requires = 'rafamadriz/friendly-snippets',
 		})
 
@@ -270,18 +270,6 @@ require('packer').startup({
 				require('bqf').setup()
 			end,
 		})
-
-		--use({
-		--	'ldelossa/litee.nvim',
-		--	requires = {
-		--		'ldelossa/litee-calltree.nvim',
-		--		'ldelossa/litee-symboltree.nvim',
-		--		'ldelossa/litee-filetree.nvim'
-		--	},
-		--	config = function()
-		--		require('plugins.litee')
-		--	end
-		--})
 
 		use({
 			'ThePrimeagen/harpoon',

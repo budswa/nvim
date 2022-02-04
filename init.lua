@@ -1,10 +1,11 @@
 vim.g.start_time = vim.fn.reltime()
 
-vim.opt.termguicolors = true
+vim.cmd([[ syntax off | filetype off | filetype plugin indent off ]])
+vim.opt.shadafile = ''
 
 local modules = {
 	'globals',
-	'packer',
+	'plugins.packer',
 	'plugins',
 	'compiled',
 	'options',
@@ -23,5 +24,12 @@ for _, mod in ipairs(modules) do
 end
 
 vim.defer_fn(function()
+	vim.cmd([[
+		doautocmd BufRead
+		syntax on
+		filetype on
+		filetype plugin indent on
+	]])
+
 	vim.cmd([[ silent! bufdo e ]])
-end, 1)
+end, 0)

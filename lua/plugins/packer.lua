@@ -17,11 +17,11 @@ elseif not present then
 	})
 
 	vim.cmd([[packadd packer.nvim]])
-	local now_present, packer = pcall(require, 'packer')
+	local now_present, err = pcall(require, 'packer')
 
 	if now_present then
 		print('Packer cloned successfully.')
 	else
-		error("Couldn't clone packer!\nPacker path: " .. packer_path .. '\n' .. packer)
+		error("Couldn't clone packer!\nPacker path: " .. packer_path .. '\n' .. err)
 	end
 end
