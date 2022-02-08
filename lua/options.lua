@@ -39,7 +39,7 @@ o.colorcolumn = '9999'
 o.updatetime = 200
 o.redrawtime = 300
 o.termguicolors = true
-o.signcolumn = 'no'
+o.signcolumn = 'yes:1'
 o.formatoptions:append('j')
 o.formatoptions:remove('r')
 o.formatoptions:remove('o')

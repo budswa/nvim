@@ -1,4 +1,14 @@
-local packer = require('packer')
+local present, packerinit = pcall(require, 'plugins.packer')
+
+if not present then 
+
+	error('packer not found')
+
+end
+
+local packer = packerinit.packer
+local use = packer.use
+local rocks = packer.use_rocks
 
 packer.init({
 	compile_path = vim.fn.stdpath('config') .. '/lua/compiled.lua',
@@ -11,18 +21,11 @@ packer.init({
 			return require('packer.util').float({ border = 'single' })
 		end,
 	},
-	git = {
-		clone_timeout = 300,
-	},
-	profile = {
-		enable = true,
-	},
+	git = { clone_timeout = 300 },
+	profile = { enable = true },
 })
 
-local use = packer.use
-local rocks = packer.use_rocks
-
-require('packer').startup({
+packer.startup({
 	function()
 		use({ 'wbthomason/packer.nvim' })
 		use({ 'lewis6991/impatient.nvim' })
@@ -44,10 +47,12 @@ require('packer').startup({
 				'nvim-treesitter/playground',
 				'JoosepAlviste/nvim-ts-context-commentstring',
 				'windwp/nvim-ts-autotag',
+				'RRethy/nvim-treesitter-endwise'
 			},
 		})
 		use({ 'p00f/nvim-ts-rainbow' })
 		use({ 'TornaxO7/tree-setter' })
+
 
 		-- LSP
 		use({
@@ -58,10 +63,7 @@ require('packer').startup({
 				require('plugins.lsp')
 			end,
 		})
-		use({
-			'jose-elias-alvarez/null-ls.nvim',
-			requires = 'PlatyPew/format-installer.nvim',
-		})
+		use({ 'jose-elias-alvarez/null-ls.nvim', })
 		use({ 'folke/lua-dev.nvim' })
 		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
 		use({
@@ -513,29 +515,20 @@ require('packer').startup({
 		use({ 'fedepujol/move.nvim' })
 
 		-- Colorschemes
+		--use({
+		--	'themercorp/themer.lua',
+		--	--event = 'VimEnter',
+		--	config = function()
+		--		require('plugins.themer')
+		--	end,
+		--})
 		use({
-			'themercorp/themer.lua',
-			--event = 'VimEnter',
+			'projekt0n/github-nvim-theme',
+			event = 'VimEnter',
 			config = function()
-				require('plugins.themer')
+				require('github-theme').setup()
 			end,
 		})
-		--use({
-		--	'projekt0n/github-nvim-theme',
-		--	event = 'VimEnter',
-		--	config = function()
-		--		require('github-theme').setup()
-		--	end,
-		--})
-		--use({
-		--	'rose-pine/neovim',
-		--	as = 'rose-pine',
-		--	event = 'VimEnter',
-		--	config = function()
-		--		vim.g.rose_pine_disable_float_background = true
-		--		vim.cmd('colorscheme rose-pine')
-		--	end,
-		--})
 
 		-- Misc
 		use({
@@ -574,7 +567,7 @@ require('packer').startup({
 
 		rocks({ 'luazip', 'penlight', 'lua-cjson' })
 
-		if vim.fn.isdirectory(vim.fn.stdpath('data') .. '/site/pack/packer/start/impatient.nvim') == false then
+		if packerinit.bootstrap then
 			packer.sync()
 		end
 	end,

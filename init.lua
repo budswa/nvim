@@ -1,11 +1,12 @@
 vim.g.start_time = vim.fn.reltime()
 
 vim.cmd([[ syntax off | filetype off | filetype plugin indent off ]])
+vim.opt.termguicolors = true
 vim.opt.shadafile = ''
 
 local modules = {
 	'globals',
-	'plugins.packer',
+	--'plugins.packer',
 	'plugins',
 	'compiled',
 	'options',
@@ -14,7 +15,10 @@ local modules = {
 	'keymaps',
 }
 
-require('impatient').enable_profile()
+local present, impatient = pcall(require, 'impatient')
+if present then
+	impatient.enable_profile()
+end
 
 for _, mod in ipairs(modules) do
 	local ok, err = pcall(require, mod)

@@ -2,7 +2,6 @@ local M = {}
 
 local lsp_install = require('nvim-lsp-installer')
 local servers = require('nvim-lsp-installer.servers')
-local format_install = require('format-installer')
 local null = require('null-ls')
 local b = null.builtins
 
@@ -188,34 +187,17 @@ local sources = {
 	b.code_actions.gitsigns,
 	b.code_actions.proselint,
 	b.code_actions.refactoring,
-	b.diagnostics.cppcheck,
-	b.diagnostics.flake8,
+	b.diagnostics.selene.with({ extra_args = { '--config', vim.fn.stdpath('config') .. '/selene.toml' } }),
 	b.diagnostics.luacheck,
 	b.diagnostics.proselint,
-	b.diagnostics.pylama,
-	b.diagnostics.pylint,
 	b.diagnostics.vale,
-	--b.formatting.black,
 	b.formatting.clang_format,
 	b.formatting.gofmt,
 	b.formatting.markdownlint,
 	b.formatting.prettierd,
 	b.formatting.rustfmt,
-	b.formatting.stylua,
+	b.formatting.stylua.with({ extra_args = { '--config-path', vim.fn.stdpath('config') .. '/stylua.toml' } }),
 }
-
-for _, formatter in ipairs(format_install.get_installed_formatters()) do
-	local config = { command = formatter.cmd }
-
-	-- Passes extra_args into null-ls configurations
-	if formatter.name == 'stylua' then
-		config['extra_args'] = { '--config-path', vim.fn.stdpath('config') .. '/stylua.toml' }
-	elseif formatter.name == '' then
-		config['extra_args'] = { '--config', vim.fn.stdpath('config') .. '/selene.toml' }
-	end
-
-	table.insert(sources, null.builtins.formatting[formatter.name].with(config))
-end
 
 null.setup({
 	on_attach = M.on_attach,

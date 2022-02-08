@@ -11,7 +11,7 @@ require('gitsigns').setup({
 		topdelete = { hl = 'GitSignsDelete', text = '▔' },
 		changedelete = { hl = 'GitSignsChange', text = '▍' },
 	},
-	signcolumn = false,
-	numhl = true,
+	signcolumn = true,
+	numhl = false,
 	attach_to_untracked = true,
 })

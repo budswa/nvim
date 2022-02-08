@@ -104,6 +104,7 @@ cmp.setup({
 		if vim.bo.ft == 'TelescopePrompt' then
 			return false
 		end
+		return true
 	end,
 	snippet = {
 		expand = function(args)

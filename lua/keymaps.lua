@@ -102,7 +102,7 @@ wk.register({
 		t = {
 			name = '[Trouble]',
 			t = { '<cmd>TroubleToggle<cr>', 'Document' },
-			T = { '<cmd>TodoTrouble<cr>' },
+			T = { '<cmd>TodoTrouble<cr>', 'Todo' },
 			w = { '<cmd>TroubleToggle workspace_diagnostics<cr>', 'Workspace' },
 		},
 		h = {

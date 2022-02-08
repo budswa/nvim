@@ -115,6 +115,9 @@ require('nvim-treesitter.configs').setup({
 	autotag = {
 		enable = true,
 	},
+	endwise = {
+		enable = true
+	},
 	rainbow = {
 		enable = true,
 		extended_mode = true,
