@@ -2,10 +2,11 @@ local present, packer = pcall(require, 'packer')
 
 local M = {}
 
-M.packer = packer
 M.bootstrap = false
 
-if not present then
+if present then
+	M.packer = packer
+elseif not present then
 	local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
 
 	vim.fn.delete(packer_path, 'rf')
@@ -31,7 +32,5 @@ if not present then
 		error("Couldn't clone packer!\nPacker path: " .. packer_path .. '\n' .. now_packer)
 	end
 end
-
-M.packer = packer
 
 return M

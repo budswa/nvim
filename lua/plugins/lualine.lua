@@ -9,7 +9,7 @@ require('lualine').setup({
 		theme = 'auto',
 		section_separators = ' ',
 		component_separators = '',
-		always_divide_middle = false
+		always_divide_middle = false,
 	},
 	sections = {
 		lualine_a = { 'mode' },
@@ -19,10 +19,10 @@ require('lualine').setup({
 		lualine_y = {
 			'branch',
 			{
-			    'diff',
-				symbols = { added = '+', modified = '~', removed = '-' }
+				'diff',
+				symbols = { added = '+', modified = '~', removed = '-' },
 			},
-			'progress'
+			'progress',
 		},
 		lualine_z = { 'location' },
 	},
@@ -45,4 +45,3 @@ timer:start(
 		vim.api.nvim_command('redrawstatus')
 	end)
 )
-

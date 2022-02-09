@@ -3,6 +3,7 @@ local types = require('cmp.types')
 local str = require('cmp.utils.str')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
+local ls_types = require('luasnip.util.types')
 local neogen = require('neogen')
 
 local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
@@ -16,8 +17,23 @@ vim.g.copilot_assume_mapped = true
 vim.g.copilot_tab_fallback = ''
 
 luasnip.config.setup({
+	history = true,
+	updateevents = 'TextChanged,TextChangedI',
+	enable_autosnippets = true,
 	region_check_events = 'CursorMoved',
 	delete_check_events = 'TextChanged',
+	ext_opts = {
+		[ls_types.choiceNode] = {
+			active = {
+				virt_text = { { '●', 'GruvboxOrange' } },
+			},
+		},
+		[ls_types.insertNode] = {
+			active = {
+				virt_text = { { '●', 'GruvboxBlue' } },
+			},
+		},
+	},
 })
 
 require('lsp_signature').setup({

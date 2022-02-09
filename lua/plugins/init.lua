@@ -1,9 +1,7 @@
 local present, packerinit = pcall(require, 'plugins.packer')
 
-if not present then 
-
+if not present then
 	error('packer not found')
-
 end
 
 local packer = packerinit.packer
@@ -47,12 +45,11 @@ packer.startup({
 				'nvim-treesitter/playground',
 				'JoosepAlviste/nvim-ts-context-commentstring',
 				'windwp/nvim-ts-autotag',
-				'RRethy/nvim-treesitter-endwise'
+				'RRethy/nvim-treesitter-endwise',
 			},
 		})
 		use({ 'p00f/nvim-ts-rainbow' })
 		use({ 'TornaxO7/tree-setter' })
-
 
 		-- LSP
 		use({
@@ -63,7 +60,7 @@ packer.startup({
 				require('plugins.lsp')
 			end,
 		})
-		use({ 'jose-elias-alvarez/null-ls.nvim', })
+		use({ 'jose-elias-alvarez/null-ls.nvim' })
 		use({ 'folke/lua-dev.nvim' })
 		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
 		use({
@@ -293,9 +290,9 @@ packer.startup({
 		-- spellsitter
 		use({
 			'lewis6991/spellsitter.nvim',
-		config = function()
-			require('spellsitter').setup()
-		end
+			config = function()
+				require('spellsitter').setup()
+			end,
 		})
 
 		-- Motions
