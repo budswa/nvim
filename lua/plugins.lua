@@ -25,6 +25,8 @@ packer.init({
 
 packer.startup({
 	function()
+		rocks({ 'penlight', 'lua-cjson' })
+
 		use({ 'wbthomason/packer.nvim' })
 		use({ 'lewis6991/impatient.nvim' })
 		use({ 'nvim-lua/plenary.nvim' })
@@ -83,18 +85,18 @@ packer.startup({
 				require('plugins.cmp')
 			end,
 		})
-		use({ 'petertriho/cmp-git', event = 'InsertEnter', after = 'nvim-cmp' })
-		use({ 'hrsh7th/cmp-nvim-lsp', event = 'InsertEnter', after = 'nvim-cmp' })
-		use({ 'hrsh7th/cmp-nvim-lua', event = 'InsertEnter', after = 'nvim-cmp' })
-		use({ 'hrsh7th/cmp-buffer', event = 'InsertEnter', after = 'nvim-cmp' })
-		use({ 'hrsh7th/cmp-path', event = 'InsertEnter', after = 'nvim-cmp' })
-		use({ 'hrsh7th/cmp-calc', event = 'InsertEnter', after = 'nvim-cmp' })
-		use({ 'ray-x/cmp-treesitter', event = 'InsertEnter', after = 'nvim-cmp' })
-		use({ 'lukas-reineke/cmp-rg', event = 'InsertEnter', after = 'nvim-cmp' })
-		use({ 'saadparwaiz1/cmp_luasnip', event = 'InsertEnter', after = 'nvim-cmp' })
-		use({ 'hrsh7th/cmp-copilot', event = 'InsertEnter', after = 'nvim-cmp' })
-		use({ 'hrsh7th/cmp-cmdline', event = 'CmdLineEnter', after = 'nvim-cmp' })
-		use({ 'hrsh7th/cmp-nvim-lsp-signature-help', event = 'CmdLineEnter', after = 'nvim-cmp' })
+		use({ 'petertriho/cmp-git', after = 'nvim-cmp' })
+		use({ 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' })
+		use({ 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' })
+		use({ 'hrsh7th/cmp-buffer', after = 'nvim-cmp' })
+		use({ 'hrsh7th/cmp-path', after = 'nvim-cmp' })
+		use({ 'hrsh7th/cmp-calc', after = 'nvim-cmp' })
+		use({ 'ray-x/cmp-treesitter', after = 'nvim-cmp' })
+		use({ 'lukas-reineke/cmp-rg', after = 'nvim-cmp' })
+		use({ 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' })
+		use({ 'hrsh7th/cmp-copilot', after = 'nvim-cmp' })
+		use({ 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' })
+		use({ 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' })
 		use({
 			'L3MON4D3/LuaSnip',
 			--event = 'InsertEnter',
@@ -526,6 +528,9 @@ packer.startup({
 				require('github-theme').setup()
 			end,
 		})
+		use({'xiyaowong/nvim-transparent', config = function()
+			require('plugins.transparent')
+		end})
 
 		-- Misc
 		use({
@@ -562,10 +567,8 @@ packer.startup({
 		-- Language specific
 		use({ 'tjdevries/nlua.nvim' })
 
-		rocks({ 'luazip', 'penlight', 'lua-cjson' })
-
 		if packerinit.bootstrap then
 			packer.sync()
 		end
-	end,
+	end
 })

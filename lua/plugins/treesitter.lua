@@ -112,17 +112,11 @@ require('nvim-treesitter.configs').setup({
 		enable = true,
 		enable_autocmd = false,
 	},
-	autotag = {
-		enable = true,
-	},
-	endwise = {
-		enable = true,
-	},
 	rainbow = {
 		enable = true,
 		extended_mode = true,
 	},
-	tree_setter = {
-		enable = true,
-	},
+	autotag = { enable = true, },
+	endwise = { enable = true, },
+	tree_setter = { enable = true, },
 })
