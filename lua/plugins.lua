@@ -63,6 +63,9 @@ packer.startup({
 			end,
 		})
 		use({ 'jose-elias-alvarez/null-ls.nvim' })
+		use({ 'mfussenegger/nvim-lint', config=function()
+			require('plugins.lint')
+		end})
 		use({ 'folke/lua-dev.nvim' })
 		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
 		use({

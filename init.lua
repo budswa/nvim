@@ -36,4 +36,5 @@ vim.defer_fn(function()
 	]])
 
 	vim.cmd([[ silent! bufdo e ]])
+	vim.cmd([[ doautocmd BufRead ]])
 end, 0)
