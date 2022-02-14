@@ -329,7 +329,7 @@ packer.startup({
 
 		-- Surround
 		use({
-			'blackCauldron7/surround.nvim',
+			'ur4ltz/surround.nvim',
 			event = 'BufRead',
 			config = function()
 				require('plugins.surround')
