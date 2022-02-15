@@ -63,9 +63,12 @@ packer.startup({
 			end,
 		})
 		use({ 'jose-elias-alvarez/null-ls.nvim' })
-		use({ 'mfussenegger/nvim-lint', config=function()
-			require('plugins.lint')
-		end})
+		use({
+			'mfussenegger/nvim-lint',
+			config = function()
+				require('plugins.lint')
+			end,
+		})
 		use({ 'folke/lua-dev.nvim' })
 		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
 		use({
@@ -102,8 +105,11 @@ packer.startup({
 		use({ 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' })
 		use({
 			'L3MON4D3/LuaSnip',
-			--event = 'InsertEnter',
 			requires = 'rafamadriz/friendly-snippets',
+			after = 'nvim-cmp',
+			config = function()
+				require('plugins.luasnip')
+			end
 		})
 
 		use({
@@ -497,11 +503,11 @@ packer.startup({
 			end,
 		})
 
-		-- Emacs Narrowing for Vim
 		use({
-			'chrisbra/NrrwRgn',
-			opt = 'true',
-			cmd = { 'NR', 'NW' },
+			'hoschi/yode-nvim',
+			config = function()
+				require('yode-nvim').setup({})
+			end,
 		})
 
 		-- Search and replace
@@ -531,9 +537,12 @@ packer.startup({
 				require('github-theme').setup()
 			end,
 		})
-		use({'xiyaowong/nvim-transparent', config = function()
-			require('plugins.transparent')
-		end})
+		use({
+			'xiyaowong/nvim-transparent',
+			config = function()
+				require('plugins.transparent')
+			end,
+		})
 
 		-- Misc
 		use({
@@ -573,5 +582,5 @@ packer.startup({
 		if packerinit.bootstrap then
 			packer.sync()
 		end
-	end
+	end,
 })
