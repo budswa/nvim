@@ -109,7 +109,7 @@ packer.startup({
 			after = 'nvim-cmp',
 			config = function()
 				require('plugins.luasnip')
-			end
+			end,
 		})
 
 		use({
@@ -435,6 +435,13 @@ packer.startup({
 			end,
 		})
 
+		use({
+			'zegervdv/nrpattern.nvim',
+			config = function()
+				require('plugins.nrpattern')
+			end,
+		})
+
 		-- Lastplace
 		use({
 			'ethanholz/nvim-lastplace',
@@ -543,6 +550,9 @@ packer.startup({
 				require('plugins.transparent')
 			end,
 		})
+
+		-- Math
+		use({ 'jbyuki/nabla.nvim', opt = true })
 
 		-- Misc
 		use({
