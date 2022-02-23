@@ -13,6 +13,8 @@ local modules = {
 	'modules',
 	'autocmds',
 	'keymaps',
+	'highlights',
+	'commands'
 }
 
 local present, impatient = pcall(require, 'impatient')

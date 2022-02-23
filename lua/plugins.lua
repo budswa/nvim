@@ -70,6 +70,7 @@ packer.startup({
 			end,
 		})
 		use({ 'folke/lua-dev.nvim' })
+		--use({ 'nanotee/sqls.nvim' })
 		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
 		use({
 			'j-hui/fidget.nvim',
@@ -552,7 +553,7 @@ packer.startup({
 		})
 
 		-- Math
-		use({ 'jbyuki/nabla.nvim', opt = true })
+		use({ 'jbyuki/nabla.nvim' })
 
 		-- Misc
 		use({
