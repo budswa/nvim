@@ -4,7 +4,7 @@ local o = vim.opt
 o.syntax = 'on'
 
 -- Indentation, spaces and tabs
-o.expandtab = false
+o.expandtab = true
 o.shiftwidth = 4
 o.shiftwidth = 4
 o.smartindent = true
