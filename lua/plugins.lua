@@ -56,20 +56,23 @@ packer.startup({
 		-- LSP
 		use({
 			'neovim/nvim-lspconfig',
-			requires = 'williamboman/nvim-lsp-installer',
+			requires = {
+				'williamboman/nvim-lsp-installer',
+				'folke/lua-dev.nvim',
+			},
 			event = 'BufReadPre',
 			config = function()
 				require('plugins.lsp')
 			end,
 		})
 		use({ 'jose-elias-alvarez/null-ls.nvim' })
+		use({ 'lukas-reineke/lsp-format.nvim' })
 		use({
 			'mfussenegger/nvim-lint',
 			config = function()
 				require('plugins.lint')
 			end,
 		})
-		use({ 'folke/lua-dev.nvim' })
 		--use({ 'nanotee/sqls.nvim' })
 		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
 		use({
@@ -78,6 +81,12 @@ packer.startup({
 				require('fidget').setup({
 					text = { spinner = 'bouncing_bar' },
 				})
+			end,
+		})
+		use({
+			'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim',
+			config = function()
+				require('toggle_lsp_diagnostics').init()
 			end,
 		})
 
@@ -260,9 +269,9 @@ packer.startup({
 
 		-- Statusline
 		use({
-			'nvim-lualine/lualine.nvim',
+			'rebelot/heirline.nvim',
 			config = function()
-				require('plugins.lualine')
+				require('plugins.heirline')
 			end,
 		})
 
@@ -308,13 +317,7 @@ packer.startup({
 		})
 
 		-- Motions
-		use({
-			'ggandor/lightspeed.nvim',
-			event = 'BufRead',
-			config = function()
-				require('plugins.lightspeed')
-			end,
-		})
+		use({ 'ggandor/lightspeed.nvim', event = 'BufRead' })
 		use({
 			'abecodes/tabout.nvim',
 			event = 'BufRead',
@@ -429,11 +432,15 @@ packer.startup({
 			end,
 		})
 
+		-- Folding
 		use({
 			'anuvyklack/pretty-fold.nvim',
 			config = function()
 				require('plugins.fold')
 			end,
+		})
+		use({
+			'pierreglaser/folding-nvim',
 		})
 
 		use({
@@ -528,7 +535,7 @@ packer.startup({
 		})
 
 		-- Move
-		use({ 'fedepujol/move.nvim' })
+		use({ 'fedepujol/move.nvim', module = 'move' })
 
 		-- Colorschemes
 		--use({

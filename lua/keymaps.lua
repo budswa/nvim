@@ -10,16 +10,17 @@ end
 vim.g.mapleader = ' '
 local opts = { noremap = true, silent = true }
 
-M.lsp_on_attach = function(bufnr)
-	local on_attach_opts = { buffer = bufnr, silent = true, noremap = true }
+M.lsp = function(bufnr)
+	local lsp_opts = { buffer = bufnr, silent = true, noremap = true }
 
-	map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', on_attach_opts)
-	map('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', on_attach_opts)
-	map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', on_attach_opts)
-	map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', on_attach_opts)
-	map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', on_attach_opts)
-	map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', on_attach_opts)
-	map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', on_attach_opts)
+    --map('n', 'g0', vim.lsp.buf.document_symbol(), lsp_opts)
+	--map('n', 'K', vim.lsp.buf.hover(), lsp_opts)
+	--map('n', '<c-k>', vim.lsp.buf.signature_help(), lsp_opts)
+	--map('n', 'gr', vim.lsp.buf.references(), lsp_opts)
+	--map('n', 'gi', vim.lsp.buf.implementation(), lsp_opts)
+	--map('n', 'gD', vim.lsp.buf.declaration(), lsp_opts)
+	--map('n', 'gd', vim.lsp.buf.definition(), lsp_opts)
+	--map('n', 'gr', vim.lsp.buf.references(), lsp_opts)
 
 	wk.register({
 		['<leader>'] = {
@@ -73,13 +74,13 @@ map('n', '<Esc>', ':noh<cr>', opts)
 map('t', '<Esc>', '<c-\\><c-n>', {})
 
 -- move
-map('n', '<A-j>', [[<cmd>lua require('move').MoveLine(1)<cr>]], opts)
-map('n', '<A-k>', [[<cmd>lua require('move').MoveLine(-1)<cr>]], opts)
-map('v', '<A-j>', [[<cmd>lua require('move').MoveBlock(1)<cr>]], opts)
-map('v', '<A-k>', [[<cmd>lua require('move').MoveBlock(-1)<cr>]], opts)
-map('n', '<A-l>', [[<cmd>lua require('move').MoveHChar(1)<cr>]], opts)
-map('n', '<A-h>', [[<cmd>lua require('move').MoveHChar(-1)<cr>]], opts)
-map('v', '<A-l>', [[<cmd>lua require('move').MoveHBlock(1)<cr>]], opts)
+--map('n', '<A-j>', require('move').MoveLine(1), opts)*/
+--map('n', '<A-k>', require('move').MoveLine(-1), opts)*/
+--map('v', '<A-j>', require('move').MoveBlock(1), opts)*/
+--map('v', '<A-k>', require('move').MoveBlock(-1), opts)*/
+--map('n', '<A-l>', require('move').MoveHChar(1), opts)*/
+--map('n', '<A-h>', require('move').MoveHChar(-1), opts)*/
+--map('v', '<A-l>', require('move').MoveHBlock(1), opts)*/
 
 wk.register({
 	['<leader>'] = {

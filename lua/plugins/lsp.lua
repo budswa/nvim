@@ -1,10 +1,9 @@
 local M = {}
 
-local lsp_install = require('nvim-lsp-installer')
+local install = require('nvim-lsp-installer')
 local servers = require('nvim-lsp-installer.servers')
 local null = require('null-ls')
 local b = null.builtins
-
 local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
 
 local required_servers = {
@@ -12,6 +11,8 @@ local required_servers = {
 	'vimls',
 	'clangd',
 }
+
+require('lsp-format').setup({})
 
 local signs = { Error = 'E', Warn = 'W', Info = 'I', Hint = 'H' }
 for sign, icon in pairs(signs) do
@@ -103,27 +104,39 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = update_capabilities(capabilities)
 
-M.on_attach = function(_, bufnr)
-	require('keymaps').lsp_on_attach(bufnr)
-
+M.on_attach = function(client, bufnr)
+	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 	vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
 	vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
 
-	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
-
+	require('keymaps').lsp(bufnr)
+	require('folding').on_attach()
+	require('lsp-format').on_attach(client)
 	require('lsp_signature').on_attach({
 		bind = true,
 		hint_prefix = '⋉ ',
 		handler_opts = { border = 'rounded' },
 	}, bufnr)
+
+	if client.resolved_capabilities.document_highlight then
+		vim.api.nvim_exec(
+			[[
+        augroup lsp_document_highlight
+            autocmd! * <buffer>
+            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+        augroup END ]],
+			false
+		)
+	end
 end
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-lsp_install.settings({
+install.settings({
 	log_level = vim.log.levels.INFO,
 	max_concurrent_installers = 4,
 })
@@ -139,7 +152,7 @@ for _, s in pairs(required_servers) do
 	end
 end
 
-lsp_install.on_server_ready(function(server)
+install.on_server_ready(function(server)
 	local opts = {
 		capabilities = capabilities,
 		on_attach = M.on_attach,
@@ -185,17 +198,10 @@ end)
 local sources = {
 	b.code_actions.gitrebase,
 	b.code_actions.gitsigns,
-	b.code_actions.proselint,
 	b.code_actions.refactoring,
 	--b.diagnostics.selene.with({ extra_args = { '--config', vim.fn.stdpath('config') .. '/selene.toml' } }),
-	b.diagnostics.luacheck.with({ extra_args = { '--config', vim.fn.stdpath('config') .. '/.luacheckrc'  }}),
-	b.diagnostics.proselint,
-	b.diagnostics.vale,
-	b.formatting.clang_format,
-	b.formatting.gofmt,
-	b.formatting.markdownlint,
+	--b.diagnostics.luacheck.with({ extra_args = { '--config', vim.fn.stdpath('config') .. '/.luacheckrc'  }}),
 	b.formatting.prettierd,
-	b.formatting.rustfmt,
 	b.formatting.stylua.with({ extra_args = { '--config-path', vim.fn.stdpath('config') .. '/stylua.toml' } }),
 }
 

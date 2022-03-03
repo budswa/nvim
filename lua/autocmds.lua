@@ -8,9 +8,13 @@ require('utils').nvim_create_augroups({
 	yank = {
 		{ 'TextYankPost', '*', [[silent! lua vim.highlight.on_yank({higroup='IncSearch', timeout=500})]] },
 	},
+	--cursorline = {
+	--	{ 'WinEnter,InsertLeave', '*', [[set cursorline]] },
+	--	{ 'WinLeave,InsertEnter', '*', [[set nocursorline]] },
+	--},
 	cursorline = {
-		{ 'WinEnter,InsertLeave', '*', [[set cursorline]] },
-		{ 'WinLeave,InsertEnter', '*', [[set nocursorline]] },
+		{ 'WinEnter', '*', [[set cursorline]] },
+		{ 'WinLeave', '*', [[set nocursorline]] },
 	},
 	quick_close = {
 		{ 'Filetype', 'help,startuptime,lspinfo,qf', [[nnoremap <buffer><silent> q :close<cr>]] },

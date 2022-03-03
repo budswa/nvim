@@ -12,4 +12,8 @@ function M.nvim_create_augroups(definitions)
 	end
 end
 
+function M.termcode(key)
+    return vim.api.nvim_replace_termcodes(key, true, true, true)
+end
+
 return M
