@@ -268,12 +268,12 @@ packer.startup({
 		})
 
 		-- Statusline
-		use({
-			'rebelot/heirline.nvim',
-			config = function()
-				require('plugins.heirline')
-			end,
-		})
+		--use({
+		--	'rebelot/heirline.nvim',
+		--	config = function()
+		--		require('plugins.heirline')
+		--	end,
+		--})
 
 		-- Quickfix
 		use({
