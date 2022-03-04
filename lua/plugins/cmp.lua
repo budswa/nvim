@@ -4,6 +4,7 @@ local str = require('cmp.utils.str')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
 local neogen = require('neogen')
+local t = require('utils').termcode
 
 local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
 
