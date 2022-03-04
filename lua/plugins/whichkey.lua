@@ -35,7 +35,7 @@ require('which-key').setup({
 		position = 'bottom',
 		margin = { 0, 0, 0, 0 },
 		padding = { 1, 1, 1, 1 },
-		winblend = 20,
+		winblend = 0,
 	},
 	layout = {
 		height = { min = 4, max = 24 },

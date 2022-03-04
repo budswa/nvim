@@ -38,3 +38,20 @@ telescope.load_extension('zk')
 telescope.load_extension('hop')
 telescope.load_extension('frecency')
 telescope.load_extension('file_browser')
+
+vim.api.nvim_create_augroup('telescope', {})
+vim.api.nvim_create_autocmd('User', {
+	pattern = 'TelescopeFindPre',
+	group = 'telescope',
+	callback = function()
+		vim.o.laststatus = 0
+		vim.api.nvim_create_autocmd('BufWinLeave', {
+			pattern = '*',
+			once = true,
+			group = 'telescope',
+			callback = function()
+				vim.o.laststatus = 2
+			end,
+		})
+	end,
+})

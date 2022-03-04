@@ -13,14 +13,27 @@ local opts = { noremap = true, silent = true }
 M.lsp = function(bufnr)
 	local lsp_opts = { buffer = bufnr, silent = true, noremap = true }
 
-    --map('n', 'g0', vim.lsp.buf.document_symbol(), lsp_opts)
-	--map('n', 'K', vim.lsp.buf.hover(), lsp_opts)
-	--map('n', '<c-k>', vim.lsp.buf.signature_help(), lsp_opts)
-	--map('n', 'gr', vim.lsp.buf.references(), lsp_opts)
-	--map('n', 'gi', vim.lsp.buf.implementation(), lsp_opts)
-	--map('n', 'gD', vim.lsp.buf.declaration(), lsp_opts)
-	--map('n', 'gd', vim.lsp.buf.definition(), lsp_opts)
-	--map('n', 'gr', vim.lsp.buf.references(), lsp_opts)
+	map('n', '<c-k>', function()
+		vim.lsp.buf.signature_help()
+	end, lsp_opts)
+	map('n', 'K', function()
+		vim.lsp.buf.hover()
+	end, lsp_opts)
+	map('n', 'g0', function()
+		vim.lsp.buf.document_symbol()
+	end, lsp_opts)
+	map('n', 'gi', function()
+		vim.lsp.buf.implementation()
+	end, lsp_opts)
+	map('n', 'gD', function()
+		vim.lsp.buf.declaration()
+	end, lsp_opts)
+	map('n', 'gd', function()
+		vim.lsp.buf.definition()
+	end, lsp_opts)
+	map('n', 'gr', function()
+		vim.lsp.buf.references()
+	end, lsp_opts)
 
 	wk.register({
 		['<leader>'] = {
@@ -74,13 +87,13 @@ map('n', '<Esc>', ':noh<cr>', opts)
 map('t', '<Esc>', '<c-\\><c-n>', {})
 
 -- move
---map('n', '<A-j>', require('move').MoveLine(1), opts)*/
---map('n', '<A-k>', require('move').MoveLine(-1), opts)*/
---map('v', '<A-j>', require('move').MoveBlock(1), opts)*/
---map('v', '<A-k>', require('move').MoveBlock(-1), opts)*/
---map('n', '<A-l>', require('move').MoveHChar(1), opts)*/
---map('n', '<A-h>', require('move').MoveHChar(-1), opts)*/
---map('v', '<A-l>', require('move').MoveHBlock(1), opts)*/
+--map('n', '<A-j>', require('move').MoveLine(1), opts)
+--map('n', '<A-k>', require('move').MoveLine(-1), opts)
+--map('v', '<A-j>', require('move').MoveBlock(1), opts)
+--map('v', '<A-k>', require('move').MoveBlock(-1), opts)
+--map('n', '<A-l>', require('move').MoveHChar(1), opts)
+--map('n', '<A-h>', require('move').MoveHChar(-1), opts)
+--map('v', '<A-l>', require('move').MoveHBlock(1), opts)
 
 wk.register({
 	['<leader>'] = {

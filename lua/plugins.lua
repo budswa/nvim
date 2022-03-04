@@ -440,8 +440,14 @@ packer.startup({
 			end,
 		})
 		use({
-			'pierreglaser/folding-nvim',
+			'lewis6991/foldsigns.nvim',
+			config = function()
+				require('foldsigns').setup({
+					exclude = { 'GitSigns.*' },
+				})
+			end,
 		})
+		use({ 'pierreglaser/folding-nvim' })
 
 		use({
 			'zegervdv/nrpattern.nvim',
@@ -502,6 +508,13 @@ packer.startup({
 		--		require('plugins.notify')
 		--	end,
 		--})
+
+		use({
+			'mvllow/modes.nvim',
+			config = function()
+				require('modes').setup()
+			end,
+		})
 
 		use({
 			'AckslD/nvim-neoclip.lua',

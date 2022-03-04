@@ -141,7 +141,6 @@ install.settings({
 	max_concurrent_installers = 4,
 })
 
--- Install missing servers
 for _, s in pairs(required_servers) do
 	local ok, lsp_server = servers.get_server(s)
 	if ok then

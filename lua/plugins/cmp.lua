@@ -7,11 +7,7 @@ local neogen = require('neogen')
 
 local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
 
-local t = function(s)
-	return vim.api.nvim_replace_termcodes(s, true, true, true)
-end
-
-vim.g.copilot_no_tab_map = true
+vim.g.copilot_no_tab_map = false
 vim.g.copilot_assume_mapped = true
 vim.g.copilot_tab_fallback = ''
 
@@ -145,7 +141,7 @@ cmp.setup({
 		{ name = 'buffer' },
 		{ name = 'treesitter' },
 		{ name = 'rg' },
-		{ name = 'nvim_lsp_signature_help' },
+		{ name = 'nvim_lsp_signature_help', priority = 10 },
 	},
 	experimental = {
 		ghost_text = true,
@@ -154,9 +150,12 @@ cmp.setup({
 })
 
 cmp.setup.cmdline(':', {
-	enabled = function()
-		return true
-	end,
+	enabled = true,
+	sources = cmp.config.sources({
+		{ name = 'path' },
+	}, {
+		{ name = 'cmdline' },
+	}),
 	completion = {
 		border = border,
 		scrollbar = '▌',
@@ -165,17 +164,13 @@ cmp.setup.cmdline(':', {
 		border = border,
 		scrollbar = '▌',
 	},
-	sources = cmp.config.sources({
-		{ name = 'path' },
-	}, {
-		{ name = 'cmdline' },
-	}),
+	--view = {
+	--	entries = { name = 'wildmenu', separator = ' | ' },
+	--},
 })
 
 cmp.setup.cmdline('/', {
-	enabled = function()
-		return true
-	end,
+	enabled = true,
 	sources = {
 		{ name = 'buffer', keyword_length = 1 },
 	},
@@ -187,4 +182,7 @@ cmp.setup.cmdline('/', {
 		border = border,
 		scrollbar = '┃',
 	},
+	--view = {
+	--	entries = { name = 'wildmenu', separator = ' | ' },
+	--},
 })
