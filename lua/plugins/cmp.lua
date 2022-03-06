@@ -7,6 +7,16 @@ local neogen = require('neogen')
 local t = require('utils').termcode
 
 local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
+local border_hl = { 
+    {'╭', 'FloatBorder'},
+    {'─', 'FloatBorder'},
+    {'╮', 'FloatBorder'},
+    {'│', 'FloatBorder'}, 
+    {'╯', 'FloatBorder'}, 
+    {'─', 'FloatBorder'}, 
+    {'╰', 'FloatBorder'}, 
+    {'│', 'FloatBorder'} 
+}
 
 vim.g.copilot_no_tab_map = false
 vim.g.copilot_assume_mapped = true

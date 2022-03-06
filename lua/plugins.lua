@@ -10,6 +10,7 @@ local rocks = packer.use_rocks
 
 packer.init({
 	compile_path = vim.fn.stdpath('config') .. '/lua/compiled.lua',
+	max_jobs = 16,
 	auto_clean = true,
 	compile_on_sync = true,
 	display = {
@@ -25,7 +26,7 @@ packer.init({
 
 packer.startup({
 	function()
-		rocks({ 'penlight', 'lua-cjson' })
+		rocks({ 'penlight', 'lua-cjson', 'promise-lua', 'lualogging' })
 
 		use({ 'wbthomason/packer.nvim' })
 		use({ 'lewis6991/impatient.nvim' })
@@ -87,6 +88,12 @@ packer.startup({
 			'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim',
 			config = function()
 				require('toggle_lsp_diagnostics').init()
+			end,
+		})
+		use({
+			'stevearc/aerial.nvim',
+			config = function()
+				require('plugins.aerial')
 			end,
 		})
 
@@ -274,6 +281,12 @@ packer.startup({
 		--		require('plugins.heirline')
 		--	end,
 		--})
+		use({
+			'feline-nvim/feline.nvim',
+			config = function()
+				require('plugins.feline')
+			end,
+		})
 
 		-- Quickfix
 		use({
@@ -366,7 +379,7 @@ packer.startup({
 			'haringsrob/nvim_context_vt',
 			config = function()
 				require('nvim_context_vt').setup({
-					prefix = '-->',
+					prefix = '-',
 				})
 			end,
 		})
@@ -571,6 +584,7 @@ packer.startup({
 				require('plugins.transparent')
 			end,
 		})
+		use({ 'nlsickler/colorscheme-tweaks.nvim' })
 
 		-- Math
 		use({ 'jbyuki/nabla.nvim' })

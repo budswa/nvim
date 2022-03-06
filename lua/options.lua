@@ -83,7 +83,7 @@ o.listchars = {
 
 -- Fillchars
 o.fillchars = {
-	vert = ' ', -- │
+	--vert = ' ', -- │
 	eob = ' ',
 }
 
@@ -148,7 +148,7 @@ o.pumblend = 0
 
 -- Statusline and cmdline
 o.showmode = false
-o.laststatus = 2
+o.laststatus = 3
 g.modelines = 0
 
 -- Mouse

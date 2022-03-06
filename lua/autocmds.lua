@@ -1,28 +1,22 @@
---telescope = {
---    {
---        'User',
---        'TelescopeFindPre',
---        [[
---lua vim.o.laststatus=0; vim.cmd'autocmd BufWinLeave * ++once lua vim.o.laststatus=2'
---        ]],
---    },
---},
-
 vim.api.nvim_create_augroup('user', {})
 
-vim.api.nvim_create_autocmd('BufWritePost', {
+local function autocmd(event, opts)
+	vim.api.nvim_create_autocmd(event, opts)
+end
+
+autocmd('BufWritePost', {
 	pattern = 'plugins.lua',
 	group = 'user',
 	command = 'PackerCompile',
 })
 
-vim.api.nvim_create_autocmd('FocusGained', {
+autocmd('FocusGained', {
 	pattern = '*',
 	group = 'user',
 	command = 'checktime',
 })
 
-vim.api.nvim_create_autocmd('TextYankPost', {
+autocmd('TextYankPost', {
 	pattern = '*',
 	group = 'user',
 	callback = function()
@@ -30,19 +24,19 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 	end,
 })
 
-vim.api.nvim_create_autocmd('WinEnter', {
+autocmd('WinEnter', {
 	pattern = '*',
 	group = 'user',
 	command = 'setlocal cursorline',
 })
 
-vim.api.nvim_create_autocmd('WinLeave', {
+autocmd('WinLeave', {
 	pattern = '*',
 	group = 'user',
 	command = 'setlocal nocursorline',
 })
 
-vim.api.nvim_create_autocmd('FileType', {
+autocmd('FileType', {
 	pattern = { 'help', 'qf', 'lspinfo', 'startuptime' },
 	group = 'user',
 	callback = function()
