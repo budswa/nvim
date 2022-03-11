@@ -110,7 +110,6 @@ M.on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
 
 	require('keymaps').lsp(bufnr)
-	require('aerial').on_attach(client, bufnr)
 	require('folding').on_attach()
 	require('lsp-format').on_attach(client)
 	require('lsp_signature').on_attach({

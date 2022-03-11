@@ -90,12 +90,6 @@ packer.startup({
 				require('toggle_lsp_diagnostics').init()
 			end,
 		})
-		use({
-			'stevearc/aerial.nvim',
-			config = function()
-				require('plugins.aerial')
-			end,
-		})
 
 		-- Completion
 		use({
@@ -278,6 +272,7 @@ packer.startup({
 		-- Statusline
 		use({
 			'nvim-lualine/lualine.nvim',
+			event = 'BufEnter',
 			config = function()
 				require('plugins.lualine')
 			end,
@@ -577,7 +572,7 @@ packer.startup({
 			config = function()
 				require('github-theme').setup({
 					theme_style = 'dark_default',
-					sidebars = { 'qf', 'terminal', 'toggleterm', 'aerial', 'packer' },
+					sidebars = { 'qf', 'terminal', 'toggleterm', 'packer' },
 				})
 			end,
 		})
@@ -589,14 +584,18 @@ packer.startup({
 		})
 		use({ 'nlsickler/colorscheme-tweaks.nvim' })
 
+		--use({
+		--	'luukvbaal/stabilize.nvim',
+		--	config = function()
+		--		require('stabilize').setup()
+		--	end,
+		--})
+
 		-- Math
 		use({ 'jbyuki/nabla.nvim' })
 
 		-- Misc
-		use({
-			'dhruvasagar/vim-table-mode',
-			cmd = 'TableModeToggle',
-		})
+		use({ 'dhruvasagar/vim-table-mode', cmd = 'TableModeToggle' })
 		--use({
 		--	'lewis6991/spaceless.nvim',
 		--	config = function()
