@@ -35,8 +35,7 @@ packer.startup({
 		-- Treesitter
 		use({
 			'nvim-treesitter/nvim-treesitter',
-			-- opt = true,
-			-- event = 'BufRead',
+			event = 'BufRead',
 			run = ':TSUpdate',
 			config = function()
 				require('plugins.treesitter')
@@ -78,6 +77,7 @@ packer.startup({
 		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
 		use({
 			'j-hui/fidget.nvim',
+			event = 'BufEnter',
 			config = function()
 				require('fidget').setup({
 					text = { spinner = 'bouncing_bar' },
@@ -100,9 +100,8 @@ packer.startup({
 		-- Completion
 		use({
 			'iron-e/nvim-cmp',
-			--'hrsh7th/nvim-cmp',
 			branch = 'feat/completion-menu-borders',
-			--event = { 'InsertEnter', 'CmdLineEnter' },
+			event = { 'InsertEnter', 'CmdLineEnter' },
 			requires = {},
 			config = function()
 				require('plugins.cmp')
@@ -130,10 +129,10 @@ packer.startup({
 		})
 
 		use({
-			'windwp/nvim-autopairs',
+			'ZhiyuanLck/smart-pairs',
 			event = 'BufRead',
 			config = function()
-				require('plugins.autopairs')
+				require('pairs'):setup()
 			end,
 		})
 		use({ 'ray-x/lsp_signature.nvim' })
@@ -142,6 +141,7 @@ packer.startup({
 		-- Telescope
 		use({
 			'nvim-telescope/telescope.nvim',
+			event = 'BufEnter',
 			requires = {
 				'nvim-lua/plenary.nvim',
 				'nvim-lua/popup.nvim',
@@ -182,6 +182,7 @@ packer.startup({
 		})
 		use({
 			'yioneko/nvim-yati',
+			event = 'BufRead',
 			requires = 'nvim-treesitter/nvim-treesitter',
 			config = function()
 				require('nvim-treesitter.configs').setup({
@@ -232,7 +233,7 @@ packer.startup({
 		})
 		use({
 			'ruifm/gitlinker.nvim',
-			event = 'BufRead',
+			keys = '<leader>gy',
 			requires = 'nvim-lua/plenary.nvim',
 			config = function()
 				require('gitlinker').setup()
@@ -275,16 +276,10 @@ packer.startup({
 		})
 
 		-- Statusline
-		--use({
-		--	'rebelot/heirline.nvim',
-		--	config = function()
-		--		require('plugins.heirline')
-		--	end,
-		--})
 		use({
-			'feline-nvim/feline.nvim',
+			'nvim-lualine/lualine.nvim',
 			config = function()
-				require('plugins.feline')
+				require('plugins.lualine')
 			end,
 		})
 
@@ -424,11 +419,11 @@ packer.startup({
 
 		-- Zen
 		use({
-			'Pocco81/TrueZen.nvim',
+			'folke/zen-mode.nvim',
+			cmd = 'ZenMode',
 			config = function()
 				require('plugins.zen')
 			end,
-			cmd = 'ZenMode',
 		})
 		use({
 			'folke/twilight.nvim',
@@ -496,6 +491,13 @@ packer.startup({
 		-- Pastebin
 		use({ 'rktjmp/paperplanes.nvim' })
 
+		use({
+			'NarutoXY/dim.lua',
+			config = function()
+				require('dim').setup()
+			end,
+		})
+
 		-- Indentlines
 		use({
 			'lukas-reineke/indent-blankline.nvim',
@@ -525,7 +527,11 @@ packer.startup({
 		use({
 			'mvllow/modes.nvim',
 			config = function()
-				require('modes').setup()
+				require('modes').setup({
+					line_opacity = 0.1,
+					set_cursor = true,
+					focus_only = true,
+				})
 			end,
 		})
 
@@ -546,6 +552,7 @@ packer.startup({
 
 		use({
 			'hoschi/yode-nvim',
+			event = 'BufEnter',
 			config = function()
 				require('yode-nvim').setup({})
 			end,
@@ -564,18 +571,14 @@ packer.startup({
 		use({ 'fedepujol/move.nvim', module = 'move' })
 
 		-- Colorschemes
-		--use({
-		--	'themercorp/themer.lua',
-		--	--event = 'VimEnter',
-		--	config = function()
-		--		require('plugins.themer')
-		--	end,
-		--})
 		use({
 			'projekt0n/github-nvim-theme',
 			event = 'VimEnter',
 			config = function()
-				require('github-theme').setup()
+				require('github-theme').setup({
+					theme_style = 'dark_default',
+					sidebars = { 'qf', 'terminal', 'toggleterm', 'aerial', 'packer' },
+				})
 			end,
 		})
 		use({

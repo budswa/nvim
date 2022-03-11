@@ -24,18 +24,6 @@ autocmd('TextYankPost', {
 	end,
 })
 
-autocmd('WinEnter', {
-	pattern = '*',
-	group = 'user',
-	command = 'setlocal cursorline',
-})
-
-autocmd('WinLeave', {
-	pattern = '*',
-	group = 'user',
-	command = 'setlocal nocursorline',
-})
-
 autocmd('FileType', {
 	pattern = { 'help', 'qf', 'lspinfo', 'startuptime' },
 	group = 'user',

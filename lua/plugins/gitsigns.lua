@@ -12,6 +12,7 @@ require('gitsigns').setup({
 		--changedelete = { hl = 'GitSignsChange', text = '▍' },
 	},
 	signcolumn = true,
+	sign_priority = 10,
 	numhl = false,
 	attach_to_untracked = true,
 })

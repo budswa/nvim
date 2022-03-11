@@ -10,12 +10,12 @@ luasnip.config.setup({
 	ext_opts = {
 		[types.choiceNode] = {
 			active = {
-				virt_text = { { '●', 'GruvboxOrange' } },
+				virt_text = { { '●', 'GitSingsAdd' } },
 			},
 		},
 		[types.insertNode] = {
 			active = {
-				virt_text = { { '●', 'GruvboxBlue' } },
+				virt_text = { { '●', 'GitSingsChange' } },
 			},
 		},
 	},

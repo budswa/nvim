@@ -6,4 +6,6 @@ vim.cmd([[
 	augroup END
 ]])
 
-vim.opt.cursorline = true
+vim.opt_local.numberwidth = 0
+vim.opt_local.number = false
+vim.opt_local.relativenumber = false
