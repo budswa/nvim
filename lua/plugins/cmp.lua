@@ -7,6 +7,7 @@ local neogen = require('neogen')
 local t = require('utils').termcode
 
 local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
+
 --local border_hl = {
 --	{ '╭', 'FloatBorder' },
 --	{ '─', 'FloatBorder' },

@@ -121,7 +121,6 @@ packer.startup({
 				require('plugins.luasnip')
 			end,
 		})
-
 		use({
 			'ZhiyuanLck/smart-pairs',
 			event = 'BufRead',
@@ -361,7 +360,7 @@ packer.startup({
 			requires = 'nvim-lua/plenary.nvim',
 			event = 'BufRead',
 			config = function()
-				require('todo-comments').setup({})
+				require('todo-comments').setup()
 			end,
 		})
 
@@ -450,7 +449,7 @@ packer.startup({
 				})
 			end,
 		})
-		use({ 'pierreglaser/folding-nvim' })
+		--use({ 'pierreglaser/folding-nvim' })
 
 		use({
 			'zegervdv/nrpattern.nvim',
@@ -492,6 +491,13 @@ packer.startup({
 				require('dim').setup()
 			end,
 		})
+		use({
+			'm-demare/hlargs.nvim',
+			requires = 'nvim-treesitter/nvim-treesitter',
+			config = function()
+				require('hlargs').setup()
+			end,
+		})
 
 		-- Indentlines
 		use({
@@ -520,7 +526,7 @@ packer.startup({
 		--})
 
 		use({
-			'mvllow/modes.nvim',
+			'budswa/modes.nvim',
 			config = function()
 				require('modes').setup({
 					line_opacity = 0.1,
@@ -547,7 +553,21 @@ packer.startup({
 
 		use({
 			'hoschi/yode-nvim',
-			event = 'BufEnter',
+			requires = 'nvim-lua/plenary.nvim',
+			cmd = {
+				'YodeBufferDelete',
+				'YodeCloneCurrentIntoFloat',
+				'YodeCreateSeditorFloating',
+				'YodeCreateSeditorReplace',
+				'YodeFloatToMainWindow',
+				'YodeFloatToMainWindow',
+				'YodeGoToAlternateBuffer',
+				'YodeLayoutShiftWinBottom',
+				'YodeLayoutShiftWinDown',
+				'YodeLayoutShiftWinTop',
+				'YodeLayoutShiftWinUp',
+				'YodeRunInFile',
+			},
 			config = function()
 				require('yode-nvim').setup({})
 			end,
