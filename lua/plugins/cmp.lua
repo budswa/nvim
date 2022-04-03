@@ -42,14 +42,8 @@ cmp.setup({
 		keyword_length = 1,
 	},
 	window = {
-		completion = {
-			border = border,
-			scrollbar = '┃',
-		},
-		documentation = {
-			border = border,
-			scrollbar = '┃',
-		},
+		completion = { border = border, scrollbar = '┃' },
+		documentation = { border = border, scrollbar = '┃' },
 	},
 	formatting = {
 		fields = {

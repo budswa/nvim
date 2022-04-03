@@ -1,11 +1,11 @@
 local colors = {
 	blue = '#80a0ff',
 	cyan = '#79dac8',
-	black = '#0d1117',
+	black = '#24292e',
 	white = '#c6c6c6',
 	red = '#ff5189',
 	violet = '#d183e8',
-	grey = '#24292e',
+	grey = '#0d1117',
 }
 
 require('lualine').setup({

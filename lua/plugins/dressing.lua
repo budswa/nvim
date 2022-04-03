@@ -5,7 +5,7 @@ require('dressing').setup({
 	},
 	select = {
 		backend = { 'telescope', 'nui' },
-		telescope = { theme = 'ivy' },
+		telescope = require('telescope.themes').get_ivy(),
 		nui = {
 			position = '50%',
 			relative = 'editor',

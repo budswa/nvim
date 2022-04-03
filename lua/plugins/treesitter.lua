@@ -31,7 +31,7 @@ require('nvim-treesitter.configs').setup({
 	highlight = {
 		enable = true,
 		use_languagetree = true,
-		additional_vim_regex_highlighting = true,
+		additional_vim_regex_highlighting = { 'markdown' },
 	},
 	incremental_selection = {
 		enable = true,
@@ -116,7 +116,8 @@ require('nvim-treesitter.configs').setup({
 		enable = true,
 		extended_mode = true,
 	},
-	autotag = { enable = true, },
-	endwise = { enable = true, },
-	tree_setter = { enable = true, },
+	autotag = { enable = true },
+	endwise = { enable = true },
+	tree_setter = { enable = true },
+	yati = { enable = true },
 })

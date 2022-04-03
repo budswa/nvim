@@ -38,6 +38,7 @@ telescope.load_extension('zk')
 telescope.load_extension('hop')
 telescope.load_extension('frecency')
 telescope.load_extension('file_browser')
+telescope.load_extension('workspaces')
 
 vim.api.nvim_create_augroup('telescope', {})
 vim.api.nvim_create_autocmd('User', {

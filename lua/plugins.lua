@@ -1,10 +1,34 @@
-local present, packerinit = pcall(require, 'plugins.packer')
+local present, packer = pcall(require, 'packer')
+
+local bootstrap
 
 if not present then
-	error('packer not found')
+	local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
+
+	vim.fn.delete(packer_path, 'rf')
+	print('Cloning packer...')
+	vim.fn.system({
+		'git',
+		'clone',
+		'https://github.com/wbthomason/packer.nvim',
+		'--depth',
+		'1',
+		packer_path,
+	})
+
+	vim.cmd([[packadd packer.nvim]])
+
+	local now_present, now_packer = pcall(require, 'packer')
+
+	if now_present then
+		print('Packer cloned successfully...')
+		local bootstrap = true
+		packer = now_packer
+	else
+		error("Couldn't clone packer!\nPacker path: " .. packer_path .. '\n' .. now_packer)
+	end
 end
 
-local packer = packerinit.packer
 local use = packer.use
 local rocks = packer.use_rocks
 
@@ -35,23 +59,43 @@ packer.startup({
 		-- Treesitter
 		use({
 			'nvim-treesitter/nvim-treesitter',
-			event = 'BufRead',
+			opt = true,
 			run = ':TSUpdate',
 			config = function()
 				require('plugins.treesitter')
 			end,
 			requires = {
 				{ 'nvim-treesitter/nvim-treesitter-textobjects', event = 'BufRead' },
+				{ 'RRethy/nvim-treesitter-endwise', event = 'InsertEnter' },
 				'RRethy/nvim-treesitter-textsubjects',
 				'nvim-treesitter/nvim-treesitter-refactor',
 				'nvim-treesitter/playground',
 				'JoosepAlviste/nvim-ts-context-commentstring',
 				'windwp/nvim-ts-autotag',
-				'RRethy/nvim-treesitter-endwise',
 			},
 		})
 		use({ 'p00f/nvim-ts-rainbow' })
 		use({ 'TornaxO7/tree-setter' })
+		use({
+			'romgrk/nvim-treesitter-context',
+			event = 'InsertEnter',
+			config = function()
+				--vim.cmd([[hi! link TreesitterContext Visual]])
+				require('treesitter-context.config').setup({
+					enable = true,
+					patterns = {
+						default = {
+							'class',
+							'function',
+							'method',
+							'for',
+							'field',
+							'if',
+						},
+					},
+				})
+			end,
+		})
 
 		-- LSP
 		use({
@@ -93,10 +137,9 @@ packer.startup({
 
 		-- Completion
 		use({
-			'iron-e/nvim-cmp',
-			branch = 'feat/completion-menu-borders',
+			'hrsh7th/nvim-cmp',
+			branch = 'dev',
 			event = { 'InsertEnter', 'CmdLineEnter' },
-			requires = {},
 			config = function()
 				require('plugins.cmp')
 			end,
@@ -142,8 +185,8 @@ packer.startup({
 				'nvim-telescope/telescope-symbols.nvim',
 				'nvim-telescope/telescope-file-browser.nvim',
 				'nvim-telescope/telescope-hop.nvim',
+				'natecraddock/workspaces.nvim',
 			},
-			--cmd = 'Telescope',
 			config = function()
 				require('plugins.telescope')
 			end,
@@ -169,19 +212,16 @@ packer.startup({
 			'akinsho/toggleterm.nvim',
 			event = 'BufWinEnter',
 			config = function()
-				require('plugins.toggleterm')
+				require('toggleterm').setup({
+					shade_terminals = true,
+					open_mapping = [[<c-\>]],
+				})
 			end,
-			--cmd = { 'ToggleTerm', 'TermExec', 'ToggleTermOpenAll', 'ToggleTermCloseAll' },
 		})
 		use({
 			'yioneko/nvim-yati',
 			event = 'BufRead',
 			requires = 'nvim-treesitter/nvim-treesitter',
-			config = function()
-				require('nvim-treesitter.configs').setup({
-					yati = { enable = true },
-				})
-			end,
 		})
 
 		-- Code Actions
@@ -195,7 +235,10 @@ packer.startup({
 			'danymat/neogen',
 			after = 'nvim-treesitter',
 			config = function()
-				require('plugins.neogen')
+				require('neogen').setup({
+					enabled = true,
+					snippet_engine = 'luasnip',
+				})
 			end,
 		})
 
@@ -324,7 +367,9 @@ packer.startup({
 			'abecodes/tabout.nvim',
 			event = 'BufRead',
 			config = function()
-				require('plugins.tabout')
+				require('tabout').setup({
+					ignore_beginning = true,
+				})
 			end,
 		})
 		use({
@@ -338,13 +383,17 @@ packer.startup({
 			'kana/vim-textobj-user',
 			event = 'BufEnter',
 		})
+		use({ 'tpope/vim-repeat', event = 'BufRead' })
 
 		-- Surround
 		use({
 			'ur4ltz/surround.nvim',
 			event = 'BufRead',
 			config = function()
-				require('plugins.surround')
+				require('surround').setup({
+					mappings_style = 'surround',
+					load_autogroups = true,
+				})
 			end,
 		})
 		use({
@@ -407,7 +456,10 @@ packer.startup({
 			'mizlan/iswap.nvim',
 			cmd = { 'ISwap', 'ISwapWith' },
 			config = function()
-				require('plugins.iswap')
+				require('iswap').setup({
+					keys = 'qwertyuiop',
+					autoswap = true,
+				})
 			end,
 		})
 
@@ -423,7 +475,7 @@ packer.startup({
 			'folke/twilight.nvim',
 			cmd = { 'Twilight', 'TwilightEnable', 'TwilightDisable' },
 			config = function()
-				require('plugins.twilight')
+				require('twilight').setup({})
 			end,
 		})
 
@@ -449,6 +501,12 @@ packer.startup({
 				})
 			end,
 		})
+		use({
+			'natecraddock/workspaces.nvim',
+			config = function()
+				require('workspaces').setup()
+			end,
+		})
 		--use({ 'pierreglaser/folding-nvim' })
 
 		use({
@@ -463,7 +521,10 @@ packer.startup({
 			'ethanholz/nvim-lastplace',
 			event = 'BufRead',
 			config = function()
-				require('plugins.lastplace')
+				require('nvim-lastplace').setup({
+					lastplace_ignore_buftype = { 'quickfix', 'nofile', 'help' },
+					lastplace_ignore_filetype = { 'gitcommit', 'gitrebase', 'svn' },
+				})
 			end,
 		})
 
@@ -491,13 +552,13 @@ packer.startup({
 				require('dim').setup()
 			end,
 		})
-		use({
-			'm-demare/hlargs.nvim',
-			requires = 'nvim-treesitter/nvim-treesitter',
-			config = function()
-				require('hlargs').setup()
-			end,
-		})
+		--use({
+		--	'm-demare/hlargs.nvim',
+		--	requires = 'nvim-treesitter/nvim-treesitter',
+		--	config = function()
+		--		require('hlargs').setup()
+		--	end,
+		--})
 
 		-- Indentlines
 		use({
@@ -517,19 +578,25 @@ packer.startup({
 				require('plugins.dressing')
 			end,
 		})
-		--use({
-		--	'rcarriga/nvim-notify',
-		--	event = 'VimEnter',
-		--	config = function()
-		--		require('plugins.notify')
-		--	end,
-		--})
+		use({
+			'rcarriga/nvim-notify',
+			event = 'VimEnter',
+			config = function()
+				require('plugins.notify')
+			end,
+		})
 
 		use({
-			'budswa/modes.nvim',
+			'lewis6991/hover.nvim',
+			config = function()
+				require('plugins.hover')
+			end,
+		})
+
+		use({
+			'mvllow/modes.nvim',
 			config = function()
 				require('modes').setup({
-					line_opacity = 0.1,
 					set_cursor = true,
 					focus_only = true,
 				})
@@ -599,7 +666,7 @@ packer.startup({
 		use({
 			'xiyaowong/nvim-transparent',
 			config = function()
-				require('plugins.transparent')
+				require('transparent').setup({ enable = false })
 			end,
 		})
 		use({ 'nlsickler/colorscheme-tweaks.nvim' })
@@ -641,6 +708,7 @@ packer.startup({
 		})
 		use({ 'antoinemadec/FixCursorHold.nvim' })
 		use({ 'tami5/sqlite.lua', module = 'sqlite' })
+		use({ 'milisims/nvim-luaref' })
 		use({ 'nanotee/luv-vimdocs' })
 
 		-- Language specific
