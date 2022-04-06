@@ -26,9 +26,6 @@ require('indent_blankline').setup({
 		'function',
 		'if_statement',
 		'import_statement',
-		'jsx_element',
-		'jsx_element',
-		'jsx_self_closing_element',
 		'method',
 		'operation_type',
 		'return',
@@ -51,3 +48,4 @@ require('indent_blankline').setup({
 		'packer',
 	},
 })
+

@@ -31,3 +31,11 @@ autocmd('FileType', {
 		vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = true, silent = true, noremap = true })
 	end,
 })
+
+autocmd('WinEnter', {
+	pattern = 'neo-tree',
+	group = 'user',
+	callback = function()
+		vim.opt_local.signcolumn = 'no'
+	end,
+})

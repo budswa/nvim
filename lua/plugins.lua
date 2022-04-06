@@ -1,6 +1,7 @@
+vim.cmd([[packadd packer.nvim]])
 local present, packer = pcall(require, 'packer')
 
-local bootstrap
+_G.bootstrap = false
 
 if not present then
 	local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
@@ -21,11 +22,11 @@ if not present then
 	local now_present, now_packer = pcall(require, 'packer')
 
 	if now_present then
-		print('Packer cloned successfully...')
-		local bootstrap = true
+		print('Packer installed successfully...')
+		_G.bootstrap = true
 		packer = now_packer
 	else
-		error("Couldn't clone packer!\nPacker path: " .. packer_path .. '\n' .. now_packer)
+		error("Couldn't install packer!\nPacker path: " .. packer_path .. '\n' .. now_packer)
 	end
 end
 
@@ -52,7 +53,7 @@ packer.startup({
 	function()
 		rocks({ 'penlight', 'lua-cjson', 'promise-lua', 'lualogging' })
 
-		use({ 'wbthomason/packer.nvim' })
+		use({ 'wbthomason/packer.nvim', opt = true })
 		use({ 'lewis6991/impatient.nvim' })
 		use({ 'nvim-lua/plenary.nvim' })
 
@@ -149,11 +150,11 @@ packer.startup({
 		use({ 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' })
 		use({ 'hrsh7th/cmp-buffer', after = 'nvim-cmp' })
 		use({ 'hrsh7th/cmp-path', after = 'nvim-cmp' })
-		use({ 'hrsh7th/cmp-calc', after = 'nvim-cmp' })
 		use({ 'ray-x/cmp-treesitter', after = 'nvim-cmp' })
 		use({ 'lukas-reineke/cmp-rg', after = 'nvim-cmp' })
 		use({ 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' })
-		use({ 'hrsh7th/cmp-copilot', after = 'nvim-cmp' })
+		use({ 'zbirenbaum/copilot-cmp', after = { 'copilot.lua', 'nvim-cmp' } })
+
 		use({ 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' })
 		use({ 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' })
 		use({
@@ -171,8 +172,18 @@ packer.startup({
 				require('pairs'):setup()
 			end,
 		})
-		use({ 'ray-x/lsp_signature.nvim' })
+		use({ 'ray-x/lsp_signature.nvim', module = 'lsp_signature' })
 		use({ 'onsails/lspkind-nvim' })
+		use({ 'github/copilot.vim', cmd = 'Copilot' })
+		use({
+			'zbirenbaum/copilot.lua',
+			event = 'InsertEnter',
+			config = function()
+				vim.schedule(function()
+					require('copilot').setup()
+				end)
+			end,
+		})
 
 		-- Telescope
 		use({
@@ -194,16 +205,11 @@ packer.startup({
 
 		-- File explorer
 		use({
-			'kyazdani42/nvim-tree.lua',
-			requires = {
-				'kyazdani42/nvim-web-devicons',
-				config = function()
-					require('nvim-web-devicons').setup()
-				end,
-			},
-			cmd = { 'NvimTreeToggle', 'NvimTreeRefresh' },
+			'nvim-neo-tree/neo-tree.nvim',
+			requires = 'MunifTanjim/nui.nvim',
+			cmd = 'Neotree',
 			config = function()
-				require('plugins.nvimtree')
+				require('plugins.neotree')
 			end,
 		})
 
@@ -327,10 +333,9 @@ packer.startup({
 				vim.g.qf_write_changes = 0
 			end,
 		})
-
 		use({
 			'kevinhwang91/nvim-bqf',
-			ft = 'qf',
+			event = 'ColorScheme',
 			config = function()
 				require('bqf').setup()
 			end,
@@ -338,6 +343,7 @@ packer.startup({
 
 		use({
 			'ThePrimeagen/harpoon',
+			event = 'BufRead',
 			config = function()
 				require('harpoon').setup({})
 			end,
@@ -404,14 +410,14 @@ packer.startup({
 			end,
 		})
 		use({ 'LudoPinelli/comment-box.nvim' })
-		use({
-			'folke/todo-comments.nvim',
-			requires = 'nvim-lua/plenary.nvim',
-			event = 'BufRead',
-			config = function()
-				require('todo-comments').setup()
-			end,
-		})
+		--use({
+		--	'folke/todo-comments.nvim',
+		--	requires = 'nvim-lua/plenary.nvim',
+		--	event = 'BufRead',
+		--	config = function()
+		--		require('todo-comments').setup()
+		--	end,
+		--})
 
 		use({
 			'haringsrob/nvim_context_vt',
@@ -444,12 +450,6 @@ packer.startup({
 		use({
 			'mbbill/undotree',
 			cmd = 'UndotreeToggle',
-		})
-
-		-- Copilot
-		use({
-			'github/copilot.vim',
-			cmd = 'Copilot',
 		})
 
 		use({
@@ -563,7 +563,6 @@ packer.startup({
 		-- Indentlines
 		use({
 			'lukas-reineke/indent-blankline.nvim',
-			--event = 'BufRead',
 			config = function()
 				require('plugins.indentline')
 			end,
@@ -655,6 +654,7 @@ packer.startup({
 		-- Colorschemes
 		use({
 			'projekt0n/github-nvim-theme',
+			as = 'colorscheme',
 			event = 'VimEnter',
 			config = function()
 				require('github-theme').setup({
@@ -714,7 +714,7 @@ packer.startup({
 		-- Language specific
 		use({ 'tjdevries/nlua.nvim' })
 
-		if packerinit.bootstrap then
+		if _G.bootstrap then
 			packer.sync()
 		end
 	end,

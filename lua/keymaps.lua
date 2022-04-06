@@ -97,7 +97,7 @@ map('t', '<Esc>', '<c-\\><c-n>', {})
 
 wk.register({
 	['<leader>'] = {
-		E = { '<cmd>NvimTreeToggle<cr>', 'Toggle NvimTree' },
+		E = { '<cmd>Neotree<cr>', 'Toggle Neotree' },
 		U = { '<cmd>UndotreeToggle<cr>', 'Toggle UndoTree' },
 		[':'] = { telescope('commands'), 'Commands' },
 		f = {

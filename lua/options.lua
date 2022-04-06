@@ -83,7 +83,6 @@ o.listchars = {
 
 -- Fillchars
 o.fillchars = {
-	--vert = ' ', -- │
 	eob = ' ',
 }
 

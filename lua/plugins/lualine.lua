@@ -27,6 +27,7 @@ require('lualine').setup({
 		},
 		component_separators = '│',
 		section_separators = { left = '', right = '' },
+		globalestatus = true,
 	},
 	sections = {
 		lualine_a = {

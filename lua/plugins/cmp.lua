@@ -8,17 +8,6 @@ local t = require('utils').termcode
 
 local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
 
---local border_hl = {
---	{ '╭', 'FloatBorder' },
---	{ '─', 'FloatBorder' },
---	{ '╮', 'FloatBorder' },
---	{ '│', 'FloatBorder' },
---	{ '╯', 'FloatBorder' },
---	{ '─', 'FloatBorder' },
---	{ '╰', 'FloatBorder' },
---	{ '│', 'FloatBorder' },
---}
-
 vim.g.copilot_no_tab_map = false
 vim.g.copilot_assume_mapped = true
 vim.g.copilot_tab_fallback = ''
@@ -42,8 +31,19 @@ cmp.setup({
 		keyword_length = 1,
 	},
 	window = {
-		completion = { border = border, scrollbar = '┃' },
-		documentation = { border = border, scrollbar = '┃' },
+		completion = {
+			border = border,
+			scrollbar = '┃',
+			autocomplete = {
+				types.cmp.TriggerEvent.InsertEnter,
+				types.cmp.TriggerEvent.TextChanged,
+			},
+		},
+		documentation = {
+			border = border,
+			scrollbar = '┃',
+			winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
+		},
 	},
 	formatting = {
 		fields = {
@@ -56,10 +56,9 @@ cmp.setup({
 			menu = {
 				copilot = '[CP]',
 				luasnip = '[Snip]',
-				path = '[Path]',
-				calc = '[Calc]',
-				nvim_lua = '[Lua]',
 				nvim_lsp = '[LSP]',
+				nvim_lua = '[Lua]',
+				path = '[Path]',
 				buffer = '[Buf]',
 				treesitter = '[TS]',
 				rg = '[Rg]',
@@ -138,15 +137,14 @@ cmp.setup({
 		['<C-y>'] = cmp.config.disable,
 	},
 	sources = {
-		{ name = 'copilot' },
-		{ name = 'luasnip' },
-		{ name = 'path' },
-		{ name = 'calc' },
-		{ name = 'nvim_lua' },
-		{ name = 'nvim_lsp' },
-		{ name = 'buffer' },
-		{ name = 'treesitter' },
-		{ name = 'rg' },
+		{ name = 'copilot', priority = 5 },
+		{ name = 'luasnip', priority = 5 },
+		{ name = 'nvim_lsp', priority = 4 },
+		{ name = 'nvim_lua', priority = 3 },
+		{ name = 'path', priority = 3 },
+		{ name = 'buffer', priority = 2 },
+		{ name = 'treesitter', priority = 1 },
+		{ name = 'rg', priority = 1 },
 		{ name = 'nvim_lsp_signature_help', priority = 10 },
 	},
 	experimental = {
