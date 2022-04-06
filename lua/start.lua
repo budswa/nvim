@@ -18,9 +18,9 @@ require('commands')
 
 vim.cmd([[ rshada! ]])
 vim.api.nvim_do_autocmd('BufEnter', {})
-vim.cmd([[ 
-	syntax on 
-	filetype on 
+vim.cmd([[
+	syntax on
+	filetype on
 	filetype plugin indent on
 	PackerLoad nvim-treesitter
 ]])
