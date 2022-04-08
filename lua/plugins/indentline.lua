@@ -2,7 +2,7 @@ require('indent_blankline').setup({
 	debug = true,
 	viewport_buffer = 20,
 	use_treesitter = true,
-	char = '▏',
+	--char = '▏',
 	show_first_indent_level = true,
 	show_trailing_blankline_indent = false,
 	show_current_context = true,

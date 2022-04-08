@@ -1,7 +1,7 @@
 vim.cmd([[ syntax off | filetype off | filetype plugin indent off ]])
 
 _G.rtp = vim.opt.runtimepath:get()
-vim.opt.runtimepath = ''
+--vim.opt.runtimepath = ''
 vim.opt.shadafile = 'NONE'
 vim.opt.loadplugins = false
 
@@ -37,6 +37,9 @@ vim.g.loaded_netrwSettings = 1
 vim.g.loaded_netrwFileHandlers = 1
 
 vim.defer_fn(function()
-	require('impatient').enable_profile()
+	local ok, impatient = pcall(require, 'impatient')
+	if ok then 
+		impatient.enable_profile()
+	end
 	require('start')
 end, 0)

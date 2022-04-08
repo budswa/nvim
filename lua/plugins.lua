@@ -1,9 +1,9 @@
-vim.cmd([[packadd packer.nvim]])
 local present, packer = pcall(require, 'packer')
 
 _G.bootstrap = false
-
-if not present then
+if present then
+	vim.cmd([[packadd packer.nvim]])
+elseif not present then
 	local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
 
 	vim.fn.delete(packer_path, 'rf')
@@ -42,7 +42,7 @@ packer.init({
 		title = 'Packer',
 		prompt_border = 'rounded',
 		open_fn = function()
-			return require('packer.util').float({ border = 'single' })
+			return require('packer.util').float({ border = 'rounded' })
 		end,
 	},
 	git = { clone_timeout = 300 },
@@ -135,6 +135,7 @@ packer.startup({
 				require('toggle_lsp_diagnostics').init()
 			end,
 		})
+		--use({ 'p00f/clangd_extensions.nvim' })
 
 		-- Completion
 		use({
@@ -323,6 +324,15 @@ packer.startup({
 			event = 'BufEnter',
 			config = function()
 				require('plugins.lualine')
+			end,
+		})
+
+		-- Tabline
+		use({
+			'akinsho/bufferline.nvim',
+			requires = 'kyazdani42/nvim-web-devicons',
+			config = function()
+				require('bufferline').setup({})
 			end,
 		})
 
@@ -593,7 +603,7 @@ packer.startup({
 		})
 
 		use({
-			'mvllow/modes.nvim',
+			'budswa/modes.nvim',
 			config = function()
 				require('modes').setup({
 					set_cursor = true,

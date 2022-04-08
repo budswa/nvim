@@ -13,7 +13,6 @@ require('keymaps')
 require('globals')
 require('modules')
 require('autocmds')
-require('highlights')
 require('commands')
 
 vim.cmd([[ rshada! ]])
@@ -30,4 +29,5 @@ vim.defer_fn(function()
 	    silent! bufdo e
 	    PackerLoad colorscheme
 	]])
+	require('highlights')
 end, 0)
