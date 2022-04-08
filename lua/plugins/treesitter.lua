@@ -27,7 +27,6 @@ require('nvim-treesitter.configs').setup({
 		'markdown',
 		'lua',
 	},
-	tree_docs = { enable = true },
 	highlight = {
 		enable = true,
 		use_languagetree = true,
@@ -37,9 +36,9 @@ require('nvim-treesitter.configs').setup({
 		enable = true,
 		keymaps = {
 			init_selection = 'gnn',
-			node_incremental = 'grn',
-			scope_incremental = 'grc',
-			node_decremental = 'grm',
+			node_incremental = 'gnn',
+			scope_incremental = 'gns',
+			node_decremental = 'gnp',
 		},
 	},
 	indent = { enable = true },
@@ -50,8 +49,16 @@ require('nvim-treesitter.configs').setup({
 			keymaps = {
 				['af'] = '@function.outer',
 				['if'] = '@function.inner',
-				['ac'] = '@class.outer',
-				['ic'] = '@class.inner',
+				['il'] = '@loop.outer',
+				['al'] = '@loop.outer',
+				['icd'] = '@conditional.inner',
+				['acd'] = '@conditional.outer',
+				['acm'] = '@comment.outer',
+				['ast'] = '@statement.outer',
+				['isc'] = '@scopename.inner',
+				['iB'] = '@block.inner',
+				['aB'] = '@block.outer',
+				['p'] = '@parameter.inner',
 			},
 		},
 		move = {
@@ -103,6 +110,7 @@ require('nvim-treesitter.configs').setup({
 			},
 		},
 	},
+	tree_docs = { enable = false },
 	autopairs = { enable = true },
 	playground = {
 		enable = true,

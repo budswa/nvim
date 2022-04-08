@@ -603,7 +603,7 @@ packer.startup({
 		})
 
 		use({
-			'budswa/modes.nvim',
+			'mvllow/modes.nvim',
 			config = function()
 				require('modes').setup({
 					set_cursor = true,
