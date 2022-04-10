@@ -1,9 +1,7 @@
 local present, packer = pcall(require, 'packer')
 
 _G.bootstrap = false
-if present then
-	vim.cmd([[packadd packer.nvim]])
-elseif not present then
+if not present then
 	local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
 
 	vim.fn.delete(packer_path, 'rf')
@@ -332,6 +330,7 @@ packer.startup({
 		use({
 			'akinsho/bufferline.nvim',
 			requires = 'kyazdani42/nvim-web-devicons',
+			event = 'ColorScheme',
 			config = function()
 				require('bufferline').setup({})
 			end,
@@ -458,10 +457,7 @@ packer.startup({
 		})
 
 		-- Undotree
-		use({
-			'mbbill/undotree',
-			cmd = 'UndotreeToggle',
-		})
+		use({ 'mbbill/undotree', cmd = 'UndotreeToggle' })
 
 		use({
 			'mizlan/iswap.nvim',
@@ -487,13 +483,6 @@ packer.startup({
 			cmd = { 'Twilight', 'TwilightEnable', 'TwilightDisable' },
 			config = function()
 				require('twilight').setup({})
-			end,
-		})
-
-		use({
-			'goolord/alpha-nvim',
-			config = function()
-				require('plugins.alpha')
 			end,
 		})
 
@@ -598,6 +587,7 @@ packer.startup({
 
 		use({
 			'lewis6991/hover.nvim',
+			event = 'BufRead',
 			config = function()
 				require('plugins.hover')
 			end,
