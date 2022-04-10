@@ -197,6 +197,7 @@ packer.startup({
 				'nvim-telescope/telescope-symbols.nvim',
 				'nvim-telescope/telescope-file-browser.nvim',
 				'nvim-telescope/telescope-hop.nvim',
+				'nvim-neorg/neorg-telescope',
 				'natecraddock/workspaces.nvim',
 			},
 			config = function()

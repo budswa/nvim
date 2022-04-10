@@ -64,6 +64,12 @@ neorg.setup({
 				engine = 'nvim-cmp',
 			},
 		},
+		['core.export'] = {},
+		['core.export.markdown'] = {
+			config = {
+				extensions = 'all',
+			},
+		},
 	},
 	logger = {
 		level = 'warn',
