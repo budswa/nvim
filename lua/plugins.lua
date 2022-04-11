@@ -18,13 +18,14 @@ if not present then
 
     vim.cmd([[packadd packer.nvim]])
 
-    local ok, packer = pcall(require, 'packer')
+    local ok, packer_new = pcall(require, 'packer')
 
     if ok then
         print('Packer installed successfully...')
         _G.bootstrap = true
+        packer = packer_new
     elseif not ok then
-        error("Couldn't install packer!\nPacker path: " .. packer_path .. '\n' .. packer)
+        error("Couldn't install packer!\nPacker path: " .. packer_path .. '\n' .. packer_new)
     end
 end
 
