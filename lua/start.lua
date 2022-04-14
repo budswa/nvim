@@ -7,10 +7,10 @@ vim.cmd([[
 ]])
 
 require('options')
+require('globals')
 require('plugins')
 require('compiled')
 require('keymaps')
-require('globals')
 require('modules')
 require('autocmds')
 require('commands')
@@ -24,10 +24,11 @@ vim.cmd([[
 	PackerLoad nvim-treesitter
 ]])
 
-vim.defer_fn(function()
+vim.schedule(function()
 	vim.cmd([[
 	    silent! bufdo e
 	    PackerLoad colorscheme
 	]])
 	require('highlights')
-end, 0)
+	require('options')
+end)

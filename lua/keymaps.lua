@@ -10,57 +10,6 @@ end
 vim.g.mapleader = ' '
 local opts = { noremap = true, silent = true }
 
-M.lsp = function(bufnr)
-	local lsp_opts = { buffer = bufnr, silent = true, noremap = true }
-
-	map('n', '<c-k>', function()
-		vim.lsp.buf.signature_help()
-	end, lsp_opts)
-	--map('n', 'K', function()
-	--	vim.lsp.buf.hover()
-	--end, lsp_opts)
-	map('n', 'g0', function()
-		vim.lsp.buf.document_symbol()
-	end, lsp_opts)
-	map('n', 'gi', function()
-		vim.lsp.buf.implementation()
-	end, lsp_opts)
-	map('n', 'gD', function()
-		vim.lsp.buf.declaration()
-	end, lsp_opts)
-	map('n', 'gd', function()
-		vim.lsp.buf.definition()
-	end, lsp_opts)
-	map('n', 'gr', function()
-		vim.lsp.buf.references()
-	end, lsp_opts)
-
-	wk.register({
-		['<leader>'] = {
-			l = {
-				name = '[LSP]',
-				d = { '<cmd>lua vim.lsp.buf.definition()<cr>', 'Go to definition' },
-				D = { '<cmd>lua vim.lsp.buf.declaration()<cr>', 'Go to declaration' },
-				i = { '<cmd>lua vim.lsp.buf.implementation()<cr>', 'Show implementation' },
-				r = { '<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename symbol' },
-				R = { '<cmd>lua vim.lsp.buf.references()<cr>', 'Show references' },
-				t = { '<cmd>lua vim.lsp.buf.type_definition()<cr>', 'Show type definition' },
-				f = { '<cmd>lua vim.diagnostic.open_float()<cr>', 'Diagnostics open float' },
-				a = { '<cmd>CodeActionMenu<cr>', 'Code action' },
-				A = { telescope('lsp_range_code_actions'), 'Range code action' },
-				s = { telescope('lsp_workspace_symbols'), 'Workspace symbols' },
-				S = { telescope('lsp_document_symbols'), 'Document symbols' },
-				w = {
-					name = '[Workspace]',
-					l = { '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', 'Workspace list' },
-					a = { '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', 'Workspace add' },
-					r = { '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', 'Workspace remove' },
-				},
-			},
-		},
-	})
-end
-
 -- Navigate between windows
 map('n', '<A-H>', ':wincmd h<cr>', { silent = true })
 map('n', '<A-J>', ':wincmd j<cr>', { silent = true })
@@ -115,9 +64,9 @@ wk.register({
 		},
 		t = {
 			name = '[Trouble]',
-			t = { '<cmd>TroubleToggle<cr>', 'Document' },
-			T = { '<cmd>TodoTrouble<cr>', 'Todo' },
+			d = { '<cmd>TroubleToggle<cr>', 'Document' },
 			w = { '<cmd>TroubleToggle workspace_diagnostics<cr>', 'Workspace' },
+			t = { '<cmd>TodoTrouble<cr>', 'Todo' },
 		},
 		h = {
 			name = '[Help]',

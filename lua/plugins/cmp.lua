@@ -1,25 +1,11 @@
 local cmp = require('cmp')
 local types = require('cmp.types')
-local str = require('cmp.utils.str')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
 local neogen = require('neogen')
 local t = require('utils').termcode
 
 local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
-
-vim.g.copilot_no_tab_map = false
-vim.g.copilot_assume_mapped = true
-vim.g.copilot_tab_fallback = ''
-
-require('lsp_signature').setup({
-	bind = true,
-	max_height = 12,
-	max_width = 120,
-	transpancy = 20,
-	handler_opts = { border = 'rounded' },
-	hint_prefix = ' ',
-})
 
 require('cmp_nvim_lsp').setup()
 
@@ -34,28 +20,17 @@ cmp.setup({
 		completion = {
 			border = border,
 			scrollbar = '┃',
-			autocomplete = {
-				types.cmp.TriggerEvent.InsertEnter,
-				types.cmp.TriggerEvent.TextChanged,
-			},
+			autocomplete = { types.cmp.TriggerEvent.InsertEnter, types.cmp.TriggerEvent.TextChanged },
 		},
-		documentation = {
-			border = border,
-			scrollbar = '┃',
-			winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
-		},
+		documentation = { border = border, scrollbar = '┃' },
 	},
 	formatting = {
-		fields = {
-			cmp.ItemField.Kind,
-			cmp.ItemField.Abbr,
-			cmp.ItemField.Menu,
-		},
+		fields = { cmp.ItemField.Kind, cmp.ItemField.Abbr, cmp.ItemField.Menu },
 		format = lspkind.cmp_format({
 			with_text = false,
 			menu = {
-				copilot = '[CP]',
 				luasnip = '[Snip]',
+				copilot = '[CP]',
 				nvim_lsp = '[LSP]',
 				nvim_lua = '[Lua]',
 				path = '[Path]',
@@ -63,35 +38,6 @@ cmp.setup({
 				treesitter = '[TS]',
 				rg = '[Rg]',
 			},
-			before = function(entry, vim_item)
-				local word = entry:get_insert_text()
-				if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
-					word = vim.lsp.util.parse_snippet(word)
-				end
-				word = str.oneline(word)
-
-				local max = 50
-				if string.len(word) >= max then
-					local before = string.sub(word, 1, math.floor((max - 3) / 2))
-					word = before .. '...'
-				end
-
-				if
-					entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet
-					and string.sub(vim_item.abbr, -1, -1) == '~'
-				then
-					word = word .. '~'
-				end
-				vim_item.abbr = word
-
-				vim_item.dup = ({
-					buffer = 1,
-					path = 1,
-					nvim_lsp = 0,
-				})[entry.source.name] or 0
-
-				return vim_item
-			end,
 		}),
 	},
 	enabled = function()
@@ -106,16 +52,40 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		['<CR>'] = cmp.mapping.confirm({
-			select = true,
-			behavior = cmp.ConfirmBehavior.Replace,
-		}),
-		['<C-Space>'] = cmp.mapping.complete(),
-		['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.ConfirmBehavior.select }),
-		['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+		--['<cr>'] = cmp.mapping.confirm({ select = false }),
+		['<cr>'] = cmp.mapping(function(_)
+			if not cmp.confirm({ select = false }) then
+				require('pairs.enter').type()
+			end
+		end),
+		['<c-space>'] = cmp.mapping.complete(),
+		['<c-c>'] = cmp.mapping.close(),
+		['<c-y>'] = cmp.config.disable,
+		['<c-d>'] = cmp.mapping.scroll_docs(-4),
+		['<c-f>'] = cmp.mapping.scroll_docs(4),
+		--['<c-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }, { 'i', 's', 'c' }),
+		['<c-j>'] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+			elseif luasnip.choice_active() then
+				luasnip.change_choice(1)
+			else
+				fallback()
+			end
+		end, { 'i', 's' }),
+		--['<c-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }, { 'i', 's', 'c' }),
+		['<c-k>'] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+			elseif luasnip.choice_active() then
+				luasnip.change_choice(-1)
+			else
+				fallback()
+			end
+		end, { 'i', 's' }),
 		['<C-l>'] = cmp.mapping(function(fallback)
 			if luasnip.expand_or_jumpable() then
-				vim.fn.feedkeys(t('<Plug>luasnip-expand-or-jump'), '')
+				vim.fn.feedkeys(t('<plug>luasnip-expand-or-jump'), '')
 			elseif neogen.jumpable() then
 				vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_next()<CR>"), '')
 			else
@@ -131,14 +101,10 @@ cmp.setup({
 				fallback()
 			end
 		end, { 'i', 's' }),
-		['<C-d>'] = cmp.mapping.scroll_docs(-4),
-		['<C-f>'] = cmp.mapping.scroll_docs(4),
-		['<C-e>'] = cmp.mapping.abort(),
-		['<C-y>'] = cmp.config.disable,
 	},
 	sources = {
-		{ name = 'copilot', priority = 5 },
 		{ name = 'luasnip', priority = 5 },
+		{ name = 'copilot', priority = 4 },
 		{ name = 'nvim_lsp', priority = 4 },
 		{ name = 'nvim_lua', priority = 3 },
 		{ name = 'path', priority = 3 },
@@ -147,46 +113,69 @@ cmp.setup({
 		{ name = 'rg', priority = 1 },
 		{ name = 'nvim_lsp_signature_help', priority = 10 },
 	},
-	experimental = {
-		ghost_text = true,
-		native_menu = false,
-	},
+	experimental = { ghost_text = true, native_menu = false },
+})
+
+cmp.setup.filetype('gitcommit', {
+	sources = cmp.config.sources({
+		{ name = 'cmp_git' },
+		{ name = 'buffer' },
+	}),
 })
 
 cmp.setup.cmdline(':', {
 	enabled = true,
+	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
 		{ name = 'path' },
-	}, {
 		{ name = 'cmdline' },
 	}),
-	completion = {
-		border = border,
-		scrollbar = '▌',
-	},
-	documentation = {
-		border = border,
-		scrollbar = '▌',
+	window = {
+		completion = {
+			border = border,
+			scrollbar = '▌',
+		},
+		documentation = {
+			border = border,
+			scrollbar = '▌',
+		},
 	},
 	--view = {
-	--	entries = { name = 'wildmenu', separator = ' | ' },
+	--    entries = { name = 'wildmenu', separator = ' | ' },
 	--},
 })
 
 cmp.setup.cmdline('/', {
 	enabled = true,
+	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
 		{ name = 'buffer', keyword_length = 1 },
 	},
-	completion = {
-		border = border,
-		scrollbar = '┃',
-	},
-	documentation = {
-		border = border,
-		scrollbar = '┃',
+	window = {
+		completion = {
+			border = border,
+			scrollbar = '┃',
+		},
+		documentation = {
+			border = border,
+			scrollbar = '┃',
+		},
 	},
 	--view = {
-	--	entries = { name = 'wildmenu', separator = ' | ' },
+	--    entries = { name = 'wildmenu', separator = ' | ' },
 	--},
 })
+
+cmp.event:on('confirm_done', function(event)
+	local item = event.entry:get_completion_item()
+	local parensDisabled = item.data and item.data.funcParensDisabled or false
+	if
+		not parensDisabled
+		and (
+			item.kind == cmp.lsp.CompletionItemKind.Method
+			or cmp.lsp.CompletionItemKind.kind == cmp.lsp.CompletionItemKind.Function
+		)
+	then
+		require('pairs.bracket').type_left('(')
+	end
+end)

@@ -9,6 +9,7 @@ o.shiftwidth = 4
 o.shiftwidth = 4
 o.smartindent = true
 o.smartindent = true
+o.preserveindent = true
 o.cindent = true
 o.tabstop = 4
 o.tabstop = 4
@@ -45,16 +46,16 @@ o.formatoptions:remove('r')
 o.formatoptions:remove('o')
 o.formatoptions:remove('a')
 o.shortmess = {
-	t = true,
-	A = true,
-	o = true,
-	O = true,
-	T = true,
-	f = true,
-	F = true,
-	s = true,
-	c = true,
-	W = true,
+    t = true,
+    A = true,
+    o = true,
+    O = true,
+    T = true,
+    f = true,
+    F = true,
+    s = true,
+    c = true,
+    W = true,
 }
 
 -- Autowrite
@@ -63,34 +64,26 @@ o.autowriteall = true
 -- Grep
 o.grepprg = 'rg --vimgrep'
 
--- Wildmenu
-o.wildmenu = true
--- o.wildmode = o.wildmode + { 'full', 'longest', 'list' }
-o.wildoptions = 'pum'
---[[ o.wildignore = {
-	'',
-} ]]
-
 -- List
 o.list = true
 o.listchars = {
-	tab = '▏ ',
-	trail = '·',
-	nbsp = '⍽',
-	extends = '»',
-	precedes = '«',
+    tab = '▏ ',
+    trail = '·',
+    nbsp = '⍽',
+    extends = '>',
+    precedes = '<',
 }
 
 -- Fillchars
 o.fillchars = {
-	eob = ' ',
+    eob = ' ',
 }
 
 o.spellfile = vim.fn.expand(vim.fn.stdpath('config') .. '/spell/en.utf-8.add')
 
 -- Scrolloff
-o.scrolloff = 2
-o.sidescrolloff = 2
+o.scrolloff = 1
+o.sidescrolloff = 1
 
 -- Fold
 o.foldlevel = 120
@@ -103,23 +96,12 @@ o.foldexpr = 'nvim_treesitter#foldexpr()'
 o.splitbelow = true
 o.splitright = true
 
--- Backup
-o.backup = false
-o.writebackup = false
-local backupdir = vim.fn.expand(vim.fn.stdpath('data') .. '/backup//')
-o.backupdir = backupdir
-if vim.fn.isdirectory(backupdir) == 0 then
-	vim.fn.mkdir(backupdir)
-end
-
 -- Undo
 o.undofile = true
-o.undolevels = 500
-o.undoreload = 500
 local undodir = vim.fn.expand(vim.fn.stdpath('data') .. '/undo//')
 o.undodir = undodir
 if vim.fn.isdirectory(undodir) == 0 then
-	vim.fn.mkdir(undodir, 'p')
+    vim.fn.mkdir(undodir, 'p')
 end
 
 -- Title
@@ -152,6 +134,7 @@ g.modelines = 0
 
 -- Mouse
 o.mouse = 'a'
+o.mousefocus = true
 
 -- Notifications
 o.belloff = 'all'

@@ -1,12 +1,20 @@
 vim.g.neo_tree_remove_legacy_commands = 1
 require('neo-tree').setup({
-	enable_diagnostics = true,
-	event_handlers = {
-		{
-			event = 'vim_win_enter',
-			handler = function(arg)
-				vim.cmd([[setlocal scl=no]])
-			end,
-		},
-	},
+    close_if_last_window = false,
+    enable_diagnostics = true,
+    enable_git_status = true,
+    popup_border_style = 'rounded',
+    default_component_configs = {
+        name = {
+            trailing_slash = true,
+            use_git_status_colors = true,
+        },
+    },
+    window = {
+        width = 36,
+    },
+    filesystem = {
+        hijack_netrw_behavior = 'open_default',
+        use_libuv_file_watcher = true,
+    },
 })
