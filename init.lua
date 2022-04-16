@@ -1,7 +1,7 @@
 vim.cmd([[ syntax off | filetype off | filetype plugin indent off ]])
 
 _G.rtp = vim.opt.runtimepath:get()
-vim.opt.runtimepath = ''
+--vim.opt.runtimepath = ''
 vim.opt.shadafile = 'NONE'
 vim.opt.loadplugins = false
 

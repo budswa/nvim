@@ -6,11 +6,7 @@ local null = require('null-ls')
 local b = null.builtins
 local border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
 
-local required_servers = {
-    'sumneko_lua',
-    'vimls',
-    'clangd',
-}
+local required_servers = { 'sumneko_lua', 'vimls', 'clangd' }
 
 require('lsp-format').setup({})
 
@@ -251,8 +247,8 @@ local sources = {
     b.code_actions.gitrebase,
     b.code_actions.gitsigns,
     b.code_actions.refactoring,
-    --b.diagnostics.selene.with({ extra_args = { '--config', vim.fn.stdpath('config') .. '/selene.toml' } }),
-    --b.diagnostics.luacheck.with({ extra_args = { '--config', vim.fn.stdpath('config') .. '/.luacheckrc'  }}),
+    b.diagnostics.selene.with({ extra_args = { '--config', vim.fn.stdpath('config') .. '/selene.toml' } }),
+    b.diagnostics.luacheck.with({ extra_args = { '--config', vim.fn.stdpath('config') .. '/.luacheckrc' } }),
     b.formatting.prettierd,
     b.formatting.stylua.with({ extra_args = { '--config-path', vim.fn.stdpath('config') .. '/stylua.toml' } }),
 }

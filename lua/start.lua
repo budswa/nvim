@@ -1,10 +1,10 @@
 vim.opt.shadafile = ''
 vim.opt.runtimepath = _G.rtp
 
-vim.cmd([[
-    runtime! plugin/**/*.lua
-    runtime! plugin/**/*.vim
-]])
+--vim.cmd([[
+--    runtime! plugin/**/*.lua
+--    runtime! plugin/**/*.vim
+--]])
 
 require('options')
 require('globals')
