@@ -1010,12 +1010,6 @@ packer.startup({
         })
 
         -- Session management
-        use({
-            'Shatur/neovim-session-manager',
-            config = function()
-                require('plugins.sessions')
-            end,
-        })
         use({ 'gpanders/editorconfig.nvim' })
 
         -- Git & VCS
