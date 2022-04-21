@@ -8,6 +8,10 @@ local colors = {
 	grey = '#0d1117',
 }
 
+local function dyn_help_available()
+	return require('dynamic_help.extras.statusline').available()
+end
+
 require('lualine').setup({
 	options = {
 		theme = {
@@ -35,7 +39,7 @@ require('lualine').setup({
 		},
 		lualine_b = { 'filename', 'branch' },
 		lualine_c = { 'fileformat' },
-		lualine_x = {},
+		lualine_x = { dyn_help_available },
 		lualine_y = { 'filetype', 'progress' },
 		lualine_z = {
 			{ 'location', separator = { right = '' }, left_padding = 2 },

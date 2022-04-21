@@ -23,13 +23,12 @@ vim.diagnostic.config({
         focusable = false,
         border = border,
         scope = 'cursor',
-        header = { 'Diagnostics:', 'DiagnosticHeader' },
+        header = { 'Diagnostic', 'DiagnosticHeader' },
         pos = 1,
         prefix = function(diagnostic, i, total)
             local icon, highlight
             if diagnostic.severity == 1 then
                 icon = 'E'
-                highlight = 'DiagnosticError'
             elseif diagnostic.severity == 2 then
                 icon = 'W'
                 highlight = 'DiagnosticWarn'
@@ -43,12 +42,28 @@ vim.diagnostic.config({
             return i .. '/' .. total .. ' ' .. icon .. '  ', highlight
         end,
     },
-    underline = true,
-    virtual_text = {
-        prefix = '⋄ ',
-        spacing = 2,
-        severity_limit = 'Warning',
-    },
+    underline = false,
+    --virtual_text = {
+    --    prefix = function(diagnostic, _, _)
+    --        local icon, highlight
+    --        if diagnostic.severity == 1 then
+    --            icon = 'E:'
+    --            highlight = 'DiagnosticError'
+    --        elseif diagnostic.severity == 2 then
+    --            icon = 'W:'
+    --            highlight = 'DiagnosticWarn'
+    --        elseif diagnostic.severity == 3 then
+    --            icon = 'I:'
+    --            highlight = 'DiagnosticInfo'
+    --        elseif diagnostic.severity == 4 then
+    --            icon = 'H:'
+    --            highlight = 'DiagnosticHint'
+    --        end
+    --        return ' ' .. icon .. ' ', highlight
+    --    end,
+    --    spacing = 2,
+    --    severity_limit = 'Warning',
+    --},
     signs = {
         enable = true,
         priority = 10,

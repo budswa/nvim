@@ -7,17 +7,21 @@ vim.cmd([[
 ]])
 
 require('options')
-require('globals')
+require('utils')
 require('plugins')
-require('compiled')
+--require('compiled')
+local ok, compiled = pcall(require, 'compiled')
+if ok then
+    require('compiled')
+end
 require('keymaps')
 require('modules')
 require('autocmds')
 require('commands')
 
-vim.cmd([[ rshada! ]])
-vim.api.nvim_do_autocmd('BufEnter', {})
 vim.cmd([[
+    rshada!
+    doautocmd BufRead
 	syntax on
 	filetype on
 	filetype plugin indent on
@@ -25,10 +29,10 @@ vim.cmd([[
 ]])
 
 vim.schedule(function()
-	vim.cmd([[
+    vim.cmd([[
 	    silent! bufdo e
 	    PackerLoad colorscheme
-	]])
-	require('highlights')
-	require('options')
+	]]  )
+    require('highlights')
+    require('options')
 end)
