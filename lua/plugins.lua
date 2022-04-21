@@ -346,10 +346,10 @@ packer.startup({
 
 		-- Statusline
 		use({
-			'nvim-lualine/lualine.nvim',
+			'rebelot/heirline.nvim',
 			event = 'BufEnter',
 			config = function()
-				require('plugins.lualine')
+				require('plugins.stl')
 			end,
 		})
 

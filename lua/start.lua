@@ -9,10 +9,9 @@ vim.cmd([[
 require('options')
 require('utils')
 require('plugins')
---require('compiled')
 local ok, compiled = pcall(require, 'compiled')
 if ok then
-    require('compiled')
+	require('compiled')
 end
 require('keymaps')
 require('modules')
@@ -29,10 +28,11 @@ vim.cmd([[
 ]])
 
 vim.schedule(function()
-    vim.cmd([[
+	vim.cmd([[
 	    silent! bufdo e
 	    PackerLoad colorscheme
-	]]  )
-    require('highlights')
-    require('options')
+	]])
+	require('colors').set()
+	require('highlights')
+	require('options')
 end)
