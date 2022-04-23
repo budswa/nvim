@@ -102,7 +102,7 @@ packer.startup({
 			'neovim/nvim-lspconfig',
 			requires = {
 				'williamboman/nvim-lsp-installer',
-				'folke/lua-dev.nvim',
+				{'folke/lua-dev.nvim', module = 'lua-dev'},
 			},
 			event = 'BufReadPre',
 			config = function()
@@ -118,7 +118,8 @@ packer.startup({
 			event = 'BufEnter',
 			config = function()
 				require('fidget').setup({
-					text = { spinner = 'bouncing_bar' },
+					text = { spinner = 'bouncing_ball' },
+					timer = { fidget_decay = 2000 },
 				})
 			end,
 		})
@@ -128,7 +129,6 @@ packer.startup({
 				require('toggle_lsp_diagnostics').init()
 			end,
 		})
-		--use({ 'p00f/clangd_extensions.nvim' })
 		use({
 			'simrat39/symbols-outline.nvim',
 			setup = function()
