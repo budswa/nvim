@@ -62,7 +62,7 @@ packer.startup({
 			opt = true,
 			run = ':TSUpdate',
 			config = function()
-				require('plugins.treesitter')
+				require('art.modules.misc.treesitter')
 			end,
 			requires = {
 				{ 'nvim-treesitter/nvim-treesitter-textobjects', event = 'BufRead' },
@@ -106,13 +106,13 @@ packer.startup({
 			},
 			event = 'BufReadPre',
 			config = function()
-				require('plugins.lsp')
+				require('art.modules.lsp')
 			end,
 		})
 		use({ 'jose-elias-alvarez/null-ls.nvim' })
 		use({ 'lukas-reineke/lsp-format.nvim' })
-		--use({ 'nanotee/sqls.nvim' })
 		use({ 'ii14/lsp-command', opt = true, after = 'nvim-lspconfig' })
+		use({ 'p00f/clangd_extensions.nvim', module = 'clangd_extensions', ft = { 'cpp', 'c' } })
 		use({
 			'j-hui/fidget.nvim',
 			event = 'BufEnter',
@@ -156,7 +156,7 @@ packer.startup({
 			'hrsh7th/nvim-cmp',
 			event = { 'InsertEnter', 'CmdLineEnter' },
 			config = function()
-				require('plugins.cmp')
+				require('art.modules.completion.cmp')
 			end,
 			after = { 'LuaSnip', 'neogen', 'lspkind-nvim' },
 		})
@@ -173,21 +173,21 @@ packer.startup({
 		use({ 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' })
 		use({
 			'L3MON4D3/LuaSnip',
-			requires = 'rafamadriz/friendly-snippets',
+			requires = { 'rafamadriz/friendly-snippets', after = 'LuaSnip', event = 'InsertEnter' },
 			event = 'BufRead',
 			config = function()
-				require('plugins.luasnip')
+				require('art.modules.completion.luasnip')
 			end,
 		})
 		use({
-			'ZhiyuanLck/smart-pairs',
-			event = 'BufRead',
+			'windwp/nvim-autopairs',
+			after = 'nvim-cmp',
 			config = function()
-				require('pairs'):setup()
+				require('art.modules.completion.autopairs')
 			end,
 		})
 		use({ 'ray-x/lsp_signature.nvim', module = 'lsp_signature' })
-		use({ 'onsails/lspkind-nvim' })
+		use({ 'onsails/lspkind-nvim', module = 'lspkind' })
 		use({
 			'github/copilot.vim',
 			cmd = 'Copilot',
@@ -222,7 +222,7 @@ packer.startup({
 				'natecraddock/workspaces.nvim',
 			},
 			config = function()
-				require('plugins.telescope')
+				require('art.modules.search.telescope')
 			end,
 		})
 
@@ -232,7 +232,7 @@ packer.startup({
 			requires = 'MunifTanjim/nui.nvim',
 			cmd = 'Neotree',
 			config = function()
-				require('plugins.neotree')
+				require('art.modules.search.neotree')
 			end,
 		})
 
@@ -290,7 +290,7 @@ packer.startup({
 			event = 'BufRead',
 			requires = 'nvim-lua/plenary.nvim',
 			config = function()
-				require('plugins.gitsigns')
+				require('art.modules.ui.gitsigns')
 			end,
 		})
 		use({
@@ -315,7 +315,7 @@ packer.startup({
 			requires = 'rcarriga/nvim-dap-ui',
 			event = 'BufReadPre',
 			config = function()
-				require('plugins.dap')
+				require('art.modules.debug')
 			end,
 		})
 		use({
@@ -340,7 +340,7 @@ packer.startup({
 			'folke/trouble.nvim',
 			cmd = { 'Trouble', 'TroubleClose', 'TroubleToggle', 'TroubleRefresh' },
 			config = function()
-				require('plugins.trouble')
+				require('art.modules.ui.trouble')
 			end,
 		})
 
@@ -349,7 +349,7 @@ packer.startup({
 			'rebelot/heirline.nvim',
 			event = 'BufEnter',
 			config = function()
-				require('plugins.stl')
+				require('art.modules.ui.stl')
 			end,
 		})
 
@@ -392,7 +392,7 @@ packer.startup({
 			--'folke/which-key.nvim',
 			event = 'BufWinEnter',
 			config = function()
-				require('plugins.whichkey')
+				require('art.modules.keys.whichkey')
 			end,
 		})
 
@@ -443,27 +443,10 @@ packer.startup({
 			'numToStr/Comment.nvim',
 			event = 'BufRead',
 			config = function()
-				require('plugins.comment')
+				require('art.modules.keys.comment')
 			end,
 		})
 		use({ 'LudoPinelli/comment-box.nvim' })
-		--use({
-		--	'folke/todo-comments.nvim',
-		--	requires = 'nvim-lua/plenary.nvim',
-		--	event = 'BufRead',
-		--	config = function()
-		--		require('todo-comments').setup()
-		--	end,
-		--})
-
-		--[[use({
-            'haringsrob/nvim_context_vt',
-            config = function()
-                require('nvim_context_vt').setup({
-                    prefix = '-',
-                })
-            end,
-        })]]
 
 		-- Search
 		use({
@@ -517,7 +500,7 @@ packer.startup({
 		use({
 			'anuvyklack/pretty-fold.nvim',
 			config = function()
-				require('plugins.fold')
+				require('art.modules.ui.fold')
 			end,
 		})
 		use({
@@ -538,7 +521,7 @@ packer.startup({
 		use({
 			'zegervdv/nrpattern.nvim',
 			config = function()
-				require('plugins.nrpattern')
+				require('art.modules.keys.nrpattern')
 			end,
 		})
 
@@ -559,13 +542,7 @@ packer.startup({
 			'nvim-neorg/neorg',
 			requires = { 'nvim-lua/plenary.nvim', 'nvim-neorg/neorg-telescope' },
 			config = function()
-				require('plugins.neorg')
-			end,
-		})
-		use({
-			'mickael-menu/zk-nvim',
-			config = function()
-				require('plugins.zk')
+				require('art.modules.misc.neorg')
 			end,
 		})
 
@@ -584,7 +561,7 @@ packer.startup({
 		use({
 			'lukas-reineke/indent-blankline.nvim',
 			config = function()
-				require('plugins.indentline')
+				require('art.modules.ui.indentline')
 			end,
 		})
 
@@ -594,14 +571,14 @@ packer.startup({
 			opt = true,
 			event = 'BufWinEnter',
 			config = function()
-				require('plugins.dressing')
+				require('art.modules.ui.dressing')
 			end,
 		})
 		use({
 			'rcarriga/nvim-notify',
 			event = 'VimEnter',
 			config = function()
-				require('plugins.notify')
+				require('art.modules.ui.notify')
 			end,
 		})
 
@@ -609,7 +586,7 @@ packer.startup({
 			'lewis6991/hover.nvim',
 			event = 'BufRead',
 			config = function()
-				require('plugins.hover')
+				require('art.modules.ui.hover')
 			end,
 		})
 

@@ -30,7 +30,7 @@ telescope.setup({
     },
 })
 
-for _, v in ipairs({ 'zk', 'hop', 'frecency', 'file_browser', 'luasnip', 'workspaces' }) do
+for _, v in ipairs({ 'hop', 'frecency', 'file_browser', 'luasnip', 'workspaces' }) do
     telescope.load_extension(v)
 end
 

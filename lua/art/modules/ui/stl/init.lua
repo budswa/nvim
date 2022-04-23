@@ -1,9 +1,9 @@
 local heirline = require('heirline')
 local conditions = require('heirline.conditions')
 local utils = require('heirline.utils')
-local colors = require('colors').get()
+--local colors = require('colors').get()
 
-local components = require('plugins.stl.components')
+local components = require('art.modules.ui.stl.components')
 
 heirline.setup({
 	{

@@ -46,16 +46,16 @@ o.formatoptions:remove('r')
 o.formatoptions:remove('o')
 o.formatoptions:remove('a')
 o.shortmess = {
-    t = true,
-    A = true,
-    o = true,
-    O = true,
-    T = true,
-    f = true,
-    F = true,
-    s = true,
-    c = true,
-    W = true,
+	t = true,
+	A = true,
+	o = true,
+	O = true,
+	T = true,
+	f = true,
+	F = true,
+	s = true,
+	c = true,
+	W = true,
 }
 
 -- Autowrite
@@ -67,16 +67,16 @@ o.grepprg = 'rg --vimgrep'
 -- List
 o.list = true
 o.listchars = {
-    tab = '▏ ',
-    trail = '·',
-    nbsp = '⍽',
-    extends = '>',
-    precedes = '<',
+	tab = '▏ ',
+	trail = '·',
+	nbsp = '⍽',
+	extends = '>',
+	precedes = '<',
 }
 
 -- Fillchars
 o.fillchars = {
-    eob = ' ',
+	eob = ' ',
 }
 
 o.spellfile = vim.fn.expand(vim.fn.stdpath('config') .. '/spell/en.utf-8.add')
@@ -101,7 +101,7 @@ o.undofile = true
 local undodir = vim.fn.expand(vim.fn.stdpath('data') .. '/undo//')
 o.undodir = undodir
 if vim.fn.isdirectory(undodir) == 0 then
-    vim.fn.mkdir(undodir, 'p')
+	vim.fn.mkdir(undodir, 'p')
 end
 
 -- Title
@@ -118,9 +118,6 @@ o.hlsearch = true
 
 -- Cursor
 o.cursorline = true
-
--- Completion
-o.completeopt = { 'menuone', 'preview' }
 
 -- popup menu
 o.pumheight = 10

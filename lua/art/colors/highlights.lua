@@ -35,13 +35,11 @@ function M.highlight(group, properties)
 	vim.api.nvim_set_hl(0, group, args)
 end
 
-function M.set(scheme)
-	M.colors = require('colors').get(scheme)
-end
-
 local hi = M.highlight
 
-local white = M.colors.white
+local colors = require('art.colors').get(require('art.colors').scheme)
+
+local white = colors.white
 
 hi('CursorLine', { bg = '#2c313a' })
 hi('CursorLineNr', { fg = white })

@@ -1,5 +1,6 @@
 vim.cmd([[ syntax off | filetype off | filetype plugin indent off ]])
 
+vim.g.start_time = vim.fn.reltime()
 _G.rtp = vim.opt.runtimepath:get()
 vim.opt.runtimepath = ''
 vim.opt.shadafile = 'NONE'
@@ -36,10 +37,47 @@ vim.g.loaded_logiPat = 1
 vim.g.loaded_netrwSettings = 1
 vim.g.loaded_netrwFileHandlers = 1
 
+local ok, impatient = pcall(require, 'impatient')
+if ok then
+	impatient.enable_profile()
+end
+
 vim.defer_fn(function()
-	local ok, impatient = pcall(require, 'impatient')
+	vim.opt.shadafile = ''
+	vim.opt.runtimepath = _G.rtp
+
+	vim.cmd([[
+		runtime! plugin/**/*.lua
+		runtime! plugin/**/*.vim
+	]])
+
+	require('art.core.options')
+	require('art.utils')
+	require('art.modules')
+	local ok, compiled = pcall(require, 'compiled')
 	if ok then
-		impatient.enable_profile()
+		require('compiled')
 	end
-	require('start')
+	require('art.core.keymaps')
+	require('art.core.autocmds')
+	require('art.core.commands')
+
+	vim.cmd([[
+		rshada!
+		doautocmd BufRead
+		syntax on
+		filetype on
+		filetype plugin indent on
+		PackerLoad nvim-treesitter
+	]])
+
+	vim.defer_fn(function()
+		vim.cmd([[
+			silent! bufdo e
+			PackerLoad colorscheme
+		]])
+		require('art.colors').set()
+		require('art.core.highlights')
+		require('art.core.options')
+	end, 0)
 end, 0)
