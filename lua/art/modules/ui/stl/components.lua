@@ -1,22 +1,22 @@
 local M = {}
 
 --local heirline = require('heirline')
-local conditions = require('heirline.conditions')
+--local conditions = require('heirline.conditions')
 --local utils = require('heirline.utils')
 --local colors = require('colors').get()
 
-local function winwidth()
-	return vim.api.nvim_call_function('winwidth', { 0 })
-end
+--local function winwidth()
+--	return vim.api.nvim_call_function('winwidth', { 0 })
+--end
 
-local function wordcount()
-	local wc = vim.api.nvim_eval('wordcount()')
-	if wc['visual_words'] then
-		return wc['visual_words']
-	else
-		return wc['words']
-	end
-end
+--local function wordcount()
+--	local wc = vim.api.nvim_eval('wordcount()')
+--	if wc['visual_words'] then
+--		return wc['visual_words']
+--	else
+--		return wc['words']
+--	end
+--end
 --
 --M.word_count = {
 --	{

@@ -29,12 +29,12 @@ function M.adjust_color(color, amount)
 	return '#' .. first .. second .. third
 end
 
-function M.lighten()
-	return utils.adjust_color(color, amount)
+function M.lighten(color, amount)
+	return M.adjust_color(color, amount)
 end
 
-function M.darken()
-	return utils.adjust_color(color, -amount)
+function M.darken(color, amount)
+	return M.adjust_color(color, -amount)
 end
 
 return M
