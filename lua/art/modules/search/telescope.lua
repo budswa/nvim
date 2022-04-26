@@ -18,7 +18,6 @@ telescope.setup({
                 ['<s-tab>'] = actions.send_selected_to_qflist + actions.open_qflist,
                 ['<c-down>'] = actions.cycle_history_next,
                 ['<c-up>'] = actions.cycle_history_prev,
-                ['<c-q>'] = r('telescope').extensions.hop.hop,
                 ['<c-h>'] = 'which_key',
             },
         },
@@ -28,27 +27,4 @@ telescope.setup({
             theme = 'ivy',
         },
     },
-})
-
-for _, v in ipairs({ 'hop', 'frecency', 'file_browser', 'luasnip', 'workspaces' }) do
-    telescope.load_extension(v)
-end
-
-vim.api.nvim_create_augroup('telescope', {})
-vim.api.nvim_create_autocmd('User', {
-    pattern = 'TelescopeFindPre',
-    group = 'telescope',
-    callback = function()
-        vim.o.laststatus = 0
-        vim.o.ruler = false
-        vim.api.nvim_create_autocmd('BufWinLeave', {
-            pattern = '*',
-            once = true,
-            group = 'telescope',
-            callback = function()
-                vim.o.laststatus = 3
-                vim.o.ruler = true
-            end,
-        })
-    end,
 })

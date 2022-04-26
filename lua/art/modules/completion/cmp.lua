@@ -55,7 +55,7 @@ cmp.setup({
 				behavior = cmp.ConfirmBehavior.Insert,
 			}),
 			c = cmp.mapping.confirm({
-				select = true,
+				select = false,
 				behavior = cmp.ConfirmBehavior.Select,
 			}),
 		}),

@@ -1,4 +1,18 @@
-((function_call (identifier) @require_call (#match? @require_call "require")) (set! "priority" 105))
+(
+ (function_call
+   (identifier) @require_call
+   (#match? @require_call "require")
+   )
+ (set! "priority" 105)
+)
+
+(
+ (function_call
+   (identifier) @pairs
+   (#match? @pairs "pairs")
+   )
+ (set! "priority" 105)
+ )
 
 (function_declaration
   (identifier)@function_definition
@@ -40,3 +54,7 @@
    )
  (set! "priority" 105)
  )
+
+(("local" @keyword) (#set! conceal "loc"))
+(("function" @keyword) (#set! conceal "func"))
+(("not" @keyword) (#set! conceal "!"))

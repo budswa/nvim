@@ -26,7 +26,7 @@ neorg.setup({
 		},
 		['core.norg.esupports.hop'] = {},
 		['core.integrations.telescope'] = {},
-		['core.zettelkasten'] = {},
+		--['core.zettelkasten'] = {},
 		['core.norg.journal'] = {
 			config = {
 				workspaces = 'journal',

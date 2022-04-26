@@ -126,7 +126,7 @@ o.pumblend = 0
 
 -- Statusline and cmdline
 o.showmode = false
-g.laststatus = 3
+o.laststatus = 3
 g.modelines = 0
 
 -- Mouse
