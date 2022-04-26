@@ -45,26 +45,26 @@ function M.set(scheme)
     M.colors = require('art.colors').get(scheme)
 
     local bg = M.colors['bg0']
-    local bg_dark = M.colors['bg_dark']
+    --local bg_dark = M.colors['bg_dark']
     local bg_light = M.colors['bg_light']
 
     local fg = M.colors['fg']
     local fg_dark = M.colors['fg_dark']
-    local fg_light = M.colors['fg_light']
+    --local fg_light = M.colors['fg_light']
 
     local red = M.colors['red']
-    local orange = M.colors['orange']
-    local yellow = M.colors['yellow']
+    --local orange = M.colors['orange']
+    --local yellow = M.colors['yellow']
     local green = M.colors['green']
     local blue = M.colors['blue']
-    local dark_blue = M.colors['dark_blue']
-    local pink = M.colors['pink']
+    --local dark_blue = M.colors['dark_blue']
+    --local pink = M.colors['pink']
     local purple = M.colors['purple']
 
-    local grey0 = M.colors['grey0']
-    local grey1 = M.colors['grey1']
-    local white = M.colors['white']
-    local black = M.colors['black']
+    --local grey0 = M.colors['grey0']
+    --local grey1 = M.colors['grey1']
+    --local white = M.colors['white']
+    --local black = M.colors['black']
 
     -- Vim
     hi('Normal', { bg = bg })
