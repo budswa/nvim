@@ -1,7 +1,7 @@
 vim.cmd([[ syntax off | filetype off | filetype plugin indent off ]])
 
 vim.g.start_time = vim.fn.reltime()
-_G.rtp = vim.opt.runtimepath:get()
+vim.g.rtp = vim.opt.runtimepath:get()
 vim.opt.runtimepath = ''
 vim.opt.shadafile = 'NONE'
 vim.opt.loadplugins = false
@@ -42,19 +42,9 @@ if ok then
     impatient.enable_profile()
 end
 
-local filetype_ok, filetype = pcall(require, 'filetype')
-if filetype_ok then
-    vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-        pattern = '*',
-        callback = function()
-            filetype.resolve()
-        end,
-    })
-end
-
 vim.defer_fn(function()
     vim.opt.shadafile = ''
-    vim.opt.runtimepath = _G.rtp
+    vim.opt.runtimepath = vim.g.rtp
 
     vim.cmd([[
 		runtime! plugin/**/*.lua
@@ -71,6 +61,7 @@ vim.defer_fn(function()
     require('art.core.keymaps')
     require('art.core.autocmds')
     require('art.core.commands')
+    require('art.colors').set()
 
     vim.cmd([[
 		rshada!
@@ -88,7 +79,6 @@ vim.defer_fn(function()
             PackerLoad telescope.nvim
 			silent! bufdo e
 		]]     )
-        require('art.colors').set()
         require('art.core.options')
     end, 1)
 end, 0)

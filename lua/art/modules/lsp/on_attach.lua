@@ -1,6 +1,4 @@
-local M = {}
-
-M.on_attach = function(client, bufnr)
+local on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 	vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
 
@@ -52,14 +50,6 @@ M.on_attach = function(client, bufnr)
 	})
 
 	require('lsp-format').on_attach(client)
-	require('lsp_signature').on_attach({
-		bind = true,
-		max_height = 12,
-		max_width = 120,
-		transpancy = 20,
-		hint_prefix = '⋉ ',
-		handler_opts = { border = 'rounded' },
-	}, bufnr)
 
 	if client.resolved_capabilities.document_highlight then
 		vim.api.nvim_create_augroup('lsp', {})
@@ -80,4 +70,4 @@ M.on_attach = function(client, bufnr)
 	end
 end
 
-return M
+return on_attach

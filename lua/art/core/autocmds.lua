@@ -2,6 +2,16 @@ vim.api.nvim_create_augroup('user', {})
 
 local autocmd = vim.api.nvim_create_autocmd
 
+local ft_aucmd = function(pattern, ft)
+    autocmd({ 'BufRead', 'BufEnter', 'BufNewFile' }, {
+        pattern = pattern,
+        command = [[set ft=]] .. ft,
+        once = false,
+    })
+end
+
+ft_aucmd('COMMIT_EDITMSG', 'gitcommit')
+
 autocmd('BufWritePost', {
     pattern = 'plugins.lua',
     command = 'PackerCompile',
@@ -11,7 +21,7 @@ autocmd('BufWritePost', {
 autocmd('TextYankPost', {
     pattern = '*',
     callback = function()
-        vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 500 })
+        vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 600 })
     end,
     group = 'user',
 })
@@ -39,9 +49,16 @@ autocmd('BufWritePre', {
 autocmd('FileType', {
     pattern = { 'help', 'qf', 'lspinfo', 'startuptime' },
     callback = function()
-        vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = true, silent = true, noremap = true })
+        vim.keymap.set('n', 'q', vim.cmd([[close]]), { noremap = true, silent = true, buffer = true })
     end,
     group = 'user',
+})
+
+autocmd('FileType', {
+    pattern = 'man',
+    callback = function()
+        vim.keymap.set('n', 'q', vim.cmd([[quit]]), { noremap = true, silent = true, buffer = true })
+    end,
 })
 
 if vim.env.TERM == 'xterm-kitty' then

@@ -1,13 +1,11 @@
-local M = {}
-
-M.options = {
-    settings = {
-        pyright = {
-            flags = {
-                allow_incremental_sync = true,
-            },
-        },
-    }
+local options = {
+	settings = {
+		pyright = {
+			flags = {
+				allow_incremental_sync = true,
+			},
+		},
+	},
 }
 
-return M
+return options
