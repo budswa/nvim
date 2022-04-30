@@ -7,6 +7,7 @@ vim.opt.shadafile = 'NONE'
 vim.opt.loadplugins = false
 
 vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
 
 vim.g.loaded_python3_provider = 1
 vim.g.loaded_python_provider = 1
@@ -39,46 +40,43 @@ vim.g.loaded_netrwFileHandlers = 1
 
 local ok, impatient = pcall(require, 'impatient')
 if ok then
-    impatient.enable_profile()
+	impatient.enable_profile()
 end
 
-vim.defer_fn(function()
-    vim.opt.shadafile = ''
-    vim.opt.runtimepath = vim.g.rtp
+require('art.colors').set()
+require('art.core')
+require('art.utils')
 
-    vim.cmd([[
+vim.defer_fn(function()
+	vim.opt.shadafile = ''
+	vim.opt.runtimepath = vim.g.rtp
+
+	vim.cmd([[
 		runtime! plugin/**/*.lua
 		runtime! plugin/**/*.vim
-	]]  )
+	]])
 
-    require('art.core.options')
-    require('art.utils')
-    require('art.modules')
-    local compiled_ok, _ = pcall(require, 'compiled')
-    if compiled_ok then
-        require('compiled')
-    end
-    require('art.core.keymaps')
-    require('art.core.autocmds')
-    require('art.core.commands')
-    require('art.colors').set()
+	require('art.modules')
+	local compiled_ok, _ = pcall(require, 'compiled')
+	if compiled_ok then
+		require('compiled')
+	end
 
-    vim.cmd([[
+	vim.cmd([[
 		rshada!
 		doautocmd BufRead
 		syntax on
 		filetype on
 		filetype plugin indent on
 		PackerLoad nvim-treesitter
-	]]  )
+	]])
 
-    vim.defer_fn(function()
-        vim.cmd([[
+	vim.defer_fn(function()
+		vim.cmd([[
             PackerLoad which-key.nvim
             PackerLoad lightspeed.nvim
             PackerLoad telescope.nvim
 			silent! bufdo e
-		]]     )
-        require('art.core.options')
-    end, 1)
-end, 0)
+		]])
+	end, 1)
+end, 1)

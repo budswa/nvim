@@ -60,29 +60,4 @@ function M.matchdelete()
 	matchdelete(true)
 end
 
-function M.setup()
-	vim.api.nvim_create_augroup('cursorword', {})
-	vim.api.nvim_create_autocmd({ 'VimEnter', 'ColorScheme' }, {
-		pattern = '*',
-		group = 'cursorword',
-		callback = function()
-			M.highlight()
-		end,
-	})
-	vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-		pattern = '*',
-		group = 'cursorword',
-		callback = function()
-			M.matchadd()
-		end,
-	})
-	vim.api.nvim_create_autocmd('WinLeave', {
-		pattern = '*',
-		group = 'cursorword',
-		callback = function()
-			M.matchdelete()
-		end,
-	})
-end
-
 return M

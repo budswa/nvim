@@ -540,16 +540,16 @@ packer.startup({
 		})
 
 		-- Lastplace
-		use({
-			'ethanholz/nvim-lastplace',
-			event = 'BufRead',
-			config = function()
-				require('nvim-lastplace').setup({
-					lastplace_ignore_buftype = { 'quickfix', 'nofile', 'help' },
-					lastplace_ignore_filetype = { 'gitcommit', 'gitrebase', 'svn' },
-				})
-			end,
-		})
+		--use({
+		--	'ethanholz/nvim-lastplace',
+		--	event = 'BufRead',
+		--	config = function()
+		--		require('nvim-lastplace').setup({
+		--			lastplace_ignore_buftype = { 'quickfix', 'nofile', 'help' },
+		--			lastplace_ignore_filetype = { 'gitcommit', 'gitrebase', 'packer', 'toggleterm', 'neo-tree' },
+		--		})
+		--	end,
+		--})
 
 		-- Note taking
 		use({
