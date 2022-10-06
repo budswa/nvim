@@ -1,6 +1,4 @@
-function art.dump(...)
-    vim.pretty_print(...)
-end
+function art.dump(...) vim.pretty_print(...) end
 
 function art.reload(module)
     module = module or ''

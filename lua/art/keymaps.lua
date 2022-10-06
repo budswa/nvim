@@ -25,12 +25,13 @@ map('n', '<esc>', '<cmd>noh<cr>')
 map('t', '<esc>', '<c-\\><c-n>')
 
 -- Smarter 0 behaviour
-map({ 'n', 'x', 'o' }, '0', function()
-    return vim.api.nvim_win_get_cursor(0)[2] == 0 and '^' or '0'
-end, { expr = true })
+map(
+    { 'n', 'x', 'o' },
+    '0',
+    function() return vim.api.nvim_win_get_cursor(0)[2] == 0 and '^' or '0' end,
+    { expr = true }
+)
 
-local function telescope(provider)
-    return '<cmd>Telescope ' .. provider .. '<cr>'
-end
+local function telescope(provider) return '<cmd>Telescope ' .. provider .. '<cr>' end
 
 return M

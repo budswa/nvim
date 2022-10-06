@@ -64,9 +64,7 @@ local kind_order = {
 }
 
 -- default true
-local function opt_with_text(opts)
-    return opts == nil or opts['with_text'] == nil or opts['with_text']
-end
+local function opt_with_text(opts) return opts == nil or opts['with_text'] == nil or opts['with_text'] end
 
 -- default 'default'
 local function opt_preset(opts)
@@ -113,23 +111,15 @@ function lspkind.symbolic(kind, opts)
 end
 
 function lspkind.cmp_format(opts)
-    if opts == nil then
-        opts = {}
-    end
-    if opts.preset or opts.symbol_map then
-        lspkind.init(opts)
-    end
+    if opts == nil then opts = {} end
+    if opts.preset or opts.symbol_map then lspkind.init(opts) end
 
     return function(entry, vim_item)
         vim_item.kind = lspkind.symbolic(vim_item.kind, opts)
 
-        if opts.menu ~= nil then
-            vim_item.menu = opts.menu[entry.source.name]
-        end
+        if opts.menu ~= nil then vim_item.menu = opts.menu[entry.source.name] end
 
-        if opts.maxwidth ~= nil then
-            vim_item.abbr = string.sub(vim_item.abbr, 1, opts.maxwidth)
-        end
+        if opts.maxwidth ~= nil then vim_item.abbr = string.sub(vim_item.abbr, 1, opts.maxwidth) end
 
         return vim_item
     end

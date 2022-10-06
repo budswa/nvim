@@ -1,12 +1,12 @@
 local log = {
     logs = {
-        all = {}
+        all = {},
     },
 }
 
 log.defaults = {
     source = 'Neovim',
-    dir =  vim.api.nvim_call_function('stdpath', { 'cache' } .. '/log/')
+    dir = vim.api.nvim_call_function('stdpath', { 'cache' } .. '/log/'),
 }
 
 -- levels: trace, debug, info, warn, error, fatal
@@ -34,9 +34,7 @@ function log.log(message, level, source)
 end
 
 function log.notify(key, message)
-    return function()
-        notify.new(key, message)
-    end
+    return function() notify.new(key, message) end
 end
 
 return log

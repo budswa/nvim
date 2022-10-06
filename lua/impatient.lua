@@ -10,16 +10,16 @@ local loadlib = package.loadlib
 local std_cache = vim.fn.stdpath('cache')
 
 local sep = ''
-if (jit.os == 'Windows') then
+if jit.os == 'Windows' then
     sep = '\\'
 else
     sep = '/'
 end
 
 local std_dirs = {
-    ['<APPDIR>']     = os.getenv('APPDIR'),
+    ['<APPDIR>'] = os.getenv('APPDIR'),
     ['<VIMRUNTIME>'] = os.getenv('VIMRUNTIME'),
-    ['<STD_DATA>']   = vim.fn.stdpath('data'),
+    ['<STD_DATA>'] = vim.fn.stdpath('data'),
     ['<STD_CONFIG>'] = vim.fn.stdpath('config'),
 }
 
@@ -55,36 +55,26 @@ local default_state = {
         cache = {},
         profile = nil,
         dirty = false,
-        get = function(self, path)
-            return self.cache[modpath_mangle(path)]
-        end,
-        set = function(self, path, chunk)
-            self.cache[modpath_mangle(path)] = chunk
-        end
+        get = function(self, path) return self.cache[modpath_mangle(path)] end,
+        set = function(self, path, chunk) self.cache[modpath_mangle(path)] = chunk end,
     },
     modpaths = {
         cache = {},
         profile = nil,
         dirty = false,
         get = function(self, mod)
-            if self.cache[mod] then
-                return modpath_unmangle(self.cache[mod])
-            end
+            if self.cache[mod] then return modpath_unmangle(self.cache[mod]) end
         end,
-        set = function(self, mod, path)
-            self.cache[mod] = modpath_mangle(path)
-        end
+        set = function(self, mod, path) self.cache[mod] = modpath_mangle(path) end,
     },
-    log = {}
+    log = {},
 }
 
 ---@diagnostic disable-next-line: undefined-field
 local M = vim.tbl_deep_extend('keep', _G.__luacache_config or {}, default_config, default_state)
 _G.__luacache = M
 
-local function log(...)
-    M.log[#M.log + 1] = table.concat({ string.format(...) }, ' ')
-end
+local function log(...) M.log[#M.log + 1] = table.concat({ string.format(...) }, ' ') end
 
 local function print_log()
     for _, l in ipairs(M.log) do
@@ -94,9 +84,7 @@ end
 
 local function hash(modpath)
     local stat = fs_stat(modpath)
-    if stat then
-        return stat.mtime.sec .. stat.mtime.nsec .. stat.size
-    end
+    if stat then return stat.mtime.sec .. stat.mtime.nsec .. stat.size end
     error('Could not hash ' .. modpath)
 end
 
@@ -104,23 +92,15 @@ local function profile(m, entry, name, loader)
     if m.profile then
         local mp = m.profile
         mp[entry] = mp[entry] or {}
-        if not mp[entry].loader and loader then
-            mp[entry].loader = loader
-        end
-        if not mp[entry][name] then
-            mp[entry][name] = uv.hrtime()
-        end
+        if not mp[entry].loader and loader then mp[entry].loader = loader end
+        if not mp[entry][name] then mp[entry][name] = uv.hrtime() end
     end
 end
 
-local function mprofile(mod, name, loader)
-    profile(M.modpaths, mod, name, loader)
-end
+local function mprofile(mod, name, loader) profile(M.modpaths, mod, name, loader) end
 
 local function cprofile(path, name, loader)
-    if M.chunks.profile then
-        path = modpath_mangle(path)
-    end
+    if M.chunks.profile then path = modpath_mangle(path) end
     profile(M.chunks, path, name, loader)
 end
 
@@ -139,9 +119,7 @@ function M.enable_profile()
 
     P.setup(M.modpaths.profile)
 
-    api.nvim_create_user_command('LuaCacheProfile', function()
-        P.print_profile(M, std_dirs)
-    end, {})
+    api.nvim_create_user_command('LuaCacheProfile', function() P.print_profile(M, std_dirs) end, {})
 end
 
 local function get_runtime_file_from_parent(basename, paths)
@@ -152,7 +130,7 @@ local function get_runtime_file_from_parent(basename, paths)
         local parent = table.concat(vim.list_slice(parents, 1, i), sep)
         local ppath = M.modpaths:get(parent)
         if ppath then
-            if (ppath:sub(-9) == (sep .. 'init.lua')) then
+            if ppath:sub(-9) == (sep .. 'init.lua') then
                 ppath = ppath:sub(1, -10) -- a/b/init.lua -> a/b
             else
                 ppath = ppath:sub(1, -5) -- a/b.lua -> a/b
@@ -161,9 +139,7 @@ local function get_runtime_file_from_parent(basename, paths)
             for _, path in ipairs(paths) do
                 -- path should be of form 'a/b/c.lua' or 'a/b/c/init.lua'
                 local modpath = ppath .. sep .. path:sub(#('lua' .. sep .. parent) + 2)
-                if fs_stat(modpath) then
-                    return modpath, 'cache(p)'
-                end
+                if fs_stat(modpath) then return modpath, 'cache(p)' end
             end
         end
     end
@@ -180,13 +156,9 @@ local function validate_modpath(modpath, paths)
             break
         end
     end
-    if not match then
-        return false
-    end
+    if not match then return false end
     for _, dir in ipairs(rtp) do
-        if vim.startswith(modpath, dir) then
-            return fs_stat(modpath) ~= nil
-        end
+        if vim.startswith(modpath, dir) then return fs_stat(modpath) ~= nil end
     end
     return false
 end
@@ -233,19 +205,19 @@ local function extract_basename(pats)
 
     -- Deconstruct basename from pats
     for _, pat in ipairs(pats) do
-        for i, npat in ipairs {
+        for i, npat in ipairs({
             -- Ordered by most specific
-            'lua' .. sep .. '(.*)' .. sep .. 'init%.lua',
-            'lua' .. sep .. '(.*)%.lua'
-        } do
+            'lua'
+                .. sep
+                .. '(.*)'
+                .. sep
+                .. 'init%.lua',
+            'lua' .. sep .. '(.*)%.lua',
+        }) do
             local m = pat:match(npat)
-            if i == 2 and m and m:sub(-4) == 'init' then
-                m = m:sub(0, -6)
-            end
+            if i == 2 and m and m:sub(-4) == 'init' then m = m:sub(0, -6) end
             if not basename then
-                if m then
-                    basename = m
-                end
+                if m then basename = m end
             elseif m and m ~= basename then
                 -- matches are inconsistent
                 return
@@ -265,13 +237,9 @@ local function get_runtime_cached(pats, all, opts)
 
     local basename
 
-    if not fallback then
-        basename = extract_basename(pats)
-    end
+    if not fallback then basename = extract_basename(pats) end
 
-    if fallback or not basename then
-        return get_runtime(pats, all, opts)
-    end
+    if fallback or not basename then return get_runtime(pats, all, opts) end
 
     return { get_runtime_file_cached(basename, pats) }
 end
@@ -279,7 +247,7 @@ end
 -- Copied from neovim/src/nvim/lua/vim.lua with two lines changed
 local function load_package(name)
     local basename = name:gsub('%.', sep)
-    local paths = { "lua" .. sep .. basename .. ".lua", "lua" .. sep .. basename .. sep .. "init.lua" }
+    local paths = { 'lua' .. sep .. basename .. '.lua', 'lua' .. sep .. basename .. sep .. 'init.lua' }
 
     -- Original line:
     -- local found = vim.api.nvim__get_runtime(paths, false, {is_lua=true})
@@ -291,7 +259,7 @@ local function load_package(name)
 
     local so_paths = {}
     for _, trail in ipairs(vim._so_trails) do
-        local path = "lua" .. trail:gsub('?', basename) -- so_trails contains a leading slash
+        local path = 'lua' .. trail:gsub('?', basename) -- so_trails contains a leading slash
         table.insert(so_paths, path)
     end
 
@@ -304,9 +272,9 @@ local function load_package(name)
         -- b) replace all dots by underscores
         -- c) prepend "luaopen_"
         -- So "foo-bar.baz" should result in "luaopen_bar_baz"
-        local dash = name:find("-", 1, true)
+        local dash = name:find('-', 1, true)
         local modname = dash and name:sub(dash + 1) or name
-        local f, err = loadlib(found[1], "luaopen_" .. modname:gsub("%.", "_"))
+        local f, err = loadlib(found[1], 'luaopen_' .. modname:gsub('%.', '_'))
         return f or error(err)
     end
     return nil
@@ -317,9 +285,7 @@ local function load_from_cache(path)
 
     local cache = mc:get(path)
 
-    if not cache then
-        return nil, string.format('No cache for path %s', path)
-    end
+    if not cache then return nil, string.format('No cache for path %s', path) end
 
     local mhash, codes = unpack(cache)
 
@@ -369,9 +335,7 @@ end
 
 function M.save_cache()
     local function _save_cache(t)
-        if not t.enable then
-            return
-        end
+        if not t.enable then return end
         if t.dirty then
             log('Updating chunk cache file: %s', t.path)
             local f = assert(io.open(t.path, 'w+b'))
@@ -397,16 +361,12 @@ end
 
 local function init_cache()
     local function _init_cache(t)
-        if not t.enable then
-            return
-        end
+        if not t.enable then return end
         if fs_stat(t.path) then
             log('Loading cache file %s', t.path)
             local f = assert(io.open(t.path, 'rb'))
             local ok
-            ok, t.cache = pcall(function()
-                return mpack.decode(f:read '*a')
-            end)
+            ok, t.cache = pcall(function() return mpack.decode(f:read('*a')) end)
 
             if not ok then
                 log('Corrupted cache file, %s. Invalidating...', t.path)
@@ -417,9 +377,7 @@ local function init_cache()
         end
     end
 
-    if not uv.fs_stat(std_cache) then
-        vim.fn.mkdir(std_cache, 'p')
-    end
+    if not uv.fs_stat(std_cache) then vim.fn.mkdir(std_cache, 'p') end
 
     _init_cache(M.chunks)
     _init_cache(M.modpaths)
@@ -454,17 +412,14 @@ local function setup()
 
     api.nvim_create_autocmd({ 'VimEnter', 'VimLeave' }, {
         group = augroup,
-        callback = M.save_cache
+        callback = M.save_cache,
     })
 
     api.nvim_create_autocmd('OptionSet', {
         group = augroup,
         pattern = 'runtimepath',
-        callback = function()
-            rtp = vim.split(vim.o.rtp, ',')
-        end
+        callback = function() rtp = vim.split(vim.o.rtp, ',') end,
     })
-
 end
 
 setup()

@@ -57,9 +57,7 @@ M.new = function(config, standalone)
 
     local log_at_level = function(level, level_config, message_maker, ...)
         -- Return early if we're below the config.level
-        if level < levels[config.level] then
-            return
-        end
+        if level < levels[config.level] then return end
         local nameupper = level_config.name:upper()
 
         local msg = message_maker(...)
@@ -76,9 +74,7 @@ M.new = function(config, standalone)
                     local formatted_msg = string.format('[%s] %s', config.plugin, v) -- vim.fn.escape(v, [["\]]))
 
                     local ok = pcall(vim.notify, string.format('%s', formatted_msg), level_config.level)
-                    if not ok then
-                        vim.api.nvim_out_write(msg .. '\n')
-                    end
+                    if not ok then vim.api.nvim_out_write(msg .. '\n') end
                 end
             end
             if config.use_console == 'sync' and not vim.in_fast_event() then
@@ -97,9 +93,7 @@ M.new = function(config, standalone)
 
     for i, x in ipairs(config.modes) do
         -- log.info("these", "are", "separated")
-        obj[x.name] = function(...)
-            return log_at_level(i, x, make_string, ...)
-        end
+        obj[x.name] = function(...) return log_at_level(i, x, make_string, ...) end
 
         -- log.fmt_info("These are %s strings", "formatted")
         obj[('fmt_%s'):format(x.name)] = function(...)
@@ -116,9 +110,7 @@ M.new = function(config, standalone)
 
         -- log.lazy_info(expensive_to_calculate)
         obj[('lazy_%s'):format(x.name)] = function()
-            return log_at_level(i, x, function(f)
-                return f()
-            end)
+            return log_at_level(i, x, function(f) return f() end)
         end
 
         -- log.file_info("do not print")

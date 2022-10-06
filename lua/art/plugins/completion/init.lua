@@ -37,7 +37,7 @@ cmp.setup({
             },
         }),
     },
-        snippet = {
+    snippet = {
         expand = function(args) luasnip.lsp_expand(args.body) end,
     },
     mapping = {
@@ -156,7 +156,7 @@ cmp.setup.cmdline(':', {
     --},
 })
 
-cmp.setup.cmdline({'/', '?'}, {
+cmp.setup.cmdline({ '/', '?' }, {
     enabled = true,
     mapping = cmp.mapping.preset.cmdline(),
     sources = {

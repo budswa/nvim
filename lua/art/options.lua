@@ -133,20 +133,20 @@ o.listchars = {
 -- Fillchars
 o.fillchars = {
     eob = ' ',
-    horiz = "━",
-    horizup = "┻",
-    horizdown = "┳",
-    vert = "┃",
-    vertleft = "┫",
-    vertright = "┣",
-    verthoriz = "╋",
+    horiz = '━',
+    horizup = '┻',
+    horizdown = '┳',
+    vert = '┃',
+    vertleft = '┫',
+    vertright = '┣',
+    verthoriz = '╋',
     fold = '─',
-    foldopen = "",
-    foldclose = "",
+    foldopen = '',
+    foldclose = '',
 }
 
 o.spellfile = vim.fn.stdpath('config') .. '/spell/en.utf-8.add'
-o.spelloptions = "noplainbuffer"
+o.spelloptions = 'noplainbuffer'
 
 -- Scrolloff
 o.scrolloff = 1
