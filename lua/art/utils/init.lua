@@ -1,24 +1,5 @@
 function art.dump(...) vim.pretty_print(...) end
 
-function art.reload(module)
-    module = module or ''
-    local ok, plenary = pcall(require, 'plenary')
-    if ok then
-        for _, dir in ipairs(vim.fn.glob('./lua/*', 0, 1)) do
-            plenary.reload.reload_modul(dir:gsub('./lua/', ''))
-            require('plenary.reload').reload_module(dir:gsub('./lua/', ''))
-        end
-    end
-
-    local luacache = (_G.__luacache or {}).cache
-    for pack, _ in pairs(package.loaded) do
-        if matcher(pack) then
-            package.loaded[pack] = nil
-            if luacache then luacache[pack] = nil end
-        end
-    end
-end
-
 --https://github.com/folke/dot/blob/b82b90b14da12b43a00f22d557fc5913ce776fe3/config/nvim/lua/util/init.lua#L20
 function art.profile(cmd, times)
     times = times or 20
@@ -86,7 +67,7 @@ function M.border(style, hl)
         characters = { '┏', '━', '┓', '┃', '┛', '━', '┗', '┃' }
     end
 
-    if hl == true then
+    if hl then
         for i, v in ipairs(characters) do
             characters[i] = { v, 'FloatBoarder' }
         end
@@ -98,14 +79,14 @@ function M.border(style, hl)
     return characters
 end
 
-function M.exists()
-    local stat = vim.loop.fs_stat(fname)
+function M.exists(entity)
+    local stat = vim.loop.fs_stat(entity)
     return (stat and stat.type) or false
 end
 
-function M.mkdir()
-    local dir = vim.fn.expand('%:p:h')
-    if not vim.loop.fs_stat(dir) == 0 then vim.fn.mkdir(dir, 'p') end
+function M.mkdir(dir)
+    dir = dir or vim.fn.expand('%:p:h')
+    if not vim.loop.fs_stat(dir) == 0 then vim.fn.mkdir(dir, 755) end
 end
 
 return M

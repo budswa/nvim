@@ -8,7 +8,6 @@ _G.art = {
         log_level = 'warn', -- trace, debug, info, warn, error, fatal
     },
     colors = {},
-    modules = {},
     headless = (#vim.api.nvim_list_uis() == 0),
     os = vim.loop.os_uname().sysname,
 }
