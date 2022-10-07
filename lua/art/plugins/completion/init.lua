@@ -145,7 +145,6 @@ cmp.setup({
 })
 
 cmp.setup.cmdline(":", {
-    enabled = true,
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
         { name = "path" },
@@ -157,10 +156,9 @@ cmp.setup.cmdline(":", {
 })
 
 cmp.setup.cmdline({ "/", "?" }, {
-    enabled = true,
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = "buffer", keyword_length = 1 },
+        { name = "buffer" },
     },
     --view = {
     --    entries = { name = 'wildmenu', separator = ' | ' },
