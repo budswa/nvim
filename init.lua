@@ -21,8 +21,8 @@ vim.api.nvim_command("filetype off")
 vim.api.nvim_command("filetype plugin indent off")
 vim.opt.shadafile = "NONE"
 
---[[if vim.fn.exists('g:neovide') then
-    vim.opt.guifont = string.format('%s:h16', art.config.font)
+if vim.fn.exists("g:neovide") then
+    vim.opt.guifont = string.format("%s:h16", art.config.font)
     vim.g.neovide_transparency = art.config.transparent and 0.9 or 1
     vim.g.neovide_refresh_rate = 120
     vim.g.neovide_no_idle = true
@@ -30,11 +30,9 @@ vim.opt.shadafile = "NONE"
     vim.g.neovide_cursor_trail_size = 0
     vim.g.neovide_underline_automatic_scaling = true
     vim.g.neovide_hide_mouse_when_typing = true
-end]]
+end
 
 vim.schedule(function()
-    -- Manually load Neovim runtime
-    -- WARNING: enable only if using 'vim.g.loadplugins'
     vim.api.nvim_command("runtime! plugin/**/*.vim")
     vim.api.nvim_command("runtime! plugin/**/*.lua")
 
@@ -44,10 +42,8 @@ vim.schedule(function()
     vim.opt.shadafile = ""
     vim.api.nvim_command("rshada!")
 
-    local loaded_art, art_err = xpcall(require, debug.traceback, "art")
-    if not loaded_art then
-        vim.notify(string.format("There was an error requiring 'core'. Traceback:\n%s", art_err), vim.log.levels.ERROR)
-    end
+    local loaded, err = xpcall(require, debug.traceback, "art")
+    if not loaded then vim.notify(string.format("Error loading Art:\n%s", err), vim.log.levels.ERROR) end
 
     vim.api.nvim_exec_autocmds("BufEnter", {})
 end)
