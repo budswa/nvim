@@ -1,13 +1,13 @@
 vim.filetype.add({
     extension = {
-        ['lock'] = 'yaml',
+        ["lock"] = "yaml",
     },
     filename = {
-        ['.gitignore'] = 'conf',
-        ['launch.json'] = 'jsonc',
-        ['Brewfile'] = 'ruby',
+        [".gitignore"] = "conf",
+        ["launch.json"] = "jsonc",
+        ["Brewfile"] = "ruby",
     },
     pattern = {
-        ['COMMIT_EDITMSG'] = 'gitcommit',
+        ["COMMIT_EDITMSG"] = "gitcommit",
     },
 })
