@@ -1,0 +1,18 @@
+name: Format check
+
+on:
+  - push
+
+jobs:
+  format:
+    name: stylua
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Perform format check
+        uses: JohnnyMorganz/stylua-action@v3
+        with:
+          version: latest
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --check .
