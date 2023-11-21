@@ -5,9 +5,9 @@ vim.filetype.add({
     filename = {
         [".gitignore"] = "conf",
         ["launch.json"] = "jsonc",
-        ["Brewfile"] = "ruby",
     },
     pattern = {
+        [".env"] = "sh",
         ["COMMIT_EDITMSG"] = "gitcommit",
     },
 })

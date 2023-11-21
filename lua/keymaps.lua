@@ -32,6 +32,4 @@ map(
     { expr = true }
 )
 
-local function telescope(provider) return "<cmd>Telescope " .. provider .. "<cr>" end
-
 return M

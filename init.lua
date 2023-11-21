@@ -1,49 +1,60 @@
-_G.art = {
-    config = {
-        colorscheme = "cleareye",
-        font = "Dank Mono",
-        transparent = false,
-        dashboard = true,
-        border = "rounded",
-        log_level = "warn", -- trace, debug, info, warn, error, fatal
-    },
-    colors = {},
-    --headless = (#vim.api.nvim_list_uis() == 0),
-    --os = vim.loop.os_uname().sysname,
-}
+vim.loader.enable()
 
-require("impatient")
-
-vim.opt.loadplugins = false
-
-vim.api.nvim_command("syntax off")
-vim.api.nvim_command("filetype off")
-vim.api.nvim_command("filetype plugin indent off")
-vim.opt.shadafile = "NONE"
-
-if vim.fn.exists("g:neovide") then
-    vim.opt.guifont = string.format("%s:h16", art.config.font)
-    vim.g.neovide_transparency = art.config.transparent and 0.9 or 1
-    vim.g.neovide_refresh_rate = 120
-    vim.g.neovide_no_idle = true
-    vim.g.neovide_scroll_animation_length = 0
-    vim.g.neovide_cursor_trail_size = 0
-    vim.g.neovide_underline_automatic_scaling = true
-    vim.g.neovide_hide_mouse_when_typing = true
+local path = vim.fn.stdpath("data") .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(path) then
+    vim.fn.system {
+        'git',
+        'clone',
+        'https://github.com/folke/lazy.nvim.git',
+        path,
+    }
 end
 
-vim.schedule(function()
-    vim.api.nvim_command("runtime! plugin/**/*.vim")
-    vim.api.nvim_command("runtime! plugin/**/*.lua")
+vim.opt.rtp:prepend(path)
 
-    vim.api.nvim_command("syntax on")
-    vim.api.nvim_command("filetype on")
-    vim.api.nvim_command("filetype plugin indent on")
-    vim.opt.shadafile = ""
-    vim.api.nvim_command("rshada!")
 
-    local loaded, err = xpcall(require, debug.traceback, "art")
-    if not loaded then vim.notify(string.format("Error loading Art:\n%s", err), vim.log.levels.ERROR) end
-
-    vim.api.nvim_exec_autocmds("BufEnter", {})
-end)
+require("options")
+require("filetypes")
+require("autocommands")
+require("keymaps")
+require("lazy").setup(require("plugins"), {
+    --defaults = { lazy = true },
+    install = { colorscheme = { "kanagawa" } },
+    performance = {
+        cache = { ttl = 432000 },
+        rtp = {
+            disabled_plugins = {
+                "python_provider",
+                "node_provider",
+                "ruby_provider",
+                "perl_provider",
+                "2html_plugin",
+                "getscript",
+                "getscriptPlugin",
+                "gzip",
+                "tar",
+                "tarPlugin",
+                "rrhelper",
+                "vimball",
+                "vimballPlugin",
+                "zip",
+                "zipPlugin",
+                "tutor",
+                "rplugin",
+                "logiPat",
+                "netrwSettings",
+                "netrwFileHandlers",
+                "syntax",
+                "synmenu",
+                "optwin",
+                "compiler",
+                "bugreport",
+                "ftplugin",
+                "indent_on",
+                "netrwPlugin",
+                "tohtml",
+                "man",
+            },
+        },
+    },
+})
