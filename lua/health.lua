@@ -1,0 +1,3 @@
+-- TODO: healthchecks:
+-- - version check
+-- - dependency check
