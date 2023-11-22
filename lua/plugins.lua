@@ -25,7 +25,7 @@ return {
                 "typescript-language-server",
                 -- "eslint-lsp",
                 "yaml-language-server",
-            }
+            },
         },
         config = function(_, opts)
             require("mason").setup(opts)
@@ -35,9 +35,7 @@ return {
             local function ensure_installed()
                 for _, tool in ipairs(opts.ensure_installed) do
                     local p = mr.get_package(tool)
-                    if not p:is_installed() then
-                        p:install()
-                    end
+                    if not p:is_installed() then p:install() end
                 end
             end
             if mr.refresh then
@@ -45,7 +43,7 @@ return {
             else
                 ensure_installed()
             end
-        end
+        end,
     },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -80,7 +78,7 @@ return {
                 "markdown_inline",
                 "vim",
                 "vimdoc",
-                "dockerfile"
+                "dockerfile",
             },
         },
     },
@@ -91,8 +89,13 @@ return {
         dependencies = {
             { "williamboman/mason-lspconfig.nvim" },
             { "b0o/schemastore.nvim" },
-            { "folke/neodev.nvim",                config = true },
-            { "folke/neoconf.nvim",               cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
+            { "folke/neodev.nvim", config = true },
+            {
+                "folke/neoconf.nvim",
+                cmd = "Neoconf",
+                config = false,
+                dependencies = { "nvim-lspconfig" },
+            },
         },
         config = function()
             vim.diagnostic.config({
@@ -100,7 +103,7 @@ return {
                 severity_sort = true,
                 inlay_hints = { enabled = true },
                 virtual_text = { prefix = "●" },
-                underline = false
+                underline = false,
             })
 
             for k, v in pairs({
@@ -145,10 +148,12 @@ return {
                                 -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
                                 url = "",
                             },
-                        }
-                    }
-                }
-            }) do require("lspconfig")[k].setup(v) end
+                        },
+                    },
+                },
+            }) do
+                require("lspconfig")[k].setup(v)
+            end
         end,
     },
     {
@@ -165,12 +170,12 @@ return {
     {
         "rebelot/kanagawa.nvim",
         enabled = _G.art.colorscheme == "kanagawa",
-        config = function() vim.cmd.colorscheme("kanagawa") end
+        config = function() vim.cmd.colorscheme("kanagawa") end,
     },
     {
         "nyoom-engineering/oxocarbon.nvim",
         enabled = _G.art.colorscheme == "oxocarbon",
-        config = function() vim.cmd.colorscheme("oxocarbon") end
+        config = function() vim.cmd.colorscheme("oxocarbon") end,
     },
     { "nvim-tree/nvim-web-devicons" },
     {
@@ -208,7 +213,7 @@ return {
             })
         end,
     },
-    { "mvllow/modes.nvim",            config = true },
+    { "mvllow/modes.nvim", config = true },
     { "nvim-zh/colorful-winsep.nvim", event = { "WinNew" }, config = true },
 
     -- Git
@@ -257,14 +262,12 @@ return {
                 dotenv = { "dotenv_linter" },
                 dockerfile = { "hadolint" },
                 lua = { "luacheck", "selene" },
-                python = { "mypy" }
+                python = { "mypy" },
             }
             vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
-                callback = function()
-                    require("lint").try_lint()
-                end,
+                callback = function() require("lint").try_lint() end,
             })
-        end
+        end,
     },
 
     -- Testing
@@ -274,18 +277,16 @@ return {
             "nvim-neotest/neotest-python",
         },
         config = function()
-            require("neotest").setup(
-                {
-                    adapters = {
-                        require("neotest-python")({
-                            python = "./.venv/bin/python",
-                            runner = "poetry run pytest",
-                            pytest_discover_instances = true,
-                        })
-                    }
-                }
-            )
-        end
+            require("neotest").setup({
+                adapters = {
+                    require("neotest-python")({
+                        python = "./.venv/bin/python",
+                        runner = "poetry run pytest",
+                        pytest_discover_instances = true,
+                    }),
+                },
+            })
+        end,
     },
 
     -- Debuging
@@ -293,7 +294,7 @@ return {
         "mfussenegger/nvim-dap",
         optional = true,
         dependencies = {
-            { "rcarriga/nvim-dap-ui",            config = true },
+            { "rcarriga/nvim-dap-ui", config = true },
             { "theHamsta/nvim-dap-virtual-text", config = true },
             "mfussenegger/nvim-dap-python",
             {
@@ -303,7 +304,7 @@ return {
             config = function()
                 require("dap-python").setup(
                     require("mason-registry").get_package("debugpy"):get_install_path()
-                    .. "/venv/bin/python"
+                        .. "/venv/bin/python"
                 )
             end,
         },
@@ -320,7 +321,7 @@ return {
         },
     },
     { "folke/neoconf.nvim" },
-    { "danymat/neogen",    opts = { snippet_engine = "luasnip" } },
+    { "danymat/neogen", opts = { snippet_engine = "luasnip" } },
     {
         "akinsho/toggleterm.nvim",
         cmd = { "ToggleTerm", "TermExec" },
@@ -335,8 +336,8 @@ return {
         event = "InsertEnter",
         config = true,
     },
-    { "abecodes/tabout.nvim",  event = "Insertenter", config = true },
-    { "folke/which-key.nvim",  config = true },
+    { "abecodes/tabout.nvim", event = "Insertenter", config = true },
+    { "folke/which-key.nvim", config = true },
     { "numtostr/comment.nvim", config = true },
     {
         "nvim-telescope/telescope.nvim",
@@ -399,6 +400,6 @@ return {
         cmd = "StartupTime",
         config = function() vim.g.startuptime_tries = 10 end,
     },
-    { "milisims/nvim-luaref",    ft = "help" },
-    { "nanotee/luv-vimdocs",     ft = "help" },
+    { "milisims/nvim-luaref", ft = "help" },
+    { "nanotee/luv-vimdocs", ft = "help" },
 }

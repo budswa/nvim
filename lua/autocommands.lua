@@ -28,5 +28,7 @@ autocmd("BufWritePre", {
 autocmd("FileType", {
     pattern = { "help", "qf", "lspinfo", "startuptime", "man" },
     group = "user",
-    callback = function() vim.keymap.set("n", "q", "<cmd>close<cr>", { noremap = true, silent = true, buffer = true }) end,
+    callback = function()
+        vim.keymap.set("n", "q", "<cmd>close<cr>", { noremap = true, silent = true, buffer = true })
+    end,
 })

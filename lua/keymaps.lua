@@ -1,7 +1,12 @@
 local M = {}
 
 function M.map(mode, lhs, rhs, options)
-    vim.keymap.set(mode, lhs, rhs, vim.tbl_deep_extend("force", { silent = true, noremap = true }, options or {}))
+    vim.keymap.set(
+        mode,
+        lhs,
+        rhs,
+        vim.tbl_deep_extend("force", { silent = true, noremap = true }, options or {})
+    )
 end
 
 local map = M.map
