@@ -1,11 +1,21 @@
-name: Format check
+name: CI
 
 on:
   - push
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: NTBBloodbath/selene-action@v1.0.0
+        with:
+          version: latest
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --display-style=quiet .
   format:
-    name: stylua
+    name: Format check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

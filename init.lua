@@ -1,3 +1,7 @@
+_G.art = _G.art or {
+    colorscheme = "oxocarbon"
+}
+
 vim.loader.enable()
 
 local path = vim.fn.stdpath("data") .. '/lazy/lazy.nvim'
@@ -19,7 +23,6 @@ require("autocommands")
 require("keymaps")
 require("lazy").setup(require("plugins"), {
     --defaults = { lazy = true },
-    install = { colorscheme = { "kanagawa" } },
     performance = {
         cache = { ttl = 432000 },
         rtp = {

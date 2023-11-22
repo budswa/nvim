@@ -1,13 +1,59 @@
+vim.cmd.packadd({ args = { "cfilter" }, bang = true })
+
 return {
     -- Core
     { "folke/lazy.nvim" },
     {
-        'nvim-treesitter/nvim-treesitter',
+        "williamboman/mason.nvim",
+        build = ":MasonUpdate",
+        opts = {
+            ensure_installed = {
+                "ast-grep",
+                "lua-language-server",
+                "pyright",
+                "ruff-lsp",
+                "json-lsp",
+                "bash-language-server",
+                "clangd",
+                "hadolint",
+                "dockerfile-language-server",
+                "docker-compose-language-service",
+                "html-lsp",
+                "css-lsp",
+                "svelte-language-server",
+                "tailwindcss-language-server",
+                "typescript-language-server",
+                -- "eslint-lsp",
+                "yaml-language-server",
+            }
+        },
+        config = function(_, opts)
+            require("mason").setup(opts)
+
+            local mr = require("mason-registry")
+
+            local function ensure_installed()
+                for _, tool in ipairs(opts.ensure_installed) do
+                    local p = mr.get_package(tool)
+                    if not p:is_installed() then
+                        p:install()
+                    end
+                end
+            end
+            if mr.refresh then
+                mr.refresh(ensure_installed)
+            else
+                ensure_installed()
+            end
+        end
+    },
+    {
+        "nvim-treesitter/nvim-treesitter",
         dependencies = {
-            'nvim-treesitter/nvim-treesitter-textobjects',
+            "nvim-treesitter/nvim-treesitter-textobjects",
             "nvim-treesitter/nvim-treesitter-context",
         },
-        build = ':TSUpdate',
+        build = ":TSUpdate",
         opts = {
             ensure_installed = {
                 "c",
@@ -16,7 +62,7 @@ return {
                 "lua",
                 "luadoc",
                 "luap",
-                "commend",
+                "comment",
                 "regex",
                 "json",
                 "jsonc",
@@ -33,33 +79,31 @@ return {
                 "markdown",
                 "markdown_inline",
                 "vim",
-                "vimdoc"
-            }
-        }
+                "vimdoc",
+                "dockerfile"
+            },
+        },
     },
 
     -- LSP
     {
-        'neovim/nvim-lspconfig',
+        "neovim/nvim-lspconfig",
         dependencies = {
-            { "williamboman/mason.nvim" },
             { "williamboman/mason-lspconfig.nvim" },
             { "b0o/schemastore.nvim" },
-            { 'folke/neodev.nvim',                config = true },
+            { "folke/neodev.nvim",                config = true },
+            { "folke/neoconf.nvim",               cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
         },
-        opts = {
-            diagnostics = {
-                underline = true,
+        config = function()
+            vim.diagnostic.config({
                 update_in_insert = true,
                 severity_sort = true,
-                virtual_text = {
-                    spacing = 4,
-                    source = "if_many",
-                    prefix = "●",
-                },
-            },
-            inlay_hints = { enabled = true },
-            servers = {
+                inlay_hints = { enabled = true },
+                virtual_text = { prefix = "●" },
+                underline = false
+            })
+
+            for k, v in pairs({
                 lua_ls = {
                     settings = {
                         Lua = {
@@ -74,24 +118,60 @@ return {
                         json = {
                             format = { enable = true },
                             validate = { enable = true },
-                            schemas = require("schemastore").json.schemas(),
+                            -- schemas = require("schemastore").json.schemas(),
                         },
                     },
                 },
                 bashls = {},
                 clangd = {},
                 dockerls = {},
+                docker_compose_language_service = {},
                 html = {},
                 cssls = {},
                 svelte = {},
+                tailwindcss = {},
                 tsserver = {},
-                eslint = {}
-            }
+                eslint = {},
+                yamlls = {
+                    settings = {
+                        yaml = {
+                            format = { enable = true },
+                            validate = true,
+                            -- schemas = { require("schemastore").yaml.schemas() },
+                            schemaStore = {
+                                -- Must disable built-in schemaStore support to use
+                                -- schemas from SchemaStore.nvim plugin
+                                enable = false,
+                                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                                url = "",
+                            },
+                        }
+                    }
+                }
+            }) do require("lspconfig")[k].setup(v) end
+        end,
+    },
+    {
+        "p00f/clangd_extensions.nvim",
+        lazy = true,
+        opts = {
+            inlay_hints = {
+                inline = true,
+            },
         },
     },
 
     -- UI
-    { "rebelot/kanagawa.nvim" },
+    {
+        "rebelot/kanagawa.nvim",
+        enabled = _G.art.colorscheme == "kanagawa",
+        config = function() vim.cmd.colorscheme("kanagawa") end
+    },
+    {
+        "nyoom-engineering/oxocarbon.nvim",
+        enabled = _G.art.colorscheme == "oxocarbon",
+        config = function() vim.cmd.colorscheme("oxocarbon") end
+    },
     { "nvim-tree/nvim-web-devicons" },
     {
         "RRethy/vim-illuminate",
@@ -102,12 +182,10 @@ return {
                 providers = { "lsp" },
             },
         },
-        config = function(_, opts)
-            require("illuminate").configure(opts)
-        end
+        config = function(_, opts) require("illuminate").configure(opts) end,
     },
     {
-        'lukas-reineke/indent-blankline.nvim',
+        "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
         config = true,
     },
@@ -135,21 +213,21 @@ return {
 
     -- Git
     {
-        'lewis6991/gitsigns.nvim',
+        "lewis6991/gitsigns.nvim",
         opts = {
             signs = {
-                add = { text = '+' },
-                change = { text = '~' },
-                delete = { text = '_' },
-                topdelete = { text = '‾' },
-                changedelete = { text = '~' },
+                add = { text = "+" },
+                change = { text = "~" },
+                delete = { text = "_" },
+                topdelete = { text = "‾" },
+                changedelete = { text = "~" },
             },
         },
     },
 
     -- Completion
     {
-        'hrsh7th/nvim-cmp',
+        "hrsh7th/nvim-cmp",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-path",
@@ -165,38 +243,49 @@ return {
                     require("luasnip.loaders.from_vscode").load()
                 end,
             },
-
         },
         event = "InsertEnter",
-        config = true
+        config = true,
     },
 
     -- Linting
     {
         "mfussenegger/nvim-lint",
-        opts = {
-            linters_by_ft = {
+        config = function()
+            require("lint").linters_by_ft = {
                 --["*"] = {}
+                dotenv = { "dotenv_linter" },
+                dockerfile = { "hadolint" },
+                lua = { "luacheck", "selene" },
+                python = { "mypy" }
             }
-        }
+            vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+                callback = function()
+                    require("lint").try_lint()
+                end,
+            })
+        end
     },
 
     -- Testing
     {
         "nvim-neotest/neotest",
         dependencies = {
-            "nvim-neotest/neotest-python"
+            "nvim-neotest/neotest-python",
         },
-        opts = {
-            adapters = {
-                require("neotest-python")({
-                    python = "./.venv/bin/python",
-                    runner = "poetry run pytest",
-                    args = { "--cov" },
-                    pytest_discover_instances = true,
-                })
-            }
-        }
+        config = function()
+            require("neotest").setup(
+                {
+                    adapters = {
+                        require("neotest-python")({
+                            python = "./.venv/bin/python",
+                            runner = "poetry run pytest",
+                            pytest_discover_instances = true,
+                        })
+                    }
+                }
+            )
+        end
     },
 
     -- Debuging
@@ -213,8 +302,9 @@ return {
             },
             config = function()
                 require("dap-python").setup(
-                    require("mason-registry").get_package("debugpy"):get_install_path() ..
-                    "/venv/bin/python")
+                    require("mason-registry").get_package("debugpy"):get_install_path()
+                    .. "/venv/bin/python"
+                )
             end,
         },
     },
@@ -224,7 +314,10 @@ return {
         "https://github.com/stevearc/oil.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         cmd = { "Oil" },
-        opts = { view_option = { show_hidden = true }, keymaps = { ["<C-x>"] = "actions.select_split", ["<C-v>"] = "actions.select_vsplit" } },
+        opts = {
+            view_option = { show_hidden = true },
+            keymaps = { ["<C-x>"] = "actions.select_split", ["<C-v>"] = "actions.select_vsplit" },
+        },
     },
     { "folke/neoconf.nvim" },
     { "danymat/neogen",    opts = { snippet_engine = "luasnip" } },
@@ -240,14 +333,14 @@ return {
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
-        config = true
+        config = true,
     },
     { "abecodes/tabout.nvim",  event = "Insertenter", config = true },
-    { 'folke/which-key.nvim',  config = true },
-    { 'numtostr/comment.nvim', config = true },
+    { "folke/which-key.nvim",  config = true },
+    { "numtostr/comment.nvim", config = true },
     {
         "nvim-telescope/telescope.nvim",
-        dependencies = { 'nvim-lua/plenary.nvim' }
+        dependencies = { "nvim-lua/plenary.nvim" },
     },
     {
         "stevearc/conform.nvim",
@@ -269,7 +362,8 @@ return {
             vim.api.nvim_create_user_command("Format", function(args)
                 local range = nil
                 if args.count ~= -1 then
-                    local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+                    local end_line =
+                        vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
                     range = {
                         start = { args.line1, 0 },
                         ["end"] = { args.line2, end_line:len() },
@@ -294,18 +388,16 @@ return {
         config = true,
     },
     { "rktjmp/paperplanes.nvim", cmd = "PP" },
-    {
-        "sourcegraph/sg.nvim",
-        dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
-        build = "nvim -l build/init.lua",
-        event = "VeryLazy"
-    },
+    -- {
+    --     "sourcegraph/sg.nvim",
+    --     dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+    --     build = "nvim -l build/init.lua",
+    --     event = "VeryLazy",
+    -- },
     {
         "dstein64/vim-startuptime",
         cmd = "StartupTime",
-        config = function()
-            vim.g.startuptime_tries = 10
-        end,
+        config = function() vim.g.startuptime_tries = 10 end,
     },
     { "milisims/nvim-luaref",    ft = "help" },
     { "nanotee/luv-vimdocs",     ft = "help" },
