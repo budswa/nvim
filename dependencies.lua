@@ -1,4 +1,4 @@
 return {
     "git",
-    { "rg", "ripgrep"},
+    { "rg", "ripgrep" },
 }

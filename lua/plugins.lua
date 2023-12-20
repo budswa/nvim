@@ -10,19 +10,17 @@ return {
             require("mason").setup()
             local mr = require("mason-registry")
             local function ensure_installed()
-                for _, name in ipairs(
-                    {
-                        "ast-grep",
-                        "hadolint",
-                        -- "clang_format",
-                        -- "gofmt",
-                        "goimports",
-                        "shfmt",
-                        "shellcheck",
-                        "yamlfmt",
-                        -- "zigfmt",
-                    }
-                ) do
+                for _, name in ipairs({
+                    "ast-grep",
+                    "hadolint",
+                    -- "clang_format",
+                    -- "gofmt",
+                    "goimports",
+                    "shfmt",
+                    "shellcheck",
+                    "yamlfmt",
+                    -- "zigfmt",
+                }) do
                     local p = mr.get_package(name)
                     if not p:is_installed() then p:install() end
                 end
@@ -40,7 +38,7 @@ return {
             "nvim-treesitter/nvim-treesitter-textobjects",
             {
                 "nvim-treesitter/nvim-treesitter-context",
-                opts = { max_lines = 4 }
+                opts = { max_lines = 4 },
             },
         },
         build = ":TSUpdate",
@@ -75,12 +73,12 @@ return {
                     "vimdoc",
                     "dockerfile",
                     "query",
-                    "go"
+                    "go",
                 },
                 highlight = { enable = true },
                 indent = { enable = true },
             })
-        end
+        end,
     },
 
     -- LSP
@@ -89,7 +87,7 @@ return {
         dependencies = {
             { "williamboman/mason-lspconfig.nvim" },
             --{ "b0o/schemastore.nvim" },
-            { "folke/neodev.nvim",                config = true },
+            { "folke/neodev.nvim", config = true },
             {
                 "folke/neoconf.nvim",
                 cmd = "Neoconf",
@@ -174,7 +172,7 @@ return {
                         },
                     },
                 },
-            }
+            },
         },
         config = function(_, opts)
             vim.diagnostic.config({
@@ -185,8 +183,9 @@ return {
                 underline = false,
             })
 
-            local lspconfig = require 'lspconfig'
-            local capabilities = vim.tbl_deep_extend("force",
+            local lspconfig = require("lspconfig")
+            local capabilities = vim.tbl_deep_extend(
+                "force",
                 vim.lsp.protocol.make_client_capabilities(),
                 require("cmp_nvim_lsp").default_capabilities(),
                 {
@@ -198,10 +197,10 @@ return {
                 }
             )
 
-            require('lspconfig.ui.windows').default_options.border = 'rounded'
+            require("lspconfig.ui.windows").default_options.border = "rounded"
 
             require("mason-lspconfig").setup({
-                ensure_installed = vim.tbl_keys(opts.servers)
+                ensure_installed = vim.tbl_keys(opts.servers),
             })
 
             for k, v in pairs(opts.servers) do
@@ -258,7 +257,7 @@ return {
             })
         end,
     },
-    { "mvllow/modes.nvim",            config = true },
+    { "mvllow/modes.nvim", config = true },
     { "nvim-zh/colorful-winsep.nvim", event = { "WinNew" }, config = true },
 
     -- Git
@@ -309,11 +308,15 @@ return {
             cmp.setup({
                 completion = { completeopt = "menu,menuone,noinsert" },
                 snippet = {
-                    expand = function(args) require("luasnip").lsp_expand(args.body) end
+                    expand = function(args) require("luasnip").lsp_expand(args.body) end,
                 },
                 mapping = cmp.mapping.preset.insert({
-                    ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                    ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                    ["<C-n>"] = cmp.mapping.select_next_item({
+                        behavior = cmp.SelectBehavior.Insert,
+                    }),
+                    ["<C-p>"] = cmp.mapping.select_prev_item({
+                        behavior = cmp.SelectBehavior.Insert,
+                    }),
                     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-f>"] = cmp.mapping.scroll_docs(4),
                     ["<C-Space>"] = cmp.mapping.complete(),
@@ -339,13 +342,11 @@ return {
                 sorting = defaults.sorting,
             })
 
-            vim.api.nvim_create_autocmd('FileType', {
-                pattern = 'cmp_docs',
-                callback = function()
-                    vim.treesitter.start(0, 'markdown')
-                end
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "cmp_docs",
+                callback = function() vim.treesitter.start(0, "markdown") end,
             })
-        end
+        end,
     },
 
     -- Linting
@@ -393,18 +394,18 @@ return {
         "mfussenegger/nvim-dap",
         optional = true,
         dependencies = {
-            { "rcarriga/nvim-dap-ui",            config = true },
+            { "rcarriga/nvim-dap-ui", config = true },
             { "theHamsta/nvim-dap-virtual-text", config = true },
             "mfussenegger/nvim-dap-python",
             {
                 "jay-babu/mason-nvim-dap.nvim",
                 dependencies = "williamboman/mason.nvim",
-                opts = { ensure_installed = { "codelldb", "debugpy" } }
+                opts = { ensure_installed = { "codelldb", "debugpy" } },
             },
             config = function()
                 require("dap-python").setup(
                     require("mason-registry").get_package("debugpy"):get_install_path()
-                    .. "/venv/bin/python"
+                        .. "/venv/bin/python"
                 )
             end,
         },
@@ -421,7 +422,7 @@ return {
         },
     },
     { "folke/neoconf.nvim" },
-    { "danymat/neogen",    opts = { snippet_engine = "luasnip" } },
+    { "danymat/neogen", opts = { snippet_engine = "luasnip" } },
     {
         "akinsho/toggleterm.nvim",
         cmd = { "ToggleTerm", "TermExec" },
@@ -436,34 +437,33 @@ return {
         event = "InsertEnter",
         config = true,
     },
-    { "abecodes/tabout.nvim",  event = "Insertenter", config = true },
-    { "folke/which-key.nvim",  config = true },
+    { "abecodes/tabout.nvim", event = "Insertenter", config = true },
+    { "folke/which-key.nvim", config = true },
     { "numtostr/comment.nvim", config = true },
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {
             "nvim-lua/plenary.nvim",
             {
-                'nvim-telescope/telescope-fzf-native.nvim',
-                build = 'make',
+                "nvim-telescope/telescope-fzf-native.nvim",
+                build = "make",
                 enabled = vim.fn.executable("make") == 1,
             },
         },
         cmd = "Telescope",
         keys = {
-            { "<leader>f<space>", "<cmd>Telescope resume<cr>",      desc = "Resume" },
-            { "<leader>fg",       "<cmd>Telescope live_grep<cr>",   desc = "Grep" },
-            { "<leader>ff",       "<cmd>Telescope find_files<cr>",  desc = "Files" },
-            { "<leader>fb",       "<cmd>Telescope buffers<cr>",     desc = "Buffers" },
-            { "<leader>fc",       "<cmd>Telescope git_commits<cr>", desc = "Commits" },
-
+            { "<leader>f<space>", "<cmd>Telescope resume<cr>", desc = "Resume" },
+            { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
+            { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Files" },
+            { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+            { "<leader>fc", "<cmd>Telescope git_commits<cr>", desc = "Commits" },
         },
         config = function()
             require("telescope").setup({
-                pickers = { buffers = { sort_mru = true } }
+                pickers = { buffers = { sort_mru = true } },
             })
-            require('telescope').load_extension('fzf')
-        end
+            require("telescope").load_extension("fzf")
+        end,
     },
     {
         "stevearc/conform.nvim",
@@ -478,7 +478,7 @@ return {
                 yaml = { "yamlfmt" },
                 toml = { "taplo" },
                 lua = { "stylua" },
-                sh = { "shfmt", 'shellcheck' },
+                sh = { "shfmt", "shellcheck" },
                 --python = {
                 --    "ruff_format",
                 --    "ruff_fix",
@@ -526,6 +526,6 @@ return {
         cmd = "StartupTime",
         config = function() vim.g.startuptime_tries = 10 end,
     },
-    { "milisims/nvim-luaref",    ft = "help" },
-    { "nanotee/luv-vimdocs",     ft = "help" },
+    { "milisims/nvim-luaref", ft = "help" },
+    { "nanotee/luv-vimdocs", ft = "help" },
 }
