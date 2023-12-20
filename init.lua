@@ -16,6 +16,7 @@ end
 
 vim.opt.rtp:prepend(path)
 
+require("health")
 require("options")
 require("filetypes")
 require("autocommands")
