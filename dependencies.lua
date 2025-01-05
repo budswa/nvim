@@ -1,4 +1,0 @@
-return {
-    "git",
-    { "rg", "ripgrep" },
-}

@@ -87,7 +87,7 @@ return {
         dependencies = {
             { "williamboman/mason-lspconfig.nvim" },
             --{ "b0o/schemastore.nvim" },
-            { "folke/neodev.nvim", config = true },
+            { "folke/neodev.nvim",                config = true },
             {
                 "folke/neoconf.nvim",
                 cmd = "Neoconf",
@@ -208,7 +208,29 @@ return {
             end
         end,
     },
-    { "simrat39/rust-tools.nvim", opts = {} },
+    { 'mrcjkb/rustaceanvim' },
+    {
+        "ray-x/go.nvim",
+        dependencies = {
+            "ray-x/guihua.lua",
+            "neovim/nvim-lspconfig",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        config = function()
+            require("go").setup()
+        end,
+        event = { "CmdlineEnter" },
+        ft = { "go", 'gomod' },
+    },
+
+    {
+        "ThePrimeagen/refactoring.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        opts = {},
+    },
 
     -- UI
     {
@@ -246,18 +268,15 @@ return {
             require("statuscol").setup({
                 relculright = true,
                 segments = {
-                    {
-                        text = { builtin.lnumfunc, " " },
-                        condition = { true, builtin.not_empty },
-                    },
+                    { text = { builtin.foldfunc, " " }, click = "v:lua.ScFa" },
+                    { text = { builtin.lnumfunc },      click = 'v:lua.ScLa' },
                     { text = { " " } },
-                    { text = { "%s" } },
-                    { text = { builtin.foldfunc } },
+                    { text = { '%s' },                  click = 'v:lua.ScSa' },
                 },
             })
         end,
     },
-    { "mvllow/modes.nvim", config = true },
+    { "mvllow/modes.nvim",            config = true },
     { "nvim-zh/colorful-winsep.nvim", event = { "WinNew" }, config = true },
 
     -- Git
@@ -367,34 +386,34 @@ return {
     },
 
     -- Testing
-    {
-        "nvim-neotest/neotest",
-        dependencies = {
-            "nvim-neotest/neotest-python",
-            "nvim-neotest/neotest-go",
-            "rouge8/neotest-rust",
-        },
-        config = function()
-            require("neotest").setup({
-                adapters = {
-                    require("neotest-rust"),
-                    require("neotest-go"),
-                    require("neotest-python")({
-                        python = "./.venv/bin/python",
-                        runner = "poetry run pytest",
-                        pytest_discover_instances = true,
-                    }),
-                },
-            })
-        end,
-    },
+    -- {
+    --     "nvim-neotest/neotest",
+    --     dependencies = {
+    --         "nvim-neotest/neotest-python",
+    --         "nvim-neotest/neotest-go",
+    --         "rouge8/neotest-rust",
+    --     },
+    --     config = function()
+    --         require("neotest").setup({
+    --             adapters = {
+    --                 require("neotest-rust"),
+    --                 require("neotest-go"),
+    --                 require("neotest-python")({
+    --                     python = "./.venv/bin/python",
+    --                     runner = "poetry run pytest",
+    --                     pytest_discover_instances = true,
+    --                 }),
+    --             },
+    --         })
+    --     end,
+    -- },
 
-    -- Debuging
+    -- Debugging
     {
         "mfussenegger/nvim-dap",
         optional = true,
         dependencies = {
-            { "rcarriga/nvim-dap-ui", config = true },
+            { "rcarriga/nvim-dap-ui",            config = true },
             { "theHamsta/nvim-dap-virtual-text", config = true },
             "mfussenegger/nvim-dap-python",
             {
@@ -405,7 +424,7 @@ return {
             config = function()
                 require("dap-python").setup(
                     require("mason-registry").get_package("debugpy"):get_install_path()
-                        .. "/venv/bin/python"
+                    .. "/venv/bin/python"
                 )
             end,
         },
@@ -422,7 +441,7 @@ return {
         },
     },
     { "folke/neoconf.nvim" },
-    { "danymat/neogen", opts = { snippet_engine = "luasnip" } },
+    { "danymat/neogen",    opts = { snippet_engine = "luasnip" } },
     {
         "akinsho/toggleterm.nvim",
         cmd = { "ToggleTerm", "TermExec" },
@@ -437,8 +456,8 @@ return {
         event = "InsertEnter",
         config = true,
     },
-    { "abecodes/tabout.nvim", event = "Insertenter", config = true },
-    { "folke/which-key.nvim", config = true },
+    { "abecodes/tabout.nvim",  event = "Insertenter", config = true },
+    { "folke/which-key.nvim",  config = true },
     { "numtostr/comment.nvim", config = true },
     {
         "nvim-telescope/telescope.nvim",
@@ -452,11 +471,11 @@ return {
         },
         cmd = "Telescope",
         keys = {
-            { "<leader>f<space>", "<cmd>Telescope resume<cr>", desc = "Resume" },
-            { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
-            { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Files" },
-            { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-            { "<leader>fc", "<cmd>Telescope git_commits<cr>", desc = "Commits" },
+            { "<leader>f<space>", "<cmd>Telescope resume<cr>",      desc = "Resume" },
+            { "<leader>fg",       "<cmd>Telescope live_grep<cr>",   desc = "Grep" },
+            { "<leader>ff",       "<cmd>Telescope find_files<cr>",  desc = "Files" },
+            { "<leader>fb",       "<cmd>Telescope buffers<cr>",     desc = "Buffers" },
+            { "<leader>fc",       "<cmd>Telescope git_commits<cr>", desc = "Commits" },
         },
         config = function()
             require("telescope").setup({
@@ -526,6 +545,9 @@ return {
         cmd = "StartupTime",
         config = function() vim.g.startuptime_tries = 10 end,
     },
-    { "milisims/nvim-luaref", ft = "help" },
-    { "nanotee/luv-vimdocs", ft = "help" },
+    { "milisims/nvim-luaref",    ft = "help" },
+    { "nanotee/luv-vimdocs",     ft = "help" },
+
+    -- Markdown
+    { "ellisonleao/glow.nvim",   config = true, cmd = "Glow" }
 }
